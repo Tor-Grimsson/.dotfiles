@@ -1,0 +1,152 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 MesloLGS-NF-Bold-Italic;\f1\fnil\fcharset0 MesloLGS-NF-Regular;\f2\fnil\fcharset0 MesloLGS-NF-Bold;
+\f3\fnil\fcharset0 MesloLGS-NF-Italic;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww16260\viewh18700\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\i\b\fs38 \cf0 ## No numbering needed. *.png matches all PNG files in the folder:
+\f1\i0\b0 \
+\
+for f in *.png; do batch-web-thumb.sh "$f"; done\
+\
+for f in 01_mg-type-abstract.png 02_mg-type-abstract.png; do batch-web-thumb.sh "$f"; done\
+\
+\
+
+\f0\i\b ## Mixed formats:
+\f1\i0\b0 \
+\
+for f in *.\{png,jpg,jpeg\}; do batch-web-thumb.sh "$f"; done\
+\
+\
+
+\f0\i\b ## Multiple single format
+\f1\i0\b0 \
+\
+for f in *.png; do convert-web-image.sh "$f" 2560; done\
+\
+\'97\
+\
+
+\f0\i\b ## Terminal command  to unpack/expand sub-folders in a folder:\
+\
+
+\f1\i0\b0 find . -type d -name "web" -exec sh -c 'mv "$1"/* "$1/.." && rmdir "$1"' _ \{\} \\;
+\f0\i\b \
+\
+\
+
+\f2\i0 ## Or if you want to move everything up two levels (all into current dir):\
+\
+mv */web/* . && mv */*.jpg . && rm -r */\
+\
+\
+\'97\
+\
+\AppleHighlight-1 \AppleHilightClrSch-1 -type d\AppleHighlight0 \AppleHilightClrSch0  means "type: directory"\
+-type f means \'93file\'94\
+\pard\pardeftab720\partightenfactor0
+\cf0 -type l means \'93symlink\'94\
+\
+
+\f3\i\b0 ((A symbolic link \'97 basically a shortcut/alias that points to another file or folder. The symlink itself is just a reference, not a copy of the data.))
+\f2\i0\b \
+\
+ln -s /path/to/original /path/to/symlink\
+\
+ln = link\
+-s = connect with flag\
+\
+\'97\'97\
+\
+benefits of symlink:\
+\
+Main uses: One source, multiple locations \'97 config file lives in one place, symlinked where apps expect it (dotfiles management)\
+Shorter paths \'97 link /var/www/mysite instead of typing /home/user/projects/client/2024/website/dist\
+\
+Version switching \'97 /usr/bin/python \uc0\u8594  python3.11, swap the link to switch versions\
+\
+Shared assets \'97 one font folder linked into multiple projects, update once\
+\
+\'97\'97\
+\
+-exec sh =\'a0\
+-exec = execute (run a command for each result)\
+sh = shell (not system) \'97 it spawns a shell instance to run the command\
+\
+-c = tells the shell to interpret the following string as a command\
+\
+So -exec sh -c '...' means "for each match, open a shell and run this command."\
+\
+\
+====\
+\'93rm -rf\'94\
+-r = recursive (delete directories and their contents)\
+-f = force (no confirmation prompts, ignore nonexistent files)\
+\
+\'97\
+\
+remember rclone is an option: 
+\f3\i\b0 rclone purge kolkrabbi:kolkrabbi/website/asset-library/home-about\
+\
+\
+\'97 \
+\
+\
+
+\f2\i0\b Concept is CHAIN or LOOP
+\f3\i\b0 \
+\
+rclone doesn't support multiple paths in one command. \
+\
+Chain them:\
+bashrclone purge kolkrabbi:path/folder1 && rclone purge kolkrabbi:path/folder2\
+\
+Or loop:\
+bashfor f in folder1 folder2; do rclone purge kolkrabbi:path/$f; done
+\f2\i0\b \
+\
+\
+\'97\
+\
+rclone tree kolkrabbi:path --exclude "segment_*.ts"\
+\
+same as \
+\
+tree -I "segment_*.ts" \
+\
+\
+\'97\
+\
+rclone tree kolkrabbi:path --filter "- segment_*.ts"\
+
+\f0\i *Note the \AppleHighlight-1 \AppleHilightClrSch-1 -\AppleHighlight0 \AppleHilightClrSch0   prefix (with space) which means exclude.*\
+\
+\
+\'97\'97 \'97\'97 \'97\
+\
+
+\f2\i0 create file for each file in folder and move file into:
+\f0\i \
+
+\f1\i0\b0 for f in *.png; do mkdir -p "$\{f%.*\}" && mv "$f" "$\{f%.*\}/"; done\
+\
+
+\f3\i\fs24 \'93for f in *.png \'97 loop over each .png file, assign to variable f\
+$\{f%.*\} \'97 parameter expansion: % removes shortest match of .* from end (strips extension)\
+\
+dylgjur-01.png \uc0\u8594  dylgjur-01\
+\
+mkdir -p \'97 create directory (-p = no error if exists)\
+&& \'97 run next command only if previous succeeded\
+mv "$f" "$\{f%.*\}/" \'97 move original file into the new folder\'94\
+\
+\
+
+\fs38 \'97 \'97 \'97 \
+\
+
+\f1\i0 \
+}
