@@ -1,0 +1,120 @@
+{
+    "files.autoSave": "onFocusChange",
+    "editor.folding": true,
+    "diffEditor.codeLens": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "editor.defaultFoldingRangeProvider": "esbenp.prettier-vscode",
+    "editor.inlineSuggest.edits.showCollapsed": true,
+    "editor.quickSuggestions": {
+        "strings": "on"
+    },
+    "editor.acceptSuggestionOnEnter": "smart",
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "files.associations": {
+        "*.css": "tailwindcss"
+   },
+   "workbench.colorTheme": "Shades of Purple",
+    "explorer.confirmDelete": false,
+    "editor.tabSize": 3,
+    "editor.detectIndentation": false,
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.inlineSuggest.triggerCommandOnProviderChange": false,
+   "editor.inlineSuggest.enabled": false,
+   "editor.wordWrap": "on",
+   "geminicodeassist.displayInlineContextHint": false,
+   "chat.sendElementsToChat.enabled": false,
+   "chat.sendElementsToChat.attachImages": false,
+   "chat.sendElementsToChat.attachCSS": false,
+   "claudeCode.selectedModel": "MiniMax-M2",
+   "claudeCode.environmentVariables": [
+        {
+            "name": "ANTHROPIC_BASE_URL",
+            "value": "https://api.minimax.io/anthropic"
+        },
+        {
+            "name": "ANTHROPIC_AUTH_TOKEN",
+            "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJHcm91cE5hbWUiOiJCaXNrdXAgSSBTdHVuZ2EiLCJVc2VyTmFtZSI6IkJpc2t1cCBJIFN0dW5nYSIsIkFjY291bnQiOiIiLCJTdWJqZWN0SUQiOiIxOTg0MTc0MzA3NTIxMDczMjM3IiwiUGhvbmUiOiIiLCJHcm91cElEIjoiMTk4NDE3NDI0NjUyMzMxNDI2MiIsIlBhZ2VOYW1lIjoiIiwiTWFpbCI6InRob3JkdXIuZ3JpbXNzb25AZ21haWwuY29tIiwiQ3JlYXRlVGltZSI6IjIwMjUtMTAtMzEgMTk6MjE6NTEiLCJUb2tlblR5cGUiOjEsImlzcyI6Im1pbmltYXgifQ.hh283qwBAAG5k6Z_5TFWOwCX2Lh8u8Qa1k5-m9BFLmtAGG-HoGdoh2HehuiR1Yt6FppI_S4CxCR-sm97jOgCARfdZesYW-BgtSvw2C_9_I_RoedGhJgZv3bOsRUqn6ipctV6f7QZ_i9K7e12XnZnZuVjNL2NbJpoCfGwqOf5zScDxGtda5pU6cOfIXApXHHduubY8OENalZchbkn2ZuIA2lkqHnHCqctTw-TirmO4zIdA_qTEn-CO1LDJjYO8Fm8r5cEWMh7I5MfNX7zRqxNNP3GMRVIGmRBtrhoFjS-TBvIFhgNxRIN0wrvWh4SW3n2RH3pSU_Veuq15Y0wqr0TjA"
+        },
+        {
+            "name": "API_TIMEOUT_MS",
+            "value": "3000000"
+        },
+        {
+            "name": "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC",
+            "value": "1"
+        },
+        {
+            "name": "ANTHROPIC_MODEL",
+            "value": "MiniMax-M2"
+        },
+        {
+            "name": "ANTHROPIC_SMALL_FAST_MODEL",
+            "value": "MiniMax-M2"
+        },
+        {
+            "name": "ANTHROPIC_DEFAULT_SONNET_MODEL",
+            "value": "MiniMax-M2"
+        },
+        {
+            "name": "ANTHROPIC_DEFAULT_OPUS_MODEL",
+            "value": "MiniMax-M2"
+        },
+        {
+            "name": "ANTHROPIC_DEFAULT_HAIKU_MODEL",
+            "value": "MiniMax-M2"
+        }
+   ],
+   "editor.guides.bracketPairs": true,
+   "highlightLine.borderColor": "#ffffff",
+   "highlightLine.borderWidth": "",
+   "indentRainbow.indicatorStyle": "light",
+   "indentRainbow.errorColor": "rgba(255,255,255,0.2)",
+   "color-blocks.background.opacity": 1,
+   "color-blocks.border.width": "0.8ch",
+   "color-blocks.wrapText.paddingRight": 8,
+   "color-blocks.standardizeColorBrightness.enabled": false,
+   "color-blocks.standardizeColorBrightness.background": 40,
+   "color-blocks.commentLine.largeText": true,
+   "blockhighlight.background": [
+
+      "100",
+      "100",
+      "155",
+      "0.2"
+   ],
+   "blockHighlighter.background": "#00000010",
+   "blockhighlight.accentCurrentLine": true,
+   "blockhighlight.isWholeLine": true,
+   "color-blocks.wrapText.enabled": true,
+   "blockHighlighter.accentCurrentLine": true,
+   "blockHighlighter.showBorder": true,
+   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+   "blockHighlighter.border": "00ffff20",
+   "prettier.tabWidth": 3,
+   "blockHighlighter.openingBrackets": [
+
+      "{",
+      "[",
+      "("
+   ],
+   "indenticator.color.dark": "#ff000040",
+   "indenticator.color.light": "#000",
+   "indenticator.hover.trimLinesShorterThan": 0,
+   "indenticator.hover.peekBack": 0,
+   "indenticator.inner.hover.peekBack": 0,
+   "indenticator.inner.hover.trimLinesShorterThan": 0,
+   "explorer.confirmDragAndDrop": false,
+   "explorer.confirmPasteNative": false,
+   "extensions.experimental.affinity": {
+      "asvetliakov.vscode-neovim": 1
+   },
+   "svg.minify.removeViewBox": false,
+  "svgPreview.style": {
+      "background": "#ffffff"
+},
+"workbench.editor.enablePreview": false
+
+}

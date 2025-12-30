@@ -1,0 +1,30 @@
+[
+    {
+        "key": "shift+enter",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {
+            "text": "\\\r\n"
+        },
+        "when": "terminalFocus"
+   },
+   {
+      "key": "ctrl+alt+l",
+      "command": "workbench.files.action.focusFilesExplorer"
+   },
+   {
+      "key": "alt+l",
+      "command": "workbench.files.action.collapseExplorerFolders"
+   },
+   {
+      "key": "alt+cmd+h",
+      "command": "block-comments.helloWorld"
+   },
+   {
+      "key": "ctrl+alt+home",
+      "command": "-block-comments.helloWorld"
+   },
+   {
+      "key": "shift+alt+cmd+r",
+      "command": "workbench.files.action.showActiveFileInExplorer"
+   }
+]

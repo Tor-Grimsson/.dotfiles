@@ -1,0 +1,6 @@
+/Users/biskup/code__projects/kolkrabbi-monorepo
+/Users/biskup/code__projects/kolkrabbi-apparat/kolkrabbi-docs
+/Users/biskup/code__projects/kolkrabbi-apparat/kolkrabbi-editor
+/Users/biskup/code__projects/kolkrabbi-apparat/kolkrabbi-radial
+/Users/biskup/.dotfiles
+/Users/biskup/.oh-my-zsh
