@@ -1,6 +1,5 @@
 tap "jlhonora/lsusb"
 tap "koekeishiya/formulae"
-tap "rafaelswi/menubarusb"
 tap "schpet/tap"
 tap "sst/tap"
 tap "thezoraiz/ascii-image-converter"
@@ -78,8 +77,6 @@ cask "macfuse"
 # Extensible two-pane file manager
 cask "marta"
 # Track your USB devices in the macOS menu bar
-cask "menubarusb"
-# Menubar app to easily manage external drives
 cask "mountmate"
 # TouchBar customization app
 cask "mtmr"
