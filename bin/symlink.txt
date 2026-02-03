@@ -1,8 +1,0 @@
-Symlink
-
-ln -s /Volumes/kol-ssd-500/project_done/project_music-projects/ae-sounds/ae_album-cover \
-/Volumes/kol-ssd-500/project_done/documentation-exhibit/exhibit_lhi/ae_album-cover
-
-A symlink makes a folder at /Volumes/kol-ssd-500/project_done/project_music-projects/ae-sounds appear inside /Volumes/kol-ssd-500/project_done/documentation-exhibit/exhibit_lhi as if it were really there, even though the files stay in their original location.
-
-A symlink makes a folder like /DriveA/Sounds appear inside /DriveB/Project as if it lived there, while the files actually remain in /DriveA/Sounds.
