@@ -160,3 +160,6 @@ export PATH="$HOME/bin:$PATH"
 
 # local secrets (not in git)
 [ -f ~/.secrets ] && source ~/.secrets
+
+# Homebrew zsh plugins
+fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
