@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+import argparse
+from datetime import datetime
+import re
+import sys
+
+
+def slugify(value: str) -> str:
+    value = value.strip().lower()
+    # replace any non alnum/space/hyphen with nothing
+    value = re.sub(r"[^a-z0-9\s\-]", "", value)
+    # collapse whitespace to single hyphen
+    value = re.sub(r"\s+", "-", value)
+    # collapse multiple hyphens
+    value = re.sub(r"-{2,}", "-", value)
+    return value.strip("-")
+
+
+def build_head(title, category, space):
+    parts = []
+    if title:
+        parts.append(slugify(title))
+    if category:
+        parts.append(slugify(category))
+    if space:
+        parts.append(slugify(space))
+    return "-".join([p for p in parts if p])
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Generate filenames following the file-system convention."
+    )
+    parser.add_argument("--title", required=True, help="Human-readable title")
+    parser.add_argument("--category", required=True, help="Domain/category (video, typography, td, etc.)")
+    parser.add_argument("--space", default="", help="Sub-space (marketing, catalogue, project, website, etc.)")
+    parser.add_argument("--descriptor", required=True, help="System descriptor (export, render, master, etc.)")
+    parser.add_argument("--date", default="", help="Date in YYYYMMDD (defaults to today)")
+    parser.add_argument("--time", action="store_true", help="Use HHMM suffix based on current time")
+    parser.add_argument("--counter", type=int, default=None, help="Use 4-digit counter suffix instead of time (e.g. 1 -> 0001)")
+    parser.add_argument("--ext", default="", help="Optional extension (e.g. .mp4, .png)")
+
+    args = parser.parse_args()
+
+    if args.date:
+        try:
+            datetime.strptime(args.date, "%Y%m%d")
+            date_str = args.date
+        except ValueError:
+            print("Invalid --date, expected YYYYMMDD", file=sys.stderr)
+            sys.exit(1)
+    else:
+        date_str = datetime.now().strftime("%Y%m%d")
+
+    head = build_head(args.title, args.category, args.space)
+    descriptor = slugify(args.descriptor)
+
+    suffix = ""
+    if args.counter is not None:
+        suffix = f"-{args.counter:04d}"
+    elif args.time:
+        suffix = "-" + datetime.now().strftime("%H%M")
+
+    ext = args.ext
+    if ext and not ext.startswith("."):
+        ext = "." + ext
+
+    filename = f"{head}__{descriptor}__{date_str}{suffix}{ext}"
+    print(filename)
+
+
+if __name__ == "__main__":
+    main()

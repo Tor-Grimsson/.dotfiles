@@ -1,0 +1,36 @@
+Regex (regular expression) A regex is a pattern used to match, search, validate, or replace text based on rules instead of exact characters.
+Common regex patterns
+	•	. → any single character
+	•	* → 0 or more of previous
+	•	+ → 1 or more of previous
+	•	? → 0 or 1 of previous
+	•	^ → start of string
+	•	$ → end of string
+Character classes
+	•	\d → digit (0–9)
+	•	\D → non-digit
+	•	\w → letter, digit, underscore
+	•	\W → non-word character
+	•	\s → whitespace
+	•	\S → non-whitespace
+Sets & ranges
+	•	[abc] → a, b, or c
+	•	[a-z] → lowercase letters
+	•	[^0-9] → not a digit
+Quantifiers
+	•	{3} → exactly 3 times
+	•	{2,5} → 2 to 5 times
+	•	{2,} → 2 or more times
+Groups
+	•	(abc) → capture group
+	•	(?:abc) → non-capturing group
+	•	\1 → reference to first capture
+Anchors & boundaries
+	•	\b → word boundary
+	•	\B → not a word boundary
+Examples
+	•	Email (basic): \w+@\w+\.\w+
+	•	Only numbers: ^\d+$
+	•	Remove file extension: \.[^.]+$
+	•	Match year: (19|20)\d{2}
+If you want, I can tailor this to filename renaming specifically.

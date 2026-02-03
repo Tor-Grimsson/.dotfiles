@@ -1,0 +1,13 @@
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <name>Instantiate Artwork</name>
+  <id>instantiate.artwork</id>
+  <effect>
+    <object-type>all</object-type>
+    <effects-menu>
+      <submenu name="Automation"/>
+    </effects-menu>
+  </effect>
+  <script>
+    <command reldir="extensions">instantiate_artwork.py</command>
+  </script>
+</inkscape-extension>

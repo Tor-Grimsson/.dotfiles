@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+import argparse
+import os
+import re
+
+
+def slugify(value: str) -> str:
+    value = value.strip().lower()
+    value = re.sub(r"[^a-z0-9\s\-]", "", value)
+    value = re.sub(r"\s+", "-", value)
+    value = re.sub(r"-{2,}", "-", value)
+    return value.strip("-")
+
+
+def ensure_dir(path):
+    os.makedirs(path, exist_ok=True)
+
+
+def create_project(slug):
+    base = os.path.join(os.getcwd(), f"project__{slug}")
+    subdirs = [
+        "category__briefs",
+        "category__assets",
+        "category__media",
+        "category__deliverables",
+        "category__workfiles",
+        "category__notes",
+    ]
+    for sd in subdirs:
+        ensure_dir(os.path.join(base, sd))
+    print("created project:", base)
+
+
+def create_typeface(name):
+    tslug = f"typeface-{slugify(name)}"
+    base = os.path.join(os.getcwd(), f"category__{tslug}")
+    subdirs = [
+        "category__typeface",
+        "category__glyphs",
+        "category__kerning-pairs",
+        "category__tests",
+        "category__specimens",
+        "category__layouts",
+        "category__lettering",
+        "category__images",
+        "category__print-mockups",
+        "category__web-prep",
+        "category__marketing/category__social",
+        "category__marketing/category__product-images",
+        "category__marketing/category__ads",
+        "category__marketing/category__landing-page-assets",
+        "category__marketing/category__email",
+        "category__marketing/category__store",
+        "category__marketing/category__press",
+        "category__marketing/category__archive",
+        "category__archive",
+    ]
+    for sd in subdirs:
+        ensure_dir(os.path.join(base, sd))
+    print("created typeface:", base)
+
+
+def create_exhibition(name, kind):
+    name_slug = f"exhibition-{slugify(name)}"
+    base = os.path.join(os.getcwd(), f"category__{name_slug}")
+    # 'kind' is just informational now – you choose the parent folder yourself
+    subdirs = [
+        "category__works",
+        "category__video",
+        "category__audio",
+        "category__images",
+        "category__stills",
+        "category__documentation",
+        "category__installation-photos",
+        "category__press",
+        "category__text",
+        "category__ephemera",
+        "category__metadata",
+        "category__archive",
+    ]
+    for sd in subdirs:
+        ensure_dir(os.path.join(base, sd))
+    print(f"created exhibition ({kind}):", base)
+
+
+def create_td_project(slug):
+    base = os.path.join(os.getcwd(), f"project__{slug}")
+    subdirs = [
+        "category__touchdesigner/category__tox",
+        "category__touchdesigner/category__toe",
+        "category__touchdesigner/category__modules",
+        "category__touchdesigner/category__scripts",
+        "category__touchdesigner/category__shaders",
+        "category__touchdesigner/category__dat",
+        "category__touchdesigner/category__ops",
+        "category__touchdesigner/category__exports",
+        "category__media",
+        "category__assets",
+        "category__notes",
+    ]
+    for sd in subdirs:
+        ensure_dir(os.path.join(base, sd))
+    print("created TouchDesigner project:", base)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Create folder structures from templates in the CURRENT directory."
+    )
+
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    # project
+    p_project = subparsers.add_parser("project", help="Create a new project folder here")
+    p_project.add_argument("--slug", required=True, help="project slug (used as project__<slug>)")
+
+    # typeface
+    p_typeface = subparsers.add_parser("typeface", help="Create a new typeface folder here")
+    p_typeface.add_argument("--name", required=True, help="typeface name (human readable)")
+
+    # exhibition
+    p_exhibition = subparsers.add_parser("exhibition", help="Create a new exhibition folder here")
+    p_exhibition.add_argument("--name", required=True, help="exhibition name")
+    p_exhibition.add_argument(
+        "--kind",
+        required=True,
+        choices=["solo", "group", "festival", "institutional", "online", "screenings", "installations"],
+        help="exhibition type (for your own reference)",
+    )
+
+    # td project
+    p_td = subparsers.add_parser("td-project", help="Create a new TouchDesigner project folder here")
+    p_td.add_argument("--slug", required=True, help="project slug (used as project__<slug>)")
+
+    args = parser.parse_args()
+
+    if args.command == "project":
+        create_project(slugify(args.slug))
+    elif args.command == "typeface":
+        create_typeface(args.name)
+    elif args.command == "exhibition":
+        create_exhibition(args.name, args.kind)
+    elif args.command == "td-project":
+        create_td_project(slugify(args.slug))
+
+
+if __name__ == "__main__":
+    main()

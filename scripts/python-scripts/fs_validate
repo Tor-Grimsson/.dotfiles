@@ -1,0 +1,146 @@
+#!/usr/bin/env python3
+import argparse
+import os
+import re
+from datetime import datetime
+
+ROOT_PATTERN = re.compile(r"^\d{2}_[a-z0-9-]+--[a-z0-9-]+$")
+CATEGORY_PATTERN = re.compile(r"^category__[a-z0-9-]+$")
+# filename (without extension) must be: part1__descriptor__date(+suffix)
+FILENAME_PATTERN = re.compile(
+    r"^(?P<head>[a-z0-9\-]+)__(?P<descriptor>[a-z0-9\-]+)__(?P<date>\d{8})(?:-(?P<suffix>(\d{4}|\d{2}\d{2})))?$"
+)
+
+
+def validate_root_name(name):
+    return bool(ROOT_PATTERN.match(name))
+
+
+def validate_category_name(name):
+    return bool(CATEGORY_PATTERN.match(name))
+
+
+def validate_filename(name):
+    # no spaces, no uppercase, no weird chars
+    if any(c.isspace() for c in name):
+        return False, "contains spaces"
+    if any(c.isupper() for c in name):
+        return False, "contains uppercase characters"
+
+    m = FILENAME_PATTERN.match(name)
+    if not m:
+        return False, "does not match pattern head__descriptor__YYYYMMDD[-HHMM|-0001]"
+
+    date_str = m.group("date")
+    try:
+        datetime.strptime(date_str, "%Y%m%d")
+    except ValueError:
+        return False, f"invalid date {date_str}"
+
+    suffix = m.group("suffix")
+    if suffix:
+        # suffix is either HHMM or a 4-digit counter; both are allowed,
+        # we don't try to interpret meaning here
+        if not re.fullmatch(r"\d{4}", suffix):
+            return False, f"invalid suffix {suffix}"
+
+    return True, ""
+
+
+def walk_and_validate(root, verbose=False):
+    errors = []
+    warnings = []
+    empty_dirs = []
+
+    # validate root name itself (optional – some people put `library-root` above this)
+    root_name = os.path.basename(os.path.abspath(root))
+
+    # check immediate children as numbered roots
+    try:
+        entries = os.listdir(root)
+    except FileNotFoundError:
+        errors.append(f"[ROOT] Path does not exist: {root}")
+        return errors, warnings, empty_dirs
+
+    for entry in entries:
+        full = os.path.join(root, entry)
+        if not os.path.isdir(full):
+            continue
+        if not validate_root_name(entry):
+            errors.append(f"[ROOT] Invalid root folder name: {entry}")
+
+    # now walk entire tree
+    for dirpath, dirnames, filenames in os.walk(root):
+        rel_dir = os.path.relpath(dirpath, root)
+        if rel_dir == ".":
+            # skip root itself here
+            pass
+        else:
+            # validate directory naming, except top-level roots (already done)
+            parts = rel_dir.split(os.sep)
+            # first part is something like 01_projects--general
+            if len(parts) == 1:
+                # already validated above
+                pass
+            else:
+                # everything from second part on must be category__*
+                for p in parts[1:]:
+                    if not validate_category_name(p):
+                        errors.append(f"[DIR] Invalid category folder: {rel_dir}")
+
+        # detect empty directories
+        if not dirnames and not filenames:
+            empty_dirs.append(rel_dir)
+
+        # validate file names
+        for fname in filenames:
+            name, ext = os.path.splitext(fname)
+            rel_file = os.path.join(rel_dir, fname)
+            ok, reason = validate_filename(name)
+            if not ok:
+                errors.append(f"[FILE] {rel_file} -> {reason}")
+
+    return errors, warnings, empty_dirs
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Validate file-system naming and structure."
+    )
+    parser.add_argument(
+        "--root",
+        required=True,
+        help="Path to library root (e.g. /path/to/library-root)",
+    )
+    parser.add_argument(
+        "--show-empty",
+        action="store_true",
+        help="Also list empty folders.",
+    )
+    args = parser.parse_args()
+
+    errors, warnings, empty_dirs = walk_and_validate(args.root)
+
+    if errors:
+        print("❌ Errors:")
+        for e in errors:
+            print("  -", e)
+    else:
+        print("✅ No structural or naming errors found.")
+
+    if warnings:
+        print("\n⚠ Warnings:")
+        for w in warnings:
+            print("  -", w)
+
+    if args.show_empty and empty_dirs:
+        print("\n📂 Empty folders:")
+        for d in empty_dirs:
+            print("  -", d)
+
+    if not errors and not warnings and (not args.show_empty or not empty_dirs):
+        print("👍 Everything looks clean.")
+
+
+if __name__ == "__main__":
+    main()

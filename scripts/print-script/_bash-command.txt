@@ -1,0 +1,4 @@
+./process_artwork.sh artwork_export.yml a3_Gul-blokk.jpeg
+
+# or custom root dir:
+./process_artwork.sh artwork_export.yml gul-blokk_print-master.tif gul-blokk-v2

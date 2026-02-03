@@ -1,0 +1,36 @@
+# artwork_export.yml
+
+paths:
+  master_dir: "master"
+  print_dir: "print"
+  web_dir: "web"
+
+print:
+  dpi: 300
+  format: "tiff"
+  sizes:
+    - name: "A4"
+      width_px: 2480
+      height_px: 3508
+    - name: "A3"
+      width_px: 3508
+      height_px: 4961
+    - name: "A2"
+      width_px: 4961
+      height_px: 7016
+    - name: "A1"
+      width_px: 7016
+      height_px: 9933
+
+web:
+  aspect_ratio: "4:5"
+  quality: 80
+  sizes:
+    - long_edge: 2000
+      label: "hero"
+    - long_edge: 1200
+      label: "medium"
+    - long_edge: 800
+      label: "small"
+    - long_edge: 400
+      label: "thumb"
