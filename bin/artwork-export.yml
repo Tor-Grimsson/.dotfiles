@@ -1,0 +1,41 @@
+# artwork_export.yml
+
+paths:
+  master_dir: "master"
+  print_tif_dir: "print-tif"
+  print_jpg_dir: "print-jpg"
+  web_45_dir: "web-4-5"
+  web_ratio_dir: "web-ratio"
+
+print:
+  dpi: 300
+  jpg_quality: 90
+  sizes:
+    - name: "A4"
+      width_px: 2480
+      height_px: 3508
+    - name: "A3"
+      width_px: 3508
+      height_px: 4961
+    - name: "A2"
+      width_px: 4961
+      height_px: 7016
+    - name: "A1"
+      width_px: 7016
+      height_px: 9933
+
+web_4_5:
+  quality: 80
+  sizes:
+    - long_edge: 2000
+    - long_edge: 1200
+    - long_edge: 800
+    - long_edge: 400
+
+web_ratio:
+  quality: 80
+  sizes:
+    - long_edge: 2840
+    - long_edge: 1700
+    - long_edge: 1132
+    - long_edge: 566
