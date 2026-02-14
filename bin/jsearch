@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# --- CONFIG ---
+JACKETT_URL="http://127.0.0.1:9117"
+API_KEY="r0ild6i2y1il70lwjmu5ds1yxy0siogc"
+TRANSMISSION_CMD="transmission-remote"
+
+# --- HELPERS ---
+QUERY=$(echo "$@" | sed 's/ /%20/g')
+
+if [ -z "$QUERY" ]; then
+    echo "Usage: jsearch <search term>"
+    exit 1
+fi
+
+if ! command -v jq &> /dev/null; then
+    echo "Error: 'jq' is not installed. Run 'brew install jq' first."
+    exit 1
+fi
+
+echo "🔍 Searching Jackett for: $@..."
+
+# Fetch results
+RESULTS=$(curl -s "$JACKETT_URL/api/v2.0/indexers/all/results?apikey=$API_KEY&Query=$QUERY")
+
+# Check if we got results
+COUNT=$(echo "$RESULTS" | jq '.Results | length')
+if [ "$COUNT" -eq 0 ] || [ "$COUNT" == "null" ]; then
+    echo "❌ No results found. Make sure Jackett is running and you added indexers."
+    exit 0
+fi
+
+# Display Results
+echo "--------------------------------------------------------------------------------"
+echo "$RESULTS" | jq -r '.Results | to_entries[] | "[\(.key)] \(.value.Indexer) | \(.value.Size/1024/1024 | round)MB | S:\(.value.Seeders) | \(.value.Title)"'
+echo "--------------------------------------------------------------------------------"
+
+# Ask user
+read -p "Enter ID to download (or 'q' to quit): " SELECTION
+
+if [[ "$SELECTION" =~ ^[0-9]+$ ]] && [ "$SELECTION" -lt "$COUNT" ]; then
+    MAGNET=$(echo "$RESULTS" | jq -r ".Results[$SELECTION].MagnetUri")
+    if [ "$MAGNET" != "null" ]; then
+        echo "🚀 Sending to Transmission..."
+        $TRANSMISSION_CMD -a "$MAGNET"
+    else
+        echo "❌ No magnet link found for this result."
+    fi
+else
+    echo "Exiting."
+fi
