@@ -24,6 +24,7 @@ cask "claude-code"                 # Terminal-based AI coding assistant
 cask "firefox@developer-edition"   # Web browser
 cask "font-meslo-lg-nerd-font"     # Nerd Font
 cask "fontgoggles"                 # Font viewer for various font formats
+cask "iterm2"                      # Terminal emulator
 cask "kap"                         # Open-source screen recorder
 cask "macfuse"                     # File system integration
 cask "marta"                       # Extensible two-pane file manager

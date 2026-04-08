@@ -37,5 +37,11 @@ if command -v code >/dev/null 2>&1; then
   cat "$DOT/vscode/extensions.txt" | xargs -n 1 code --install-extension || true
 fi
 
+# iTerm2
+if [ -d "$DOT/iterm" ]; then
+  defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$DOT/iterm"
+  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+fi
+
 # macOS defaults
 [ -x "$DOT/macos/defaults.sh" ] && "$DOT/macos/defaults.sh"
