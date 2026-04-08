@@ -135,9 +135,8 @@ export PATH="/Applications/WebStorm.app/Contents/MacOS:$PATH"
 export PATH="$(npm config get prefix)/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
-#source /Users/biskup/.config/broot/launcher/bash/br
-
-#source /Users/biskup/Library/Application\ Support/org.dystroy.broot/launcher/bash/br
+# broot (old paths, kept for reference)
+# source "$HOME/.config/broot/launcher/bash/br"
 
 
 bindkey '^[^?' backward-kill-word                                        
@@ -146,7 +145,7 @@ bindkey '^[f' forward-word
 
 export PATH="$HOME/tools:$PATH"
 
-source /Users/biskup/Library/Application\ Support/org.dystroy.broot/launcher/bash/br
+source "$HOME/Library/Application Support/org.dystroy.broot/launcher/bash/br" 2>/dev/null || true
 
 function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd

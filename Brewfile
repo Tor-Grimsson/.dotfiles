@@ -9,6 +9,7 @@ brew "jq"          # Command-line JSON processor
 brew "neofetch"    # System info script
 brew "neovim"      # Vim-fork focused on extensibility and agility
 brew "nmap"        # Port scanning utility for large networks
+brew "node"        # JavaScript runtime
 brew "pdf2svg"     # PDF converter to SVG
 brew "pipx"        # Run Python apps in isolated environments
 brew "pngpaste"    # Paste PNG into files
