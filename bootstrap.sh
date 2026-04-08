@@ -19,7 +19,7 @@ ln -sf "$DOT/shell/.zshrc"     "$HOME/.zshrc"
 ln -sf "$DOT/shell/.zprofile" "$HOME/.zprofile"
 ln -sf "$DOT/shell/.p10k.zsh" "$HOME/.p10k.zsh"
 ln -sf "$DOT/git/.gitconfig"  "$HOME/.gitconfig"
-ln -sf "$DOT/bin" "$HOME/bin"
+ln -sfn "$DOT/bin" "$HOME/bin"
 
 # SSH config (no keys)
 if [ -f "$DOT/ssh/config" ]; then

@@ -6,6 +6,7 @@ brew "ffmpeg"      # Play, record, convert, and stream audio/video
 brew "imagemagick" # Manipulate images in many formats
 brew "img2pdf"     # Convert images to PDF via direct JPEG inclusion
 brew "jq"          # Command-line JSON processor
+brew "mpv"         # Terminal-friendly media player
 brew "neofetch"    # System info script
 brew "neovim"      # Vim-fork focused on extensibility and agility
 brew "nmap"        # Port scanning utility for large networks
@@ -28,6 +29,8 @@ cask "iterm2"                      # Terminal emulator
 cask "kap"                         # Open-source screen recorder
 cask "macfuse"                     # File system integration
 cask "marta"                       # Extensible two-pane file manager
+cask "namechanger"                 # Batch file renaming
+cask "hiddenbar"                   # Hide menu bar items
 
 # ── VS Code Extensions ────────────────────────────────────────────────────────
 
