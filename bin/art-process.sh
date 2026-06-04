@@ -13,7 +13,7 @@ if [ "$#" -lt 2 ]; then
   exit 1
 fi
 
-CONFIG_FILE="$(dirname "$0")/artwork-export.yml"
+CONFIG_FILE="$(dirname "$0")/art-export.yml"
 SOURCE_FILE="$1"
 RAW_ROOT="$2"
 

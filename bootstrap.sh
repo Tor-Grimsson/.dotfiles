@@ -48,6 +48,26 @@ if ! command -v claude >/dev/null 2>&1; then
   curl -fsSL https://claude.ai/install.sh | bash
 fi
 
+# Claude config (CLAUDE.md, settings, skills, hooks) — symlinked from repo
+if [ -d "$DOT/claude" ]; then
+  mkdir -p "$HOME/.claude"
+  ln -sf  "$DOT/claude/CLAUDE.md"     "$HOME/.claude/CLAUDE.md"
+  ln -sf  "$DOT/claude/settings.json" "$HOME/.claude/settings.json"
+  ln -sfn "$DOT/claude/skills"        "$HOME/.claude/skills"
+  ln -sfn "$DOT/claude/hooks"         "$HOME/.claude/hooks"
+  ln -sfn "$DOT/claude/commands"      "$HOME/.claude/commands"
+  ln -sfn "$DOT/claude/agents"        "$HOME/.claude/agents"
+  ln -sfn "$DOT/claude/output-styles" "$HOME/.claude/output-styles"
+fi
+
+# Claude skill dependencies (claude/packages → ~/.local/bin)
+if [ -d "$DOT/claude/packages" ]; then
+  mkdir -p "$HOME/.local/bin"
+  for f in "$DOT/claude/packages"/*; do
+    [ -f "$f" ] && [ -x "$f" ] && ln -sf "$f" "$HOME/.local/bin/$(basename "$f")"
+  done
+fi
+
 # mpv
 if [ -d "$DOT/mpv" ]; then
   mkdir -p "$HOME/.config/mpv"

@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+# bucket — thin rclone wrapper for the Kolkrabbi B2 CDN bucket.
+# Defaults to the public `website/` lane. Override with env vars:
+#   BUCKET_REMOTE     (default: kolkrabbi:kolkrabbi/website)
+#   BUCKET_CDN_BASE   (default: https://f005.backblazeb2.com/file/kolkrabbi/website)
+
+set -euo pipefail
+
+REMOTE="${BUCKET_REMOTE:-kolkrabbi:kolkrabbi/website}"
+CDN_BASE="${BUCKET_CDN_BASE:-https://f005.backblazeb2.com/file/kolkrabbi/website}"
+
+if ! command -v rclone >/dev/null 2>&1; then
+  echo "bucket: rclone not installed (brew install rclone)" >&2
+  exit 1
+fi
+
+# Join REMOTE + optional path. REMOTE already contains the colon.
+remote_path() {
+  local p="${1:-}"
+  if [[ -z "$p" ]]; then
+    echo "$REMOTE"
+  else
+    echo "${REMOTE%/}/${p#/}"
+  fi
+}
+
+cdn_url() {
+  local p="$1"
+  echo "${CDN_BASE%/}/${p#/}"
+}
+
+usage() {
+  cat <<EOF
+bucket — Kolkrabbi B2 CDN wrapper
+
+Usage:
+  bucket ls   [path]                List directory contents
+  bucket tree [path]                Tree view (drops segment_*.ts)
+  bucket cat  <file>                Stream a file to stdout
+  bucket url  <file>                Print the public CDN URL
+  bucket up   <local> <remote-path> Upload (with progress)
+  bucket down <remote> [local]      Download (default: ./)
+  bucket sync <local> <remote-path> Mirror — DELETES remote files missing locally
+  bucket rm   <file>                Delete a single file
+
+Default remote: $REMOTE
+Override:      BUCKET_REMOTE=kolkrabbi:kolkrabbi bucket ls
+EOF
+}
+
+cmd="${1:-}"
+[[ -z "$cmd" || "$cmd" == "-h" || "$cmd" == "--help" ]] && { usage; exit 0; }
+shift || true
+
+case "$cmd" in
+  ls)
+    rclone lsf "$(remote_path "${1:-}")"
+    ;;
+  tree)
+    rclone tree "$(remote_path "${1:-}")" --filter "- segment_*.ts"
+    ;;
+  cat)
+    [[ $# -lt 1 ]] && { echo "bucket cat <file>" >&2; exit 2; }
+    rclone cat "$(remote_path "$1")"
+    ;;
+  url)
+    [[ $# -lt 1 ]] && { echo "bucket url <file>" >&2; exit 2; }
+    cdn_url "$1"
+    ;;
+  up)
+    [[ $# -lt 2 ]] && { echo "bucket up <local> <remote-path>" >&2; exit 2; }
+    rclone copy "$1" "$(remote_path "$2")" -P
+    ;;
+  down)
+    [[ $# -lt 1 ]] && { echo "bucket down <remote> [local]" >&2; exit 2; }
+    rclone copy "$(remote_path "$1")" "${2:-./}" -P
+    ;;
+  sync)
+    [[ $# -lt 2 ]] && { echo "bucket sync <local> <remote-path>" >&2; exit 2; }
+    rclone sync "$1" "$(remote_path "$2")" -P
+    ;;
+  rm)
+    [[ $# -lt 1 ]] && { echo "bucket rm <file>" >&2; exit 2; }
+    rclone deletefile "$(remote_path "$1")"
+    ;;
+  *)
+    echo "bucket: unknown command '$cmd'" >&2
+    usage
+    exit 2
+    ;;
+esac

@@ -14,7 +14,7 @@ fi
 
 # --- 2. RUN VIRUS SCAN ---
 # Scan recursively, move viruses to Quarantine, and log the output.
-/opt/homebrew/bin/clamscan -r "$DOWNLOAD_PATH" \
+clamscan -r "$DOWNLOAD_PATH" \
   --move="$QUARANTINE_DIR" \
   --log="$LOG_FILE" \
   --no-summary \

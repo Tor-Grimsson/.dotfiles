@@ -1,42 +1,110 @@
-# ── Formulae ──────────────────────────────────────────────────────────────────
+# ════════════════════════════════════════════════════════════════════════════
+# Brewfile — unified across both Macs (Intel iMac + Apple-Silicon MBP)
+# Single source of truth. Install/sync with:  brew bundle --file="$HOME/.dotfiles/Brewfile"
+# Rationale, drift audit, and portability notes live in TOOLING.md.
+# ════════════════════════════════════════════════════════════════════════════
 
-brew "arp-scan"    # ARP scanning and fingerprinting
-brew "bitwarden-cli" # Bitwarden password manager CLI
-brew "broot"       # Navigate directory trees
-brew "ffmpeg"      # Play, record, convert, and stream audio/video
-brew "imagemagick" # Manipulate images in many formats
-brew "img2pdf"     # Convert images to PDF via direct JPEG inclusion
-brew "jq"          # Command-line JSON processor
-brew "mpv"         # Terminal-friendly media player
-brew "neofetch"    # System info script
-brew "neovim"      # Vim-fork focused on extensibility and agility
-brew "nmap"        # Port scanning utility for large networks
+# ── Taps ──────────────────────────────────────────────────────────────────────
+tap "siddharthvaddem/openscreen"   # provides the openscreen cask
+
+# ── Shell & prompt ──────────────────────────────────────────────────────────
+brew "tmux"                    # Terminal multiplexer
+brew "powerlevel10k"           # Zsh prompt theme (also vendored via oh-my-zsh on MBP — see TOOLING.md)
+brew "zsh-completions"         # Extra zsh completion definitions
+brew "zsh-syntax-highlighting" # Fish-like zsh syntax highlighting
+
+# ── File & navigation ───────────────────────────────────────────────────────
+brew "tree"        # Print directory trees
+brew "yazi"        # TUI file manager (Rust, async I/O)
+brew "broot"       # Tree navigation + fuzzy jump
+brew "watch"       # Run a command on an interval, fullscreen output (procps-ng)
+
+# ── Deduplication ─────────────────────────────────────────────────────────────
+brew "jdupes"      # Fast exact-dupe finder (fork of fdupes) — quick CLI sweeps
+brew "rmlint"      # Dupes + empty dirs/broken links; emits a reviewable delete script (reflink-aware)
+brew "czkawka"     # czkawka_cli — exact AND fuzzy (similar images / video / music)
+
+# ── Dev & languages ─────────────────────────────────────────────────────────
+brew "neovim"      # Vim fork, extensible
 brew "node"        # JavaScript runtime
-brew "pdf2svg"     # PDF converter to SVG
-brew "pipx"        # Run Python apps in isolated environments
-brew "pngpaste"    # Paste PNG into files
-brew "tmux"        # Terminal multiplexer
-brew "tree"        # Display directories as trees
-brew "yazi"        # Terminal file manager (async I/O, written in Rust)
-brew "zellij"      # Pluggable terminal workspace
+brew "pnpm"        # Fast, disk-efficient JS package manager (can self-manage node)
+brew "pipx"        # Install Python CLI apps in isolated venvs (one app per env)
+brew "uv"          # Fast Python project/dep/version manager (+ uvx tool runner)
+brew "jq"          # Command-line JSON processor
 
-# ── Casks ─────────────────────────────────────────────────────────────────────
+# ── Network & security ──────────────────────────────────────────────────────
+brew "nmap"          # Port scanner
+brew "arp-scan"      # ARP scanning + fingerprinting
+brew "iperf3"        # Network throughput measurement (TCP/UDP/SCTP)
+brew "bitwarden-cli" # Bitwarden password manager CLI
+brew "clamav"        # Antivirus — driven by scripts/transmission_scan.sh quarantine
 
-cask "appcleaner"                  # App uninstaller
-cask "bitwarden"                   # Password manager (desktop app)
-cask "pearcleaner"                 # App uninstaller (open-source)
+# ── Media & torrents ────────────────────────────────────────────────────────
+brew "mpv"               # Terminal-friendly media player
+brew "ffmpeg"            # Audio/video convert, record, stream
+brew "handbrake"         # Video transcoder (HandBrakeCLI)
+brew "transmission-cli"  # Lightweight BitTorrent client
+brew "whisper-cpp"       # Speech-to-text (OpenAI Whisper in C++)
+
+# ── PDF & images ────────────────────────────────────────────────────────────
+brew "imagemagick" # Image manipulation toolkit
+brew "img2pdf"     # Images → PDF (lossless JPEG embedding)
+brew "pdf2svg"     # PDF → SVG (vector)
+brew "pngpaste"    # Paste clipboard PNG to a file
+# NOTE: pdf2image formula dropped — it ships poppler-duplicate binaries (pdffonts/
+#       pdftoppm) that clash with poppler's symlinks. Use poppler's CLI directly, or
+#       the Python pdf2image lib via `uv tool install pdf2image` / pipx.
+
+# ── System & cloud ──────────────────────────────────────────────────────────
+brew "fastfetch"   # System info banner (neofetch successor — neofetch was pulled from Homebrew)
+brew "rclone"      # Rsync for cloud storage
+
+# NOTE: pkgconf + poppler + python@3.x are intentionally omitted — they arrive as
+#       dependencies (python is pulled by many formulae; poppler ← pdf2image / yazi).
+# NOTE: tap "maniacsan/torrra" was untapped 2026-06-04 (torrra never installed).
+
+# ── Casks (GUI apps) ──────────────────────────────────────────────────────────
+
+# Browser / terminal / editor
 cask "firefox@developer-edition"   # Web browser
-cask "font-meslo-lg-nerd-font"     # Nerd Font
-cask "fontgoggles"                 # Font viewer for various font formats
 cask "iterm2"                      # Terminal emulator
-cask "kap"                         # Open-source screen recorder
-cask "macfuse"                     # File system integration
-cask "marta"                       # Extensible two-pane file manager
+cask "visual-studio-code"          # Code editor
+
+# Window / launcher / menu bar
+cask "raycast"                     # Launcher / command palette
+cask "hiddenbar"                   # Hide menu-bar items
+cask "stats"                       # Menu-bar system monitor
+
+# File managers / file utils
+cask "marta"                       # Two-pane file manager
 cask "namechanger"                 # Batch file renaming
-cask "hiddenbar"                   # Hide menu bar items
+cask "keka"                        # Archiver
+cask "disk-drill"                  # File recovery
+# NOTE: macfuse intentionally NOT bundled — its kext triggers a sudo/perms dance on
+#       every (re)install. Install manually when needed: brew install --cask macfuse
 
-# ── VS Code Extensions ────────────────────────────────────────────────────────
+# Cleanup
+cask "appcleaner"                  # App uninstaller
+cask "pearcleaner"                 # App uninstaller (open source)
 
+# Screen capture / recording
+cask "kap"                         # Screen recorder
+cask "keycastr"                    # Keystroke visualizer (for screencasts)
+cask "openscreen"                  # Screen recorder + video editor (siddharthvaddem tap)
+
+# Notes / dev / remote
+cask "obsidian"                    # Markdown knowledge base
+cask "orbstack"                    # Docker / Linux VMs
+cask "termius"                     # SSH client
+
+# Password manager
+cask "bitwarden"                   # Password manager (desktop)
+
+# Fonts
+cask "font-meslo-lg-nerd-font"     # Nerd Font (terminal/powerline glyphs)
+cask "fontgoggles"                 # Font viewer for many font formats
+
+# ── VS Code extensions ────────────────────────────────────────────────────────
 vscode "ahmadawais.shades-of-purple"
 vscode "bradlc.vscode-tailwindcss"
 vscode "esbenp.prettier-vscode"

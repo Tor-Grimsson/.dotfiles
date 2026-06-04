@@ -1,0 +1,60 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(pwd)",
+      "Bash(du:*)",
+      "Bash(df:*)",
+      "Bash(file:*)",
+      "Bash(which:*)",
+      "Bash(date)",
+      "Bash(date:*)",
+      "Bash(tree:*)",
+      "Bash(stat:*)",
+      "Bash(echo:*)",
+      "Bash(whoami)",
+      "mcp__playwright",
+      "mcp__glif"
+    ],
+    "deny": [
+      "Bash(git)",
+      "Bash(git:*)"
+    ]
+  },
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
+  "theme": "dark-ansi",
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp",
+        "--headless"
+      ]
+    },
+    "glif": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@glifxyz/glif-mcp-server@latest"
+      ],
+      "env": {
+        "GLIF_API_TOKEN": "${GLIF_API_TOKEN}"
+      }
+    }
+  }
+}
