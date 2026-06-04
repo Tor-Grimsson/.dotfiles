@@ -2,7 +2,7 @@
 
 # --- CONFIG ---
 JACKETT_URL="http://127.0.0.1:9117"
-API_KEY="r0ild6i2y1il70lwjmu5ds1yxy0siogc"
+API_KEY="${JACKETT_API_KEY:?set JACKETT_API_KEY (jackett admin key, e.g. via Bitwarden->env)}"
 TRANSMISSION_CMD="transmission-remote"
 
 # --- HELPERS ---

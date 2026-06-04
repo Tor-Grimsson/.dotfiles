@@ -18,7 +18,7 @@ For chronological detail see `session-log/`. For load-bearing rules see `ARCHITE
 ## Status at a glance
 
 - Repo holds shell/git/ssh/editor configs **plus** a reconciled `Brewfile`, a per-tool docs catalog, and the repo-backed `~/.claude` config.
-- Big reorg landed 2026-06-04 (see session-log): Brewfile reconciled, `claude/` dotfiled, `docs/` catalog built, `meta/` repurposed, `macos/defaults.sh` written.
+- Big 2026-06-04 reorg (two session logs): Brewfile reconciled; `~/.claude` fully consolidated into `claude/` (skills + agents + `packages/` deps + glif MCP, caveman removed); `kol-docs` is now a self-contained framework spec; `bin/` re-prefixed by domain + quarantined dups + `docs/12-scripts/` catalog; `meta/` + `macos/` documented.
 - **Not committed by the agent** — the user owns all git. Working tree was left ready for the user's commit.
 
 ---
