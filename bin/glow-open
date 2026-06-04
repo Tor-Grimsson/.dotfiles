@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# glow-open <file.md> — render a markdown file with glow in a new terminal window.
+# Engine for the "Open in glow" Finder Quick Action (macos/services/). Works standalone too.
+set -euo pipefail
+[ -n "${1:-}" ] || { echo "usage: glow-open <file.md>" >&2; exit 1; }
+
+# build the command to run in the new window (printf %q keeps spaces/quotes safe)
+cmd="glow -p $(printf %q "$1"); echo; read -n1 -s -r -p '— press any key to close —'"
+
+if [ -d /Applications/iTerm.app ]; then
+  osascript - "$cmd" <<'APPLE'
+on run argv
+  tell application "iTerm"
+    create window with default profile command (item 1 of argv)
+    activate
+  end tell
+end run
+APPLE
+else
+  osascript - "$cmd" <<'APPLE'
+on run argv
+  tell application "Terminal"
+    do script (item 1 of argv)
+    activate
+  end tell
+end run
+APPLE
+fi

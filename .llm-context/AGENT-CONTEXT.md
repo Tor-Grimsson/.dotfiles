@@ -65,6 +65,7 @@ Intel iMac = `/usr/local`, Apple-Silicon MBP = `/opt/homebrew`. No hardcoded pre
 - [ ] `brew upgrade` on each machine when convenient (the bundle install/upgraded the iMac on 2026-06-04 but lots stay outdated).
 - [ ] Optional adds called out in TOOLING.md: czkawka (already in), tdf (PDF TUI), fclones (faster exact dedup).
 - [ ] `rm -rf ~/.claude-server-commander` — orphaned Desktop Commander MCP logs.
+- [ ] **Rotate the Jackett API key** (was committed in `bin/tor-search` → in git history) + store `JACKETT_API_KEY` & `GLIF_API_TOKEN` in the Bitwarden vault (`meta/BITWARDEN-SETUP.md` §5–6).
 - [ ] Review then maybe re-add the skills cut on 2026-06-04 (client-normalise, init-client/editor/repo, publication-mirror). **Caveman is permanently out** (plugin, hooks, and skill all removed).
 
 ---

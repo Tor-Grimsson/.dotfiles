@@ -24,7 +24,7 @@ Folders group by **function**. Two cross-cutting axes live in **tags**, not fold
 
 | # | Category | Tools | What lives here |
 |---|----------|:-----:|-----------------|
-| 01 | [[01-shell-terminal/INDEX\|Shell & Terminal]] | 6 | terminal emulator, multiplexers, prompt, zsh plugins, sysinfo |
+| 01 | [[01-shell-terminal/INDEX\|Shell & Terminal]] | 7 | terminal emulator, multiplexers, prompt, zsh plugins, sysinfo |
 | 02 | [[02-file-management/INDEX\|File Management]] | 6 | tree view, TUI managers, GUI managers, renamers, QuickLook, archiver |
 | 03 | [[03-dedup-cleanup/INDEX\|Dedup & Cleanup]] | 6 | duplicate finders, app uninstallers, file recovery |
 | 04 | [[04-dev-languages/INDEX\|Dev & Languages]] | 8 | editors, JS/Python runtimes & managers, jq, containers |

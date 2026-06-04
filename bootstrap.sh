@@ -9,7 +9,7 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 
 # Install packages
-brew bundle --file="$DOT/Brewfile"
+brew bundle --file="$DOT/brewfile"
 
 # Ensure SSH dir exists
 mkdir -p "$HOME/.ssh"
@@ -73,6 +73,17 @@ if [ -d "$DOT/mpv" ]; then
   mkdir -p "$HOME/.config/mpv"
   ln -sf "$DOT/mpv/mpv.conf"   "$HOME/.config/mpv/mpv.conf"
   ln -sf "$DOT/mpv/input.conf" "$HOME/.config/mpv/input.conf"
+fi
+
+# glow config + Finder "Open in glow" Quick Action
+if [ -f "$DOT/glow/glow.yml" ]; then
+  mkdir -p "$HOME/Library/Preferences/glow"
+  ln -sf "$DOT/glow/glow.yml" "$HOME/Library/Preferences/glow/glow.yml"
+fi
+if [ -d "$DOT/macos/services/Open in glow.workflow" ]; then
+  mkdir -p "$HOME/Library/Services"
+  ln -sfn "$DOT/macos/services/Open in glow.workflow" "$HOME/Library/Services/Open in glow.workflow"
+  /System/Library/CoreServices/pbs -flush 2>/dev/null || true
 fi
 
 # macOS defaults

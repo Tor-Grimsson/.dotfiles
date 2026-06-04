@@ -1,0 +1,4 @@
+# glow config — symlinked to ~/Library/Preferences/glow/glow.yml by bootstrap.sh
+style: "auto"   # auto | dark | light | notty | path/to/theme.json
+width: 100      # word-wrap column (0 = disable)
+pager: true     # always page: `glow file.md` opens scrollable, q to quit

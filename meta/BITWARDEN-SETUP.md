@@ -65,70 +65,47 @@ When the auth dialog appears, click **Allow** (releases once, prompts again next
 Do **not** click **Always Allow** — that whitelists `security` permanently and removes the
 password gate.
 
-## 5. Store a new secret (API key / token) via the CLI
+## 5. Store a secret (API key / token)
 
-Keep secrets in the vault, never in tracked files. Store each as a **Login** item whose
-**password** field holds the secret and whose **name** matches the env var it feeds — so
-retrieval is a clean `bw get password <NAME>`.
+Each secret = one **Login** item; **item name = the env var name** (e.g. `JACKETT_API_KEY`),
+the key goes in the **password** field. Needs `jq` (in the Brewfile).
 
-How the CLI builds an item: `bw get template item` prints a blank item as JSON → you fill it
-in with `jq` → `bw encode` base64-encodes it (what `bw create`/`bw edit` read on stdin) →
-`bw create item` saves it. The `type` field picks the kind: **1 = login**, 2 = secure note,
-3 = card, 4 = identity.
+1. Unlock: `bwu`
+2. Read the key into a hidden variable (paste, then Enter):
+   ```sh
+   read -rs SECRET
+   ```
+3. Create the item:
+   ```sh
+   bw get template item | jq --arg k "$SECRET" '.type=1 | .name="JACKETT_API_KEY" | .login.password=$k' | bw encode | bw create item
+   ```
+4. Wipe the variable: `unset SECRET`
+5. Push to other devices: `bw sync`
 
-Create one **without the key ever touching shell history** (`read -rs` hides the input, `jq`
-injects it as a variable, never as a command-line argument):
+Read it back: `bw get password JACKETT_API_KEY`
 
+Replace a key (rotation): re-run 1–3 with the new key, then delete the old item:
 ```sh
-bwu                                   # unlock first (sets BW_SESSION for this shell)
-read -rs SECRET                       # type/paste the key — input hidden — press Enter
-bw get template item \
-  | jq --arg k "$SECRET" '.type=1 | .name="JACKETT_API_KEY" | .login.password=$k' \
-  | bw encode | bw create item
-unset SECRET                          # drop it from the shell
-bw sync                               # (optional) push so other devices pull it
+bw delete item "$(bw get item JACKETT_API_KEY | jq -r .id)"
 ```
-
-- **Convention:** item name == env var name (`JACKETT_API_KEY`, `GLIF_API_TOKEN`). One secret per item.
-- Needs `jq` (ships via the Brewfile) and an unlocked vault.
-
-Read it back, edit, or delete (get the id from `bwl` or the first line below):
-
-```sh
-bw get password JACKETT_API_KEY                      # → the secret
-ID=$(bw get item JACKETT_API_KEY | jq -r .id)        # find the id
-bw get item "$ID" | jq '.login.password="NEWKEY"' | bw encode | bw edit item "$ID"
-bw delete item "$ID"
-```
-
-> **Rotate, don't just hide.** A key that was ever committed to a file is compromised even
-> after you remove it (git history keeps it). Generate a fresh one in the service, store the
-> new one here, and retire the old. (E.g. the Jackett key pulled out of `bin/tor-search`.)
 
 ## 6. Load a secret into the shell env
 
-Scripts and configs read these as env vars — `bin/tor-search` wants `JACKETT_API_KEY`,
-`claude/settings.json` wants `GLIF_API_TOKEN` (both `${...}` references, never literals).
-Export them from the vault on demand:
+Scripts read these as env vars — `bin/tor-search` → `JACKETT_API_KEY`,
+`claude/settings.json` → `GLIF_API_TOKEN`.
 
+1. Unlock: `bwu`
+2. Export it:
+   ```sh
+   export JACKETT_API_KEY="$(bw get password JACKETT_API_KEY)"
+   ```
+
+Don't put step 2 in `.zshrc` unconditionally — every new shell would block on the unlock prompt.
+Optional one-word helper (add near `bwu`/`bwl` in `shell/.zshrc`):
 ```sh
-export JACKETT_API_KEY="$(bw get password JACKETT_API_KEY)"
-export GLIF_API_TOKEN="$(bw get password GLIF_API_TOKEN)"
+bwenv() { bwu >/dev/null || return 1; export "$1"="$(bw get password "$1")"; }
 ```
-
-**Do not put these unconditionally in `.zshrc`.** Each call needs an unlocked vault, so every
-new terminal would block on a `bwu` prompt and add latency. Load on demand. A one-word helper
-(add to `shell/.zshrc` next to `bwu`/`bwl`):
-
-```sh
-bwenv() {                       # bwenv JACKETT_API_KEY  → unlock if needed, export it
-  bwu >/dev/null || return 1
-  export "$1"="$(bw get password "$1")"
-}
-```
-
-Run `bwenv JACKETT_API_KEY` in any shell that needs it (e.g. before `tor-search`). The
-session caches after the first `bwu`, so repeat calls in the same terminal don't re-prompt.
+Then run `bwenv JACKETT_API_KEY` in a shell that needs it.
 
 ## Notes
 

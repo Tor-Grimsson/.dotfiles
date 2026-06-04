@@ -1,6 +1,6 @@
 # ════════════════════════════════════════════════════════════════════════════
 # Brewfile — unified across both Macs (Intel iMac + Apple-Silicon MBP)
-# Single source of truth. Install/sync with:  brew bundle --file="$HOME/.dotfiles/Brewfile"
+# Single source of truth. Install/sync with:  brew bundle --file="$HOME/.dotfiles/brewfile"
 # Rationale, drift audit, and portability notes live in TOOLING.md.
 # ════════════════════════════════════════════════════════════════════════════
 
@@ -17,6 +17,7 @@ brew "zsh-syntax-highlighting" # Fish-like zsh syntax highlighting
 brew "tree"        # Print directory trees
 brew "yazi"        # TUI file manager (Rust, async I/O)
 brew "broot"       # Tree navigation + fuzzy jump
+brew "glow"        # Render markdown in the terminal
 brew "watch"       # Run a command on an interval, fullscreen output (procps-ng)
 
 # ── Deduplication ─────────────────────────────────────────────────────────────

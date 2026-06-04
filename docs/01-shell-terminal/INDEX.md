@@ -18,3 +18,4 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | [[04-zsh-syntax-highlighting\|zsh-syntax-highlighting]] | Fish-style live syntax highlighting for the zsh command line. |
 | [[05-zsh-completions\|zsh-completions]] | Extra tab-completion definitions for tools zsh doesn't cover by default. |
 | [[07-fastfetch\|fastfetch]] | Fast system-info tool printing specs alongside an OS logo. |
+| [[08-glow\|glow]] | Terminal markdown renderer — open any `.md` as styled, readable text, instantly. |
