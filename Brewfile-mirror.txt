@@ -1,6 +1,7 @@
 # ── Formulae ──────────────────────────────────────────────────────────────────
 
 brew "arp-scan"    # ARP scanning and fingerprinting
+brew "bitwarden-cli" # Bitwarden password manager CLI
 brew "broot"       # Navigate directory trees
 brew "ffmpeg"      # Play, record, convert, and stream audio/video
 brew "imagemagick" # Manipulate images in many formats
@@ -21,7 +22,9 @@ brew "zellij"      # Pluggable terminal workspace
 
 # ── Casks ─────────────────────────────────────────────────────────────────────
 
-cask "claude-code"                 # Terminal-based AI coding assistant
+cask "appcleaner"                  # App uninstaller
+cask "bitwarden"                   # Password manager (desktop app)
+cask "pearcleaner"                 # App uninstaller (open-source)
 cask "firefox@developer-edition"   # Web browser
 cask "font-meslo-lg-nerd-font"     # Nerd Font
 cask "fontgoggles"                 # Font viewer for various font formats

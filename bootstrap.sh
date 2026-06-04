@@ -43,5 +43,17 @@ if [ -d "$DOT/iterm" ]; then
   defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 fi
 
+# Claude Code (native installer, not brew)
+if ! command -v claude >/dev/null 2>&1; then
+  curl -fsSL https://claude.ai/install.sh | bash
+fi
+
+# mpv
+if [ -d "$DOT/mpv" ]; then
+  mkdir -p "$HOME/.config/mpv"
+  ln -sf "$DOT/mpv/mpv.conf"   "$HOME/.config/mpv/mpv.conf"
+  ln -sf "$DOT/mpv/input.conf" "$HOME/.config/mpv/input.conf"
+fi
+
 # macOS defaults
 [ -x "$DOT/macos/defaults.sh" ] && "$DOT/macos/defaults.sh"

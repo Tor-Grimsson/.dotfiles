@@ -155,6 +155,36 @@ function y() {
     fi
     rm -f -- "$tmp"
 }
+
+# bitwarden: unlock + export session key into current shell
+# reads master password from macOS Keychain (item: bw-master), falls back to prompt
+bwu() {
+  local pw; pw="$(security find-generic-password -a "$USER" -s bw-master -w 2>/dev/null)"
+  if [ -n "$pw" ]; then
+    export BW_SESSION="$(BW_PASSWORD="$pw" bw unlock --passwordenv BW_PASSWORD --raw)"
+  else
+    export BW_SESSION="$(bw unlock --raw)"
+  fi
+}
+
+# bitwarden: list items as folder|type|name|username table, sorted (optional search term)
+bwl() {
+  [ -z "$BW_SESSION" ] && bwu
+  local folders; folders="$(bw list folders)" || return
+  bw list items ${1:+--search "$1"} | jq -r --argjson f "$folders" '
+    ($f | map({(.id // "null"): .name}) | add) as $fm
+    | ["login","note","card","identity"] as $t
+    | map({
+        folder: ($fm[(.folderId // "null")] // "No Folder"),
+        type:   ($t[.type - 1] // "other"),
+        name:   .name,
+        user:   (.login.username // "-")
+      })
+    | sort_by(.folder, .type, .name)
+    | .[] | "\(.folder)\t\(.type)\t\(.name)\t\(.user)"
+  ' | column -t -s $'\t'
+}
+
 export PATH="$HOME/bin:$PATH"
 
 # local secrets (not in git)
