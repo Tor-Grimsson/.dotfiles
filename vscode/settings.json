@@ -115,6 +115,8 @@
   "svgPreview.style": {
       "background": "#ffffff"
 },
-"workbench.editor.enablePreview": false
+"workbench.editor.enablePreview": false,
+"terminal.integrated.initialHint": false,
+"tailwindCSS.lint.suggestCanonicalClasses": "ignore"
 
 }
