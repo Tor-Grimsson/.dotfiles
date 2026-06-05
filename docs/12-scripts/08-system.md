@@ -14,6 +14,7 @@ tags:
 | Script | Does | Usage |
 |--------|------|-------|
 | `fs-rm-folder-smart.sh` | **Flatten** nested folders: move files out, delete emptied folders (clash-safe) | `fs-rm-folder-smart.sh [-w] [-d N] [-n]` — run `--help` |
+| `fs-shoot.sh` | **Shoot** files/folders into a destination folder (created if missing, clash-safe) | `fs-shoot.sh [-n] <dest> <files…>` — run `--help` |
 | `ss-save.sh` | Save clipboard image → file via `pngpaste` | `ss-save.sh [name] [dir]` — run `--help`; full path rules in [[ss-save\|ss-save.md]] |
 
 > `fs-rm-folder-smart.sh` renamed from `rm-fold-smart.sh` (fold → folder). Older `rm-folder*` variants were relocated to `~/_temp/bin_bak/` (out of the repo) on 2026-06-05.
@@ -30,5 +31,11 @@ Run it **inside** the folder you want flattened. `--help` documents all of it.
 
 Clashes auto-resolve (`file.ext` → `file-bak1.ext`). Depth-first + rmdir-only, so it never deletes a folder
 that still holds un-flattened deeper content (fixed a `rm -rf` data-loss bug present in the old version, 2026-06-05).
+
+### `fs-shoot.sh`
+Move anything into a destination folder — created if missing, never overwrites: clashes auto-resolve
+(`file.ext` → `file-bak1.ext`, folders → `folder-bak1`). Skips missing sources and anything already in the
+destination; refuses to move the destination into itself. `-n` previews. Workhorse behind the "Shoot to …"
+Finder Quick Actions — see [[10-quick-actions|Quick Actions]] for stamping those out.
 
 Finder selection Quick Actions (`finder-select-alternate.sh`) moved to their own family doc: [[09-finder|Finder]].

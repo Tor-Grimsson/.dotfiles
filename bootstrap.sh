@@ -104,12 +104,12 @@ if [ -f "$DOT/glow/glow.yml" ]; then
   mkdir -p "$HOME/Library/Preferences/glow"
   ln -sf "$DOT/glow/glow.yml" "$HOME/Library/Preferences/glow/glow.yml"
 fi
-if [ -d "$DOT/macos/services/Open in glow.workflow" ]; then
+if [ -d "$DOT/macos/services" ]; then
   mkdir -p "$HOME/Library/Services"
-  ln -sfn "$DOT/macos/services/Open in glow.workflow" "$HOME/Library/Services/Open in glow.workflow"
-  ln -sfn "$DOT/macos/services/Open in TextEdit.workflow" "$HOME/Library/Services/Open in TextEdit.workflow"
-  ln -sfn "$DOT/macos/services/Select Every Other.workflow" "$HOME/Library/Services/Select Every Other.workflow"
-  ln -sfn "$DOT/macos/services/Select Every Other (Even).workflow" "$HOME/Library/Services/Select Every Other (Even).workflow"
+  for wf in "$DOT/macos/services/"*.workflow; do
+    [ -d "$wf" ] || continue
+    ln -sfn "$wf" "$HOME/Library/Services/$(basename "$wf")"
+  done
   /System/Library/CoreServices/pbs -flush 2>/dev/null || true
 fi
 

@@ -3,7 +3,7 @@ title: Scripts
 type: index
 status: active
 updated: 2026-06-05
-description: The bin/ helper scripts, grouped by domain prefix (au-/vid-/img-/pdf-/art-/batch-/tor-/fs-/ss-/finder-). One doc per family.
+description: The bin/ helper scripts, grouped by domain prefix (au-/vid-/img-/pdf-/art-/batch-/tor-/fs-/ss-/finder-/qa-). One doc per family.
 tags:
   - project/dotfiles
   - domain/scripts
@@ -24,11 +24,13 @@ CLI helpers in `~/.dotfiles/bin` (symlinked to `~/bin`, on PATH). Renamed 2026-0
 | `art-` | [[05-artwork\|Artwork pipeline]] | 2 | — |
 | `batch-` | [[06-batch-folder\|Folder batch]] | 2 | — |
 | `tor-` | [[07-torrent\|Torrent]] | 2 | — |
-| `fs-` / `ss-` | [[08-system\|System & clipboard]] | 2 | — |
+| `fs-` / `ss-` | [[08-system\|System & clipboard]] | 3 | — |
 | `finder-` | [[09-finder\|Finder selection]] | 1 | ⇧⌥⌃A, ⇧⌥⌃S (Quick Actions) |
+| `qa-` | [[10-quick-actions\|Quick Actions]] | 1 | generator — stamps new Quick Actions |
 
 Some scripts are also wired as **Finder Quick Actions** (`macos/services/`, symlinked by `bootstrap.sh`,
-hotkeys in `macos/defaults.sh` §8): Open in glow, Open in TextEdit (⇧⌥⌃E), Select Every Other (⇧⌥⌃A / ⇧⌥⌃S).
+hotkeys in `macos/defaults.sh` §8): Open in glow, Open in TextEdit (⇧⌥⌃E), Select Every Other (⇧⌥⌃A / ⇧⌥⌃S),
+Shoot to _trash. New ones: one `qa-make.sh` line — see [[10-quick-actions|Quick Actions]].
 
 ## Conventions
 - **Prefix = domain.** `vid-`, `img-`, `pdf-`, etc. **One doc per family**; a script needing depth gets a companion doc (e.g. [[ss-save]]).
