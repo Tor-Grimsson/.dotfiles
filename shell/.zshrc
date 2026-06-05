@@ -73,9 +73,9 @@ function y() {
 alias mx='dotenv -- claude'
 alias trm='transmission-remote'
 alias tdash='watch -n 1 transmission-remote -l'
-alias obs='open "obsidian://open?path=/Users/biskup/dev/projects/kol-vault"'
-alias v-bridge='rclone sync "/Users/biskup/Library/Mobile Documents/com~apple~CloudDocs/Workbox/kol-vault-mgmt/kol-vault-workbox" "/Users/biskup/Library/Mobile Documents/iCloud~md~obsidian/Documents/kol-vault-workbox" --exclude-from "/Users/biskup/Library/Mobile Documents/com~apple~CloudDocs/Workbox/kol-vault-mgmt/kol-vault-workbox/.rcloneignore" --delete-excluded -vP'
-alias v-backup='rclone copy "/Users/biskup/Library/Mobile Documents/com~apple~CloudDocs/Workbox/kol-vault-mgmt/kol-vault-workbox" "kolkrabbi:kolkrabbi/kol-vault-mgmt/kol-vault-workbox" --exclude-from "/Users/biskup/Library/Mobile Documents/com~apple~CloudDocs/Workbox/kol-vault-mgmt/kol-vault-workbox/.rcloneignore" -vP'
+alias obs='open "obsidian://open?path=$HOME/dev/projects/kol-vault"'
+alias v-bridge='rclone sync "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Workbox/kol-vault-mgmt/kol-vault-workbox" "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/kol-vault-workbox" --exclude-from "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Workbox/kol-vault-mgmt/kol-vault-workbox/.rcloneignore" --delete-excluded -vP'
+alias v-backup='rclone copy "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Workbox/kol-vault-mgmt/kol-vault-workbox" "kolkrabbi:kolkrabbi/kol-vault-mgmt/kol-vault-workbox" --exclude-from "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Workbox/kol-vault-mgmt/kol-vault-workbox/.rcloneignore" -vP'
 alias v-push='v-bridge && v-backup'
 
 # ── Bitwarden ─────────────────────────────────────────────────────────────────
@@ -109,6 +109,14 @@ bwl() {
 
 # fetch the notes field of an item
 bws() { bw get notes "$1"; }
+
+# load API tokens from vault into this shell's env (one keychain-fed unlock)
+# run before launching anything that needs them: `bwenv && claude`
+bwenv() {
+  [ -z "$BW_SESSION" ] && { bwu >/dev/null || return 1; }
+  export GLIF_API_TOKEN="$(bw get notes Glif)"         # token lives in NOTES, not password
+  export JACKETT_API_KEY="$(bw get password Jackett)"  # password field
+}
 
 # ── Local secrets (not in git) ────────────────────────────────────────────────
 [ -f ~/.secrets ] && source ~/.secrets

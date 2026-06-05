@@ -22,6 +22,9 @@ For chronological detail see `session-log/`. For load-bearing rules see `ARCHITE
 - 2026-06-05: agent-context moved onto the canonical `/init-agent-context` layout — root `LLM_RULES.md`, `docs/llm-context/`, `docs/{history,plan}.md`, repo-local `.claude/skills/{init-agent,log-work}`. Session boot = `/init-agent` or "read LLM_RULES.md"; `-sync` can now track this repo.
 - 2026-06-05 (2): Bitwarden chain live on the iMac (Keychain `bw-master` → `bwu`/`bwl`); iMac `~/.zshrc` restored to the bootstrap symlink (old file parked at `~/.zshrc-bak`, local aliases unported); Jackett key in vault (`kol-tokens/Jackett`), `tor-search` self-fetches it; bitwarden-cli + torrent docs rewritten.
 - 2026-06-05 (3): **home-config audit + relink** (`meta/HOME-CONFIG-AUDIT.md` = the tracked-vs-noise map). Strays were real diverged files → reconciled + symlinked (`.zprofile`/`.gitconfig`/`.ssh/config`/nvim/mpv/p10k); newly tracked yazi, broot, Terminal.app prefs (`terminal/`, via `defaults import`); `shell/.zshrc` rewritten clean + `ZSH_DISABLE_COMPFIX=true`; rclone B2 key + Jackett key in vault; **leaked MiniMax token removed from `vscode/settings.json`** (live-minimal chosen as truth). bak/zcompdump cleaned, `~` strays → `~/_temp/`.
+- 2026-06-05 (5, MBP): **MBP home-config audit** (`meta/HOME-CONFIG-AUDIT.md` § MBP audit). Most of the MBP already on repo truth (shell/git/ssh/vscode/bin symlinked); only `~/.claude` diverges. `claude/CLAUDE.md` ported to live-superset (now byte-identical both sides); `/Users/biskup` hardcodes fixed in `shell/.zshrc` aliases + `.claude/skills/init-agent`. iCloud-stranding warning dissolved (only a project-local `.claude` lives there). Remaining blocker: caveman settings/hooks decision (below).
+- 2026-06-05 (6, MBP): **handoff verification + caveman purge prep.** Last session's items confirmed landed (bbrew gone, Obsidian back, settings.reconciled applied, server-commander deleted); hiddenbar not reinstalled, parked skills remain. Voice settings ported to repo `claude/settings.json`; full caveman purge (live settings → repo symlink + plugin/registry strip) handed off, **not yet run**.
+- 2026-06-05 (7, MBP): **claude settings cleanup + iTerm drift fix.** 6 dead keys stripped from `claude/settings.json` (`mcpServers` is *ignored* in settings.json — glif/playwright re-registered user-scope in `~/.claude.json`, `claude mcp add` lines added to bootstrap). iTerm root cause found: custom-folder mode was on **auto-save**, silently writing live state over the repo plist every quit → save-mode now Manually (`NoSync*` keys pinned in bootstrap), fresh deliberate snapshot + startup arrangement set. New loop: change setting → Save Now → commit. **Open:** `GLIF_API_TOKEN` not exported in shell yet — glif MCP fails auth until the vault-to-env hookup.
 - 2026-06-05 (4): **universal `--help` + inline comments + per-family docs across all 32 `bin/` scripts** (6 parallel family agents; gold standard = `fs-rm-folder-smart.sh`). Fixed 5 latent bugs surfaced in the pass (vid output-name collision → distinct suffixes, prores `nullglob`, missing `hvc1` tags, art-process old-name echo, ss-save shebang). The in-repo `bin/_bak/` quarantine **moved out to `~/_temp/bin_bak/`** — superseded scripts no longer live in the repo (convention updated in `12-scripts/INDEX.md`).
 - **Not committed by the agent** — the user owns all git. Working tree was left ready for the user's commit.
 
@@ -31,7 +34,7 @@ For chronological detail see `session-log/`. For load-bearing rules see `ARCHITE
 
 | path | role |
 |---|---|
-| `Brewfile` / `Brewfile-mirror.txt` | unified package manifest + **byte-identical** mirror |
+| `Brewfile` | unified package manifest (mirror retired 2026-06-05) |
 | `bootstrap.sh` | installer: `brew bundle`, then symlinks shell/git/ssh/vscode/iterm/mpv/**claude** + runs `macos/defaults.sh` |
 | `TOOLING.md` | tooling **audit**: drift, reconciliation, cross-arch portability, open items |
 | `docs/` | tooling **catalog**: 52 kol-docs `reference` docs, 11 categories + root INDEX |
@@ -48,8 +51,8 @@ For chronological detail see `session-log/`. For load-bearing rules see `ARCHITE
 
 ## Critical consistency seams
 
-### Brewfile mirror
-`Brewfile` and `Brewfile-mirror.txt` must stay byte-identical. Edit one → edit the other in the same pass. (ARCHITECTURE §2.)
+### Brewfile mirror — RETIRED
+`Brewfile-mirror.txt` left the repo 2026-06-05; the byte-identical sync rule died with it. Single manifest now. (ARCHITECTURE §2.)
 
 ### ~/.claude symlinks
 `claude/*` is symlinked into `~/.claude/`. Editing `~/.claude/CLAUDE.md`, `settings.json`, `skills/…` edits the repo. `bootstrap.sh` recreates the links.
@@ -64,17 +67,17 @@ Intel iMac = `/usr/local`, Apple-Silicon MBP = `/opt/homebrew`. No hardcoded pre
 
 ## Open items (live)
 
-- [ ] **mbp `~/.claude` reconcile.** The MBP runs Claude from iCloud `Workbox/.claude` with a *different* CLAUDE.md (8 KB/18 May vs repo's 7 KB) and divergent skills. **Do not `bootstrap.sh` the MBP until reconciled**, or fresher iCloud context is stranded.
+- [x] ~~mbp caveman purge~~ — **EXECUTED + verified 2026-06-05** (agent ran it directly). `settings.json`+`hooks/` symlinked to repo, plugin cache/marketplace/registry stripped, old settings parked at `~/_temp/settings-caveman-bak.json`. MBP `~/.claude` now fully on repo truth. Caveman speech clears on next session restart.
 - [ ] Resolve p10k / zsh-plugin duplication — brew vs oh-my-zsh, pick one source.
 - [ ] Decide pipx → uv consolidation; decide whether brew `node` stays on the MBP (pnpm self-manages it). **2026-06-05: Python variants 4 + 5 found on the MBP** — miniconda (`conda init` block in shared `shell/.zshrc` pollutes iMac PATH) and python.org framework 3.13 (its installer had written PATH lines through the symlink into tracked `shell/.zprofile` — repo file cleaned + brew shellenv arch-guarded same day; MBP uninstall steps in TOOLING.md § Python).
 - [ ] `brew upgrade` on each machine when convenient (the bundle install/upgraded the iMac on 2026-06-04 but lots stay outdated).
 - [ ] Optional adds called out in TOOLING.md: czkawka (already in), tdf (PDF TUI), fclones (faster exact dedup).
 - [ ] `rm -rf ~/.claude-server-commander` — orphaned Desktop Commander MCP logs (still present, confirmed in 2026-06-05 home audit).
 - [ ] **Home-dir declutter (deferred 2026-06-05):** Finder `AppleShowAllFiles`→false (re-hide legacy `~/.tool` dotfiles); XDG env block in `.zshenv` to nest *future* tool state + `SHELL_SESSIONS_DISABLE=1` + relocate `.zcompdump`→`~/.cache/zsh/`. Do NOT force-migrate live `.cargo`/`.rustup`/`.npm`. Detail in `session-log/2026-06-05-home-config-audit-relink.md`.
-- [x] ~~MiniMax token~~ — removed from repo; user confirmed unused ~9mo, left dormant; `~/secrets-to-revoke.txt` deleted. ~~GLIF_API_TOKEN~~ — already in vault (kol-tokens `Glif`, **in NOTES not password**). ~~`.claude-server-commander`~~ deleted.
+- [x] ~~MiniMax token~~ — **closed 2026-06-05, user doesn't use MiniMax; do not re-raise.** ~~GLIF_API_TOKEN~~ — already in vault (kol-tokens `Glif`, **in NOTES not password**). ~~`.claude-server-commander`~~ deleted.
 - [ ] **Vault dedup (user's call):** B2/rclone items overlap (`Backblaze B2 Credentials` = account master vs `rclone – kolkrabbi — b2` = app key, prefixes baked in). Agent's accidental 3rd item already deleted. See `meta/SECRETS_TO_MOVE.txt`.
-- [ ] **MBP home-config audit** — same relink check as the iMac got; expect different divergences.
-- [ ] **Rotate the Jackett API key** (was committed in `bin/tor-search` → in git history). Stored in the vault 2026-06-05 (`kol-tokens/Jackett`) but it's still the leaked key — regenerate in the Jackett dashboard, update the vault item. `GLIF_API_TOKEN` still needs storing (same pattern, `meta/BITWARDEN-SETUP.md` §5–6).
+- [x] ~~MBP home-config audit~~ — done 2026-06-05 (`meta/HOME-CONFIG-AUDIT.md` § MBP audit). Far cleaner than expected: only `~/.claude` diverged.
+- [x] ~~Jackett key rotation~~ — **closed by user decision 2026-06-05** (LAN-only service, not worth rotating). Key lives in the vault (`kol-tokens/Jackett`); do not re-raise.
 - [ ] **`~/.zshrc-bak`: ported 2026-06-05** (aliases, `bws`, history, `EDITOR`, cargo, iTerm2 — all in `shell/.zshrc` now, which was also rewritten clean). Delete the `-bak` once the user has lived with the new shell for a bit. iMac-only note: p10k is symlinked into `~/.oh-my-zsh/custom/themes/` from `/usr/local/share` (machine-local).
 - [ ] Review then maybe re-add the skills cut on 2026-06-04 (client-normalise, init-client/editor/repo, publication-mirror). **Caveman is permanently out** (plugin, hooks, and skill all removed).
 
@@ -92,7 +95,6 @@ macfuse triggers a sudo/kext dance; pdf2image's binaries clash with poppler's sy
 
 ## Contracts the next agent must not quietly break
 
-- `Brewfile` ≡ `Brewfile-mirror.txt` (byte-identical).
 - No hardcoded brew prefixes in tracked files.
 - **Never run git** (user-owned) and **never run provisioning** (`brew bundle`/`install`/`upgrade`, `bootstrap.sh`) — prepare, then hand off.
 - Don't track `~/.claude` runtime state (history/sessions/projects/caches) in the repo.

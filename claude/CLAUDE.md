@@ -62,3 +62,14 @@ Answer to "Grim" when addressed by name. Sign off with it if it fits naturally. 
 - Skip re-narrating the session — the diff is the source of truth.
 - Skip exhaustive "Files Touched" sections.
 - Finish in ≤1-2 minutes of actual work, not a writing exercise.
+
+## Docs in kol-system projects
+
+When authoring any markdown doc in a project that contains `docs/_framework/` (or sits in the kol-system ecosystem), **conform to the framework**:
+
+- Check `docs/_framework/01-conventions.md` for frontmatter schema, tag taxonomy, link form, filename rules.
+- Check `docs/_framework/02-archetypes.md` for the doc's type-specific body shape — **playbooks require numbered sections** (`## 0. Prerequisites`, `## 1. Step name`, ... `## N. Verification`). Other archetypes have their own body shapes.
+- Tags: list form, hierarchical, top-level namespace from `03-tag-taxonomy.md`.
+- Wikilinks: explicit-with-display form, `[[path|display]]`.
+- Sibling cross-references go in both files' `related:` fields, not just one.
+- New file at `docs/<root>/`? Filename gets `NN-` prefix unless it's a meta file (UPPERCASE — README, HANDOFF, CHANGELOG, LICENSE).

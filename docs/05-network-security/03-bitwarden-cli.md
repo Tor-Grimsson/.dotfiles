@@ -22,6 +22,7 @@ covers:
   - Writing items into the vault (GUI and CLI), targeting folders
 related:
   - "[[04-bitwarden|Bitwarden desktop]]"
+  - "[[08-vault-to-env-pattern|Vault → env pattern]]"
 ---
 
 ## Summary

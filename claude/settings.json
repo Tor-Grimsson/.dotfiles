@@ -34,28 +34,8 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
-  "theme": "dark-ansi",
-  "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "mcpServers": {
-    "playwright": {
-      "command": "npx",
-      "args": [
-        "@playwright/mcp",
-        "--headless"
-      ]
-    },
-    "glif": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "@glifxyz/glif-mcp-server@latest"
-      ],
-      "env": {
-        "GLIF_API_TOKEN": "${GLIF_API_TOKEN}"
-      }
-    }
-  },
-  "skipWorkflowUsageWarning": true
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  }
 }

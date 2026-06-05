@@ -21,11 +21,11 @@ Load-bearing decisions. Each was chosen deliberately and has downstream conseque
 
 ---
 
-## §2 — Unified Brewfile, and `Brewfile` ≡ `Brewfile-mirror.txt`
+## §2 — Unified Brewfile
 
-One Brewfile, identical on both machines (chosen over a per-host split). `Brewfile-mirror.txt` is a **byte-identical** mirror the user maintains.
+One Brewfile, identical on both machines (chosen over a per-host split).
 
-**Consequence:** every edit to `Brewfile` requires the same edit to `Brewfile-mirror.txt` in the same pass.
+`Brewfile-mirror.txt` (the byte-identical mirror) was **retired 2026-06-05** — the file left the repo in the iMac push; the sync-the-mirror consequence died with it. Single manifest, no shadow copy.
 
 **Do not revisit** unless a per-host split is deliberately adopted.
 

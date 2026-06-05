@@ -101,11 +101,13 @@ Scripts read these as env vars — `bin/tor-search` → `JACKETT_API_KEY`,
    ```
 
 Don't put step 2 in `.zshrc` unconditionally — every new shell would block on the unlock prompt.
-Optional one-word helper (add near `bwu`/`bwl` in `shell/.zshrc`):
+The `bwenv` helper (implemented in `shell/.zshrc`, 2026-06-05) loads the known tokens on demand:
 ```sh
-bwenv() { bwu >/dev/null || return 1; export "$1"="$(bw get password "$1")"; }
+bwenv && claude   # unlock once (Keychain-fed), export GLIF_API_TOKEN + JACKETT_API_KEY, launch
 ```
-Then run `bwenv JACKETT_API_KEY` in a shell that needs it.
+Field gotchas baked into it: `Glif` token lives in the item's **notes** (`bw get notes Glif`),
+`Jackett` in the password field. The launched process inherits the env — that's how
+`claude/settings.json`'s `${GLIF_API_TOKEN}` ref resolves.
 
 ## Notes
 

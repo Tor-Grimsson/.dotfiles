@@ -6,7 +6,6 @@
 
 # ── Taps ──────────────────────────────────────────────────────────────────────
 tap "siddharthvaddem/openscreen"   # provides the openscreen cask
-tap "valkyrie00/bbrew"             # provides bbrew
 tap "charmbracelet/tap"            # provides crush
 
 # ── Shell & prompt ──────────────────────────────────────────────────────────
@@ -63,7 +62,6 @@ brew "pngpaste"    # Paste clipboard PNG to a file
 # ── System & cloud ──────────────────────────────────────────────────────────
 brew "fastfetch"   # System info banner (neofetch successor — neofetch was pulled from Homebrew)
 brew "rclone"      # Rsync for cloud storage
-brew "valkyrie00/bbrew/bbrew" # TUI for managing Homebrew packages
 
 # NOTE: pkgconf + poppler + python@3.x are intentionally omitted — they arrive as
 #       dependencies (python is pulled by many formulae; poppler ← pdf2image / yazi).
@@ -107,6 +105,7 @@ cask "bitwarden"                   # Password manager (desktop)
 
 # Fonts
 cask "font-meslo-lg-nerd-font"     # Nerd Font (terminal/powerline glyphs)
+cask "font-meslo-for-powerlevel10k" # MesloLGS NF — the exact font iTerm profile + p10k reference
 cask "fontgoggles"                 # Font viewer for many font formats
 
 # ── VS Code extensions ────────────────────────────────────────────────────────

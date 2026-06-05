@@ -41,6 +41,9 @@ fi
 if [ -d "$DOT/iterm" ]; then
   defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$DOT/iterm"
   defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+  # Save changes: Manually — never auto-write the repo plist (keys are NoSync*, machine-local)
+  defaults write com.googlecode.iterm2 NoSyncNeverRemindPrefsChangesLostForFile -bool true
+  defaults write com.googlecode.iterm2 NoSyncNeverRemindPrefsChangesLostForFile_selection -int 1
 fi
 
 # Claude Code (native installer, not brew)
@@ -58,6 +61,12 @@ if [ -d "$DOT/claude" ]; then
   ln -sfn "$DOT/claude/commands"      "$HOME/.claude/commands"
   ln -sfn "$DOT/claude/agents"        "$HOME/.claude/agents"
   ln -sfn "$DOT/claude/output-styles" "$HOME/.claude/output-styles"
+fi
+
+# Claude MCP servers — user scope lives in ~/.claude.json, not settings.json
+if command -v claude >/dev/null 2>&1; then
+  claude mcp add --scope user playwright -- npx @playwright/mcp --headless 2>/dev/null || true
+  claude mcp add --scope user glif -e 'GLIF_API_TOKEN=${GLIF_API_TOKEN}' -- npx -y @glifxyz/glif-mcp-server@latest 2>/dev/null || true
 fi
 
 # Claude skill dependencies (claude/packages → ~/.local/bin)

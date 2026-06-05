@@ -2,7 +2,7 @@
 title: Network & Security
 type: index
 status: active
-updated: 2026-06-04
+updated: 2026-06-05
 description: Tools for scanning, measuring, and securing the local network plus credential and malware management.
 tags:
   - domain/network
@@ -20,3 +20,4 @@ Command-line scanners and benchmarks for the local network, alongside the passwo
 | [[05-termius\|Termius]] | Cross-platform SSH client with a managed, syncable host list. |
 | [[06-clamav\|ClamAV]] | Open-source antivirus engine that powers the Transmission download quarantine script. |
 | [[07-iperf3\|iperf3]] | Active measurement tool for benchmarking TCP/UDP throughput between two hosts. |
+| [[08-vault-to-env-pattern\|Vault → env pattern]] | The store → unlock → export → inherit chain for secrets, drilled with five examples. |

@@ -67,5 +67,25 @@ Finder can't pipe a file into a terminal program, so you wrap it. **Implemented*
 
 Alternatives not used: a `.app` wrapper as the double-click default for `.md` (more invasive), or a plain `g() { glow -p "$@"; }` shell function (not Finder).
 
+## MBP keyboard-shortcut status — STILL INCOMPLETE (2026-06-05)
+
+What the MBP reconcile got right, what it missed, and what remains open:
+
+**Done and verified:**
+- glow installed (brew bundle), `glow.yml` linked, workflow symlinked into `~/Library/Services` + pbs-registered.
+- `bin/glow-open.sh` verified working standalone (opens an iTerm window rendering the file).
+- A ⌃⇧G bind for "Open in glow" already existed in this machine's `pbs.plist` (`NSServicesStatus`) from an earlier setup and reattached by name when the workflow was relinked.
+
+**What the agent got wrong during verification:**
+- First claimed "no shortcut bound" — it read the workflow's *registration* (`pbs -dump_pboard`, whose `NSKeyEquivalent` is the workflow's built-in key, always empty) instead of the user-assignment store (`defaults read pbs NSServicesStatus`). Wrong store.
+- Then claimed the reattached binds meant "done" — without ever testing that pressing the key actually dispatches the workflow. It doesn't (yet).
+
+**Still incomplete:** ⌃⇧G in Finder does not fire the Quick Action. Script and workflow are healthy, so the break is in keypress → service dispatch. Untested candidate fixes, in order:
+1. Log out / back in (pbs key-equivalents commonly need a session restart to take).
+2. Right-click → Quick Actions → "Open in glow" once, to surface the first-run permission dialog.
+3. If both fail: check for a ⌃⇧G conflict and re-assign the bind in System Settings → Keyboard → Shortcuts → Services.
+
+Update this section when the chain works end-to-end.
+
 ## Future use
 Pipe rendered docs (`glow doc.md | less -R`), set a default style/width via `~/.config/glow/glow.yml`, or wire it as the markdown previewer in `yazi`. Note: terminals can't show images, so embedded `![]()` images render as nothing — text-only.
