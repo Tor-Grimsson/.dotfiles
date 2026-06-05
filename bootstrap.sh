@@ -113,6 +113,15 @@ if [ -d "$DOT/macos/services" ]; then
   /System/Library/CoreServices/pbs -flush 2>/dev/null || true
 fi
 
+# dot-sync launchd agent — auto-sync this repo every 30 min (bin/dot-sync.sh --auto)
+# Copied, not symlinked: launchd is unreliable with symlinked plists on modern macOS.
+if [ -f "$DOT/macos/launchd/com.kolkrabbi.dot-sync.plist" ]; then
+  mkdir -p "$HOME/Library/LaunchAgents"
+  cp "$DOT/macos/launchd/com.kolkrabbi.dot-sync.plist" "$HOME/Library/LaunchAgents/"
+  launchctl bootout "gui/$(id -u)/com.kolkrabbi.dot-sync" 2>/dev/null || true
+  launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.kolkrabbi.dot-sync.plist"
+fi
+
 # Terminal.app prefs — import (not symlink; Terminal is cfprefsd-cached). Close Terminal first.
 if [ -f "$DOT/terminal/com.apple.Terminal.plist" ]; then
   defaults import com.apple.Terminal "$DOT/terminal/com.apple.Terminal.plist"

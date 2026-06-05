@@ -27,6 +27,7 @@ CLI helpers in `~/.dotfiles/bin` (symlinked to `~/bin`, on PATH). Renamed 2026-0
 | `fs-` / `ss-` | [[08-system\|System & clipboard]] | 3 | — |
 | `finder-` | [[09-finder\|Finder selection]] | 1 | ⇧⌥⌃A, ⇧⌥⌃S (Quick Actions) |
 | `qa-` | [[10-quick-actions\|Quick Actions]] | 1 | generator — stamps new Quick Actions |
+| `dot-` | [[11-dot-sync\|Dotfiles sync]] | 1 | launchd daemon — every 30 min |
 
 Some scripts are also wired as **Finder Quick Actions** (`macos/services/`, symlinked by `bootstrap.sh`,
 hotkeys in `macos/defaults.sh` §8): Open in glow, Open in TextEdit (⇧⌥⌃E), Select Every Other (⇧⌥⌃A / ⇧⌥⌃S),

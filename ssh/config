@@ -7,3 +7,10 @@ Include ~/.orbstack/ssh/config
 Host ubuntu-vm
   HostName 192.168.1.40
   User kolkrabbi
+
+# Non-interactive GitHub auth (dot-sync launchd daemon pushes/pulls headless).
+# Keychain holds the passphrase; the agent loads the key on demand.
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
