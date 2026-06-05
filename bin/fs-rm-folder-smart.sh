@@ -1,82 +1,82 @@
 #!/bin/bash
+# fs-rm-folder-smart.sh — flatten: move files out of subfolders, then remove the
+# emptied folders. Name clashes auto-resolve (file.ext → file-bak1.ext).
 
-# --- INSTRUCTIONS & USAGE ---
-# 1. Save this script and make it executable: chmod +x rm-fold-smart.sh
-# 2. Run normally to move files up one level: ./rm-fold-smart.sh
-# 3. Use the -w flag to move all files to the current working directory: ./rm-fold-smart.sh -w
-# ----------------------------
+usage() {
+  cat <<'EOF'
+fs-rm-folder-smart.sh — flatten nested folders, in the CURRENT directory.
 
-# Set default behavior: move files up one level (parent directory)
+Moves files OUT of subfolders and deletes the folders once empty. Processes
+deepest-first, so nested trees collapse without losing files. Name clashes
+auto-resolve: file.ext → file-bak1.ext, file-bak2.ext, …
+
+USAGE
+  fs-rm-folder-smart.sh [options]        # run it inside the folder you want flattened
+
+OPTIONS
+  -w, --working-dir   Move every file to the current dir (full flatten), instead of
+                      up ONE level into each folder's own parent.
+  -d, --depth N       Only unpack folders up to N levels deep (default: all levels).
+                      N=1 → only the immediate subfolders are emptied; deeper nesting
+                      is left intact.
+  -n, --dry-run       Print the MOVE/RMDIR actions, change nothing.
+  -h, --help          Show this.
+
+EXAMPLES
+  fs-rm-folder-smart.sh                  # flatten fully, one level per folder
+  fs-rm-folder-smart.sh -w               # pull every file up to the current dir
+  fs-rm-folder-smart.sh -d 1             # only empty the immediate subfolders
+  fs-rm-folder-smart.sh -n -w            # preview a full flatten, touch nothing
+EOF
+}
+
 FLATTEN_TO_WD=false
+DRY_RUN=false
+MAXDEPTH=""
 
-# Parse command line arguments
 while [[ "$#" -gt 0 ]]; do
     case $1 in
-        -w|--working-dir) 
-            FLATTEN_TO_WD=true 
-            shift 
-            ;;
-        *) 
-            echo "Unknown parameter: $1"
-            echo "Usage: $0 [-w|--working-dir]"
-            exit 1 
-            ;;
+        -w|--working-dir) FLATTEN_TO_WD=true; shift ;;
+        -d|--depth)
+            MAXDEPTH="$2"
+            [[ "$MAXDEPTH" =~ ^[1-9][0-9]*$ ]] || { echo "--depth needs a positive integer" >&2; exit 1; }
+            shift 2 ;;
+        -n|--dry-run) DRY_RUN=true; shift ;;
+        -h|--help) usage; exit 0 ;;
+        *) echo "Unknown parameter: $1" >&2; echo "Try: $0 --help" >&2; exit 1 ;;
     esac
 done
 
-# We must export this variable so it is accessible inside the subshell 
-# created by the 'find -exec bash -c' command.
-export FLATTEN_TO_WD
+export FLATTEN_TO_WD DRY_RUN
 
-# Use find to locate all directories starting from the current path.
-# -mindepth 1 ensures we don't try to move the current directory (.) into itself.
-find . -type d -mindepth 1 -exec bash -c '
+# -depth = post-order (children before parents): a folder's deeper subdirs are emptied
+# and removed BEFORE the folder itself, so files always bubble up safely. We only ever
+# rmdir (empty-only) — never rm -rf — so a folder still holding un-flattened deeper
+# content (e.g. beyond --depth) is left intact instead of being nuked.
+maxdepth_args=()
+[[ -n "$MAXDEPTH" ]] && maxdepth_args=(-maxdepth "$MAXDEPTH")
+
+find . -mindepth 1 "${maxdepth_args[@]}" -depth -type d -exec bash -c '
 for d; do
-  # dotglob: include hidden files; nullglob: prevent errors if folder is empty
   shopt -s dotglob nullglob
-  
   for f in "$d"/*; do
-    # Skip if the path is a directory (we only want to move files/links)
-    [ -d "$f" ] && continue
-
+    [ -d "$f" ] && continue                       # only move files/links, not dirs
     filename=$(basename "$f")
-    
-    # Logic to split filename and extension for "smart" renaming
-    if [[ "$filename" == *.* ]]; then
-        ext=".${filename##*.}"
-        name="${filename%.*}"
+    if [[ "$filename" == *.* ]]; then ext=".${filename##*.}"; name="${filename%.*}"; else ext=""; name="$filename"; fi
+
+    if [ "$FLATTEN_TO_WD" = true ]; then dest_dir="."; else dest_dir="$(dirname "$d")"; fi
+
+    if [[ -e "$dest_dir/$filename" ]]; then
+      i=1; while [[ -e "$dest_dir/$name-bak$i$ext" ]]; do ((i++)); done
+      dest="$dest_dir/$name-bak$i$ext"
     else
-        ext=""
-        name="$filename"
+      dest="$dest_dir/$filename"
     fi
 
-    # Determine destination based on the flag
-    # If -w was used, dest_dir is the root (.). Otherwise, it is the parent folder.
-    if [ "$FLATTEN_TO_WD" = true ]; then
-      dest_dir="."
-    else
-      dest_dir="$(dirname "$d")"
-    fi
-    
-    dest="$dest_dir/$filename"
-
-    # Handle Naming Conflicts
-    if [[ -e "$dest" ]]; then
-      i=1
-      # Loop until a unique "filename-bakN.ext" is found
-      while [[ -e "$dest_dir/$name-bak$i$ext" ]]; do
-        ((i++))
-      done
-      mv "$f" "$dest_dir/$name-bak$i$ext"
-    else
-      # No conflict, move file normally
-      mv "$f" "$dest_dir/"
-    fi
+    if [ "$DRY_RUN" = true ]; then echo "MOVE  $f  ->  $dest"; else mv "$f" "$dest"; fi
   done
 
-  # Attempt to remove the directory after its contents are processed.
-  # If -w is NOT used, this only works if the directory is truly empty.
-  # Replace the rmdir line at the bottom with this:
-    rm -rf "$d" 2>/dev/null
+  # remove only if now empty; leave folders that still hold deeper (un-flattened) content
+  if [ "$DRY_RUN" = true ]; then echo "RMDIR $d (if empty)"; else rmdir "$d" 2>/dev/null || true; fi
 done
 ' bash {} +

@@ -1,35 +1,51 @@
 #!/bin/bash
-# vconvert.sh — scale+crop any video to a target aspect/resolution (no letterbox)
-#
-# Usage:
-#   vconvert.sh -a <aspect> -r <res> -o <origin> -i <input> -p <outdir> [-n <name>]
-#
-#   -a  aspect:  16:9 | 5:3 | 4:3 | 1:1 | 3:4 | 3:5 | 9:16
-#   -r  res:     1k (1920) | 2k (2560) | 4k (3840)   — longest side
-#   -o  origin:  left | right | center | top | bottom | middle   (crop anchor)
-#   -i  input video
-#   -p  output directory
-#   -n  output filename (optional; default: <stem>_<aspect>_<res>_<origin>.mov)
-#
-# Examples:
-#   # 2K vertical 3:5, crop centered, output to current dir
-#   vconvert.sh -a 3:5 -r 2k -o center -i yourvideo.mp4 -p .
-#
-#   # 4K square, crop centered
-#   vconvert.sh -a 1:1 -r 4k -o center -i clip.mov -p ~/out
-#
-#   # 1080p vertical (9:16) from landscape source, anchor to left edge
-#   vconvert.sh -a 9:16 -r 1k -o left -i wide.mp4 -p ~/out -n reel.mov
-#
-#   # 2K cinematic 5:3, anchor top (keep sky, crop floor)
-#   vconvert.sh -a 5:3 -r 2k -o top -i drone.mp4 -p ~/out
-#
-#   # 4:3 retro from 4K source, anchor bottom
-#   vconvert.sh -a 4:3 -r 2k -o bottom -i src.mov -p ./exports
+# vid-convert.sh — scale+crop any video to a target aspect/resolution (no letterbox).
+
+usage() {
+  cat <<'EOF'
+vid-convert.sh — scale + crop a video to a target aspect/resolution, no letterbox.
+
+Scales the source so it FILLS the target box (longest side = chosen res), then
+crops the overflow to the exact aspect. Re-encodes to H.265 (libx265, CRF 20).
+Output dims are forced even for yuv420p/HEVC.
+
+USAGE
+  vid-convert.sh -a <aspect> -r <res> -o <origin> -i <input> -p <outdir> [-n <name>]
+
+ARGUMENTS
+  -a  aspect   16:9 | 5:3 | 4:3 | 1:1 | 3:4 | 3:5 | 9:16
+  -r  res      1k (1920) | 2k (2560) | 4k (3840)   — applied to the LONGEST side
+  -o  origin   left | right | center | top | bottom | middle   (crop anchor; default center)
+  -i  input    input video file
+  -p  outdir   output directory (created if missing)
+  -n  name     output filename (optional; default <stem>_<aspect>_<res>_<origin>.mov)
+  -h           show this help
+
+EXAMPLES
+  # 2K vertical 3:5, crop centered, output to current dir
+  vid-convert.sh -a 3:5 -r 2k -o center -i yourvideo.mp4 -p .
+
+  # 4K square, crop centered
+  vid-convert.sh -a 1:1 -r 4k -o center -i clip.mov -p ~/out
+
+  # 1080p vertical (9:16) from landscape source, anchor to left edge
+  vid-convert.sh -a 9:16 -r 1k -o left -i wide.mp4 -p ~/out -n reel.mov
+
+  # 2K cinematic 5:3, anchor top (keep sky, crop floor)
+  vid-convert.sh -a 5:3 -r 2k -o top -i drone.mp4 -p ~/out
+
+NOTES
+  Codec: H.265 (libx265, software) in a .mov, audio stream-copied. Needs ffmpeg.
+  Output lands in <outdir>; faststart is set so the file streams from the first byte.
+EOF
+}
+
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
 
 set -euo pipefail
 
-usage() { sed -n '2,25p' "$0"; exit 1; }
+# Bad/missing flags fall through to here: show help, exit non-zero.
+bad_usage() { usage; exit 1; }
 
 aspect=""; res=""; origin="center"; input=""; outdir=""; name=""
 while getopts "a:r:o:i:p:n:h" opt; do
@@ -40,11 +56,13 @@ while getopts "a:r:o:i:p:n:h" opt; do
     i) input=$OPTARG ;;
     p) outdir=$OPTARG ;;
     n) name=$OPTARG ;;
-    *) usage ;;
+    h) usage; exit 0 ;;
+    *) bad_usage ;;
   esac
 done
 
-[[ -z $aspect || -z $res || -z $input || -z $outdir ]] && usage
+# aspect/res/input/outdir are mandatory; anything missing is a usage error.
+[[ -z $aspect || -z $res || -z $input || -z $outdir ]] && bad_usage
 [[ ! -f $input ]] && { echo "input not found: $input" >&2; exit 1; }
 
 case $res in
@@ -65,6 +83,7 @@ case $aspect in
   *) echo "bad aspect: $aspect" >&2; exit 1 ;;
 esac
 
+# Map the chosen res onto the LONGEST side, derive the short side from the aspect.
 if (( aw >= ah )); then
   W=$long
   H=$(( long * ah / aw ))
@@ -72,9 +91,10 @@ else
   H=$long
   W=$(( long * aw / ah ))
 fi
-# force even dims for yuv420p / hevc
+# yuv420p chroma subsampling + HEVC both require even width/height; round down.
 W=$(( W - W % 2 )); H=$(( H - H % 2 ))
 
+# Crop anchor → ffmpeg crop x/y offsets. iw/ih = scaled input, ow/oh = crop output.
 case $origin in
   left)            cx=0;           cy="(ih-oh)/2" ;;
   right)           cx="iw-ow";     cy="(ih-oh)/2" ;;
@@ -90,6 +110,8 @@ aspect_tag=${aspect/:/x}
 out="${name:-${stem}_${aspect_tag}_${res}_${origin}.mov}"
 outpath="$outdir/$out"
 
+# increase = scale UP until the frame covers the target box (overflow then cropped);
+# lanczos = high-quality resampler. crop trims the overflow at the chosen anchor.
 vf="scale=${W}:${H}:force_original_aspect_ratio=increase:flags=lanczos,crop=${W}:${H}:${cx}:${cy}"
 
 ffmpeg -i "$input" \

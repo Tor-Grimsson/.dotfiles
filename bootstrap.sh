@@ -99,6 +99,8 @@ if [ -d "$DOT/macos/services/Open in glow.workflow" ]; then
   mkdir -p "$HOME/Library/Services"
   ln -sfn "$DOT/macos/services/Open in glow.workflow" "$HOME/Library/Services/Open in glow.workflow"
   ln -sfn "$DOT/macos/services/Open in TextEdit.workflow" "$HOME/Library/Services/Open in TextEdit.workflow"
+  ln -sfn "$DOT/macos/services/Select Every Other.workflow" "$HOME/Library/Services/Select Every Other.workflow"
+  ln -sfn "$DOT/macos/services/Select Every Other (Even).workflow" "$HOME/Library/Services/Select Every Other (Even).workflow"
   /System/Library/CoreServices/pbs -flush 2>/dev/null || true
 fi
 

@@ -56,10 +56,14 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # ── Services shortcuts ───────────────────────────────────────────────────────
-# "Open in TextEdit" Quick Action (macos/services/, symlinked by bootstrap.sh) → ⇧⌥⌃E
+# Quick Actions (macos/services/, symlinked by bootstrap.sh).
 # key_equivalent glyphs: @ cmd, $ shift, ~ option, ^ control
 defaults write pbs NSServicesStatus -dict-add '"(null) - Open in TextEdit - runWorkflowAsService"' \
-  '{key_equivalent = "$~^e"; enabled_services_menu = 1; presentation_modes = {ContextMenu = 1; ServicesMenu = 1;};}'
+  '{key_equivalent = "$~^e"; enabled_services_menu = 1; presentation_modes = {ContextMenu = 1; ServicesMenu = 1;};}'   # ⇧⌥⌃E
+defaults write pbs NSServicesStatus -dict-add '"(null) - Select Every Other - runWorkflowAsService"' \
+  '{key_equivalent = "$~^a"; enabled_services_menu = 1; presentation_modes = {ContextMenu = 1; ServicesMenu = 1;};}'   # ⇧⌥⌃A
+defaults write pbs NSServicesStatus -dict-add '"(null) - Select Every Other (Even) - runWorkflowAsService"' \
+  '{key_equivalent = "$~^s"; enabled_services_menu = 1; presentation_modes = {ContextMenu = 1; ServicesMenu = 1;};}'   # ⇧⌥⌃S
 /System/Library/CoreServices/pbs -flush 2>/dev/null || true
 
 echo "Restarting Finder, Dock, SystemUIServer…"

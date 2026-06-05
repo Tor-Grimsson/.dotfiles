@@ -177,6 +177,7 @@ Keyboard shortcuts for **Services / Quick Actions** live in their own domain, `p
 | Shortcut | Service | Source |
 |---|---|---|
 | ⇧⌥⌃E | Open in TextEdit (any Finder file) | `macos/services/Open in TextEdit.workflow` |
+| ⇧⌥⌃A | Select Every Other (thins the Finder selection to the 1st/3rd/5th…) | `macos/services/Select Every Other.workflow` → `bin/finder-select-alternate.sh` |
 | — (menu only) | Open in glow (markdown) | `macos/services/Open in glow.workflow` |
 
 The workflows themselves are symlinked into `~/Library/Services` by `bootstrap.sh`. After changing a binding: `/System/Library/CoreServices/pbs -flush` and restart Finder.

@@ -14,7 +14,7 @@ tags:
 | Script | Does | Usage |
 |--------|------|-------|
 | `tor-jackett` | Symlink → the local Jackett binary (`~/.local/share/jackett/jackett`). Torrent indexer proxy. Gitignored (machine-local) | `tor-jackett` |
-| `tor-search` | Search Jackett, pick a result, send its magnet to Transmission | `tor-search <search term>` |
+| `tor-search` | Search Jackett, pick a result, send its magnet to Transmission | `tor-search <search term>` — run `--help`/`-h` |
 
 ## How the chain works
 

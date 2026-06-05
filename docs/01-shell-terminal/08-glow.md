@@ -62,7 +62,7 @@ pager: true     # always page → `glow file.md` becomes scrollable (q to quit)
 Finder can't pipe a file into a terminal program, so you wrap it. **Implemented** as a Quick Action:
 
 - Right-click a `.md` → **"Open in glow"** → new iTerm (or Terminal) window rendering the file with `glow -p`. Quitting glow (`q`) leaves the window open at a prompt.
-- Engine: `bin/glow-open.sh` (works standalone too: `glow-open.sh file.md`).
+- Engine: `bin/glow-open.sh` (works standalone too: `glow-open.sh file.md`; `glow-open.sh --help` documents it).
 - Quick Action: `macos/services/Open in glow.workflow`, symlinked into `~/Library/Services` by `bootstrap.sh`; it calls `$HOME/bin/glow-open.sh`.
 
 Alternatives not used: a `.app` wrapper as the double-click default for `.md` (more invasive), or a plain `g() { glow -p "$@"; }` shell function (not Finder).

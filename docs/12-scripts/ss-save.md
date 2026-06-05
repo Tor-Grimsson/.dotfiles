@@ -2,6 +2,8 @@
 
 Saves the **clipboard image** to a file via `pngpaste`.
 
+**Help:** `ss-save.sh --help` prints the full usage (args, defaults, examples) — same rules as below.
+
 ## The mental model (this is the part that trips people up)
 
 ```

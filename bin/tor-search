@@ -1,5 +1,40 @@
 #!/bin/bash
 
+# tor-search — search Jackett's aggregated indexers, pick a result, send its
+# magnet to Transmission. Interactive; the query is the positional args.
+
+usage() {
+  cat <<'EOF'
+tor-search — search Jackett, pick a result, send its magnet to Transmission.
+
+Joins all positional args into one query, hits the local Jackett API across every
+configured indexer, prints a numbered table (indexer | size | seeders | title),
+then prompts for an id and hands that magnet to transmission-remote.
+
+USAGE
+  tor-search <search term>
+
+ARGUMENTS
+  <search term>   The query. Multiple words are fine unquoted — they're joined
+                  and URL-encoded. e.g. `tor-search dune part two`.
+
+EXAMPLES
+  tor-search dune part two     # multi-word query, no quotes needed
+  tor-search "the wire s01"    # quoting is optional, only matters for shell globs
+
+NOTES
+  Needs `jq` (brew install jq) and a running transmission-daemon for the handoff.
+  Jackett must be running at http://127.0.0.1:9117 (start it with `tor-jackett`).
+  API key: $JACKETT_API_KEY if exported, else Bitwarden item "Jackett" — so run
+  `bwu` once per shell to unlock the vault first.
+EOF
+}
+
+# Intercept help BEFORE the API-key check below, so --help works with no vault/daemon.
+case "${1:-}" in
+  -h|--help) usage; exit 0 ;;
+esac
+
 # --- CONFIG ---
 JACKETT_URL="http://127.0.0.1:9117"
 # key: env var if set, else pull from Bitwarden (item "Jackett", needs an unlocked session — run bwu)
@@ -11,10 +46,12 @@ fi
 TRANSMISSION_CMD="transmission-remote"
 
 # --- HELPERS ---
+# Join all args into one string and URL-encode spaces (%20) for the Query= param.
 QUERY=$(echo "$@" | sed 's/ /%20/g')
 
+# Empty query → short usage line (the full one is `--help`).
 if [ -z "$QUERY" ]; then
-    echo "Usage: tor-search <search term>"
+    echo "Usage: tor-search <search term>  (see --help)"
     exit 1
 fi
 
@@ -25,10 +62,10 @@ fi
 
 echo "🔍 Searching Jackett for: $@..."
 
-# Fetch results
+# Fetch results — `indexers/all` fans the query out to every configured indexer.
 RESULTS=$(curl -s "$JACKETT_URL/api/v2.0/indexers/all/results?apikey=$API_KEY&Query=$QUERY")
 
-# Check if we got results
+# Check if we got results (also covers a malformed/empty response → null length).
 COUNT=$(echo "$RESULTS" | jq '.Results | length')
 if [ "$COUNT" -eq 0 ] || [ "$COUNT" == "null" ]; then
     echo "❌ No results found. Make sure Jackett is running and you added indexers."
@@ -40,11 +77,13 @@ echo "--------------------------------------------------------------------------
 echo "$RESULTS" | jq -r '.Results | to_entries[] | "[\(.key)] \(.value.Indexer) | \(.value.Size/1024/1024 | round)MB | S:\(.value.Seeders) | \(.value.Title)"'
 echo "--------------------------------------------------------------------------------"
 
-# Ask user
+# Ask user for a row id (the [n] in the table); anything non-numeric quits.
 read -p "Enter ID to download (or 'q' to quit): " SELECTION
 
+# Accept only a valid in-range index, then pull that result's magnet.
 if [[ "$SELECTION" =~ ^[0-9]+$ ]] && [ "$SELECTION" -lt "$COUNT" ]; then
     MAGNET=$(echo "$RESULTS" | jq -r ".Results[$SELECTION].MagnetUri")
+    # Some results have no magnet (jq returns the string "null") — guard before sending.
     if [ "$MAGNET" != "null" ]; then
         echo "🚀 Sending to Transmission..."
         $TRANSMISSION_CMD -a "$MAGNET"
