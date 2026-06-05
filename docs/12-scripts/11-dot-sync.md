@@ -9,6 +9,7 @@ tags:
   - domain/scripts/sync
 related:
   - "[[INDEX|Scripts index]]"
+  - "[[dot-sync-explained|dot-sync, explained slowly]]"
 ---
 
 # Dotfiles sync (`dot-`)
