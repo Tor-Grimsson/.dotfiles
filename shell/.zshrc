@@ -78,6 +78,12 @@ alias v-bridge='rclone sync "$HOME/Library/Mobile Documents/com~apple~CloudDocs/
 alias v-backup='rclone copy "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Workbox/kol-vault-mgmt/kol-vault-workbox" "kolkrabbi:kolkrabbi/kol-vault-mgmt/kol-vault-workbox" --exclude-from "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Workbox/kol-vault-mgmt/kol-vault-workbox/.rcloneignore" -vP'
 alias v-push='v-bridge && v-backup'
 
+# carbonyl: Chromium in the terminal (via OrbStack/Docker)
+carbonyl() {
+  docker run -ti --rm fathyb/carbonyl --fps 30 --force-effective-connection-type=3G "$@"
+}
+alias hn='carbonyl https://news.ycombinator.com'
+
 # ── Bitwarden ─────────────────────────────────────────────────────────────────
 # unlock + export session key; reads master password from macOS Keychain (item: bw-master), falls back to prompt
 bwu() {

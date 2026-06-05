@@ -2,8 +2,8 @@
 title: Tooling catalog
 type: index
 status: active
-updated: 2026-06-04
-description: One reference doc per installed tool (54 tools, 11 categories), each with verified links and a why/use/win/how/future write-up. Routes to every category.
+updated: 2026-06-05
+description: One reference doc per installed tool (56 tools, 12 categories), each with verified links and a why/use/win/how/future write-up. Routes to every category.
 tags:
   - project/dotfiles
   - domain/tooling
@@ -13,7 +13,7 @@ related:
 
 # Tooling catalog
 
-One `reference` doc per tool in this setup — **52 tools across 11 categories**. Each doc carries verified links (website / repo / manual / brew) in frontmatter and a body covering *what it is, why it's installed, the common use case, the biggest win, how to use it, and future use*.
+One `reference` doc per tool in this setup — **54 tools across 12 categories**. Each doc carries verified links (website / repo / manual / brew) in frontmatter and a body covering *what it is, why it's installed, the common use case, the biggest win, how to use it, and future use*.
 
 Folders group by **function**. Two cross-cutting axes live in **tags**, not folders, so you can slice either way:
 - **Interface** — `pattern/cli` · `pattern/tui` · `pattern/gui` · `pattern/library`
@@ -36,6 +36,7 @@ Folders group by **function**. Two cross-cutting axes live in **tags**, not fold
 | 10 | [[10-fonts/INDEX\|Fonts]] | 2 | Nerd Font, font viewer |
 | 11 | [[11-cloud-sync/INDEX\|Cloud & Sync]] | 1 | rclone |
 | 12 | [[12-scripts/INDEX\|Scripts]] | 33 | `bin/` helpers: au/vid/img/pdf/art/batch/tor/fs |
+| 13 | [[13-terminal-browsers/INDEX\|Terminal Browsers]] | 2 | Carbonyl (full Chromium via Docker), w3m (text-mode) |
 
 ## Related
 - [[TOOLING|Tooling audit & sync]] — the drift audit, Brewfile reconciliation, cross-arch portability notes, and open items.
