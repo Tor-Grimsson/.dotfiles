@@ -165,7 +165,25 @@ defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 ---
 
-## 8. Reverting and tweaking — important gotcha
+## 8. Services shortcuts
+
+```sh
+defaults write pbs NSServicesStatus -dict-add '"(null) - Open in TextEdit - runWorkflowAsService"' \
+  '{key_equivalent = "$~^e"; enabled_services_menu = 1; presentation_modes = {ContextMenu = 1; ServicesMenu = 1;};}'
+```
+
+Keyboard shortcuts for **Services / Quick Actions** live in their own domain, `pbs` (the pasteboard/services daemon), keyed by `"<bundle> - <menu name> - <message>"` — Automator workflows use `(null)` as the bundle. The `key_equivalent` string is modifier glyphs + key: `@` cmd, `$` shift, `~` option, `^` control.
+
+| Shortcut | Service | Source |
+|---|---|---|
+| ⇧⌥⌃E | Open in TextEdit (any Finder file) | `macos/services/Open in TextEdit.workflow` |
+| — (menu only) | Open in glow (markdown) | `macos/services/Open in glow.workflow` |
+
+The workflows themselves are symlinked into `~/Library/Services` by `bootstrap.sh`. After changing a binding: `/System/Library/CoreServices/pbs -flush` and restart Finder.
+
+---
+
+## 9. Reverting and tweaking — important gotcha
 
 `defaults write` is **one-directional**. Commenting a line out of the script and re-running does **not** undo a value you already wrote — the key is still in the database. To truly revert:
 
@@ -185,7 +203,7 @@ diff /tmp/before /tmp/after            # shows exactly which key changed
 
 ---
 
-## 9. `defaults.sh` vs `macos/prefs/*.plist`
+## 10. `defaults.sh` vs `macos/prefs/*.plist`
 
 These are **two different mechanisms** for the same database — don't confuse them:
 

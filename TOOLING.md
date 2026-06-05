@@ -90,6 +90,16 @@ Both manage Python, different jobs — they overlap only at "run a CLI tool".
 
 `uv tool` / `uvx` does exactly what pipx does. **uv is the modern superset** — recommend consolidating onto uv and migrating pipx tools (`pipx list` → reinstall via `uv tool install`), then dropping pipx. Kept both for now to avoid breaking muscle memory.
 
+**4th variant found 2026-06-05: miniconda on the MBP** (`/opt/miniconda3`, installed outside brew — not in the Brewfile). Its `conda init` block sits in the *shared* `shell/.zshrc`, so on the iMac the else-branch prepends a nonexistent `/opt/miniconda3/bin` to PATH on every shell. Recommendation: audit what actually uses conda on the MBP (`conda env list`); if nothing conda-specific (compiled DS stacks), uninstall it, let uv own Python end-to-end, and drop the init block from the shared zshrc. If it must stay, guard the block with `[ -d /opt/miniconda3 ]` so the iMac stops inheriting it.
+
+**5th variant found 2026-06-05: python.org framework 3.13 on the MBP** (`/Library/Frameworks/Python.framework/Versions/3.13`). Evidence: `~/.zprofile.pysave` — the python.org installer's backup; it appended its PATH block **through the bootstrap symlink into the tracked `shell/.zprofile`** (removed same day, along with a hardcoded `/opt/homebrew` brew-shellenv — now arch-guarded). Uninstall on the MBP:
+```sh
+sudo rm -rf "/Library/Frameworks/Python.framework/Versions/3.13" "/Applications/Python 3.13"
+ls -l /usr/local/bin | grep 'Python.framework'   # → sudo rm each listed symlink
+rm ~/.zprofile.pysave
+```
+Need a 3.13 after that? `uv python install 3.13`.
+
 ### PDF & images
 - **pdf2svg** — PDF page → SVG **vector** (Inkscape/editable pipeline).
 - **img2pdf** — images → PDF, **lossless** (embeds JPEG/PNG, no recompression). Scan-to-PDF.
@@ -256,6 +266,8 @@ Rule going forward: use the command name (rely on PATH) or `$(brew --prefix)/bin
 - [ ] Review iMac-only *leaves* for unwanted ghosts (autoremove only catches orphaned deps, not unwanted explicit installs).
 - [ ] Resolve p10k / zsh-plugin duplication — brew vs oh-my-zsh, pick one.
 - [ ] Decide pipx → uv consolidation.
+- [ ] **miniconda on the MBP** (4th Python variant, outside brew) — audit `conda env list`, then uninstall + drop the `conda init` block from `shell/.zshrc`, or guard it with `[ -d /opt/miniconda3 ]`.
+- [ ] **python.org 3.13 framework on the MBP** (5th variant) — uninstall per § Python; `rm ~/.zprofile.pysave`.
 - [ ] Decide whether brew `node` stays on the MBP (vs pnpm-managed).
 - [ ] Many packages outdated on both (`brew update` 2026-06-04) — `brew upgrade` at your discretion; not run here.
 - [ ] Optional adds: tdf (TUI PDF viewer); fclones (faster exact dedup).

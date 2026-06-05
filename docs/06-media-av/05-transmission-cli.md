@@ -2,7 +2,7 @@
 title: Transmission (CLI)
 type: reference
 status: active
-updated: 2026-06-04
+updated: 2026-06-05
 description: Lightweight BitTorrent client as command-line utilities — a headless daemon plus a remote control tool.
 aliases:
   - transmission-cli
@@ -22,6 +22,7 @@ covers:
   - Controlling the daemon with transmission-remote
   - Adding torrents and magnet links
   - Inspecting torrent file contents
+  - Live download dashboard via watch
 related:
   - "[[01-ffmpeg|FFmpeg]]"
 ---
@@ -51,6 +52,9 @@ transmission-remote -a path/to/file.torrent
 
 # List current torrents and their status
 transmission-remote -l
+
+# Live dashboard — re-renders the list every second, fullscreen (q/Ctrl-C to quit)
+watch -n 1 transmission-remote -l
 
 # Pause / start torrent number 3
 transmission-remote -t 3 --stop

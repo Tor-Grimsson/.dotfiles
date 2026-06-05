@@ -1,13 +1,13 @@
 ---
 _template:
   version: 1
-  path: .llm-context/plan.md
+  path: docs/plan.md
   sync: skip
 ---
 
 # dotfiles — future exploration
 
-Not-yet-committed ideas. Graduate items into `AGENT-CONTEXT.md` (Open items) when they become real work.
+Not-yet-committed ideas. Graduate items into `llm-context/AGENT-CONTEXT.md` (Open items) when they become real work.
 
 ---
 
@@ -33,4 +33,22 @@ If the MBP work turns out to be throwaway, just `bootstrap.sh` the MBP and overw
 
 ---
 
-Nothing here is committed. This is a thought exercise until items move to `AGENT-CONTEXT.md`.
+## Zero-friction torrent search
+
+**Premise:** anywhere in the UI → global hotkey → terminal drops down → `tor-search query` → pick → downloading. Full friction analysis in `docs/12-scripts/07-torrent.md` § Streamlining.
+
+### shape
+1. launchd user agents (`KeepAlive`) for Jackett + `transmission-daemon` — no cold start, the big win.
+2. iTerm2 Hotkey Window (built-in) as the global-hotkey terminal — zero code.
+3. Optional: self-healing daemon start + query stash inside `tor-search`; fzf result picker; loop mode.
+
+### open questions
+- launchd plists tracked in the repo (machine-local paths — Jackett binary is gitignored) or documented per-machine in `meta/`?
+- Does the iMac want transmission-daemon always-on, or on-demand?
+
+### kill criteria
+If the hotkey window goes unused after a few weeks, drop the launchd agents and keep plain `tor-search`.
+
+---
+
+Nothing here is committed. This is a thought exercise until items move to `llm-context/AGENT-CONTEXT.md`.

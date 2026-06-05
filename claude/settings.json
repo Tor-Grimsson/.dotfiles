@@ -56,5 +56,6 @@
         "GLIF_API_TOKEN": "${GLIF_API_TOKEN}"
       }
     }
-  }
+  },
+  "skipWorkflowUsageWarning": true
 }

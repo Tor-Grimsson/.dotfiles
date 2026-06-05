@@ -1,7 +1,7 @@
 ---
 _template:
   version: 1
-  path: .llm-context/session-bridge/README.md
+  path: docs/llm-context/session-bridge/README.md
   sync: replace
 ---
 

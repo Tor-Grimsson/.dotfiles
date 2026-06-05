@@ -59,7 +59,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>for f in "$@"; do "$HOME/bin/glow-open.sh" "$f"; done</string>
+					<string>open -a TextEdit "$@"</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
@@ -84,7 +84,7 @@
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>0A0B0C0D-0001-4001-8001-000000000001</string>
+				<string>0A0B0C0D-0002-4002-8002-000000000001</string>
 				<key>Keywords</key>
 				<array>
 					<string>Shell</string>
@@ -94,9 +94,9 @@
 					<string>Unix</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>0A0B0C0D-0001-4001-8001-000000000002</string>
+				<string>0A0B0C0D-0002-4002-8002-000000000002</string>
 				<key>UUID</key>
-				<string>0A0B0C0D-0001-4001-8001-000000000003</string>
+				<string>0A0B0C0D-0002-4002-8002-000000000003</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>

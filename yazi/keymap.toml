@@ -1,0 +1,14 @@
+[[mgr.prepend_keymap]]
+on = ["g", "h"]
+run = "cd ~"
+desc = "Go home"
+
+[[mgr.prepend_keymap]]
+on = ["g", "p"]
+run = "cd ~/thatComp--iMac"
+desc = "Go to projects"
+
+[[mgr.prepend_keymap]]
+on = ["g", "d"]
+run = "cd ~/Downloads"
+desc = "Go to downloads"

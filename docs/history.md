@@ -1,13 +1,13 @@
 ---
 _template:
   version: 1
-  path: .llm-context/history.md
+  path: docs/history.md
   sync: skip
 ---
 
 # dotfiles — history & decisions
 
-The *why* behind the structure. For rules as enforced, see `ARCHITECTURE.md`. For current state, see `AGENT-CONTEXT.md`.
+The *why* behind the structure. For rules as enforced, see `llm-context/ARCHITECTURE.md`. For current state, see `llm-context/AGENT-CONTEXT.md`.
 
 ---
 
@@ -56,7 +56,7 @@ To stop Claude config (CLAUDE.md, skills, hooks, settings) drifting between mach
 
 ## what's *not* in this document
 
-- Current state, open items, gotchas → `AGENT-CONTEXT.md`
-- Rules as invariants → `ARCHITECTURE.md`
+- Current state, open items, gotchas → `llm-context/AGENT-CONTEXT.md`
+- Rules as invariants → `llm-context/ARCHITECTURE.md`
 - Session-by-session log → `session-log/`
 - Speculative future work → `plan.md`

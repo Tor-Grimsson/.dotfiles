@@ -1,13 +1,13 @@
 ---
 _template:
   version: 1
-  path: .llm-context/ARCHITECTURE.md
+  path: docs/llm-context/ARCHITECTURE.md
   sync: skip
 ---
 
 # dotfiles — Architecture
 
-Load-bearing decisions. Each was chosen deliberately and has downstream consequences. Don't revisit without explicit reason. For the narrative *why*, see `history.md`.
+Load-bearing decisions. Each was chosen deliberately and has downstream consequences. Don't revisit without explicit reason. For the narrative *why*, see `../history.md`.
 
 ---
 

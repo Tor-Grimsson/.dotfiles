@@ -55,6 +55,13 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false # de
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true  # tap to click
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
+# ── Services shortcuts ───────────────────────────────────────────────────────
+# "Open in TextEdit" Quick Action (macos/services/, symlinked by bootstrap.sh) → ⇧⌥⌃E
+# key_equivalent glyphs: @ cmd, $ shift, ~ option, ^ control
+defaults write pbs NSServicesStatus -dict-add '"(null) - Open in TextEdit - runWorkflowAsService"' \
+  '{key_equivalent = "$~^e"; enabled_services_menu = 1; presentation_modes = {ContextMenu = 1; ServicesMenu = 1;};}'
+/System/Library/CoreServices/pbs -flush 2>/dev/null || true
+
 echo "Restarting Finder, Dock, SystemUIServer…"
 for app in Finder Dock SystemUIServer; do killall "$app" >/dev/null 2>&1 || true; done
 echo "Done. A few changes (key-repeat, some Finder bits) need a logout/restart to fully take effect."

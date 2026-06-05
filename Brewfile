@@ -6,6 +6,8 @@
 
 # ── Taps ──────────────────────────────────────────────────────────────────────
 tap "siddharthvaddem/openscreen"   # provides the openscreen cask
+tap "valkyrie00/bbrew"             # provides bbrew
+tap "charmbracelet/tap"            # provides crush
 
 # ── Shell & prompt ──────────────────────────────────────────────────────────
 brew "tmux"                    # Terminal multiplexer
@@ -19,6 +21,7 @@ brew "yazi"        # TUI file manager (Rust, async I/O)
 brew "broot"       # Tree navigation + fuzzy jump
 brew "glow"        # Render markdown in the terminal
 brew "watch"       # Run a command on an interval, fullscreen output (procps-ng)
+brew "chawan"      # TUI web browser (text-mode, renders in terminal)
 
 # ── Deduplication ─────────────────────────────────────────────────────────────
 brew "jdupes"      # Fast exact-dupe finder (fork of fdupes) — quick CLI sweeps
@@ -32,6 +35,7 @@ brew "pnpm"        # Fast, disk-efficient JS package manager (can self-manage no
 brew "pipx"        # Install Python CLI apps in isolated venvs (one app per env)
 brew "uv"          # Fast Python project/dep/version manager (+ uvx tool runner)
 brew "jq"          # Command-line JSON processor
+brew "charmbracelet/tap/crush" # Charm's terminal AI coding agent
 
 # ── Network & security ──────────────────────────────────────────────────────
 brew "nmap"          # Port scanner
@@ -59,10 +63,10 @@ brew "pngpaste"    # Paste clipboard PNG to a file
 # ── System & cloud ──────────────────────────────────────────────────────────
 brew "fastfetch"   # System info banner (neofetch successor — neofetch was pulled from Homebrew)
 brew "rclone"      # Rsync for cloud storage
+brew "valkyrie00/bbrew/bbrew" # TUI for managing Homebrew packages
 
 # NOTE: pkgconf + poppler + python@3.x are intentionally omitted — they arrive as
 #       dependencies (python is pulled by many formulae; poppler ← pdf2image / yazi).
-# NOTE: tap "maniacsan/torrra" was untapped 2026-06-04 (torrra never installed).
 
 # ── Casks (GUI apps) ──────────────────────────────────────────────────────────
 

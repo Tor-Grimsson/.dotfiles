@@ -75,6 +75,21 @@ if [ -d "$DOT/mpv" ]; then
   ln -sf "$DOT/mpv/input.conf" "$HOME/.config/mpv/input.conf"
 fi
 
+# nvim (whole dir)
+[ -d "$DOT/nvim" ] && ln -sfn "$DOT/nvim" "$HOME/.config/nvim"
+
+# yazi + broot (per-file, leaves the tool's runtime dir intact)
+if [ -f "$DOT/yazi/keymap.toml" ]; then
+  mkdir -p "$HOME/.config/yazi"
+  ln -sf "$DOT/yazi/keymap.toml" "$HOME/.config/yazi/keymap.toml"
+fi
+if [ -d "$DOT/broot" ]; then
+  mkdir -p "$HOME/.config/broot"
+  ln -sf "$DOT/broot/conf.hjson"  "$HOME/.config/broot/conf.hjson"
+  ln -sf "$DOT/broot/verbs.hjson" "$HOME/.config/broot/verbs.hjson"
+  ln -sfn "$DOT/broot/skins"      "$HOME/.config/broot/skins"
+fi
+
 # glow config + Finder "Open in glow" Quick Action
 if [ -f "$DOT/glow/glow.yml" ]; then
   mkdir -p "$HOME/Library/Preferences/glow"
@@ -83,7 +98,13 @@ fi
 if [ -d "$DOT/macos/services/Open in glow.workflow" ]; then
   mkdir -p "$HOME/Library/Services"
   ln -sfn "$DOT/macos/services/Open in glow.workflow" "$HOME/Library/Services/Open in glow.workflow"
+  ln -sfn "$DOT/macos/services/Open in TextEdit.workflow" "$HOME/Library/Services/Open in TextEdit.workflow"
   /System/Library/CoreServices/pbs -flush 2>/dev/null || true
+fi
+
+# Terminal.app prefs — import (not symlink; Terminal is cfprefsd-cached). Close Terminal first.
+if [ -f "$DOT/terminal/com.apple.Terminal.plist" ]; then
+  defaults import com.apple.Terminal "$DOT/terminal/com.apple.Terminal.plist"
 fi
 
 # macOS defaults

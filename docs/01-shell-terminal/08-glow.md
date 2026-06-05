@@ -2,7 +2,7 @@
 title: glow
 type: reference
 status: active
-updated: 2026-06-04
+updated: 2026-06-05
 description: Terminal markdown renderer — open any .md as styled, readable text, instantly.
 aliases:
   - glow
@@ -27,7 +27,7 @@ related:
 A terminal **markdown renderer** from Charm (the bubbletea/lipgloss people). A single self-contained Go binary — no runtime, no dependencies. Reads a `.md` and prints it as styled text: headings, bold/italic, tables, blockquotes, lists/task-lists, and code blocks with real syntax highlighting (chroma), word-wrapped to the terminal and themed auto light/dark.
 
 ## Why installed
-Quick, zero-friction reading of the repo's own docs (`TOOLING.md`, `docs/`, `.llm-context/`) without opening an editor or a browser. The dotfiles are markdown-heavy; `glow` is the instant reader for them.
+Quick, zero-friction reading of the repo's own docs (`TOOLING.md`, `docs/`) without opening an editor or a browser. The dotfiles are markdown-heavy; `glow` is the instant reader for them.
 
 ## Most common use case
 `glow file.md` — render and read a single doc in place.
@@ -59,11 +59,13 @@ pager: true     # always page → `glow file.md` becomes scrollable (q to quit)
 
 ## Open a .md from Finder
 
-Finder can't pipe a file into a terminal program, so you wrap it:
+Finder can't pipe a file into a terminal program, so you wrap it. **Implemented** as a Quick Action:
 
-1. **Quick Action (recommended)** — Automator → "Run Shell Script" (input = files as args) that opens Terminal/iTerm running `glow -p` on the file. Gives a right-click → "Open in glow" without changing the double-click default. Saved in `~/Library/Services`.
-2. **`.app` wrapper** — bundle the script as a `.app` (Automator/Platypus), set it as **Open With → default** for `.md` so double-click opens glow. More invasive.
-3. **Terminal function** — `g() { glow -p "$@"; }` in `.zshrc`. Not Finder, but instant from a shell.
+- Right-click a `.md` → **"Open in glow"** → new iTerm (or Terminal) window rendering the file with `glow -p`. Quitting glow (`q`) leaves the window open at a prompt.
+- Engine: `bin/glow-open.sh` (works standalone too: `glow-open.sh file.md`).
+- Quick Action: `macos/services/Open in glow.workflow`, symlinked into `~/Library/Services` by `bootstrap.sh`; it calls `$HOME/bin/glow-open.sh`.
+
+Alternatives not used: a `.app` wrapper as the double-click default for `.md` (more invasive), or a plain `g() { glow -p "$@"; }` shell function (not Finder).
 
 ## Future use
 Pipe rendered docs (`glow doc.md | less -R`), set a default style/width via `~/.config/glow/glow.yml`, or wire it as the markdown previewer in `yazi`. Note: terminals can't show images, so embedded `![]()` images render as nothing — text-only.
