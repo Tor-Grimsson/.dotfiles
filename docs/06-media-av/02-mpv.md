@@ -22,6 +22,7 @@ covers:
   - Streaming URLs through yt-dlp
 related:
   - "[[01-ffmpeg|FFmpeg]]"
+  - "[[06-edge-tts|edge-tts]]"
 ---
 
 ## Summary

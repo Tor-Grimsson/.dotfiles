@@ -11,7 +11,7 @@ Current state + operational reference for `~/.dotfiles`. Updated at the end of e
 
 For chronological detail see `session-log/`. For load-bearing rules see `ARCHITECTURE.md`. For the *why* see `../history.md`. For speculative work see `../plan.md`.
 
-**Last updated:** 2026-06-05
+**Last updated:** 2026-06-06
 
 ---
 
@@ -29,6 +29,7 @@ For chronological detail see `session-log/`. For load-bearing rules see `ARCHITE
 - 2026-06-05 (8, iMac): **two-machine sync** — iMac stash `-u`/rebase/pop onto the MBP's pushed work, clean (`.zshrc` auto-merge verified). User committed `c177baf`: new `docs/13-terminal-browsers/` (carbonyl, w3m), `carbonyl()`/`hn` in `.zshrc`. Both machines verified on `c177baf`.
 - 2026-06-05 (9, iMac): **Quick Action generator** — `bin/qa-make.sh` stamps Finder Quick Actions from one line (tracked in `macos/services/`, symlinked, pbs-flushed); `bin/fs-shoot.sh` = clash-safe shoot-to-folder mover. Preset live: *Shoot to _trash* (per-file sibling `_trash/`). `bootstrap.sh` services block now glob-loops `*.workflow`. Doc: `12-scripts/10-quick-actions.md`.
 - 2026-06-05 (10, iMac): **dot-sync automation** — `bin/dot-sync.sh` (manual = the sync ritual as one command; `--auto` = launchd daemon: clean tree pulls/pushes committed work, dirty tree untouched + deduped notification). Plist in `macos/launchd/` (copied by bootstrap, username-agnostic), `ssh/config` got a `Host github.com` keychain block for headless push. Transport only — the daemon never commits, so "user owns all git" holds. **Loaded + verified on both machines same day** (`af3aeca`; first MBP cycle exit 0, keys keychained both sides). Doc: `12-scripts/11-dot-sync.md`.
+- 2026-06-06 (iMac): **edge-tts + `speak` alias** — clipboard TTS via pipx (user-approved install), `speak` in `shell/.zshrc`, doc `06-media-av/06-edge-tts.md`, root-INDEX tool counts recounted (57 tools / 13 categories). **MBP still needs `pipx install edge-tts`.** Doc took 3 rewrites — see the doc-shape contract below; `06-edge-tts.md` is the canonical shape now.
 - **The user owns all git** — agent never commits; advise and hand off.
 
 ---
@@ -103,3 +104,4 @@ macfuse triggers a sudo/kext dance; pdf2image's binaries clash with poppler's sy
 - Don't track `~/.claude` runtime state (history/sessions/projects/caches) in the repo.
 - Skill **dependencies** (kol-docs framework, init-agent-context + algorithmic-art templates, the `bucket` CLI) live in `claude/packages/` — never bundled inside a skill. Skills reference them at `~/.dotfiles/claude/packages/`.
 - **Secrets never go in tracked files as literals** — only as env-var refs (`${VAR}`) sourced from Bitwarden. The glif MCP uses `${GLIF_API_TOKEN}`; the live token lives in Bitwarden, never the repo.
+- **Tool docs: lookup first, prose after.** Order = Summary (2 lines max) → deps table → numbered Setup steps → commands block → flags table → *then* Why/Win/Future narrative. Never lead with essay prose. **State dependencies head-on in a table** (command → does → needs) — "one package, two commands, only one needs mpv" said sideways in prose cost a 3-rewrite back-and-forth on 2026-06-06. Canonical example: `docs/06-media-av/06-edge-tts.md`.

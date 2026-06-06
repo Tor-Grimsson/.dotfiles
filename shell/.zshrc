@@ -78,6 +78,9 @@ alias v-bridge='rclone sync "$HOME/Library/Mobile Documents/com~apple~CloudDocs/
 alias v-backup='rclone copy "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Workbox/kol-vault-mgmt/kol-vault-workbox" "kolkrabbi:kolkrabbi/kol-vault-mgmt/kol-vault-workbox" --exclude-from "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Workbox/kol-vault-mgmt/kol-vault-workbox/.rcloneignore" -vP'
 alias v-push='v-bridge && v-backup'
 
+# edge-tts: read the clipboard aloud (Microsoft neural voices, plays via mpv)
+alias speak='edge-playback --text "$(pbpaste)"'
+
 # carbonyl: Chromium in the terminal (via OrbStack/Docker)
 carbonyl() {
   docker run -ti --rm fathyb/carbonyl --fps 30 --force-effective-connection-type=3G "$@"

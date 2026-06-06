@@ -32,6 +32,7 @@ brew "neovim"      # Vim fork, extensible
 brew "node"        # JavaScript runtime
 brew "pnpm"        # Fast, disk-efficient JS package manager (can self-manage node)
 brew "pipx"        # Install Python CLI apps in isolated venvs (one app per env)
+                   #   pipx-managed (run per machine): edge-tts — clipboard TTS, docs/06-media-av/06-edge-tts.md
 brew "uv"          # Fast Python project/dep/version manager (+ uvx tool runner)
 brew "jq"          # Command-line JSON processor
 brew "charmbracelet/tap/crush" # Charm's terminal AI coding agent
