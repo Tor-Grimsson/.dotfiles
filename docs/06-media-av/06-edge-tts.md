@@ -19,7 +19,7 @@ links:
   manual: https://github.com/rany2/edge-tts/blob/master/README.md
   pypi: https://pypi.org/project/edge-tts/
 covers:
-  - speak alias (clipboard → audio)
+  - speak function (clipboard → sanitized → audio)
   - edge-tts / edge-playback commands
   - voice, rate, pitch, volume flags
 related:
@@ -30,18 +30,20 @@ related:
 ## Summary
 Text-to-speech from the command line. Microsoft's online neural voices — free, no key, needs network.
 
-**One install** (`pipx install edge-tts`) **ships two commands.** The alias builds on one of them:
+**One install** (`pipx install edge-tts`) **ships two commands.** The `speak` function builds on one of them:
 
 | Command | Does | Needs |
 |---|---|---|
 | `edge-tts` | text → audio file | network only |
 | `edge-playback` | text → speakers, immediately | network + [[02-mpv\|mpv]] (brew, already installed) |
-| `speak` (alias) | clipboard → speakers | `edge-playback` + `pbpaste` (built into macOS) |
+| `speak` (function) | clipboard → sanitizer → speakers | `edge-playback` + `pbpaste` + `perl` (both built into macOS) |
+
+The sanitizer makes markdown listenable: emoji and markdown markers (`*` `` ` `` `#` bullets) stripped, links reduced to their label, `§` → "section", em-dashes/brackets/dangling slashes → comma pauses. Raw text would otherwise have the voice reading symbol names aloud ("white heavy check mark", "left parenthesis").
 
 ## Setup
 
 1. Install: `pipx install edge-tts`
-2. Alias (already in `shell/.zshrc`): `alias speak='edge-playback --text "$(pbpaste)"'`
+2. Function (already in `shell/.zshrc`): `speak` — pipes `pbpaste` through the markdown sanitizer into `edge-playback`
 3. New shell or `source ~/.zshrc`
 4. Test: copy any text → `speak`
 

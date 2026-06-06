@@ -79,7 +79,22 @@ alias v-backup='rclone copy "$HOME/Library/Mobile Documents/com~apple~CloudDocs/
 alias v-push='v-bridge && v-backup'
 
 # edge-tts: read the clipboard aloud (Microsoft neural voices, plays via mpv)
-alias speak='edge-playback --text "$(pbpaste)"'
+# pbpaste → sanitizer (emoji stripped; markdown markers stripped; §→"section"; dashes/brackets→pauses) → edge-playback
+unalias speak 2>/dev/null  # shells predating the function still carry the old alias; guard re-source
+speak() {
+  edge-playback --text "$(pbpaste | perl -CSD -pe '
+    s/\[([^\]]*)\]\([^)]*\)/$1/g;                 # markdown link -> its label
+    s/[\x{1F000}-\x{1FAFF}\x{2600}-\x{27BF}\x{2B00}-\x{2BFF}\x{2190}-\x{21FF}\x{FE00}-\x{FE0F}]//g;  # emoji + dingbats
+    s/[*`#>|~]+//g;                               # markdown markers
+    s/^\s*[-\x{2022}]\s+//;                       # list bullets
+    s/\x{A7}\s*/section /g;                       # section sign -> the word
+    s/[\x{2014}\x{2013}]/, /g;                    # em\/en dash -> pause
+    s/[()\[\]{}]/, /g;                            # brackets -> pause
+    s/(?:^|\s)\K\/+(\s|$)/, /g;                   # dangling slashes (a\/b lists) -> pause
+    s/_+/ /g;
+    s/(,\s*)+/, /g; s/,\s*([;:.])/$1/g; s/ {2,}/ /g;  # collapse stutter
+  ')"
+}
 
 # carbonyl: Chromium in the terminal (via OrbStack/Docker)
 carbonyl() {
