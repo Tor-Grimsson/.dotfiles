@@ -1,0 +1,18 @@
+# 2026-06-08 — img-canvas.sh (iMac)
+
+New `bin/img-canvas.sh`: fit any image into a fixed social-media aspect canvas (cover by default), 1x/2x, sRGB — plus catalog/companion docs and a ratio-prompt Quick Action. Sibling to the same-day `img-from-psd.sh` work.
+
+- `bin/img-canvas.sh`: `-a` aspect (presets 9:16 3:5 4:5 1:1 5:4 5:3 16:9 — short side 1080, or raw `WxH`); `-s` 1/2 scale (2x doubles); `-m` cover (default, fill+center-crop+`-extent`) / fit (scale-to-fit + pad with `-b` bg) / stretch (`!`, distorts); `-g` gravity; `-f` jpg/png; `-q`; `-b` bg (white jpg / none png); `-o`. `-auto-orient` + frame `[0]` (PSD/multi-frame ok), `-colorspace sRGB -depth 8`, jpg `-flatten`. House `usage()`/`-h` pattern. Output `<base>_<W>x<H>.<fmt>`.
+- Smoke-tested in a tmp dir: help + required-arg/no-input errors fire; real runs of 4:5, 9:16@2x, 1:1 fit/black, 16:9 png all produced **exact** target px + `sRGB` (verified via `magick identify`).
+- Docs: row + per-script section in `03-image.md` (+ related link); companion deep-dive `12-scripts/img-canvas.md` (core cover one-liner, preset/mode tables, ratio+scale-prompt Quick Action, verification). INDEX img 8 → 9. `10-quick-actions.md`: `Canvas 4:5` preset example + related cross-ref.
+- The ratio+scale-prompt `qa-make.sh` one-liner uses nested `osascript` inside the single-quoted command arg — **verified**: reconstructed the COMMAND_STRING and `bash -n`'d it (SYNTAX OK). All QA PATH exports use the both-brew-prefixes form (cross-arch, ARCHITECTURE §1 bend already flagged + accepted in the img-from-psd log).
+
+- **`-P` pick mode added (same session):** the first ratio+scale Quick Action used an inline multi-line `osascript` command — it *worked* (user's installed bundle verified: COMMAND_STRING intact, `plutil -lint` OK), but pasting that multi-line nested-quote form into a shell with bracketed-paste off evaluates the dialog mid-paste and drops you in an `sh-3.2$` subshell (what the user hit). Fix: moved the prompts into `img-canvas.sh -P` (pops aspect → scale dialogs via osascript, then runs the normal cover path; cancel = no-op). Quick Action is now a paste-safe one-liner: `… img-canvas.sh -P "$@"`. Updated `img-canvas.md` §4 and `10-quick-actions.md` to the `-P` form; `bash -n` + normal-path re-verified (did NOT run `-P` — it pops a GUI dialog).
+
+- **`orig` on both axes added (same session):** `-a orig` keeps the source's ratio (no crop/pad); `-s orig` keeps its native resolution (crop/pad to the ratio without scaling). They compose — `-a orig -s orig` = plain re-encode (format + sRGB only). Dim math moved into the per-file loop (orig modes read oriented source dims via `magick … -format '%w %h\n' info:`). `-m stretch` now requires a fixed `-s` (guarded). All four combos real-run verified to exact px: 4:5 `-s orig` on 4000×3000 → 2400×3000 crop; fit → 4000×5000 pad; `-a orig` → 1440×1080 (short side 1080); `-a orig -s orig` → 4000×3000 passthrough. Help + `img-canvas.md` §2/§3 (combos table) + `03-image.md` updated.
+
+- **`-P` dialogs gained the orig options:** the pick lists were missing the new modes — added "original ratio" to the aspect list and "original resolution" to the scale list (mapped to `aspect=orig` / `scale=orig`). Installed bundle calls `img-canvas.sh -P`, so the script update lands with **no re-stamp**. Mapping verified by simulating the dialog returns.
+
+Next: re-stamp the live bundle to the clean `-P` form (the installed one still has the inline osascript baked in — works, but tidier to replace):
+  `qa-make.sh -f -t public.image "Canvas (pick aspect)" 'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/.dotfiles/bin/img-canvas.sh" -P "$@"'`
+User owns git; nothing committed.

@@ -10,6 +10,8 @@ tags:
 related:
   - "[[08-system|System & clipboard]]"
   - "[[09-finder|Finder selection]]"
+  - "[[img-from-psd|PSD → image Quick Action]]"
+  - "[[img-canvas|Fixed-aspect canvas Quick Action]]"
 ---
 
 # Quick Actions (`qa-`)
@@ -30,6 +32,11 @@ appears under Finder right-click → **Quick Actions** / **Services**. No Automa
   `plutil -lint`s them, symlinks, and `pbs -flush`es the Services registry.
 - Selected files/folders arrive as `"$@"` in `/bin/bash`. **Single-quote the command**
   so `$HOME` and `"$@"` survive until run time.
+- Automator runs with a **bare PATH** (no brew). If the command calls a brew tool
+  (`magick`, `ffmpeg`, …) — directly or via a repo script — prepend
+  `export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH";` (both prefixes = works on
+  either machine; the absent one is ignored). `$(brew --prefix)` does **not** help
+  here — `brew` itself isn't on the bare PATH to resolve it.
 - `-t public.image` (comma-separable UTIs) restricts which selections offer the action.
   Default `public.item` = any file or folder.
 - Bundles land in the repo → sync to the other machine; `bootstrap.sh` links every
@@ -54,7 +61,25 @@ qa-make.sh "Shoot to Staging" '"$HOME/bin/fs-shoot.sh" "$HOME/_staging" "$@"'
 qa-make.sh "Shoot to _keep" 'for f in "$@"; do "$HOME/bin/fs-shoot.sh" "$(dirname "$f")/_keep" "$f"; done'
 
 # images only, through the web-export pipeline
-qa-make.sh -t public.image "Web export" '"$HOME/bin/img-web.sh" "$@"'
+# (export PATH so magick resolves under Automator's bare PATH — both brew prefixes = cross-machine)
+qa-make.sh -t public.image "Web export" \
+  'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/bin/img-web.sh" "$@"'
+
+# PSDs → 2000px JPG (see [[img-from-psd]] for a resolution-prompt variant)
+qa-make.sh -t public.image "Convert PSD → JPG (2000px)" \
+  'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/.dotfiles/bin/img-from-psd.sh" -r 2000x "$@"'
+
+# PSDs → JPG at original resolution (no -r = full size)
+qa-make.sh -t public.image "Convert PSD → JPG (original size)" \
+  'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/.dotfiles/bin/img-from-psd.sh" "$@"'
+
+# any image → fixed social aspect, cover-crop (fixed preset)
+qa-make.sh -t public.image "Canvas 4:5" \
+  'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/.dotfiles/bin/img-canvas.sh" -a 4:5 "$@"'
+
+# …or prompt for aspect + scale at run time — img-canvas's -P mode (see [[img-canvas]])
+qa-make.sh -t public.image "Canvas (pick aspect)" \
+  'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/.dotfiles/bin/img-canvas.sh" -P "$@"'
 ```
 
 Moves go through [[08-system|fs-shoot.sh]] — clash-safe, creates the destination,

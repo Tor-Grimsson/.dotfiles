@@ -11,7 +11,7 @@ Current state + operational reference for `~/.dotfiles`. Updated at the end of e
 
 For chronological detail see `session-log/`. For load-bearing rules see `ARCHITECTURE.md`. For the *why* see `../history.md`. For speculative work see `../plan.md`.
 
-**Last updated:** 2026-06-06
+**Last updated:** 2026-06-08
 
 ---
 
@@ -32,6 +32,9 @@ For chronological detail see `session-log/`. For load-bearing rules see `ARCHITE
 - 2026-06-06 (iMac): **edge-tts + `speak` alias** — clipboard TTS via pipx (user-approved install), `speak` in `shell/.zshrc`, doc `06-media-av/06-edge-tts.md`, root-INDEX tool counts recounted (57 tools / 13 categories). Doc took 3 rewrites — see the doc-shape contract below; `06-edge-tts.md` is the canonical shape now.
 - 2026-06-06 (MBP): **edge-tts MBP install** — handoff executed (`pipx install edge-tts` 7.2.8, synthesis + `speak` alias verified). Clipboard TTS live on both machines; edge-tts arc closed.
 - 2026-06-06 (iMac, 2): **speak sanitizer** — raw markdown made the voice read symbol names (emoji, parens, §). `speak` alias → function in `shell/.zshrc`: pbpaste → perl sanitizer (emoji/md markers stripped, links→label, §→"section", dashes/brackets→pauses) → edge-playback. Also fixed `mpv/input.conf:2` invalid `frames` seek flag (spammed `[input]` errors on every mpv launch). Stop playback with `q`, not Ctrl-C. Awaiting ear-test.
+- 2026-06-08 (iMac): **img-from-psd.sh landed** — a `_tmp/` PSD→image quick-action script/doc reconciled to convention. Doc's `psd2img.sh` → `bin/img-from-psd.sh` (img- domain prefix, parallels `pdf-from-images.sh`); `sed -n` self-help → house `usage()` heredoc. Docs: row+section in `03-image.md`, companion deep-dive `12-scripts/img-from-psd.md` (script body → pointer, `/usr/local/bin` → `$(brew --prefix)`), INDEX img 7→8, qa example in `10-quick-actions.md`. `_tmp/` removed. img family now 8.
+- 2026-06-08 (iMac, 2): **img-canvas.sh** — fit any image into a fixed social aspect canvas (presets 9:16/3:5/4:5/1:1/5:4/5:3/16:9, short side 1080; `-s 2`; modes cover[default]/fit/stretch; `-g` gravity; sRGB). Cover = `-resize WxH^ -gravity … -extent WxH`. Real-run verified (exact px + sRGB). Also: `-P` GUI pick mode (aspect+scale dialogs → clean one-liner Quick Action, replaces a paste-fragile inline-osascript form); `-a orig` (keep source ratio) + `-s orig` (keep source resolution, crop/pad no-scale) — compose to a plain re-encode; `-m stretch` needs a fixed `-s`. Docs: row+section in `03-image.md`, companion `12-scripts/img-canvas.md` (combos table, `-P` Quick Action), INDEX img 8→9, `Canvas 4:5` + pick examples in `10-quick-actions.md`. img family now 9.
+- 2026-06-08 (iMac, 3): **au-mp3.sh + au-tag.sh + yq dep.** `au-mp3.sh` = recursive WAV/AIFF→MP3 (ffmpeg+libmp3lame, `-b` CBR 128/160/192/320 default 320, parallel, **keeps source** — inverse of au-flac). `au-tag.sh` = sidecar-`.md` frontmatter (via **yq** `--front-matter=extract`) → ID3/Vorbis tags + embedded cover into mp3/flac (ffmpeg `-c copy`); titles from `tracklist[]` or filename. Both ffprobe-verified. New dep **yq** added to Brewfile (after jq); bootstrap needs no edit (`brew bundle` covers it). Docs: `01-audio.md` rows+sections, companion `12-scripts/au-tag.md` (+ folder-layout diagram), INDEX au 1→3. au-tag embeds a **lean downscaled cover** (`-s`, default 1000px, source untouched) and auto-detects the cover in the folder then `_assets/`. Real copy-ready example at `docs/12-scripts/_files/au-tag-example/` (`album.md` + `_assets/cover.jpg`, the user's actual art @1500²). **Brewfile-mirror.txt DELETED** (stale, §2 had retired it) + `feedback_brewfile_mirror` memory removed.
 - **The user owns all git** — agent never commits; advise and hand off.
 
 ---

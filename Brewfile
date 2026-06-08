@@ -35,6 +35,7 @@ brew "pipx"        # Install Python CLI apps in isolated venvs (one app per env)
                    #   pipx-managed (run per machine): edge-tts — clipboard TTS, docs/06-media-av/06-edge-tts.md
 brew "uv"          # Fast Python project/dep/version manager (+ uvx tool runner)
 brew "jq"          # Command-line JSON processor
+brew "yq"          # Command-line YAML/JSON processor (jq for YAML; reads .md frontmatter — au-tag.sh)
 brew "charmbracelet/tap/crush" # Charm's terminal AI coding agent
 
 # ── Network & security ──────────────────────────────────────────────────────

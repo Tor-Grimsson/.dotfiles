@@ -7,6 +7,9 @@ description: img-* — 2D image crop/resize/web-export helpers (ImageMagick).
 tags:
   - project/dotfiles
   - domain/scripts/image
+related:
+  - "[[img-from-psd|PSD → image (deep-dive + Quick Action)]]"
+  - "[[img-canvas|Fixed-aspect canvas (deep-dive + Quick Action)]]"
 ---
 
 # Image / 2D (`img-`)
@@ -24,6 +27,8 @@ Every script takes `-h` / `--help` and prints its own usage. Magic dimensions
 | `img-web-batch.sh` | Batch-optimize every image in the cwd | `img-web-batch.sh [width]` (runs in cwd) |
 | `img-web-aspect.sh` | Responsive width set, aspect preserved | `img-web-aspect.sh <src>` |
 | `img-web-thumb.sh` | Responsive set cropped to fixed 2:1 | `img-web-thumb.sh <src>` |
+| `img-from-psd.sh` | Convert PSD(s) → JPG/PNG, optional resize | `img-from-psd.sh [-f png\|jpg] [-r geom] [-q n] [-o dir] FILE...` |
+| `img-canvas.sh` | Fit any image into a fixed social aspect (cover) | `img-canvas.sh -a 4:5 [-s 2] [-m cover\|fit] <img>...` |
 
 ## Per script
 
@@ -75,5 +80,19 @@ Every script takes `-h` / `--help` and prints its own usage. Magic dimensions
 - **Args/behavior:** Output → `./<slug>/web/<slug>-<width>.jpg` in the cwd; overwrites. Change the ratio via the `height=` line, widths via `SIZES`.
 - **Examples:** `img-web-thumb.sh card.tif` → `card/web/card-1600.jpg` (1600×800) …
 - **Deps/gotchas:** imagemagick. This is the **cropping** counterpart of `img-web-aspect.sh` (note: the two are easy to confuse — aspect = preserve, thumb = crop to 2:1).
+
+### `img-from-psd.sh`
+- **Does:** Converts one or more PSDs to JPG (default) or PNG, reading the merged composite layer (`[0]`) so layered files convert cleanly where `sips` chokes. JPG flattens onto white; PNG keeps transparency. Optional `-r` resize.
+- **Usage:** `img-from-psd.sh [-f png|jpg] [-r geom] [-q n] [-d dpi] [-o dir] FILE...`
+- **Args/behavior:** `-f` jpg/png (default jpg); `-r` ImageMagick geometry (`2000x`, `50%`, `1920x1080` fit, `^` fill, `!` force-exact, `>` shrink-only); `-q` jpg quality (default 90); `-d` DPI metadata tag only (no re-raster); `-o` output dir (default beside each source). Output is `<name>.<fmt>`; overwrites. Prints `src -> dst` per file, skips missing inputs.
+- **Examples:** `img-from-psd.sh art.psd` · `img-from-psd.sh -f png art.psd` · `img-from-psd.sh -r 1920x1080 *.psd` · `img-from-psd.sh -o out -q 92 *.psd`
+- **Deps/gotchas:** imagemagick. Without `[0]` ImageMagick exports every layer as a frame. `-d` only tags DPI metadata — use `-r` for real pixel resize. Full resize cheat-sheet + the Finder Quick-Action wiring (incl. a resolution-prompt variant) live in [[img-from-psd|the deep-dive]].
+
+### `img-canvas.sh`
+- **Does:** Fits any image into one of 7 fixed-aspect canvases (9:16, 3:5, 4:5, 1:1, 5:4, 5:3, 16:9 — short side 1080, or a raw `WxH`) at exact pixels. Default **cover**: scale to fill, center-crop the overflow (no bars, no distortion). `-auto-orient`, frame `[0]` (PSD/multi-frame ok), sRGB 8-bit.
+- **Usage:** `img-canvas.sh -a RATIO [-s 1|2] [-m cover|fit|stretch] [-g gravity] [-f jpg|png] [-q n] [-b bg] [-o dir] FILE...`
+- **Args/behavior:** `-a` required (preset, `WxH`, or `orig` = keep source ratio); `-s` 1/2 → short side 1080×N, or `orig` = keep source resolution (crop/pad, no scale); `-m` cover (default) / fit (scale-to-fit + pad to exact with `-b` bg) / stretch (force-exact, distorts); `-g` crop/pad gravity (default center); `-f` jpg/png; `-q` jpg quality (90); `-b` bg (default white jpg / none png); `-P` GUI pick mode for Quick Actions. Output `<base>_<W>x<H>.<fmt>` beside source (overwrites), or into `-o`. Prints `src -> dst`.
+- **Examples:** `img-canvas.sh -a 4:5 photo.jpg` (→ `photo_1080x1350.jpg`) · `img-canvas.sh -a 9:16 -s 2 hero.png` · `img-canvas.sh -a 1:1 -m fit -b black art.tif`
+- **Deps/gotchas:** imagemagick. cover **will upscale** a source smaller than the canvas to fill it. Full preset table + the multi-prompt Finder Quick Action live in [[img-canvas|the deep-dive]].
 
 > The older `crop2000x2500-01.sh` (a cruder duplicate of `img-crop-2000x2500.sh`) is superseded — now in `~/_temp/bin_bak/`.

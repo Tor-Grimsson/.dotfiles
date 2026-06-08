@@ -15,10 +15,11 @@ Summary from user: $ARGUMENTS
 
 Check in order, use the first that exists:
 
-1. `.llm-context/` (vault-style, at repo root)
-2. `docs/llm-context/` (scaffolded-repo style)
+1. `.claude/llm-context/` (vault-style, merged into the Claude dir)
+2. `.llm-context/` (vault-style, at repo root)
+3. `docs/llm-context/` (scaffolded-repo style)
 
-If neither exists, say "No agent context found here (looked for `.llm-context/` and `docs/llm-context/`)." and stop.
+If none exists, say "No agent context found here (looked for `.claude/llm-context/`, `.llm-context/` and `docs/llm-context/`)." and stop.
 
 ## Steps
 

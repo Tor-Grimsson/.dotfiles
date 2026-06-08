@@ -17,9 +17,9 @@ CLI helpers in `~/.dotfiles/bin` (symlinked to `~/bin`, on PATH). Renamed 2026-0
 
 | Prefix | Family | Count | Hotkeys / Quick Actions |
 |--------|--------|:--:|---|
-| `au-`  | [[01-audio\|Audio]] | 1 | — |
+| `au-`  | [[01-audio\|Audio]] | 3 | — |
 | `vid-` | [[02-video\|Video]] | 10 | — |
-| `img-` | [[03-image\|Image / 2D]] | 7 | — |
+| `img-` | [[03-image\|Image / 2D]] | 9 | PSD→JPG/PNG, fixed-aspect canvas (Quick Actions) |
 | `pdf-` | [[04-pdf\|PDF]] | 7 | — |
 | `art-` | [[05-artwork\|Artwork pipeline]] | 2 | — |
 | `batch-` | [[06-batch-folder\|Folder batch]] | 2 | — |
