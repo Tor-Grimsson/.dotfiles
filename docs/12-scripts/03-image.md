@@ -10,6 +10,7 @@ tags:
 related:
   - "[[img-from-psd|PSD → image (deep-dive + Quick Action)]]"
   - "[[img-canvas|Fixed-aspect canvas (deep-dive + Quick Action)]]"
+  - "[[img-convert|Any image → JPG/PNG (deep-dive + Quick Action)]]"
 ---
 
 # Image / 2D (`img-`)
@@ -29,6 +30,7 @@ Every script takes `-h` / `--help` and prints its own usage. Magic dimensions
 | `img-web-thumb.sh` | Responsive set cropped to fixed 2:1 | `img-web-thumb.sh <src>` |
 | `img-from-psd.sh` | Convert PSD(s) → JPG/PNG, optional resize | `img-from-psd.sh [-f png\|jpg] [-r geom] [-q n] [-o dir] FILE...` |
 | `img-canvas.sh` | Fit any image into a fixed social aspect (cover) | `img-canvas.sh -a 4:5 [-s 2] [-m cover\|fit] <img>...` |
+| `img-convert.sh` | Convert any image → JPG/PNG, fit within 2000px | `img-convert.sh [-f jpg\|png] [-r geom] [-q n] [-o dir] FILE...` |
 
 ## Per script
 
@@ -94,5 +96,12 @@ Every script takes `-h` / `--help` and prints its own usage. Magic dimensions
 - **Args/behavior:** `-a` required (preset, `WxH`, or `orig` = keep source ratio); `-s` 1/2 → short side 1080×N, or `orig` = keep source resolution (crop/pad, no scale); `-m` cover (default) / fit (scale-to-fit + pad to exact with `-b` bg) / stretch (force-exact, distorts); `-g` crop/pad gravity (default center); `-f` jpg/png; `-q` jpg quality (90); `-b` bg (default white jpg / none png); `-P` GUI pick mode for Quick Actions. Output `<base>_<W>x<H>.<fmt>` beside source (overwrites), or into `-o`. Prints `src -> dst`.
 - **Examples:** `img-canvas.sh -a 4:5 photo.jpg` (→ `photo_1080x1350.jpg`) · `img-canvas.sh -a 9:16 -s 2 hero.png` · `img-canvas.sh -a 1:1 -m fit -b black art.tif`
 - **Deps/gotchas:** imagemagick. cover **will upscale** a source smaller than the canvas to fill it. Full preset table + the multi-prompt Finder Quick Action live in [[img-canvas|the deep-dive]].
+
+### `img-convert.sh`
+- **Does:** Converts any raster image (jpg/png/tif/webp/heic/psd/…) to JPG (default) or PNG, reading frame `[0]` so multi-frame/layered files yield a single still. By default fits the result within a 2000×2000 box (aspect kept, shrink-only). `-auto-orient` first, sRGB 8-bit; JPG flattens onto white, PNG keeps alpha.
+- **Usage:** `img-convert.sh [-f jpg|png] [-r geom] [-q n] [-o dir] FILE...` · `img-convert.sh -P …` (format prompt, for Quick Actions)
+- **Args/behavior:** `-f` jpg/png (default jpg); `-r` geometry (default `2000x2000>` = fit within 2000px, shrink-only; `-r none` = full size); `-q` jpg quality (default 90); `-o` output dir (default beside source); `-P` GUI format picker. If the output would overwrite a same-name same-format source, a `-<cap>px` suffix is added (e.g. `photo.jpg` → `photo-2000px.jpg`) — the source is never clobbered. Prints `src -> dst`, skips missing inputs.
+- **Examples:** `img-convert.sh photo.heic` · `img-convert.sh -f png shot.tif` · `img-convert.sh -r none big.tif` · `img-convert.sh -o out -q 92 *.heic`
+- **Deps/gotchas:** imagemagick. The generic sibling of [[img-from-psd]] (PSD-only) — same flag style, any source, plus a default 2000px fit and a jpg/png `-P` prompt. Full Quick-Action wiring in [[img-convert|the deep-dive]].
 
 > The older `crop2000x2500-01.sh` (a cruder duplicate of `img-crop-2000x2500.sh`) is superseded — now in `~/_temp/bin_bak/`.

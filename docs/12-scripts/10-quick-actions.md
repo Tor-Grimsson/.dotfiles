@@ -12,6 +12,7 @@ related:
   - "[[09-finder|Finder selection]]"
   - "[[img-from-psd|PSD → image Quick Action]]"
   - "[[img-canvas|Fixed-aspect canvas Quick Action]]"
+  - "[[img-convert|Any image → JPG/PNG Quick Action]]"
 ---
 
 # Quick Actions (`qa-`)
@@ -72,6 +73,14 @@ qa-make.sh -t public.image "Convert PSD → JPG (2000px)" \
 # PSDs → JPG at original resolution (no -r = full size)
 qa-make.sh -t public.image "Convert PSD → JPG (original size)" \
   'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/.dotfiles/bin/img-from-psd.sh" "$@"'
+
+# any image → 2000px JPG (fixed format; see [[img-convert]] for the cheat sheet)
+qa-make.sh -t public.image "Convert image → JPG (2000px)" \
+  'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/.dotfiles/bin/img-convert.sh" "$@"'
+
+# …or prompt for JPG/PNG at run time — img-convert's -P mode (see [[img-convert]])
+qa-make.sh -t public.image "Convert image (pick format)" \
+  'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/.dotfiles/bin/img-convert.sh" -P "$@"'
 
 # any image → fixed social aspect, cover-crop (fixed preset)
 qa-make.sh -t public.image "Canvas 4:5" \
