@@ -2,7 +2,7 @@
 title: Scripts
 type: index
 status: active
-updated: 2026-06-05
+updated: 2026-06-08
 description: The bin/ helper scripts, grouped by domain prefix (au-/vid-/img-/pdf-/art-/batch-/tor-/fs-/ss-/finder-/qa-). One doc per family.
 tags:
   - project/dotfiles
@@ -18,7 +18,7 @@ CLI helpers in `~/.dotfiles/bin` (symlinked to `~/bin`, on PATH). Renamed 2026-0
 | Prefix | Family | Count | Hotkeys / Quick Actions |
 |--------|--------|:--:|---|
 | `au-`  | [[01-audio\|Audio]] | 3 | — |
-| `vid-` | [[02-video\|Video]] | 10 | — |
+| `vid-` | [[02-video\|Video]] | 11 | — |
 | `img-` | [[03-image\|Image / 2D]] | 10 | PSD→JPG/PNG, any image/PDF→JPG/PNG, fixed-aspect canvas (Quick Actions) |
 | `pdf-` | [[04-pdf\|PDF]] | 7 | — |
 | `art-` | [[05-artwork\|Artwork pipeline]] | 2 | — |

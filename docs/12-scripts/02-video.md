@@ -2,27 +2,32 @@
 title: Video scripts
 type: reference
 status: active
-updated: 2026-06-05
-description: vid-* — video transcode/scale/crop helpers (ffmpeg).
+updated: 2026-06-08
+description: vid-* — video transcode/scale/crop/remux helpers (ffmpeg).
 tags:
   - project/dotfiles
   - domain/scripts/video
+related:
+  - "[[vid-remux-mp4|Rewrap to MP4 (deep-dive)]]"
 ---
 
 # Video (`vid-`)
 
 All scripts shell out to `ffmpeg`. The `-h*` encoders also need an `ffmpeg` built
 with Apple **VideoToolbox** (macOS hardware HEVC); `vid-convert.sh`, `vid-prores.sh`
-and `vid-webm2mp4.sh` are pure software encodes. Every script now answers `-h` /
-`--help` with a full usage block.
+and `vid-webm2mp4.sh` are pure software encodes; `vid-remux-mp4.sh` doesn't encode
+the video at all — it stream-copies into a new container. Every script now answers
+`-h` / `--help` with a full usage block.
 
 Two shapes:
 
 - **Arg-takers** — `vid-convert.sh` (getopts) and `vid-webm2mp4.sh` (positional)
   operate on a named input file.
-- **Batch globbers** — every `vid-h265*` and `vid-prores.sh` take **no arguments**;
-  they glob `*.mov *.mp4 *.mxf *.avi` in the current directory and write a renamed
-  sibling next to each source. `cd` into the folder, run, done.
+- **Batch globbers** — every `vid-h265*`, `vid-prores.sh` and `vid-remux-mp4.sh`
+  take **no arguments**; they glob the cwd and write a renamed sibling next to each
+  source. `cd` into the folder, run, done. (The `vid-h265*`/`vid-prores` set globs
+  `*.mov *.mp4 *.mxf *.avi`; `vid-remux-mp4.sh` deliberately **excludes** `.mp4` and
+  adds `.mkv`/`.ts`, since rewrapping an mp4 into mp4 is pointless.)
 
 | Script | Does | Usage |
 |--------|------|-------|
@@ -36,6 +41,7 @@ Two shapes:
 | `vid-h265-small-web.sh` | Batch HW H.265 12M web `.mp4` (8-bit yuv420p) | `vid-h265-small-web.sh` |
 | `vid-prores.sh` | Batch software transcode → ProRes 422 HQ mezzanine | `vid-prores.sh` |
 | `vid-webm2mp4.sh` | WebM (canvas/screen recordings) → MP4 (H.264/AAC) | `vid-webm2mp4.sh <in.webm> [out.mp4]` |
+| `vid-remux-mp4.sh` | Batch rewrap H.264/HEVC `.mov`/`.mkv`/… → `.mp4`, **no re-encode** (lossless, seconds); incompatible audio → AAC | `vid-remux-mp4.sh` |
 
 ## Per-script
 
@@ -134,6 +140,25 @@ Two shapes:
   `vid-webm2mp4.sh in.webm ~/Videos/out.mp4`.
 - **Gotcha** — the only H.264 encoder in the family, so this is the "plays anywhere"
   option. CRF 18 is near-lossless, not small.
+
+### `vid-remux-mp4.sh`
+
+- **Does** — batch **rewrap** (not re-encode): for footage that's *already* H.264 or
+  HEVC but trapped in a `.mov`/`.mkv`/`.avi`/`.mxf`/`.ts`, it stream-copies the video
+  into an `.mp4`. Lossless and seconds-per-file — no quality loss, no CPU cost. The
+  right tool when the codec is fine and only the container is wrong (e.g. After
+  Effects `.mov` exports).
+- **Usage** — `vid-remux-mp4.sh` (no args; globs the cwd).
+- **Example** — `cd ~/ae-export && vid-remux-mp4.sh`.
+- **Audio** — copied when mp4 can already carry it (`aac`/`ac3`/`eac3`/`mp3`/`alac`),
+  otherwise re-encoded to **AAC 256k** (PCM, Opus, Vorbis, FLAC…). Only the audio is
+  touched in that case; the video still stream-copies.
+- **Gotcha** — **not a transcoder.** A non-H.264/HEVC video stream (ProRes, VP9,
+  MPEG-2, DNxHD…) is **skipped with a printed reason** rather than producing a broken
+  mp4 — reach for `vid-h265-small-web.sh` or `vid-convert.sh` there. Only the first
+  video + first audio stream are kept; data/timecode tracks are dropped (`-write_tmcd 0`
+  stops the muxer re-adding a `tmcd` track). `.mp4` sources aren't globbed, and an
+  existing `<name>.mp4` is left untouched — so it's safe to re-run. Output `<name>.mp4`.
 
 > Exact CRF/bitrate/preset flags live (and are now commented) in each script. The
 > older `video2k-aspect.sh` / `video4k2k.sh` (byte-identical) and `video4k2ratio5x3.sh`
