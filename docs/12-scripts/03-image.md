@@ -30,7 +30,7 @@ Every script takes `-h` / `--help` and prints its own usage. Magic dimensions
 | `img-web-thumb.sh` | Responsive set cropped to fixed 2:1 | `img-web-thumb.sh <src>` |
 | `img-from-psd.sh` | Convert PSD(s) → JPG/PNG, optional resize | `img-from-psd.sh [-f png\|jpg] [-r geom] [-q n] [-o dir] FILE...` |
 | `img-canvas.sh` | Fit any image into a fixed social aspect (cover) | `img-canvas.sh -a 4:5 [-s 2] [-m cover\|fit] <img>...` |
-| `img-convert.sh` | Convert any image → JPG/PNG, fit within 2000px | `img-convert.sh [-f jpg\|png] [-r geom] [-q n] [-o dir] FILE...` |
+| `img-convert.sh` | Convert any image **or PDF** → JPG/PNG, fit within 2000px | `img-convert.sh [-f jpg\|png] [-r geom] [-q n] [-d dpi] [-a] [-o dir] FILE...` |
 
 ## Per script
 
@@ -98,10 +98,10 @@ Every script takes `-h` / `--help` and prints its own usage. Magic dimensions
 - **Deps/gotchas:** imagemagick. cover **will upscale** a source smaller than the canvas to fill it. Full preset table + the multi-prompt Finder Quick Action live in [[img-canvas|the deep-dive]].
 
 ### `img-convert.sh`
-- **Does:** Converts any raster image (jpg/png/tif/webp/heic/psd/…) to JPG (default) or PNG, reading frame `[0]` so multi-frame/layered files yield a single still. By default fits the result within a 2000×2000 box (aspect kept, shrink-only). `-auto-orient` first, sRGB 8-bit; JPG flattens onto white, PNG keeps alpha.
-- **Usage:** `img-convert.sh [-f jpg|png] [-r geom] [-q n] [-o dir] FILE...` · `img-convert.sh -P …` (format prompt, for Quick Actions)
-- **Args/behavior:** `-f` jpg/png (default jpg); `-r` geometry (default `2000x2000>` = fit within 2000px, shrink-only; `-r none` = full size); `-q` jpg quality (default 90); `-o` output dir (default beside source); `-P` GUI format picker. If the output would overwrite a same-name same-format source, a `-<cap>px` suffix is added (e.g. `photo.jpg` → `photo-2000px.jpg`) — the source is never clobbered. Prints `src -> dst`, skips missing inputs.
-- **Examples:** `img-convert.sh photo.heic` · `img-convert.sh -f png shot.tif` · `img-convert.sh -r none big.tif` · `img-convert.sh -o out -q 92 *.heic`
-- **Deps/gotchas:** imagemagick. The generic sibling of [[img-from-psd]] (PSD-only) — same flag style, any source, plus a default 2000px fit and a jpg/png `-P` prompt. Full Quick-Action wiring in [[img-convert|the deep-dive]].
+- **Does:** Converts any raster image **or PDF/EPS** (jpg/png/tif/webp/heic/psd/pdf/eps/…) to JPG (default) or PNG, reading frame `[0]` so multi-frame/layered/multi-page files yield a single still. By default fits the result within a 2000×2000 box (aspect kept, shrink-only). `-auto-orient` first, sRGB 8-bit; JPG composites onto white (per-page, so `-a` keeps every page), PNG keeps alpha.
+- **Usage:** `img-convert.sh [-f jpg|png] [-r geom] [-q n] [-d dpi] [-a] [-o dir] FILE...` · `img-convert.sh -P …` (format prompt, for Quick Actions)
+- **Args/behavior:** `-f` jpg/png (default jpg); `-r` geometry (default `2000x2000>` = fit within 2000px, shrink-only; `-r none` = full size); `-q` jpg quality (default 90); `-d` rasterize DPI for vector sources pdf/eps/ai/ps (default 300; raster ignores it — without it Ghostscript renders at 72 dpi and the fit-2000 has nothing to shrink); `-a` all pages → `<base>-p01.<fmt>, -p02, …` (default is first page only); `-o` output dir (default beside source); `-P` GUI format picker. If the output would overwrite a same-name same-format source, a `-<cap>px` suffix is added (e.g. `photo.jpg` → `photo-2000px.jpg`) — the source is never clobbered. Prints `src -> dst`, skips missing inputs.
+- **Examples:** `img-convert.sh photo.heic` · `img-convert.sh deck.pdf` (first page @300dpi) · `img-convert.sh -a deck.pdf` (every page) · `img-convert.sh -f png shot.tif` · `img-convert.sh -d 600 -r none poster.pdf`
+- **Deps/gotchas:** imagemagick; **Ghostscript (`gs`) for PDF/EPS input**. The generic sibling of [[img-from-psd]] (PSD-only) — same flag style, any source, plus a default 2000px fit and a jpg/png `-P` prompt. Full Quick-Action wiring in [[img-convert|the deep-dive]].
 
 > The older `crop2000x2500-01.sh` (a cruder duplicate of `img-crop-2000x2500.sh`) is superseded — now in `~/_temp/bin_bak/`.

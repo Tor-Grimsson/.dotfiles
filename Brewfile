@@ -54,6 +54,7 @@ brew "whisper-cpp"       # Speech-to-text (OpenAI Whisper in C++)
 
 # ── PDF & images ────────────────────────────────────────────────────────────
 brew "imagemagick" # Image manipulation toolkit
+brew "ghostscript" # PDF/PS rasterizer — gs; ImageMagick's PDF/EPS delegate (img-convert.sh, pdf-to-png.sh)
 brew "img2pdf"     # Images → PDF (lossless JPEG embedding)
 brew "pdf2svg"     # PDF → SVG (vector)
 brew "pngpaste"    # Paste clipboard PNG to a file

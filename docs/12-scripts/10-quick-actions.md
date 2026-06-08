@@ -78,8 +78,9 @@ qa-make.sh -t public.image "Convert PSD → JPG (original size)" \
 qa-make.sh -t public.image "Convert image → JPG (2000px)" \
   'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/.dotfiles/bin/img-convert.sh" "$@"'
 
-# …or prompt for JPG/PNG at run time — img-convert's -P mode (see [[img-convert]])
-qa-make.sh -t public.image "Convert image (pick format)" \
+# …or prompt for JPG/PNG at run time — img-convert's -P mode (see [[img-convert]]).
+# Add com.adobe.pdf so the action also fires on PDFs (→ first page @300dpi, fit 2000px).
+qa-make.sh -t public.image,com.adobe.pdf "Convert image (pick format)" \
   'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/.dotfiles/bin/img-convert.sh" -P "$@"'
 
 # any image → fixed social aspect, cover-crop (fixed preset)
