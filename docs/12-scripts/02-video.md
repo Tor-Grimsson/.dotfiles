@@ -2,32 +2,42 @@
 title: Video scripts
 type: reference
 status: active
-updated: 2026-06-08
+updated: 2026-06-09
 description: vid-* — video transcode/scale/crop/remux helpers (ffmpeg).
 tags:
   - project/dotfiles
   - domain/scripts/video
 related:
   - "[[vid-remux-mp4|Rewrap to MP4 (deep-dive)]]"
+  - "[[vid-h264-web|H.264 web encode (deep-dive)]]"
 ---
 
 # Video (`vid-`)
 
-All scripts shell out to `ffmpeg`. The `-h*` encoders also need an `ffmpeg` built
-with Apple **VideoToolbox** (macOS hardware HEVC); `vid-convert.sh`, `vid-prores.sh`
-and `vid-webm2mp4.sh` are pure software encodes; `vid-remux-mp4.sh` doesn't encode
-the video at all — it stream-copies into a new container. Every script now answers
-`-h` / `--help` with a full usage block.
+All scripts shell out to `ffmpeg`. The `vid-h265*` encoders also need an `ffmpeg`
+built with Apple **VideoToolbox** (macOS hardware HEVC); `vid-convert.sh`,
+`vid-prores.sh`, `vid-webm2mp4.sh` and `vid-h264-web.sh` are pure software encodes;
+`vid-remux-mp4.sh` doesn't encode the video at all — it stream-copies into a new
+container. Every script now answers `-h` / `--help` with a full usage block.
+
+**HEVC vs H.264 for the web.** Two scripts target an `.mp4` for the browser, and
+they are *not* interchangeable: `vid-h265-small-web.sh` emits **HEVC** (smaller, but
+only Safari plays it on the web), `vid-h264-web.sh` emits **H.264** (a bit larger,
+but plays in every browser and device). Reach for H.264 when "plays everywhere"
+matters; HEVC when the audience is Apple and bytes are tight.
 
 Two shapes:
 
 - **Arg-takers** — `vid-convert.sh` (getopts) and `vid-webm2mp4.sh` (positional)
   operate on a named input file.
-- **Batch globbers** — every `vid-h265*`, `vid-prores.sh` and `vid-remux-mp4.sh`
-  take **no arguments**; they glob the cwd and write a renamed sibling next to each
-  source. `cd` into the folder, run, done. (The `vid-h265*`/`vid-prores` set globs
-  `*.mov *.mp4 *.mxf *.avi`; `vid-remux-mp4.sh` deliberately **excludes** `.mp4` and
-  adds `.mkv`/`.ts`, since rewrapping an mp4 into mp4 is pointless.)
+- **Batch globbers** — every `vid-h265*`, `vid-prores.sh`, `vid-remux-mp4.sh` and
+  `vid-h264-web.sh` take **no positional arguments**; they glob the cwd and write a
+  renamed sibling next to each source. `cd` into the folder, run, done. (The
+  `vid-h265*`/`vid-prores`/`vid-h264-web` set globs `*.mov *.mp4 *.mxf *.avi`;
+  `vid-remux-mp4.sh` deliberately **excludes** `.mp4` and adds `.mkv`/`.ts`, since
+  rewrapping an mp4 into mp4 is pointless. `vid-h264-web.sh` *does* glob `.mp4` —
+  its job is shrinking fat mp4s — but skips its own `*_web.mp4` output, and takes an
+  optional `-q <crf>` quality flag.)
 
 | Script | Does | Usage |
 |--------|------|-------|
@@ -38,7 +48,8 @@ Two shapes:
 | `vid-h265-pad.sh` | Batch crop a thin border, rescale to 1080p, 10-bit HW H.265 (NOT padding — see below) | `vid-h265-pad.sh` |
 | `vid-h265-dv-pal.sh` | Batch deinterlace + scale DV PAL SD → H.265 4M | `vid-h265-dv-pal.sh` |
 | `vid-h265-small.sh` | Batch HW H.265 12M delivery `.mov` | `vid-h265-small.sh` |
-| `vid-h265-small-web.sh` | Batch HW H.265 12M web `.mp4` (8-bit yuv420p) | `vid-h265-small-web.sh` |
+| `vid-h265-small-web.sh` | Batch HW H.265 12M web `.mp4` (8-bit yuv420p) — Safari-only | `vid-h265-small-web.sh` |
+| `vid-h264-web.sh` | Batch SW **H.264** web `.mp4` (libx264 CRF 23, yuv420p) — **plays everywhere** | `vid-h264-web.sh [-q crf]` |
 | `vid-prores.sh` | Batch software transcode → ProRes 422 HQ mezzanine | `vid-prores.sh` |
 | `vid-webm2mp4.sh` | WebM (canvas/screen recordings) → MP4 (H.264/AAC) | `vid-webm2mp4.sh <in.webm> [out.mp4]` |
 | `vid-remux-mp4.sh` | Batch rewrap H.264/HEVC `.mov`/`.mkv`/… → `.mp4`, **no re-encode** (lossless, seconds); incompatible audio → AAC | `vid-remux-mp4.sh` |
@@ -117,8 +128,25 @@ Two shapes:
 - **Usage** — `vid-h265-small-web.sh` (no args).
 - **Example** — `cd ~/footage && vid-h265-small-web.sh`.
 - **Gotcha** — output `<name>_h265_small.mp4`. HEVC-in-MP4 still needs an HEVC-capable
-  browser (Safari); it is **not** the universal H.264 — use `vid-webm2mp4.sh` semantics
-  (libx264) when you need to play everywhere.
+  browser (Safari); it is **not** the universal H.264 — reach for `vid-h264-web.sh`
+  (the H.264 twin below) when you need to play everywhere.
+
+### `vid-h264-web.sh`
+
+- **Does** — the **universal-playback twin** of `-small-web`: re-encodes to **H.264**
+  (`libx264`) in an `.mp4`, 8-bit `yuv420p`, AAC 128k. H.264 plays in every browser
+  and on every device — the reach HEVC doesn't have. Quality is CRF-targeted, so an
+  over-fat source (e.g. a 720p clip carrying a 16 Mbps stream) is shrunk to a sane
+  delivery size automatically.
+- **Usage** — `vid-h264-web.sh [-q <crf>]` (no positional args; globs the cwd).
+- **Options** — `-q` x264 CRF, default **23** (lower = higher quality / bigger file;
+  sane web range ~20–26).
+- **Example** — `cd ~/footage && vid-h264-web.sh` · `vid-h264-web.sh -q 21`.
+- **Gotcha** — software `libx264` (`preset medium`), so it's CPU-bound, not the HW
+  path the `vid-h265*` scripts use. **Does not rescale** — native resolution is kept
+  (use `vid-convert.sh` to change dimensions). Output `<name>_web.mp4`; an existing
+  one is skipped (idempotent), and `*_web.mp4` inputs are skipped so a re-run never
+  produces `*_web_web.mp4`.
 
 ### `vid-prores.sh`
 
@@ -138,8 +166,9 @@ Two shapes:
   with `.webm` → `.mp4`. No input prints usage and exits non-zero.
 - **Examples** — `vid-webm2mp4.sh ~/Downloads/kol-realtime.webm` ·
   `vid-webm2mp4.sh in.webm ~/Videos/out.mp4`.
-- **Gotcha** — the only H.264 encoder in the family, so this is the "plays anywhere"
-  option. CRF 18 is near-lossless, not small.
+- **Gotcha** — one of the two H.264 encoders in the family (with `vid-h264-web.sh`),
+  but specialised for **webm sources**; CRF 18 is near-lossless, not small. To shrink
+  *already-mp4/mov* footage to universal, delivery-sized H.264, use `vid-h264-web.sh`.
 
 ### `vid-remux-mp4.sh`
 
