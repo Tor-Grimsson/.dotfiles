@@ -2,8 +2,8 @@
 title: Tooling catalog
 type: index
 status: active
-updated: 2026-06-06
-description: One reference doc per installed tool (58 tools, 13 categories), each with verified links and a why/use/win/how/future write-up. Routes to every category.
+updated: 2026-06-09
+description: One reference doc per installed tool (64 tools, 13 categories), each with verified links and a why/use/win/how/future write-up. Routes to every category.
 tags:
   - project/dotfiles
   - domain/tooling
@@ -13,7 +13,7 @@ related:
 
 # Tooling catalog
 
-One `reference` doc per tool in this setup — **58 tools across 13 categories**. Each doc carries verified links (website / repo / manual / brew) in frontmatter and a body covering *what it is, why it's installed, the common use case, the biggest win, how to use it, and future use*.
+One `reference` doc per tool in this setup — **64 tools across 13 categories**. Each doc carries verified links (website / repo / manual / brew) in frontmatter and a body covering *what it is, why it's installed, the common use case, the biggest win, how to use it, and future use*.
 
 Folders group by **function**. Two cross-cutting axes live in **tags**, not folders, so you can slice either way:
 - **Interface** — `pattern/cli` · `pattern/tui` · `pattern/gui` · `pattern/library`
@@ -25,9 +25,9 @@ Folders group by **function**. Two cross-cutting axes live in **tags**, not fold
 | # | Category | Tools | What lives here |
 |---|----------|:-----:|-----------------|
 | 01 | [[01-shell-terminal/INDEX\|Shell & Terminal]] | 8 | terminal emulator, multiplexers, prompt, zsh plugins, clipboard, sysinfo |
-| 02 | [[02-file-management/INDEX\|File Management]] | 6 | tree view, TUI managers, GUI managers, renamers, QuickLook, archiver |
+| 02 | [[02-file-management/INDEX\|File Management]] | 11 | tree view, TUI/GUI managers, renamers, archiver + modern CLI core (eza/bat/fd/rg/fzf) |
 | 03 | [[03-dedup-cleanup/INDEX\|Dedup & Cleanup]] | 6 | duplicate finders, app uninstallers, file recovery |
-| 04 | [[04-dev-languages/INDEX\|Dev & Languages]] | 8 | editors, JS/Python runtimes & managers, jq, containers |
+| 04 | [[04-dev-languages/INDEX\|Dev & Languages]] | 9 | editors, JS/Python runtimes & managers, jq, containers, LLM client |
 | 05 | [[05-network-security/INDEX\|Network & Security]] | 8 | scanners, throughput, antivirus, password vault, SSH |
 | 06 | [[06-media-av/INDEX\|Media & A/V]] | 6 | player, transcoders, torrents, speech-to-text, text-to-speech |
 | 07 | [[07-pdf-images/INDEX\|PDF & Images]] | 4 | image toolkit, PDF↔image/SVG, clipboard PNG |
@@ -43,5 +43,5 @@ Folders group by **function**. Two cross-cutting axes live in **tags**, not fold
 
 ## Maintenance
 - Source of truth for *what's installed* is the repo `Brewfile`. When a tool is added/removed there, add/remove its doc here.
-- One catalog entry is a macOS **built-in**, not a Brewfile line: `[[01-shell-terminal/06-pbcopy-pbpaste|pbcopy & pbpaste]]`. Don't "fix" the 58 count against the Brewfile — it's the one expected mismatch.
+- The catalog intentionally runs ahead of the `Brewfile`: `[[01-shell-terminal/06-pbcopy-pbpaste|pbcopy & pbpaste]]` is a macOS **built-in**, and a few CLIs (`[[06-media-av/06-edge-tts|edge-tts]]` via pipx, `[[04-dev-languages/09-llm|llm]]` via uv) are **not** Brewfile lines. Don't "fix" the 64 count against the Brewfile — those mismatches are expected.
 - Removed 2026-06-04: **tmate** and **qlstephen** (brew was disabling both; uninstall locally with `brew uninstall tmate` and `brew uninstall --cask qlstephen`).

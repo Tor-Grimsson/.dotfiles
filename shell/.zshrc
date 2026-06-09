@@ -164,8 +164,15 @@ export FZF_DEFAULT_OPTS="
   export FZF_DEFAULT_COMMAND='fd --type f --hidden --strip-cwd-prefix --exclude .git'
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND='fd --type d --hidden --strip-cwd-prefix --exclude .git'
+  export FZF_ALT_C_OPTS="--preview 'eza -T --level=2 --color=always {}'"      # Alt-C: tree-preview the dir before cd
+  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:wrap"    # Ctrl-R: show the full command before running
   source <(fzf --zsh)
   alias cat='bat --paging=never'
+  # eza — modern ls (icons need the Nerd Font, which is installed)
+  alias ls='eza --group-directories-first --icons'
+  alias ll='eza -lah --git --icons --group-directories-first'
+  alias la='eza -a --icons --group-directories-first'
+  alias lt='eza --tree --level=2 --icons --group-directories-first'
 
 # ── zsh plugins via Homebrew (not oh-my-zsh custom plugins — see TOOLING.md) ──
 # Load order: fzf-tab before the wrappers; zsh-syntax-highlighting dead last.
