@@ -25,6 +25,7 @@ covers:
 related:
   - "[[02-mpv|mpv]]"
   - "[[04-whisper-cpp|whisper.cpp]]"
+  - "[[06-pbcopy-pbpaste|pbcopy & pbpaste]]"
 ---
 
 ## Summary

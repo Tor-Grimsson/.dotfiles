@@ -3,7 +3,7 @@ title: Tooling catalog
 type: index
 status: active
 updated: 2026-06-06
-description: One reference doc per installed tool (57 tools, 13 categories), each with verified links and a why/use/win/how/future write-up. Routes to every category.
+description: One reference doc per installed tool (58 tools, 13 categories), each with verified links and a why/use/win/how/future write-up. Routes to every category.
 tags:
   - project/dotfiles
   - domain/tooling
@@ -13,7 +13,7 @@ related:
 
 # Tooling catalog
 
-One `reference` doc per tool in this setup — **57 tools across 13 categories**. Each doc carries verified links (website / repo / manual / brew) in frontmatter and a body covering *what it is, why it's installed, the common use case, the biggest win, how to use it, and future use*.
+One `reference` doc per tool in this setup — **58 tools across 13 categories**. Each doc carries verified links (website / repo / manual / brew) in frontmatter and a body covering *what it is, why it's installed, the common use case, the biggest win, how to use it, and future use*.
 
 Folders group by **function**. Two cross-cutting axes live in **tags**, not folders, so you can slice either way:
 - **Interface** — `pattern/cli` · `pattern/tui` · `pattern/gui` · `pattern/library`
@@ -24,7 +24,7 @@ Folders group by **function**. Two cross-cutting axes live in **tags**, not fold
 
 | # | Category | Tools | What lives here |
 |---|----------|:-----:|-----------------|
-| 01 | [[01-shell-terminal/INDEX\|Shell & Terminal]] | 7 | terminal emulator, multiplexers, prompt, zsh plugins, sysinfo |
+| 01 | [[01-shell-terminal/INDEX\|Shell & Terminal]] | 8 | terminal emulator, multiplexers, prompt, zsh plugins, clipboard, sysinfo |
 | 02 | [[02-file-management/INDEX\|File Management]] | 6 | tree view, TUI managers, GUI managers, renamers, QuickLook, archiver |
 | 03 | [[03-dedup-cleanup/INDEX\|Dedup & Cleanup]] | 6 | duplicate finders, app uninstallers, file recovery |
 | 04 | [[04-dev-languages/INDEX\|Dev & Languages]] | 8 | editors, JS/Python runtimes & managers, jq, containers |
@@ -43,4 +43,5 @@ Folders group by **function**. Two cross-cutting axes live in **tags**, not fold
 
 ## Maintenance
 - Source of truth for *what's installed* is the repo `Brewfile`. When a tool is added/removed there, add/remove its doc here.
+- One catalog entry is a macOS **built-in**, not a Brewfile line: `[[01-shell-terminal/06-pbcopy-pbpaste|pbcopy & pbpaste]]`. Don't "fix" the 58 count against the Brewfile — it's the one expected mismatch.
 - Removed 2026-06-04: **tmate** and **qlstephen** (brew was disabling both; uninstall locally with `brew uninstall tmate` and `brew uninstall --cask qlstephen`).

@@ -132,7 +132,7 @@ Note: `pdf2svg` (was MBP) and `pdf2image` (iMac) point opposite directions (vect
 - **powerlevel10k** — zsh prompt theme. `.p10k.zsh` config is vendored in `shell/`.
 - **zsh-completions**, **zsh-syntax-highlighting** — zsh plugins.
 
-⚠️ **Duplication:** the MBP gets p10k + zsh plugins via an **oh-my-zsh custom plugin**, while the iMac installed them via **brew**. The unified Brewfile now installs the brew copies on both. Pick one source — recommend brew on both and drop the oh-my-zsh copies — so they can't drift.
+✅ **Resolved 2026-06-09 — brew on both, oh-my-zsh copies dropped.** p10k and `zsh-autosuggestions`/`zsh-syntax-highlighting`/`fzf-tab` are all Brewfile formulae, sourced directly in `shell/.zshrc`: `ZSH_THEME=""` with the theme + the three plugins `source`d from `${HOMEBREW_PREFIX}/share/…` (correct order: fzf-tab first, syntax-highlighting last). The oh-my-zsh `custom/themes/powerlevel10k` + `custom/plugins/{…}` copies are no longer referenced — `rm -rf` them on each machine. No more drift; reproduces via `brew bundle` with no clone step.
 
 ### Dev
 - **neovim** · **node** · **pnpm** · **jq** — standard. `pnpm` can self-manage node (`pnpm env use`), which is why the MBP had no brew `node`. The unified Brewfile installs brew `node` everywhere; harmless, but drop it from the Brewfile if you'd rather let pnpm own the runtime on the MBP.
@@ -264,7 +264,7 @@ Rule going forward: use the command name (rely on PATH) or `$(brew --prefix)/bin
 - [ ] `rm -rf ~/.claude-server-commander` — orphaned Desktop Commander MCP logs (last used 9 Mar; MCP no longer wired).
 - [ ] macfuse is left out of the bundle — `brew install --cask macfuse` by hand if a fresh machine needs it.
 - [ ] Review iMac-only *leaves* for unwanted ghosts (autoremove only catches orphaned deps, not unwanted explicit installs).
-- [ ] Resolve p10k / zsh-plugin duplication — brew vs oh-my-zsh, pick one.
+- [x] ~~Resolve p10k / zsh-plugin duplication~~ — **DONE 2026-06-09: brew on both, omz copies dropped** (theme + plugins sourced from `${HOMEBREW_PREFIX}/share/…` in `shell/.zshrc`). See `docs/llm-context/session-log/2026-06-09-fzf-stack-zsh-plugins.md`.
 - [ ] Decide pipx → uv consolidation.
 - [ ] **miniconda on the MBP** (4th Python variant, outside brew) — audit `conda env list`, then uninstall + drop the `conda init` block from `shell/.zshrc`, or guard it with `[ -d /opt/miniconda3 ]`.
 - [ ] **python.org 3.13 framework on the MBP** (5th variant) — uninstall per § Python; `rm ~/.zprofile.pysave`.

@@ -18,6 +18,7 @@ mkdir -p "$HOME/.ssh"
 ln -sf "$DOT/shell/.zshrc"     "$HOME/.zshrc"
 ln -sf "$DOT/shell/.zprofile" "$HOME/.zprofile"
 ln -sf "$DOT/shell/.p10k.zsh" "$HOME/.p10k.zsh"
+ln -sf "$DOT/shell/.nanorc"   "$HOME/.nanorc"
 ln -sf "$DOT/git/.gitconfig"  "$HOME/.gitconfig"
 ln -sfn "$DOT/bin" "$HOME/bin"
 

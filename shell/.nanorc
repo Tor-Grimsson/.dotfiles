@@ -1,0 +1,4 @@
+# Don't hard-wrap long lines (insert real newlines) — breaks pasted config.
+# Root cause of a "zsh:2: permission denied" bug when pasting a long fzf
+# --preview line into .zshrc; see kol-claude summaries/04.
+set nowrap

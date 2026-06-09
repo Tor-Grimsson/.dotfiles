@@ -5,8 +5,10 @@ fi
 
 # ── Oh My Zsh ─────────────────────────────────────────────────────────────────
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+ZSH_THEME=""   # p10k is sourced from Homebrew after oh-my-zsh (below), not as an omz theme
+plugins=(git sudo brew macos extract copypath copyfile colored-man-pages dirhistory command-not-found gh web-search)
+# fzf-tab / zsh-autosuggestions / zsh-syntax-highlighting are sourced from Homebrew
+# at the end of this file (not oh-my-zsh custom plugins) — see TOOLING.md.
 
 # brew completions must be on fpath BEFORE oh-my-zsh runs compinit.
 # HOMEBREW_PREFIX comes from brew shellenv in .zprofile (arch-correct on both machines).
@@ -18,6 +20,10 @@ fpath=("${HOMEBREW_PREFIX:-/usr/local}/share/zsh-completions" "${HOMEBREW_PREFIX
 ZSH_DISABLE_COMPFIX=true
 
 source $ZSH/oh-my-zsh.sh
+
+# Powerlevel10k theme — sourced directly from Homebrew (single source on both Macs;
+# not an oh-my-zsh theme, so no machine-local custom/themes symlink or clone is needed).
+[[ -r "${HOMEBREW_PREFIX:-/usr/local}/share/powerlevel10k/powerlevel10k.zsh-theme" ]] && source "${HOMEBREW_PREFIX:-/usr/local}/share/powerlevel10k/powerlevel10k.zsh-theme"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -144,3 +150,37 @@ bwenv() {
 
 # ── Local secrets (not in git) ────────────────────────────────────────────────
 [ -f ~/.secrets ] && source ~/.secrets
+
+
+# –– fzf bat 
+export FZF_DEFAULT_OPTS="
+    --height 60%
+    --layout=reverse
+    --border
+    --preview '[ -d {} ] && eza -T --level=2 --color=always {} || bat --color=always --style=numbers {}'
+  "
+
+  export BAT_THEME="ansi"
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --strip-cwd-prefix --exclude .git'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND='fd --type d --hidden --strip-cwd-prefix --exclude .git'
+  source <(fzf --zsh)
+  alias cat='bat --paging=never'
+
+# ── zsh plugins via Homebrew (not oh-my-zsh custom plugins — see TOOLING.md) ──
+# Load order: fzf-tab before the wrappers; zsh-syntax-highlighting dead last.
+# Guarded so a machine that hasn't run `brew bundle` yet won't error.
+HB="${HOMEBREW_PREFIX:-/usr/local}"
+# fzf-tab — fzf-powered Tab completion (needs compinit, which oh-my-zsh already ran).
+[[ -r "$HB/share/fzf-tab/fzf-tab.zsh" ]] && source "$HB/share/fzf-tab/fzf-tab.zsh"
+
+  # fzf-tab — dir-aware preview in Tab completions (mirrors FZF_DEFAULT_OPTS above)
+  zstyle ':completion:*' menu no                            # hand the menu off to fzf-tab
+  zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"   # colorize filename candidates
+  zstyle ':fzf-tab:*' switch-group '<' '>'                  # move between completion groups with < / >
+  zstyle ':fzf-tab:complete:*' fzf-preview '[ -d "$realpath" ] && eza -T --level=2 --color=always "$realpath" || bat --color=always --style=numbers "$realpath" 2>/dev/null'
+
+# zsh-autosuggestions — grey ghost-text from history.
+[[ -r "$HB/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$HB/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# zsh-syntax-highlighting — MUST be the last thing sourced in this file.
+[[ -r "$HB/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$HB/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

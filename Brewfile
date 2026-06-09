@@ -10,9 +10,11 @@ tap "charmbracelet/tap"            # provides crush
 
 # ── Shell & prompt ──────────────────────────────────────────────────────────
 brew "tmux"                    # Terminal multiplexer
-brew "powerlevel10k"           # Zsh prompt theme (also vendored via oh-my-zsh on MBP — see TOOLING.md)
+brew "powerlevel10k"           # Zsh prompt theme — sourced directly in .zshrc (single source, both Macs)
 brew "zsh-completions"         # Extra zsh completion definitions
-brew "zsh-syntax-highlighting" # Fish-like zsh syntax highlighting
+brew "zsh-syntax-highlighting" # Fish-like zsh syntax highlighting (sourced last in .zshrc)
+brew "zsh-autosuggestions"     # Fish-like history autosuggestions (grey ghost-text)
+brew "fzf-tab"                 # Replace the zsh completion menu with an fzf picker
 
 # ── File & navigation ───────────────────────────────────────────────────────
 brew "tree"        # Print directory trees
@@ -21,6 +23,13 @@ brew "broot"       # Tree navigation + fuzzy jump
 brew "glow"        # Render markdown in the terminal
 brew "watch"       # Run a command on an interval, fullscreen output (procps-ng)
 brew "chawan"      # TUI web browser (text-mode, renders in terminal)
+
+# ── Modern CLI core ───────────────────────────────────────────────────────────
+brew "fzf"         # Fuzzy finder — interactive filter for files, history, any list
+brew "fd"          # Friendly, fast `find` replacement (respects .gitignore)
+brew "bat"         # `cat` with syntax highlighting + line numbers (also the fzf preview)
+brew "eza"         # Modern `ls` — colors, tree view, git status (maintained exa fork)
+brew "ripgrep"     # Fast recursive content search (`rg`) — pairs with fzf
 
 # ── Deduplication ─────────────────────────────────────────────────────────────
 brew "jdupes"      # Fast exact-dupe finder (fork of fdupes) — quick CLI sweeps

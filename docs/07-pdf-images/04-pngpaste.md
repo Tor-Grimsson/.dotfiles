@@ -22,6 +22,7 @@ covers:
 related:
   - "[[01-imagemagick|ImageMagick]]"
   - "[[02-img2pdf|img2pdf]]"
+  - "[[06-pbcopy-pbpaste|pbcopy & pbpaste]]"
 ---
 
 ## Summary
