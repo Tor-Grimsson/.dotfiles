@@ -2,13 +2,14 @@
 title: Audio scripts
 type: reference
 status: active
-updated: 2026-06-05
-description: au-* — audio conversion + tagging helpers.
+updated: 2026-06-10
+description: au-* — audio conversion, tagging + transcription helpers.
 tags:
   - project/dotfiles
   - domain/scripts/audio
 related:
   - "[[au-tag|Tag audio from a sidecar .md (deep-dive)]]"
+  - "[[au-transcribe|Transcribe media to markdown (deep-dive)]]"
 ---
 
 # Audio (`au-`)
@@ -18,6 +19,7 @@ related:
 | `au-flac.sh` | Recursively convert `*.wav` / `*.aif` / `*.aiff` → FLAC (compression 8), parallel (`-P 6`), **deletes source** on success | `au-flac.sh [dir]` (default `.`) |
 | `au-mp3.sh` | Recursively convert `*.wav` / `*.aif` / `*.aiff` → MP3 (CBR `-b` 128/160/192/320, default 320), parallel, **keeps source** | `au-mp3.sh [-b 320] [dir]` (default `.`) |
 | `au-tag.sh` | Write album metadata + cover art into `*.mp3` / `*.flac` from a sidecar `.md` frontmatter (yq); embeds a lean downscaled cover | `au-tag.sh [-m md] [-c cover] [-s px] [-T] [dir]` |
+| `au-transcribe.sh` | Video/audio **URL** (yt-dlp) or local media → markdown note: caption + metadata frontmatter, whisper transcript body | `au-transcribe.sh [-m model] [-l lang] [-o dir] [-k] <url\|file>…` |
 
 > Supersedes the older `aiff2flac.sh` (aiff-only) and `convert-flac.sh` (wav-only) — `au-flac.sh` covers all three formats (both now in `~/_temp/bin_bak/`).
 
@@ -72,3 +74,18 @@ Writes album metadata + an embedded front cover into every `*.mp3` / `*.flac` in
 - `-h`, `--help`.
 
 **Dependencies** — `yq` (frontmatter) + `ffmpeg` (tagging/embedding) + `imagemagick` (cover downscale; only when `-s` > 0).
+
+## `au-transcribe.sh`
+
+Fetches a video/audio **URL** with [[07-yt-dlp|yt-dlp]] (YouTube, TikTok + ~1800 sites) or reads a **local media file**, extracts 16 kHz mono audio with ffmpeg, transcribes it with [[04-whisper-cpp|whisper.cpp]] (`whisper-cli`), and writes one `<slug>.md` per input — YAML frontmatter (title, source, uploader, published, duration, model) + the posted caption + the spoken transcript. The unusual member of the family: it takes a URL or single file, not a folder, and emits markdown rather than audio. **Full write-up: [[au-transcribe|the deep-dive]].**
+
+**Usage** — `au-transcribe.sh [-m MODEL] [-l LANG] [-o OUTDIR] [-k] <url|file>…`.
+
+**Args**
+- `-m` — whisper model (default `base`; `tiny`/`small`/`medium`/`large-v3`, `.en` for English-only). Downloaded once to `~/.cache/whisper`.
+- `-l` — spoken-language hint (default `auto`); e.g. `-l en`, `-l is`.
+- `-o` — output directory for the `.md` (default `.`).
+- `-k` — keep the extracted `.wav` beside the note.
+- `-h`, `--help`.
+
+**Dependencies** — `ffmpeg` + `whisper-cli` (`whisper-cpp`) + `jq`, plus `yt-dlp` for URLs. The caption is read from yt-dlp metadata (no ASR); only the spoken audio runs through whisper.

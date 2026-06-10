@@ -24,3 +24,4 @@ Browsing, navigating, organizing, archiving, and renaming files — across the t
 | [[11-ripgrep\|ripgrep]] | Fast recursive in-file search (`rg`); the modern grep. |
 | [[12-fzf\|fzf]] | Interactive fuzzy finder; powers Ctrl-R / Ctrl-T / Alt-C and Tab completion. |
 | [[13-zoxide\|zoxide]] | Smarter `cd` — `z` jumps to frecency-ranked visited dirs, `zi` picks via fzf. |
+| [[14-dust\|dust]] | Modern `du` — biggest-first tree of disk usage with inline bar graphs. |

@@ -12,9 +12,12 @@ related:
   - "[[vid-archive|Archive to 10-bit H.265 (deep-dive)]]"
   - "[[vid-remux-mp4|Rewrap to MP4 (deep-dive)]]"
   - "[[vid-h264-web|H.264 web encode (deep-dive)]]"
+  - "[[au-transcribe|Transcribe a video URL/file to markdown (deep-dive)]]"
 ---
 
 # Video (`vid-`)
+
+These re-encode/rewrap video. To turn a video **URL or file into a text transcript** (markdown), see [[au-transcribe|au-transcribe.sh]] in the audio family (yt-dlp + whisper).
 
 All scripts shell out to `ffmpeg`. The `vid-h265*` encoders also need an `ffmpeg`
 built with Apple **VideoToolbox** (macOS hardware HEVC); `vid-archive.sh`,

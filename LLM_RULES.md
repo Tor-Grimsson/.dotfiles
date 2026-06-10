@@ -13,12 +13,13 @@ _template:
 
 **WHEN THE USER SAYS "read `LLM_RULES.md`" YOU MUST:**
 
-1. **READ** `/docs/llm-context/ARCHITECTURE.md` — load-bearing decisions and constraints
-2. **READ** `/docs/llm-context/AGENT-CONTEXT.md` — current project state
-3. **READ** the latest session log from `/docs/llm-context/session-log/` (sort by date, most recent first)
-4. **CHECK** `/docs/llm-context/session-bridge/` for `handoff-*.md` files. If the newest handoff has a timestamp newer than the newest session log, **also READ that handoff** — it carries in-flight state the session log doesn't. Otherwise skip. See `/docs/llm-context/session-bridge/README.md` for the full protocol.
-5. **STOP** and say "Context loaded. What would you like me to work on?"
-6. **WAIT** for the user to specify their task
+1. **DETECT THE MACHINE** — run `uname -m`: `arm64` = Apple-Silicon **MBP** (`/opt/homebrew`), `x86_64` = Intel **iMac** (`/usr/local`). Never ask the user which machine they're on.
+2. **READ** `/docs/llm-context/ARCHITECTURE.md` — load-bearing decisions and constraints
+3. **READ** `/docs/llm-context/AGENT-CONTEXT.md` — current project state
+4. **READ** the latest session log from `/docs/llm-context/session-log/` (sort by date, most recent first)
+5. **CHECK** `/docs/llm-context/session-bridge/` for `handoff-*.md` files. If the newest handoff has a timestamp newer than the newest session log, **also READ that handoff** — it carries in-flight state the session log doesn't. Otherwise skip. See `/docs/llm-context/session-bridge/README.md` for the full protocol.
+6. **STOP** and say "Context loaded — on the **\<iMac|MBP\>**. What would you like me to work on?" (name the machine from step 1)
+7. **WAIT** for the user to specify their task
 
 **DO NOT:**
 - Skip reading the context files

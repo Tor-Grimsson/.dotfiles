@@ -2,13 +2,13 @@
 title: Media & A/V
 type: index
 status: active
-updated: 2026-06-06
-description: Command-line tools for playing, transcoding, transcribing, speaking, and transferring audio and video.
+updated: 2026-06-10
+description: Command-line tools for playing, transcoding, downloading, transcribing, speaking, and transferring audio and video.
 tags:
   - domain/media
 ---
 
-Command-line media stack — the FFmpeg engine plus a player, a preset transcoder, a local speech-to-text engine, a neural text-to-speech CLI, and a headless torrent client.
+Command-line media stack — the FFmpeg engine plus a player, a preset transcoder, a multi-site downloader, a local speech-to-text engine, a neural text-to-speech CLI, and a headless torrent client.
 
 | Tool | Description |
 | --- | --- |
@@ -18,3 +18,4 @@ Command-line media stack — the FFmpeg engine plus a player, a preset transcode
 | [[04-whisper-cpp\|whisper.cpp]] | Local offline speech-to-text via OpenAI's Whisper model, run with whisper-cli. |
 | [[05-transmission-cli\|Transmission (CLI)]] | Lightweight headless BitTorrent client — daemon plus remote control utilities. |
 | [[06-edge-tts\|edge-tts]] | Neural text-to-speech via Microsoft Edge's free voices — `speak` reads the clipboard aloud through mpv. |
+| [[07-yt-dlp\|yt-dlp]] | Download video/audio from YouTube, TikTok + ~1800 sites; `-x` rips audio for whisper transcription. |

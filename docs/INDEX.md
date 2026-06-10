@@ -3,7 +3,7 @@ title: Tooling catalog
 type: index
 status: active
 updated: 2026-06-10
-description: One reference doc per installed tool (66 tools, 13 categories), each with verified links and a why/use/win/how/future write-up. Routes to every category.
+description: One reference doc per installed tool (69 tools, 13 categories), each with verified links and a why/use/win/how/future write-up. Routes to every category.
 tags:
   - project/dotfiles
   - domain/tooling
@@ -13,7 +13,7 @@ related:
 
 # Tooling catalog
 
-One `reference` doc per tool in this setup — **66 tools across 13 categories**. Each doc carries verified links (website / repo / manual / brew) in frontmatter and a body covering *what it is, why it's installed, the common use case, the biggest win, how to use it, and future use*.
+One `reference` doc per tool in this setup — **69 tools across 13 categories**. Each doc carries verified links (website / repo / manual / brew) in frontmatter and a body covering *what it is, why it's installed, the common use case, the biggest win, how to use it, and future use*.
 
 Folders group by **function**. Two cross-cutting axes live in **tags**, not folders, so you can slice either way:
 - **Interface** — `pattern/cli` · `pattern/tui` · `pattern/gui` · `pattern/library`
@@ -24,12 +24,12 @@ Folders group by **function**. Two cross-cutting axes live in **tags**, not fold
 
 | # | Category | Tools | What lives here |
 |---|----------|:-----:|-----------------|
-| 01 | [[01-shell-terminal/INDEX\|Shell & Terminal]] | 8 | terminal emulator, multiplexers, prompt, zsh plugins, clipboard, sysinfo |
-| 02 | [[02-file-management/INDEX\|File Management]] | 12 | tree view, TUI/GUI managers, renamers, archiver + modern CLI core (eza/bat/fd/rg/fzf/zoxide) |
+| 01 | [[01-shell-terminal/INDEX\|Shell & Terminal]] | 9 | terminal emulator, multiplexers, prompts (p10k + oh-my-posh), zsh plugins, clipboard, sysinfo |
+| 02 | [[02-file-management/INDEX\|File Management]] | 13 | tree view, TUI/GUI managers, renamers, archiver + modern CLI core (eza/bat/fd/rg/fzf/zoxide/dust) |
 | 03 | [[03-dedup-cleanup/INDEX\|Dedup & Cleanup]] | 6 | duplicate finders, app uninstallers, file recovery |
 | 04 | [[04-dev-languages/INDEX\|Dev & Languages]] | 9 | editors, JS/Python runtimes & managers, jq, containers, LLM client |
 | 05 | [[05-network-security/INDEX\|Network & Security]] | 8 | scanners, throughput, antivirus, password vault, SSH |
-| 06 | [[06-media-av/INDEX\|Media & A/V]] | 6 | player, transcoders, torrents, speech-to-text, text-to-speech |
+| 06 | [[06-media-av/INDEX\|Media & A/V]] | 7 | player, transcoders, downloader, torrents, speech-to-text, text-to-speech |
 | 07 | [[07-pdf-images/INDEX\|PDF & Images]] | 4 | image toolkit, PDF↔image/SVG, clipboard PNG |
 | 08 | [[08-screen-capture/INDEX\|Screen Capture]] | 3 | screen recorders, keystroke overlay |
 | 09 | [[09-productivity-desktop/INDEX\|Productivity & Desktop]] | 4 | launcher, system monitor, notes, dev browser |

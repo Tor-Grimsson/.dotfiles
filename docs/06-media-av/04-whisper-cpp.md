@@ -25,6 +25,8 @@ covers:
 related:
   - "[[01-ffmpeg|FFmpeg]]"
   - "[[06-edge-tts|edge-tts]]"
+  - "[[07-yt-dlp|yt-dlp]]"
+  - "[[au-transcribe|au-transcribe.sh (wrapper)]]"
 ---
 
 ## Summary
@@ -60,4 +62,4 @@ whisper-cli -m models/ggml-large-v3.bin -f audio.wav -l is
 ```
 
 ## Future use
-Worth adopting: a standing `~/whisper-models/` with a couple of model sizes plus a wrapper script that runs the `ffmpeg` extract and `whisper-cli` transcribe in one step, and the larger multilingual models (`large-v3`) for non-English source audio.
+Built: [[au-transcribe|au-transcribe.sh]] runs the `ffmpeg` extract + `whisper-cli` transcribe in one step (URL or local file → markdown), and auto-downloads models to `~/.cache/whisper`. Still open: pulling the larger multilingual model (`large-v3`) for hard non-English source audio.

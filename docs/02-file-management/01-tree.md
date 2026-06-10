@@ -21,6 +21,7 @@ covers:
 related:
   - "[[02-yazi|yazi]]"
   - "[[03-broot|broot]]"
+  - "[[14-dust|dust]]"
 ---
 
 ## Summary

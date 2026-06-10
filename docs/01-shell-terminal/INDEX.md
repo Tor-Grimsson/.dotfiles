@@ -20,6 +20,8 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | [[06-pbcopy-pbpaste\|pbcopy & pbpaste]] | macOS clipboard from the shell — pipe text in/out; recipes with fzf, jq, git, pngpaste. (built-in) |
 | [[07-fastfetch\|fastfetch]] | Fast system-info tool printing specs alongside an OS logo. |
 | [[08-glow\|glow]] | Terminal markdown renderer — open any `.md` as styled, readable text, instantly. |
+| [[10-oh-my-posh\|oh-my-posh]] | Cross-shell prompt engine (JSON/YAML themes); `omp-*` helpers cycle vendored themes live. |
+| [[11-vi-mode\|zsh vi-mode]] | Modal (vi) keybindings for the zsh line editor; always-on, with emacs nav preserved in insert mode. |
 
 ## Guides
 - [[09-tmux-tips\|tmux tips & tricks]] — copy mode in full, plus pane/window/session tricks for the [[02-tmux\|tmux]] config.

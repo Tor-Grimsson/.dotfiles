@@ -1,0 +1,19 @@
+blablabkk basdlkflkj abldkbo read the two bindings as different keys entirely:
+
+  - ^b = Control+b → backward-char → moves one letter. That's what you're seeing now.
+  - ^[b = ESC-then-b → backward-word → moves one word.
+
+  Here's the part that ties it to your alt+arrows: the Option/Alt key in iTerm acts as a Meta prefix — it emits an ESC byte in
+  front of the next key. iTerm's natural-editing preset maps Option+← → "send ESC b" and Option+→ → "send ESC f". So your
+  alt+left arrow literally transmits the ^[b sequence as a single keypress. That's why bindkey '^[b' backward-word was the
+  thing driving your word-jump — and why the vi-keymap swap silently killed it.
+
+  The fix is the same 2 lines you already have for ^A/^E, just re-bound into the vi insert keymap:
+
+  bindkey -M viins '^[b' backward-word
+  bindkey -M viins '^[f' forward-word
+
+  I'll also move alt+backspace (^[^?, backward-kill-word, line 102) into viins while I'm there — same root cause, it'll be
+  dead too. Want me to add those three lines next to the existing viins blbbgbock?sajf 
+jkhlj
+v

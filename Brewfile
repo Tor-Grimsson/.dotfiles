@@ -9,7 +9,8 @@ tap "siddharthvaddem/openscreen"   # provides the openscreen cask
 
 # ── Shell & prompt ──────────────────────────────────────────────────────────
 brew "tmux"                    # Terminal multiplexer
-brew "powerlevel10k"           # Zsh prompt theme — sourced directly in .zshrc (single source, both Macs)
+brew "powerlevel10k"           # Zsh prompt theme — fallback prompt (sourced in .zshrc if oh-my-posh absent)
+brew "oh-my-posh"              # Prompt theme engine (cross-shell) — active prompt, night-owl theme (shell/oh-my-posh/)
 brew "zsh-completions"         # Extra zsh completion definitions
 brew "zsh-syntax-highlighting" # Fish-like zsh syntax highlighting (sourced last in .zshrc)
 brew "zsh-autosuggestions"     # Fish-like history autosuggestions (grey ghost-text)
@@ -31,6 +32,7 @@ brew "bat"         # `cat` with syntax highlighting + line numbers (also the fzf
 brew "eza"         # Modern `ls` — colors, tree view, git status (maintained exa fork)
 brew "ripgrep"     # Fast recursive content search (`rg`) — pairs with fzf
 brew "zoxide"      # Smarter cd — `z` jumps to frecency-ranked visited dirs (init wired in .zshrc)
+brew "dust"        # Modern `du` — tree view of what's eating disk, biggest-first (du-dust, Rust)
 
 # ── Deduplication ─────────────────────────────────────────────────────────────
 brew "jdupes"      # Fast exact-dupe finder (fork of fdupes) — quick CLI sweeps
@@ -59,6 +61,7 @@ brew "clamav"        # Antivirus — driven by scripts/transmission_scan.sh quar
 brew "mpv"               # Terminal-friendly media player
 brew "ffmpeg"            # Audio/video convert, record, stream
 brew "handbrake"         # Video transcoder (HandBrakeCLI)
+brew "yt-dlp"            # Download video/audio from YouTube, TikTok + ~1800 sites; `-x` rips audio (whisper feed)
 brew "transmission-cli"  # Lightweight BitTorrent client
 brew "whisper-cpp"       # Speech-to-text (OpenAI Whisper in C++)
 

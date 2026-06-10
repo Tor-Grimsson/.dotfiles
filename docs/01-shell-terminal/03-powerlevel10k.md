@@ -20,6 +20,7 @@ covers:
   - Activating the theme in .zshrc
   - The configuration wizard and instant prompt
 related:
+  - "[[10-oh-my-posh|oh-my-posh]]"
   - "[[04-zsh-syntax-highlighting|zsh-syntax-highlighting]]"
   - "[[05-zsh-completions|zsh-completions]]"
 ---
