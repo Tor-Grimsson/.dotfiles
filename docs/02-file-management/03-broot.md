@@ -2,7 +2,7 @@
 title: broot
 type: reference
 status: active
-updated: 2026-06-04
+updated: 2026-06-10
 description: Tree-based terminal navigator that fuzzy-filters directory trees and runs commands on matches.
 aliases:
   - broot
@@ -23,6 +23,7 @@ covers:
 related:
   - "[[02-yazi|yazi]]"
   - "[[01-tree|tree]]"
+  - "[[13-zoxide|zoxide]]"
 ---
 
 ## Summary

@@ -22,6 +22,7 @@ brew "broot"       # Tree navigation + fuzzy jump
 brew "glow"        # Render markdown in the terminal
 brew "watch"       # Run a command on an interval, fullscreen output (procps-ng)
 brew "chawan"      # TUI web browser (text-mode, renders in terminal)
+brew "w3m"         # Classic text-mode browser — instant, no JS; -dump renders HTML to stdout
 
 # ── Modern CLI core ───────────────────────────────────────────────────────────
 brew "fzf"         # Fuzzy finder — interactive filter for files, history, any list
@@ -29,6 +30,7 @@ brew "fd"          # Friendly, fast `find` replacement (respects .gitignore)
 brew "bat"         # `cat` with syntax highlighting + line numbers (also the fzf preview)
 brew "eza"         # Modern `ls` — colors, tree view, git status (maintained exa fork)
 brew "ripgrep"     # Fast recursive content search (`rg`) — pairs with fzf
+brew "zoxide"      # Smarter cd — `z` jumps to frecency-ranked visited dirs (init wired in .zshrc)
 
 # ── Deduplication ─────────────────────────────────────────────────────────────
 brew "jdupes"      # Fast exact-dupe finder (fork of fdupes) — quick CLI sweeps

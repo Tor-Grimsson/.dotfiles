@@ -48,12 +48,14 @@ fi
 
 # ── History ───────────────────────────────────────────────────────────────────
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt share_history
 setopt inc_append_history
+setopt hist_ignore_all_dups   # a repeated command erases its older duplicates — keeps the fzf Ctrl-R picker dense
+setopt hist_reduce_blanks     # strip extra whitespace before saving
 
-export EDITOR=vim
+export EDITOR=nvim
 
 # ── Keybindings ───────────────────────────────────────────────────────────────
 bindkey '^[^?' backward-kill-word
@@ -68,7 +70,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # yazi: cd to where you quit
 function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-    yazi "${@:-~/thatComp--iMac}" --cwd-file="$tmp"
+    local default="$HOME/thatComp--iMac"   # iMac start dir; falls back to cwd where it doesn't exist (MBP)
+    [ $# -eq 0 ] && [ -d "$default" ] && set -- "$default"
+    yazi "$@" --cwd-file="$tmp"
     if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
         builtin cd -- "$cwd"
     fi
@@ -76,7 +80,7 @@ function y() {
 }
 
 # ── Aliases ───────────────────────────────────────────────────────────────────
-alias mx='dotenv -- claude'
+alias vim='nvim'   # the configured editor is nvim (repo nvim/ → ~/.config/nvim)
 alias trm='transmission-remote'
 alias tdash='watch -n 1 transmission-remote -l'
 alias obs='open "obsidian://open?path=$HOME/dev/projects/kol-vault"'
@@ -173,6 +177,10 @@ export FZF_DEFAULT_OPTS="
   alias ll='eza -lah --git --icons --group-directories-first'
   alias la='eza -a --icons --group-directories-first'
   alias lt='eza --tree --level=2 --icons --group-directories-first'
+
+# zoxide — smarter cd: `z <fragment>` jumps to the best-matching visited dir, `zi` picks via fzf.
+# Guarded so a machine that hasn't run `brew bundle` yet won't error.
+command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 
 # ── zsh plugins via Homebrew (not oh-my-zsh custom plugins — see TOOLING.md) ──
 # Load order: fzf-tab before the wrappers; zsh-syntax-highlighting dead last.

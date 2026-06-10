@@ -2,7 +2,7 @@
 title: fzf
 type: reference
 status: active
-updated: 2026-06-09
+updated: 2026-06-10
 description: Interactive fuzzy finder — filter any list by typing. Powers Ctrl-R history, Ctrl-T file-insert, Alt-C cd, and Tab completion (via fzf-tab).
 aliases:
   - fzf
@@ -23,6 +23,7 @@ related:
   - "[[10-fd|fd]]"
   - "[[11-ripgrep|ripgrep]]"
   - "[[08-eza|eza]]"
+  - "[[13-zoxide|zoxide]]"
 ---
 
 ## Summary

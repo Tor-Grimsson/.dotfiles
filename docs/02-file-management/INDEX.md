@@ -2,13 +2,13 @@
 title: File Management
 type: index
 status: active
-updated: 2026-06-09
-description: Tools for browsing, navigating, organizing, archiving, and renaming files on macOS and in the shell — plus the modern CLI core (eza, bat, fd, ripgrep, fzf).
+updated: 2026-06-10
+description: Tools for browsing, navigating, organizing, archiving, and renaming files on macOS and in the shell — plus the modern CLI core (eza, bat, fd, ripgrep, fzf, zoxide).
 tags:
   - domain/files
 ---
 
-Browsing, navigating, organizing, archiving, and renaming files — across the terminal (CLI and TUI) and the macOS GUI. Also home to the **modern CLI core** that replaces the classic Unix tools: `eza` (ls), `bat` (cat), `fd` (find), `ripgrep` (grep), and `fzf` (fuzzy finder) — wired together in `shell/.zshrc`.
+Browsing, navigating, organizing, archiving, and renaming files — across the terminal (CLI and TUI) and the macOS GUI. Also home to the **modern CLI core** that replaces the classic Unix tools: `eza` (ls), `bat` (cat), `fd` (find), `ripgrep` (grep), `fzf` (fuzzy finder), and `zoxide` (cd) — wired together in `shell/.zshrc`.
 
 | Tool | Description |
 | --- | --- |
@@ -23,3 +23,4 @@ Browsing, navigating, organizing, archiving, and renaming files — across the t
 | [[10-fd\|fd]] | Friendly, fast `find` replacement; respects .gitignore; feeds the fzf file list. |
 | [[11-ripgrep\|ripgrep]] | Fast recursive in-file search (`rg`); the modern grep. |
 | [[12-fzf\|fzf]] | Interactive fuzzy finder; powers Ctrl-R / Ctrl-T / Alt-C and Tab completion. |
+| [[13-zoxide\|zoxide]] | Smarter `cd` — `z` jumps to frecency-ranked visited dirs, `zi` picks via fzf. |

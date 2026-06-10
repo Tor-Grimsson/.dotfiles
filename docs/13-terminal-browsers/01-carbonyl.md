@@ -2,7 +2,7 @@
 title: Carbonyl
 type: reference
 status: active
-updated: 2026-06-05
+updated: 2026-06-10
 description: Chromium fork that renders the full modern web — JS, CSS, video, mouse — directly to terminal cells, run via Docker/OrbStack.
 aliases:
   - carbonyl
@@ -20,6 +20,7 @@ covers:
   - Bandwidth/FPS tuning for media-heavy pages
 related:
   - "[[02-w3m|w3m]]"
+  - "[[03-chawan|Chawan]]"
   - "[[08-orbstack|OrbStack]]"
 ---
 
