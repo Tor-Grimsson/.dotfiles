@@ -2,12 +2,14 @@
 title: Video scripts
 type: reference
 status: active
-updated: 2026-06-09
+updated: 2026-06-10
 description: vid-* — video transcode/scale/crop/remux helpers (ffmpeg).
 tags:
   - project/dotfiles
   - domain/scripts/video
 related:
+  - "[[video-archive-pipeline|Video archive pipeline (workflow)]]"
+  - "[[vid-archive|Archive to 10-bit H.265 (deep-dive)]]"
   - "[[vid-remux-mp4|Rewrap to MP4 (deep-dive)]]"
   - "[[vid-h264-web|H.264 web encode (deep-dive)]]"
 ---
@@ -15,10 +17,21 @@ related:
 # Video (`vid-`)
 
 All scripts shell out to `ffmpeg`. The `vid-h265*` encoders also need an `ffmpeg`
-built with Apple **VideoToolbox** (macOS hardware HEVC); `vid-convert.sh`,
-`vid-prores.sh`, `vid-webm2mp4.sh` and `vid-h264-web.sh` are pure software encodes;
-`vid-remux-mp4.sh` doesn't encode the video at all — it stream-copies into a new
-container. Every script now answers `-h` / `--help` with a full usage block.
+built with Apple **VideoToolbox** (macOS hardware HEVC); `vid-archive.sh`,
+`vid-convert.sh`, `vid-prores.sh`, `vid-webm2mp4.sh` and `vid-h264-web.sh` are pure
+software encodes; `vid-remux-mp4.sh` doesn't encode the video at all — it
+stream-copies into a new container. Every script now answers `-h` / `--help` with a
+full usage block.
+
+**Archive vs. mezzanine vs. delivery.** Three jobs, three tools. `vid-archive.sh` is
+the **archive** default: 10-bit HEVC at a constant *quality* (libx265 CRF), so the
+file is small but band-free and the size follows the content — the keep-forever copy
+that still plays everywhere. The `vid-h265-*` hardware encoders target a fixed
+*bitrate* instead: `-10b`/`-8b` at ~200 Mbps are near-lossless **mezzanines** (barely
+smaller than ProRes — edit intermediates, not archives), while `-small`/`-small-web`
+are 8-bit ~12 Mbps **delivery** files. Reach for `vid-archive.sh` when gradients/banding
+matter and you want one small 10-bit copy at any resolution; the HW path when encode
+speed beats compression efficiency.
 
 **HEVC vs H.264 for the web.** Two scripts target an `.mp4` for the browser, and
 they are *not* interchangeable: `vid-h265-small-web.sh` emits **HEVC** (smaller, but
@@ -42,6 +55,7 @@ Two shapes:
 | Script | Does | Usage |
 |--------|------|-------|
 | `vid-convert.sh` | **Flagship.** Scale + crop one video to a target aspect/res/anchor (no letterbox), software H.265 | `vid-convert.sh -a <16:9\|5:3\|4:3\|1:1\|3:4\|3:5\|9:16> -r <1k\|2k\|4k> -o <left\|right\|center\|top\|bottom> -i <in> -p <outdir> [-n name]` |
+| `vid-archive.sh` | **Archive default.** Batch SW H.265, **10-bit**, constant-quality **CRF** `.mp4` — small + band-free, any res; `-s` downscales (never upscales) | `vid-archive.sh [-s height] [-q crf] [-g]` |
 | `vid-h265.sh` | Batch HW H.265, 10-bit, 80M (high-bitrate master) | `vid-h265.sh` |
 | `vid-h265-8b.sh` | Batch HW H.265, 8-bit main, 200M master | `vid-h265-8b.sh` |
 | `vid-h265-10b.sh` | Batch HW H.265, 10-bit main10, 200M master | `vid-h265-10b.sh` |
@@ -69,6 +83,24 @@ Two shapes:
 - **Gotcha** — software **libx265** (CRF 20, `medium`), so it's CPU-bound, not the HW
   path the `-h265*` scripts use. Output dims are rounded to even for yuv420p/HEVC;
   default name is `<stem>_<aspect>_<res>_<origin>.mov`, audio stream-copied.
+
+### `vid-archive.sh`
+
+- **Does** — batch software HEVC (`libx265`) at a constant **quality** (CRF, default
+  20), **10-bit** `yuv420p10le`, in a `.mp4`. The archive default: small but band-free,
+  size follows the content, plays everywhere. Optional `-s` downscales (never upscales);
+  any source resolution in. Full write-up: [[vid-archive|deep-dive]].
+- **Usage** — `vid-archive.sh [-s <height>] [-q <crf>] [-g]` (no positional args; globs the cwd).
+- **Options** — `-s` max output height (downscale only, e.g. `1080`/`720`; omit = native
+  res), `-q` CRF (default 20; 18 ≈ visually lossless, 23 = smaller), `-g` add `-tune grain`
+  for noisy **live** footage (off for animation / clean sources).
+- **Examples** — `cd ~/ae-export && vid-archive.sh` · `vid-archive.sh -s 1080` ·
+  `vid-archive.sh -q 18` · `vid-archive.sh -g`.
+- **Gotcha** — software `libx265` (`preset medium`), so it's **CPU-bound**, not the HW
+  path the `vid-h265*` scripts use (minutes per 4K file). Globs `.mp4` too (shrinking a
+  fat mp4 is valid) but skips its own `*_h265.mp4` / `*_h265_<H>p.mp4` outputs, and an
+  existing output is left untouched — idempotent. Output `<name>_h265.mp4` (native) or
+  `<name>_h265_<H>p.mp4` (downscaled), `hvc1`-tagged, `+faststart`, audio copied.
 
 ### `vid-h265.sh`
 

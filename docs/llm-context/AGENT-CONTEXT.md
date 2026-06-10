@@ -11,7 +11,7 @@ Current state + operational reference for `~/.dotfiles`. Updated at the end of e
 
 For chronological detail see `session-log/`. For load-bearing rules see `ARCHITECTURE.md`. For the *why* see `../history.md`. For speculative work see `../plan.md`.
 
-**Last updated:** 2026-06-09 (llm CLI added to catalog)
+**Last updated:** 2026-06-10 (vid-archive.sh — 10-bit CRF archive encoder)
 
 ---
 
@@ -42,6 +42,7 @@ For chronological detail see `session-log/`. For load-bearing rules see `ARCHITE
 - 2026-06-09 (iMac, 2): **llm CLI added to the catalog** — Simon Willison's terminal LLM client (`uv tool install llm` + `llm install llm-anthropic`), default `claude-haiku-4.5` for cheap casual queries; chosen over `ata`/`trf` (OpenAI-compat-only — native Claude there needs the shim). Doc `docs/04-dev-languages/09-llm.md` (lookup-first); category 04 **8→9**, catalog **58→59**; maintenance note now flags the catalog runs ahead of the Brewfile (pbcopy built-in + edge-tts/llm via pipx/uv). Not a Brewfile line (uv tool; `uv` already there). **Open:** Anthropic API key not yet vaulted (reproduction needs it); `crush` removed this session (unused). See `session-log/2026-06-09-llm-cli.md`.
 - 2026-06-09 (iMac, 3): **eza aliases + fzf preview opts** added to `shell/.zshrc` (QoL). `ls`/`ll`/`la`/`lt` → eza with `--icons` (Nerd Font present) — eza was previously only used in the fzf preview, never for everyday `ls`. Plus `FZF_ALT_C_OPTS` (eza-tree preview when `Alt-C` picks a dir) + `FZF_CTRL_R_OPTS` (show the full command in `Ctrl-R` history). `zsh -n` clean; reproduces on the MBP via the symlinked `.zshrc`. (kol-claude summary `04` updated to match + new `08-llm.md` written there.)
 - 2026-06-09 (iMac, 4): **Closed the Modern-CLI catalog gap.** `fzf`/`fd`/`bat`/`eza`/`ripgrep` were added to the `Brewfile` earlier this session but never got catalog docs (the catalog requires one per installed tool — gap I'd left). Wrote all five as `docs/02-file-management/08–12` (lookup-first, tied to the actual `.zshrc` wiring), bumped category 02 **6→11** and the catalog **59→64**. Brewfile and catalog agree again.
+- 2026-06-10 (iMac): **vid-archive.sh** — new `vid-` member filling the small+10-bit gap (the family forced 10-bit@200M mezzanine *or* 8-bit@12M small). Software `libx265` constant-quality **CRF** (default 20), `yuv420p10le`, `.mp4`; the archive default — 10–30× smaller than ProRes, band-free, plays everywhere. Hybrid batch-globber + flags `-s <height>` (downscale, **never upscales**, ffprobe-gated), `-q <crf>`, `-g` (`-tune grain` for live footage). `-h` kept as universal help so height is `-s`. Idempotent (skips own `*_h265*.mp4` outputs). Real-run verified (4K/1080p ProRes → hevc/10-bit/hvc1, downscale + no-upscale + idempotency). Docs: companion `12-scripts/vid-archive.md`, row+section+intro in `02-video.md`, INDEX vid **12→13**, **plus a workflow playbook `12-scripts/video-archive-pipeline.md`** (end-to-end ProRes→archive→derivatives pipeline: tier model, naming scheme, decision tables, worked 10 GB→0.85 GB example; reciprocal links in vid-archive/02-video). **No Brewfile change** (ffmpeg+libx265 already present). `~/bin` dir-symlink → live on PATH immediately. See `session-log/2026-06-10-vid-archive.md`.
 - **The user owns all git** — agent never commits; advise and hand off.
 
 ---
