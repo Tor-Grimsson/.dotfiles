@@ -22,6 +22,9 @@ ln -sf "$DOT/shell/.nanorc"   "$HOME/.nanorc"
 ln -sf "$DOT/git/.gitconfig"  "$HOME/.gitconfig"
 ln -sfn "$DOT/bin" "$HOME/bin"
 
+# tmux
+[ -f "$DOT/tmux/.tmux.conf" ] && ln -sf "$DOT/tmux/.tmux.conf" "$HOME/.tmux.conf"
+
 # SSH config (no keys)
 if [ -f "$DOT/ssh/config" ]; then
   ln -sf "$DOT/ssh/config" "$HOME/.ssh/config"

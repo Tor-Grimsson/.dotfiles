@@ -2,7 +2,7 @@
 title: tmux
 type: reference
 status: active
-updated: 2026-06-04
+updated: 2026-06-10
 description: Terminal multiplexer that keeps shell sessions alive and splits one terminal into many panes and windows.
 aliases:
   - tmux
@@ -20,6 +20,7 @@ covers:
   - Detaching and reattaching to persistent sessions
 related:
   - "[[01-iterm2|iTerm2]]"
+  - "[[09-tmux-tips|tmux tips & tricks]]"
 ---
 
 ## Summary
@@ -41,15 +42,26 @@ tmux new -s work          # start a named session "work"
 tmux ls                   # list running sessions
 tmux attach -t work       # reattach to "work"
 
-# Inside tmux, the prefix is Ctrl-b by default:
-#   Ctrl-b "   split pane horizontally
-#   Ctrl-b %   split pane vertically
-#   Ctrl-b o   cycle panes
-#   Ctrl-b c   new window
+# Inside tmux, the prefix is Ctrl-b. With this repo's ~/.tmux.conf:
+#   Ctrl-b |   split left/right         Ctrl-b -   split top/bottom
+#   Ctrl-b h/j/k/l   move between panes (arrows work too)
+#   Ctrl-b z   zoom a pane fullscreen (toggle)
+#   Ctrl-b c   new window               Ctrl-b 1..9   jump to window N
 #   Ctrl-b n / p   next / previous window
 #   Ctrl-b d   detach (session keeps running)
-#   Ctrl-b [   enter copy/scroll mode (q to exit)
+#   Ctrl-b [   copy/scroll mode (q to exit)   Ctrl-b r   reload config
+# (tmux's stock " and % splits still work — see Configuration below.)
 ```
 
+## Configuration
+`~/.tmux.conf` is repo-managed at `~/.dotfiles/tmux/.tmux.conf` (symlinked by `bootstrap.sh`). Plugin-free and self-commented. Highlights:
+- **Mouse on** — click panes, drag borders to resize, scroll to scroll back.
+- **Intuitive splits** — `prefix |` / `prefix -`, opening in the current folder; `h/j/k/l` to move, `H/J/K/L` to resize. tmux's stock `"`/`%` still work.
+- **vi copy mode → macOS clipboard** — `v` select, `y` copy via `pbcopy`; mouse-drag copies too.
+- **Quiet top status bar** — faint window list flush top-left (`#I:#W#F`), with a blank second row for breathing space above the p10k prompt.
+- **base-index 1**, 50k scrollback, true-colour passthrough, `prefix r` to reload.
+
+Day-to-day keys, copy mode in full, and pane/window/session tricks: see [[09-tmux-tips|tmux tips & tricks]].
+
 ## Future use
-A `~/.tmux.conf` to remap the prefix, enable mouse mode, and persist layouts; plus the tpm plugin manager with `tmux-resurrect`/`tmux-continuum` to save and auto-restore full session state across reboots.
+The tpm plugin manager with `tmux-resurrect` / `tmux-continuum` to save and auto-restore full session layouts **across reboots** (native detach/reattach only survives while the machine stays on). Deliberately not adopted — it adds a plugin-clone bootstrap step the config is currently free of.
