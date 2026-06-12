@@ -9,8 +9,7 @@ tap "siddharthvaddem/openscreen"   # provides the openscreen cask
 
 # ── Shell & prompt ──────────────────────────────────────────────────────────
 brew "tmux"                    # Terminal multiplexer
-brew "powerlevel10k"           # Zsh prompt theme — fallback prompt (sourced in .zshrc if oh-my-posh absent)
-brew "oh-my-posh"              # Prompt theme engine (cross-shell) — active prompt, night-owl theme (shell/oh-my-posh/)
+brew "powerlevel10k"           # Zsh prompt theme — sourced from Homebrew in .zshrc
 brew "zsh-completions"         # Extra zsh completion definitions
 brew "zsh-syntax-highlighting" # Fish-like zsh syntax highlighting (sourced last in .zshrc)
 brew "zsh-autosuggestions"     # Fish-like history autosuggestions (grey ghost-text)

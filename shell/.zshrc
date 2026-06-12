@@ -1,6 +1,5 @@
 # ── Powerlevel10k instant prompt (must stay first) ───────────────────────────
-# Skip when oh-my-posh is the active prompt (below) — else a stale p10k cache flashes first.
-if ! command -v oh-my-posh >/dev/null && [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
@@ -22,52 +21,10 @@ ZSH_DISABLE_COMPFIX=true
 
 source $ZSH/oh-my-zsh.sh
 
-# ── Prompt: oh-my-posh if installed, else fall back to powerlevel10k ──
-# Guarded so a machine that hasn't run `brew install oh-my-posh` yet keeps the p10k
-# prompt. Theme JSONs are vendored in the repo (shell/oh-my-posh/) so they're tracked.
-# Active theme = the filename stored in $_omp_state (set by `omp-next`/`omp-set`),
-# defaulting to catppuccin_macchiato. Cycle live with `omp-next`.
-_omp_dir="$HOME/.dotfiles/shell/oh-my-posh"
-_omp_state="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-posh-theme"
-if command -v oh-my-posh >/dev/null; then
-  _omp_theme="catppuccin_macchiato.omp.json"
-  [[ -r "$_omp_state" ]] && _omp_theme="$(<"$_omp_state")"
-  [[ -r "$_omp_dir/$_omp_theme" ]] || _omp_theme="catppuccin_macchiato.omp.json"
-  eval "$(oh-my-posh init zsh --config "$_omp_dir/$_omp_theme")"
-else
-  # Powerlevel10k — sourced directly from Homebrew (single source on both Macs).
-  [[ -r "${HOMEBREW_PREFIX:-/usr/local}/share/powerlevel10k/powerlevel10k.zsh-theme" ]] && source "${HOMEBREW_PREFIX:-/usr/local}/share/powerlevel10k/powerlevel10k.zsh-theme"
-  # To customize the p10k prompt, run `p10k configure` or edit ~/.p10k.zsh.
-  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-fi
-
-# Switch oh-my-posh theme live + persist it (every *.omp.{json,yaml} in shell/oh-my-posh/).
-#   omp-next        cycle to the next vendored theme
-#   omp-set <name>  jump to one by basename (extension optional)
-#   omp-list        list available themes (current marked)
-_omp_apply() {  # $1 = theme filename; reload prompt now, remember for new shells
-  eval "$(oh-my-posh init zsh --config "$_omp_dir/$1")"
-  print -r -- "$1" > "$_omp_state"
-  print "oh-my-posh → ${1%.omp.*}"
-}
-omp-next() {
-  local -a t=("$_omp_dir"/*.omp.(json|yaml)(:t)); (( $#t )) || { print "no themes in $_omp_dir"; return 1 }
-  local cur; cur="$(<"$_omp_state" 2>/dev/null)"
-  local i=${t[(Ie)$cur]}                       # exact-match index, 0 if unset/absent
-  _omp_apply "${t[$(( i % $#t + 1 ))]}"         # wrap to the next (zsh arrays are 1-indexed)
-}
-omp-set() {
-  local base="${1%.omp.yaml}"; base="${base%.omp.json}"
-  local -a m=("$_omp_dir/$base".omp.(json|yaml)(N:t))   # match either extension
-  (( $#m )) || { print "no such theme: ${1:-（none）}"; omp-list; return 1 }
-  _omp_apply "$m[1]"
-}
-omp-list() {
-  local cur; cur="$(<"$_omp_state" 2>/dev/null)"
-  local f; for f in "$_omp_dir"/*.omp.(json|yaml)(:t); do
-    [[ "$f" == "$cur" ]] && print -r -- "${f%.omp.*}  ← current" || print -r -- "${f%.omp.*}"
-  done
-}
+# ── Prompt: Powerlevel10k — sourced directly from Homebrew (single source on both Macs).
+[[ -r "${HOMEBREW_PREFIX:-/usr/local}/share/powerlevel10k/powerlevel10k.zsh-theme" ]] && source "${HOMEBREW_PREFIX:-/usr/local}/share/powerlevel10k/powerlevel10k.zsh-theme"
+# To customize the p10k prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ── PATH ──────────────────────────────────────────────────────────────────────
 export PATH="$(npm config get prefix)/bin:$PATH"
@@ -247,32 +204,3 @@ HB="${HOMEBREW_PREFIX:-/usr/local}"
 [[ -r "$HB/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$HB/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 # zsh-syntax-highlighting — MUST be the last thing SOURCED in this file.
 [[ -r "$HB/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$HB/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
-# ── vi keybindings (matches nvim as $EDITOR + tmux vi copy-mode) ───────────────
-# Bound last so these win over the plugins above. Mode shows in the cursor shape.
-bindkey -v                       # Esc → normal/command mode, i/a → insert
-export KEYTIMEOUT=1              # 10ms — kill the Esc lag when switching modes
-
-# Keep the emacs line-nav you use constantly (vi insert mode binds little by default):
-bindkey -M viins '^A' beginning-of-line      # Ctrl-A → start of line
-bindkey -M viins '^E' end-of-line            # Ctrl-E → end of line
-bindkey -M viins '^K' kill-line              # Ctrl-K → cut to end of line
-bindkey -M viins '^U' backward-kill-line     # Ctrl-U → cut to start of line
-bindkey -M viins '^W' backward-kill-word     # Ctrl-W → cut previous word
-bindkey -M viins '^?' backward-delete-char   # Backspace deletes past the insert point
-bindkey -M viins '^[b' backward-word         # Option-← (iTerm sends ESC-b) → jump back one word
-bindkey -M viins '^[f' forward-word          # Option-→ (iTerm sends ESC-f) → jump forward one word
-bindkey -M viins '^[^?' backward-kill-word   # Option-Backspace → delete previous word
-
-# fzf history search (Ctrl-R) in BOTH vi modes — only if fzf's widget loaded.
-(( ${+widgets[fzf-history-widget]} )) && {
-  bindkey -M viins '^R' fzf-history-widget
-  bindkey -M vicmd '^R' fzf-history-widget
-}
-
-# Cursor shape = the mode indicator: block in normal, beam in insert.
-# add-zle-hook-widget appends (doesn't clobber syntax-highlighting's own hooks).
-autoload -Uz add-zle-hook-widget
-_vi_cursor_shape() { case $KEYMAP in (vicmd) printf '\e[2 q';; (*) printf '\e[6 q';; esac }
-add-zle-hook-widget keymap-select _vi_cursor_shape
-add-zle-hook-widget line-init     _vi_cursor_shape

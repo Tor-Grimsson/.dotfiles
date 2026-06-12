@@ -21,7 +21,6 @@ covers:
 related:
   - "[[02-tmux|tmux]]"
   - "[[03-powerlevel10k|powerlevel10k]]"
-  - "[[11-vi-mode|zsh vi-mode]]"
 ---
 
 ## Summary
