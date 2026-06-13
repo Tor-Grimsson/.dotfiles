@@ -37,6 +37,5 @@
   "voice": {
     "enabled": true,
     "mode": "hold"
-  },
-  "model": "claude-fable-5[1m]"
+  }
 }

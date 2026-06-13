@@ -2,7 +2,7 @@
 title: Dev Languages & Tooling
 type: index
 status: active
-updated: 2026-06-09
+updated: 2026-06-13
 description: Language runtimes, package managers, editors, the container engine, and the terminal LLM client that make up the local development environment.
 tags:
   - domain/dev
@@ -21,3 +21,7 @@ The runtimes, package managers, editors, and container tooling this machine deve
 | [[07-jq\|jq]] | Command-line JSON processor for filtering and transforming JSON. |
 | [[08-orbstack\|OrbStack]] | Lightweight Docker Desktop replacement that also runs Linux VMs. |
 | [[09-llm\|llm]] | Simon Willison's terminal LLM client; wired to Claude via the llm-anthropic plugin (uv-installed). |
+
+## Guides
+- [[11-neovim-cheatsheet\|Neovim cheatsheet (beginner)]] — zero-assumptions reference for writing and navigating text in [[03-neovim\|Neovim]]: modes, movement, editing, search/replace, panic button.
+- [[10-neovim-config\|Neovim config (IDE setup)]] — the lazy.nvim plugin system, structure, and keybindings for the [[03-neovim\|Neovim]] setup.

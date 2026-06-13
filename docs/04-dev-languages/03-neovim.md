@@ -2,7 +2,7 @@
 title: Neovim
 type: reference
 status: active
-updated: 2026-06-04
+updated: 2026-06-13
 description: Ambitious Vim fork focused on extensibility, with Lua scripting, a built-in LSP client, and Tree-sitter parsing.
 aliases:
   - nvim
@@ -19,6 +19,7 @@ covers:
   - What Neovim adds over Vim and where config lives
   - Launching, editing, and the core modal workflow
 related:
+  - "[[10-neovim-config|Neovim config (IDE setup)]]"
   - "[[02-visual-studio-code|VS Code]]"
 ---
 
@@ -49,5 +50,5 @@ nvim .
 # Config lives at:  ~/.config/nvim/init.lua
 ```
 
-## Future use
-A structured plugin setup via `lazy.nvim`, language servers wired through `nvim-lspconfig` and `mason`, and Tree-sitter-driven highlighting and text objects — turning the quick-edit tool into a full terminal IDE that overlaps more with VS Code's project work.
+## Full IDE config
+The quick-edit tool is now also a full terminal IDE: a structured `lazy.nvim` plugin setup with language servers wired through `nvim-lspconfig` + `mason`, completion, Tree-sitter, formatting/linting, a file tree, and git integration — overlapping more with VS Code's project work. Structure, plugin roster, and keybindings are documented in [[10-neovim-config|Neovim config (IDE setup)]].
