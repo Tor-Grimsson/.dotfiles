@@ -13,7 +13,7 @@ ss-save.sh   [NAME]   [DIR]
 
 Two **separate** args: a **name** first, a **directory** second.
 It is **NOT** one combined filepath. Don't do `ss-save.sh ~/Pictures/photo.png` — that makes
-`~/Pictures/photo.png` the *name* and dumps it on the Desktop.
+`~/Pictures/photo.png` the *name* and dumps it in the current directory.
 
 ## Rules
 
@@ -21,7 +21,7 @@ It is **NOT** one combined filepath. Don't do `ss-save.sh ~/Pictures/photo.png` 
 |---|---|
 | `NAME` (arg 1) | defaults to `clip_<YYYYMMDD_HHMMSS>` |
 | `.png` | auto-appended if you leave it off (`shot` → `shot.png`) |
-| `DIR` (arg 2) | defaults to `~/Desktop` |
+| `DIR` (arg 2) | defaults to the current directory (`$PWD`) |
 | `~` in DIR | expanded to `$HOME` (only when it's the **first** character) |
 | missing DIR | created automatically (`mkdir -p`) |
 | no image in clipboard | errors out, saves nothing |
@@ -30,13 +30,13 @@ It is **NOT** one combined filepath. Don't do `ss-save.sh ~/Pictures/photo.png` 
 
 ```sh
 ss-save.sh
-# → ~/Desktop/clip_20260604_213500.png   (timestamped default)
+# → ./clip_20260604_213500.png           (timestamped default, current dir)
 
 ss-save.sh my_shot
-# → ~/Desktop/my_shot.png                (.png added for you)
+# → ./my_shot.png                        (.png added for you)
 
 ss-save.sh my_shot.png
-# → ~/Desktop/my_shot.png                (already had .png — fine)
+# → ./my_shot.png                        (already had .png — fine)
 
 ss-save.sh photo "~/Pictures"
 # → ~/Pictures/photo.png                 (name, THEN dir)

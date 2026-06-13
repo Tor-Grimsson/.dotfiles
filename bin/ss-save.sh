@@ -17,13 +17,13 @@ USAGE
 ARGUMENTS
   NAME   arg 1. The filename. Defaults to clip_<YYYYMMDD_HHMMSS>.
          `.png` is auto-appended if you leave it off (shot → shot.png).
-  DIR    arg 2. The destination folder. Defaults to ~/Desktop.
+  DIR    arg 2. The destination folder. Defaults to the current directory ($PWD).
          A leading `~` is expanded to $HOME. Created with mkdir -p if missing.
 
 EXAMPLES
-  ss-save.sh                       # → ~/Desktop/clip_<timestamp>.png
-  ss-save.sh my_shot               # → ~/Desktop/my_shot.png   (.png added)
-  ss-save.sh my_shot.png           # → ~/Desktop/my_shot.png   (already .png)
+  ss-save.sh                       # → ./clip_<timestamp>.png  (current dir)
+  ss-save.sh my_shot               # → ./my_shot.png           (.png added)
+  ss-save.sh my_shot.png           # → ./my_shot.png           (already .png)
   ss-save.sh photo "~/Pictures"    # → ~/Pictures/photo.png    (name, THEN dir)
   ss-save.sh diagram "~/Pics/spec" # → ~/Pics/spec/diagram.png (dir created)
   ss-save.sh shot /tmp             # → /tmp/shot.png           (absolute dir ok)
@@ -40,7 +40,7 @@ case "${1:-}" in
 esac
 
 # 1. Setup Defaults
-DEFAULT_DIR="$HOME/Desktop"
+DEFAULT_DIR="$PWD"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 
 # 2. Handle Name (Argument 1)
