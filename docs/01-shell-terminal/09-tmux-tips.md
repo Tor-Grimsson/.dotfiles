@@ -2,7 +2,7 @@
 title: tmux tips & tricks
 type: guide
 status: active
-updated: 2026-06-10
+updated: 2026-06-14
 audience: internal
 description: Day-to-day tmux beyond the basics — copy mode explained in full (scroll, search, select, copy to the macOS clipboard), plus pane, window, and session tricks tuned to this repo's ~/.tmux.conf.
 aliases:
@@ -13,6 +13,7 @@ tags:
   - pattern/tui
 related:
   - "[[02-tmux|tmux]]"
+  - "[[10-tmux-help|tmux help & cheat sheet]]"
 ---
 
 # tmux tips & tricks
@@ -79,11 +80,45 @@ prefix x      close (kill) the current pane          (asks to confirm)
 prefix {      swap pane with the previous one
 prefix }      swap pane with the next one
 prefix !      break the current pane out into its own new window
-prefix space  cycle through the built-in layouts (even-horizontal, tiled, …)
+prefix space  cycle through the built-in layouts (see Pane layouts below)
 prefix q      flash each pane's number; tap the number to jump to it
 ```
 
 `prefix z` (zoom) is the one you'll reach for constantly — focus one pane fullscreen, then pop back to the split.
+
+## Pane layouts — arrange splits automatically
+
+Once a window has several panes, stop dragging borders by hand. tmux has five preset layouts: `prefix space` cycles through them, and `select-layout` jumps straight to one. The names describe the **direction panes spread**, not the split lines — which trips everyone up at first.
+
+| Layout | Arrangement |
+|---|---|
+| `even-horizontal` | equal **width**, side by side — spreads left → right (columns) |
+| `even-vertical` | equal **height**, stacked — spreads top → bottom (rows) |
+| `main-horizontal` | one large pane on **top**, the rest in a row below |
+| `main-vertical` | one large pane on the **left**, the rest stacked on the right |
+| `tiled` | even grid in both directions |
+
+```text
+prefix space                            cycle through all five layouts
+prefix :  select-layout even-vertical   jump straight to one
+prefix :  select-layout tiled
+```
+
+From the shell it targets the active window:
+
+```sh
+tmux select-layout even-horizontal
+tmux select-layout tiled
+```
+
+**Sizing the main pane.** The `main-*` layouts read the big pane's size from the `main-pane-width` / `main-pane-height` options — set the option, *then* select the layout:
+
+```text
+prefix :  set -w main-pane-height 30    # top pane = 30 rows
+prefix :  select-layout main-horizontal
+```
+
+Put `set -wg main-pane-height 30` in `~/.tmux.conf` (then `prefix r`) to make that the default main-pane size everywhere. It tunes the `main-*` layouts — it does **not** auto-apply a layout to new windows; you still pick one with `prefix space` or `select-layout`.
 
 ## Window tricks
 

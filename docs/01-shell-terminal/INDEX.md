@@ -22,4 +22,5 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | [[08-glow\|glow]] | Terminal markdown renderer — open any `.md` as styled, readable text, instantly. |
 
 ## Guides
+- [[10-tmux-help\|tmux help & cheat sheet]] — built-in help commands first, then the keys, shell commands, and workflows you actually use with the [[02-tmux\|tmux]] config.
 - [[09-tmux-tips\|tmux tips & tricks]] — copy mode in full, plus pane/window/session tricks for the [[02-tmux\|tmux]] config.

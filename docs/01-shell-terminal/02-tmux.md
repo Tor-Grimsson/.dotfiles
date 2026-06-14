@@ -20,6 +20,7 @@ covers:
   - Detaching and reattaching to persistent sessions
 related:
   - "[[01-iterm2|iTerm2]]"
+  - "[[10-tmux-help|tmux help & cheat sheet]]"
   - "[[09-tmux-tips|tmux tips & tricks]]"
 ---
 
