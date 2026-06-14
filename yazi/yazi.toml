@@ -1,0 +1,21 @@
+# yazi.toml — main config.
+# Merged OVER yazi's built-in defaults: top-level keys override by key, opener
+# names override by name, and open/previewer/preloader rules extend via
+# *.prepend_*/*.append_*. So this file only states what differs from stock.
+# Repo-tracked; live via the ~/.config/yazi -> ~/.dotfiles/yazi symlink.
+
+[mgr]
+linemode       = "size"     # show each file's size in the current column
+sort_by        = "natural"  # 2, 10, 100 — not 10, 100, 2
+sort_dir_first = true        # directories before files
+show_hidden    = false       # toggle live with `.`
+
+[preview]
+max_width     = 1000          # render previews larger (image/video-heavy work)
+max_height    = 1400
+image_filter  = "lanczos3"    # highest-quality downscale (was: triangle)
+image_quality = 90
+
+# Openers are left at yazi's defaults — edit ($EDITOR=nvim), open (`open`),
+# reveal (`open -R`, "Reveal in Finder"), play, and extract are all stock.
+# Quick Look is wired as a keybind (<C-y>) in keymap.toml instead.

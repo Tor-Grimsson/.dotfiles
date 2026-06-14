@@ -1,0 +1,7 @@
+# theme.toml — colors. We use a flavor (a packaged theme) rather than hand-rolling
+# every color. gruvbox-dark matches the nvim colorscheme (sainnhe/gruvbox-material).
+# Installed via `ya pkg add bennyyip/gruvbox-dark` → flavors/gruvbox-dark.yazi.
+
+[flavor]
+dark  = "gruvbox-dark"
+light = "gruvbox-dark"

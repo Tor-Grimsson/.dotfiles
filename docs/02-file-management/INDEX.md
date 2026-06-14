@@ -2,7 +2,7 @@
 title: File Management
 type: index
 status: active
-updated: 2026-06-10
+updated: 2026-06-14
 description: Tools for browsing, navigating, organizing, archiving, and renaming files on macOS and in the shell — plus the modern CLI core (eza, bat, fd, ripgrep, fzf, zoxide).
 tags:
   - domain/files
@@ -25,3 +25,5 @@ Browsing, navigating, organizing, archiving, and renaming files — across the t
 | [[12-fzf\|fzf]] | Interactive fuzzy finder; powers Ctrl-R / Ctrl-T / Alt-C and Tab completion. |
 | [[13-zoxide\|zoxide]] | Smarter `cd` — `z` jumps to frecency-ranked visited dirs, `zi` picks via fzf. |
 | [[14-dust\|dust]] | Modern `du` — biggest-first tree of disk usage with inline bar graphs. |
+| [[15-sevenzip\|7-Zip (sevenzip)]] | High-ratio archiver (`7zz`); yazi's archive preview/extract backend. |
+| [[16-resvg\|resvg]] | Fast, correct SVG → PNG rasterizer; yazi's SVG preview backend. |

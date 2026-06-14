@@ -18,6 +18,8 @@ brew "fzf-tab"                 # Replace the zsh completion menu with an fzf pic
 # ── File & navigation ───────────────────────────────────────────────────────
 brew "tree"        # Print directory trees
 brew "yazi"        # TUI file manager (Rust, async I/O)
+brew "sevenzip"    # 7-Zip — yazi preview backend: browse/extract inside archives
+brew "resvg"       # SVG renderer — yazi preview backend for .svg
 brew "broot"       # Tree navigation + fuzzy jump
 brew "glow"        # Render markdown in the terminal
 brew "watch"       # Run a command on an interval, fullscreen output (procps-ng)

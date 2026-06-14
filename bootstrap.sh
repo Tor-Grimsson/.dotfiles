@@ -91,11 +91,8 @@ fi
 # nvim (whole dir)
 [ -d "$DOT/nvim" ] && ln -sfn "$DOT/nvim" "$HOME/.config/nvim"
 
-# yazi + broot (per-file, leaves the tool's runtime dir intact)
-if [ -f "$DOT/yazi/keymap.toml" ]; then
-  mkdir -p "$HOME/.config/yazi"
-  ln -sf "$DOT/yazi/keymap.toml" "$HOME/.config/yazi/keymap.toml"
-fi
+# yazi (whole dir — config + plugins + flavors are all tracked, like nvim)
+[ -d "$DOT/yazi" ] && ln -sfn "$DOT/yazi" "$HOME/.config/yazi"
 if [ -d "$DOT/broot" ]; then
   mkdir -p "$HOME/.config/broot"
   ln -sf "$DOT/broot/conf.hjson"  "$HOME/.config/broot/conf.hjson"

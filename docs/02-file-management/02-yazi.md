@@ -2,10 +2,11 @@
 title: Yazi
 type: reference
 status: active
-updated: 2026-06-04
-description: Blazing-fast terminal file manager written in Rust with async I/O and image previews.
+updated: 2026-06-14
+description: Blazing-fast terminal file manager (Rust, async I/O, inline image/video previews). Configured here as a media cockpit — `y` drops the shell into wherever you quit.
 aliases:
   - yazi
+  - y
 tags:
   - domain/files
   - pattern/tui
@@ -16,55 +17,125 @@ links:
   manual: https://yazi-rs.github.io/
   brew: https://formulae.brew.sh/formula/yazi
 covers:
-  - Full-screen terminal file navigation with previews
-  - Bulk rename, selection, and shell integration
-  - Changing the shell's directory on quit (cd-on-exit)
+  - The y() cd-on-quit wrapper
+  - Preview dependencies (what each filetype needs)
+  - Tracked config files, plugins, and the gruvbox flavor
+  - Default + custom keybindings, and practical workflows
 related:
   - "[[03-broot|broot]]"
   - "[[01-tree|tree]]"
+  - "[[13-zoxide|zoxide]]"
 ---
 
 ## Summary
+Full-screen terminal file manager: Miller-column layout (parent · current · preview), async previews that never block, Vim-style keys, first-class bulk rename and selection. The `y` shell function launches it and `cd`s the shell to wherever you quit — so yazi doubles as a visual `cd`.
 
-Yazi is a full-screen terminal file manager built in Rust on top of async I/O, so directory listings and previews load without blocking. It shows a Miller-column layout (parent, current, preview) and previews text, images, video frames, archives, and more inline. Navigation is Vim-style and bulk operations like rename and selection are first-class.
+This install is tuned for media work: large high-quality image/video previews, a gruvbox flavor matching nvim, and three plugins.
+
+## Preview dependencies
+Previews are handed off to external tools. Yazi degrades gracefully — a missing tool just means that filetype shows no preview.
+
+| Preview | Backend | Brew dep | Status |
+|---|---|---|---|
+| Text + syntax | built-in | — | ✓ |
+| Images (PNG/JPG/GIF/WebP) | built-in (iTerm2 image protocol) | — | ✓ |
+| HEIC / JPEG-XL / fonts | ImageMagick ≥ 7.1.1 | `imagemagick` | ✓ (7.1.2) |
+| **Video** (frame thumbnail) | ffmpeg | `ffmpeg` | ✓ |
+| PDF | poppler | `poppler` | ✓ (`pdftoppm`) |
+| JSON | jq | `jq` | ✓ |
+| **Archives** (browse/extract inside) | 7-Zip | `sevenzip` | **missing** |
+| **SVG** | resvg | `resvg` | **missing** |
+
+Only two gaps: `brew install sevenzip resvg` (see [Setup](#setup)). `fd` / `ripgrep` / `fzf` / `zoxide` (used for in-yazi find & jump) are all already present.
+
+## Config files
+All live in `~/.dotfiles/yazi/`, symlinked as a whole dir to `~/.config/yazi` (like nvim). Edit either path — same files.
+
+| File | Controls |
+|---|---|
+| `yazi.toml` | layout, sort, preview size/quality (merged over yazi's defaults — only the deltas are stated) |
+| `keymap.toml` | keybindings — added via `prepend` so yours win, defaults stay |
+| `theme.toml` | points at the `gruvbox-dark` flavor |
+| `init.lua` | Lua startup — sets up the `full-border` plugin |
+| `package.toml` | plugin/flavor manifest used by `ya pkg` (pins each to a revision) |
+| `plugins/` `flavors/` | the vendored plugin & flavor repos (tracked, so a fresh machine needs no re-fetch) |
+
+## Setup
+On this machine it's already wired. For a fresh machine:
+
+1. **Symlink** (bootstrap does this): `ln -sfn ~/.dotfiles/yazi ~/.config/yazi`
+2. **Preview deps**: `brew install sevenzip resvg` (the rest ride along with the Brewfile)
+3. **Plugins** are vendored in the repo, so nothing to fetch. To re-sync or update them later: `ya pkg install` (deploy from `package.toml`) or `ya pkg upgrade` (bump revisions).
+4. **`y` function** is in `shell/.zshrc` — new shell or `source ~/.zshrc`.
+
+## Launch
+
+```sh
+y                 # launch in the iMac projects dir (falls back to cwd elsewhere), cd on quit
+y ~/Downloads     # launch at a path, cd on quit
+yazi              # raw launch (no cd-on-quit)
+```
+
+`y` (in `shell/.zshrc`) writes yazi's exit directory to a temp file and `cd`s the shell there — navigate visually, the shell follows.
+
+## Keys — built-in
+The stock bindings you'll use most (unchanged):
+
+| Key | Action |
+|---|---|
+| `h` `j` `k` `l` | parent · down · up · enter/open |
+| `H` `L` | back / forward in history |
+| `gg` `G` | top / bottom |
+| `K` `J` | scroll the preview up / down |
+| `<Space>` | toggle selection + move down |
+| `v` / `V` | visual select / unselect mode |
+| `<C-a>` / `<C-r>` | select all / invert selection |
+| `y` `x` `p` | yank (copy) · yank (cut) · paste |
+| `d` / `D` | trash / delete permanently |
+| `a` `r` | create (end with `/` for a dir) · rename |
+| `.` | toggle hidden files |
+| `/` `s` | filter (current dir) · search (fd/rg) |
+| `f` | jump to a name (filter-as-you-type) |
+| `<Tab>` | spot info (metadata) for the hovered file |
+| `:` `q` `~` | command · quit · help |
+
+## Keys — custom
+Added in `keymap.toml`:
+
+| Key | Action |
+|---|---|
+| `<Enter>` | **smart-enter** — enter a dir or open a file (one key for both) |
+| `T` | **maximize the preview** (full-screen an image/video); press again to restore |
+| `<C-y>` | **Quick Look** the hovered/selected file(s) (macOS `qlmanage`) |
+| `g h` | → `~` |
+| `g p` | → `~/thatComp--iMac` (projects, iMac) |
+| `g d` | → `~/Downloads` |
+| `g D` | → `~/Desktop` |
+| `g .` | → `~/.dotfiles` |
+| `g t` | → `~/_temp` |
+
+## Plugins
+Installed with `ya pkg add`, vendored under `plugins/` + `flavors/`, pinned in `package.toml`.
+
+| Plugin | Does | Trigger |
+|---|---|---|
+| `smart-enter` | Enter dir / open file with one key | `<Enter>` |
+| `toggle-pane` | maximize/hide a pane (respects the `ratio`) | `T` (max-preview); `:plugin toggle-pane <mode>` for others |
+| `full-border` | rounded borders around the panes | automatic (`init.lua`) |
+| `gruvbox-dark` (flavor) | gruvbox theme matching nvim | `theme.toml` |
+
+## Workflows
+- **Move files between two dirs** — `<Space>` to mark several (or `y`/`x` to copy/cut), navigate to the target with `h`/`l`, `p` to drop. Tabs (`t` new tab, `1`–`9` switch) let you keep source and target open at once.
+- **Bulk rename** — select files, `r`. Yazi opens the names in `$EDITOR` (nvim); edit the list, save, quit — every change applies at once.
+- **Review media fast** — hover a video or image, `T` to full-screen the preview, `j`/`k` to step through the folder, `T` again to restore. `<C-y>` for a full Quick Look.
+- **Find then act** — `s` (search via fd/rg) or `f` (jump to name) to land on a file, then operate on it.
+- **Browse → cd** — launch with `y`, walk the tree, `q` — the shell is now in that directory.
 
 ## Why installed
-
-It is the interactive file manager for day-to-day work in the terminal — browsing, previewing, moving, and bulk-renaming files without leaving the shell or reaching for the GUI. The async core keeps it instant even on large or network directories where other TUI managers stall.
-
-## Most common use case
-
-Browsing into an unfamiliar directory tree, previewing files (including images and archives) inline, then dropping the shell into the chosen directory on quit.
+The interactive file manager for day-to-day terminal work — browse, preview, move, bulk-rename without leaving the shell or reaching for Finder. The async core stays instant on large or network dirs where other TUI managers stall. Pairs with [[13-zoxide|zoxide]] (`z` to jump near, `y` to browse there).
 
 ## Biggest win
-
-Async previews with no blocking, plus the cd-on-quit integration: you navigate visually and the shell follows you, so Yazi doubles as a fast interactive `cd`. The inline image and archive previews remove most reasons to leave the terminal.
-
-## How to use
-
-```sh
-# Launch in the current directory
-yazi
-
-# Launch pointed at a path
-yazi ~/Projects
-```
-
-Wrap it so quitting changes the shell's directory (add to your shell rc):
-
-```sh
-function yy() {
-	local tmp="$(mktemp -t yazi-cwd.XXXXXX)" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
-}
-```
-
-Inside Yazi: `hjkl` to navigate, `Space` to select, `y`/`x`/`p` to copy/cut/paste, `d` to trash, `a` to create, `r` to rename, `:` for commands, `q` to quit.
+Async, non-blocking previews **plus** cd-on-quit: you navigate visually and the shell follows, so yazi is a fast visual `cd` as much as a file manager. Inline image/video/PDF previews remove most reasons to open Finder.
 
 ## Future use
-
-Yazi's plugin system (Lua) and custom keymaps are untapped here — adding previewers for project-specific file types, custom openers, and a flavor/theme to match the terminal would turn it into a tailored cockpit rather than a stock browser.
+Per-filetype openers (e.g. route `.psd` through an [[../12-scripts/img-from-psd|img-from-psd]] action); a `git` plugin for status flags in the list; more `ya pkg` plugins (chmod, mount, archive browsing) as the need shows up. Add them via `ya pkg add` — they vendor into the repo automatically.
