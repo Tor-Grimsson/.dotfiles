@@ -2,13 +2,13 @@
 title: Dev Languages & Tooling
 type: index
 status: active
-updated: 2026-06-13
-description: Language runtimes, package managers, editors, the container engine, and the terminal LLM client that make up the local development environment.
+updated: 2026-06-15
+description: Language runtimes, package managers, editors, the container engine, the terminal LLM client, and the GitHub CLI that make up the local development environment.
 tags:
   - domain/dev
 ---
 
-The runtimes, package managers, editors, and container tooling this machine develops against — JavaScript (Node, pnpm), Python (uv, pipx), the editors (VS Code, Neovim), the JSON Swiss-army knife (jq), the Docker/Linux engine (OrbStack), and the terminal LLM client (llm).
+The runtimes, package managers, editors, and container tooling this machine develops against — JavaScript (Node, pnpm), Python (uv, pipx), the editors (VS Code, Neovim), the JSON Swiss-army knife (jq), the Docker/Linux engine (OrbStack), the terminal LLM client (llm), and the GitHub CLI (gh).
 
 | Tool | Description |
 | --- | --- |
@@ -21,6 +21,7 @@ The runtimes, package managers, editors, and container tooling this machine deve
 | [[07-jq\|jq]] | Command-line JSON processor for filtering and transforming JSON. |
 | [[08-orbstack\|OrbStack]] | Lightweight Docker Desktop replacement that also runs Linux VMs. |
 | [[09-llm\|llm]] | Simon Willison's terminal LLM client; wired to Claude via the llm-anthropic plugin (uv-installed). |
+| [[12-gh\|gh (GitHub CLI)]] | GitHub from the terminal — PRs, issues, releases, CI runs, and the full GitHub API (`gh api`). |
 
 ## Guides
 - [[11-neovim-cheatsheet\|Neovim cheatsheet (beginner)]] — zero-assumptions reference for writing and navigating text in [[03-neovim\|Neovim]]: modes, movement, editing, search/replace, panic button.

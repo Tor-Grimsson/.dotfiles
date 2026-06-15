@@ -22,6 +22,7 @@ covers:
   - Tracked config files, plugins, and the gruvbox flavor
   - Default + custom keybindings, and practical workflows
 related:
+  - "[[17-yazi-cheatsheet|Yazi cheatsheet (beginner)]]"
   - "[[03-broot|broot]]"
   - "[[01-tree|tree]]"
   - "[[13-zoxide|zoxide]]"

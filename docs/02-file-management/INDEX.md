@@ -27,3 +27,6 @@ Browsing, navigating, organizing, archiving, and renaming files — across the t
 | [[14-dust\|dust]] | Modern `du` — biggest-first tree of disk usage with inline bar graphs. |
 | [[15-sevenzip\|7-Zip (sevenzip)]] | High-ratio archiver (`7zz`); yazi's archive preview/extract backend. |
 | [[16-resvg\|resvg]] | Fast, correct SVG → PNG rasterizer; yazi's SVG preview backend. |
+
+## Guides
+- [[17-yazi-cheatsheet\|Yazi cheatsheet (beginner)]] — zero-assumptions, workflow-first guide to using [[02-yazi\|Yazi]]: navigating, previewing, opening/sending files to apps, copy/move, fuzzy-find, and feeding files to Claude (llm), plus one big everything-table.

@@ -6,6 +6,7 @@
 
 # ── Taps ──────────────────────────────────────────────────────────────────────
 tap "siddharthvaddem/openscreen"   # provides the openscreen cask
+tap "supabase/tap"                 # provides the supabase CLI formula
 
 # ── Shell & prompt ──────────────────────────────────────────────────────────
 brew "tmux"                    # Terminal multiplexer
@@ -50,6 +51,8 @@ brew "uv"          # Fast Python project/dep/version manager (+ uvx tool runner)
                    #   uv-tool-managed (run per machine): llm — terminal LLM client, docs/04-dev-languages/09-llm.md
 brew "jq"          # Command-line JSON processor
 brew "yq"          # Command-line YAML/JSON processor (jq for YAML; reads .md frontmatter — au-tag.sh)
+brew "gh"          # GitHub CLI — PRs/issues/releases/CI + `gh api`; docs/04-dev-languages/12-gh.md
+brew "supabase/tap/supabase"  # Supabase CLI (db migrations/link/push) — guide: docs/14-supabase/
 
 # ── Network & security ──────────────────────────────────────────────────────
 brew "nmap"          # Port scanner
