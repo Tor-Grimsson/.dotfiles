@@ -2,7 +2,7 @@
 title: mpv
 type: reference
 status: active
-updated: 2026-06-04
+updated: 2026-06-17
 description: Minimal, scriptable, high-quality media player driven from the command line and config files.
 aliases:
   - mpv
@@ -23,6 +23,7 @@ covers:
 related:
   - "[[01-ffmpeg|FFmpeg]]"
   - "[[06-edge-tts|edge-tts]]"
+  - "[[10-quick-actions|Open in mpv Quick Action]]"
 ---
 
 ## Summary
@@ -55,6 +56,9 @@ mpv --loop-file=inf clip.mp4
 mpv --no-video album.flac
 ```
 Key in-player bindings: `Space` pause, `←/→` seek 5s, `↑/↓` seek 1min, `[` / `]` change speed, `9` / `0` volume, `f` fullscreen, `q` quit. Persistent settings go in `~/.config/mpv/mpv.conf`.
+
+## Finder Quick Action
+Right-click a video in Finder → **Open in mpv** opens a new iTerm (or Terminal) window and plays it with `mpv` (mpv pops its own video window; `q` quits and leaves the terminal at a prompt). Engine: `bin/mpv-open.sh` (the mpv twin of `glow-open.sh`; works standalone too — `mpv-open.sh clip.webm`). Workflow `macos/services/Open in mpv.workflow`, symlinked into `~/Library/Services` by `bootstrap.sh`, scoped to video UTIs (incl. webm/mkv). Full write-up + the `qa-make.sh` line: [[10-quick-actions|Quick Actions]].
 
 ## Future use
 Worth adopting: a versioned `~/.config/mpv/` (mpv.conf + input.conf + Lua scripts) checked into the dotfiles for reproducible playback profiles, and `--vf` filtergraphs for on-the-fly preview of crops/scales before committing them to an FFmpeg transcode.

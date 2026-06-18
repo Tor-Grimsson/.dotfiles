@@ -2,7 +2,7 @@
 title: Scripts
 type: index
 status: active
-updated: 2026-06-10
+updated: 2026-06-17
 description: The bin/ helper scripts, grouped by domain prefix (au-/vid-/img-/pdf-/art-/batch-/tor-/fs-/ss-/finder-/qa-). One doc per family.
 tags:
   - project/dotfiles
@@ -30,8 +30,8 @@ CLI helpers in `~/.dotfiles/bin` (symlinked to `~/bin`, on PATH). Renamed 2026-0
 | `dot-` | [[11-dot-sync\|Dotfiles sync]] | 1 | launchd daemon — every 30 min |
 
 Some scripts are also wired as **Finder Quick Actions** (`macos/services/`, symlinked by `bootstrap.sh`,
-hotkeys in `macos/defaults.sh` §8): Open in glow, Open in TextEdit (⇧⌥⌃E), Select Every Other (⇧⌥⌃A / ⇧⌥⌃S),
-Shoot to _trash. New ones: one `qa-make.sh` line — see [[10-quick-actions|Quick Actions]].
+hotkeys in `macos/defaults.sh` §8): Open in glow, Open in mpv, Open in TextEdit (⇧⌥⌃E),
+Select Every Other (⇧⌥⌃A / ⇧⌥⌃S), Shoot to _trash. New ones: one `qa-make.sh` line — see [[10-quick-actions|Quick Actions]].
 
 ## Conventions
 - **Prefix = domain.** `vid-`, `img-`, `pdf-`, etc. **One doc per family**; a script needing depth gets a companion doc (e.g. [[ss-save]]).
