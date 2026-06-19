@@ -81,6 +81,7 @@ brew "pngpaste"    # Paste clipboard PNG to a file
 
 # ── System & cloud ──────────────────────────────────────────────────────────
 brew "fastfetch"   # System info banner (neofetch successor — neofetch was pulled from Homebrew)
+brew "htop"        # Interactive process/resource monitor (TUI) — live CPU/mem, find & kill hoggers
 brew "rclone"      # Rsync for cloud storage
 
 # NOTE: pkgconf + poppler + python@3.x are intentionally omitted — they arrive as

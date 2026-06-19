@@ -2,8 +2,8 @@
 title: Tooling catalog
 type: index
 status: active
-updated: 2026-06-15
-description: One reference doc per installed tool (71 tools, 13 categories), each with verified links and a why/use/win/how/future write-up. Routes to every category.
+updated: 2026-06-19
+description: One reference doc per installed tool (72 tools, 13 categories), each with verified links and a why/use/win/how/future write-up. Routes to every category.
 tags:
   - project/dotfiles
   - domain/tooling
@@ -13,7 +13,7 @@ related:
 
 # Tooling catalog
 
-One `reference` doc per tool in this setup — **71 tools across 13 categories**. Each doc carries verified links (website / repo / manual / brew) in frontmatter and a body covering *what it is, why it's installed, the common use case, the biggest win, how to use it, and future use*.
+One `reference` doc per tool in this setup — **72 tools across 13 categories**. Each doc carries verified links (website / repo / manual / brew) in frontmatter and a body covering *what it is, why it's installed, the common use case, the biggest win, how to use it, and future use*.
 
 Folders group by **function**. Two cross-cutting axes live in **tags**, not folders, so you can slice either way:
 - **Interface** — `pattern/cli` · `pattern/tui` · `pattern/gui` · `pattern/library`
@@ -24,7 +24,7 @@ Folders group by **function**. Two cross-cutting axes live in **tags**, not fold
 
 | # | Category | Tools | What lives here |
 |---|----------|:-----:|-----------------|
-| 01 | [[01-shell-terminal/INDEX\|Shell & Terminal]] | 8 | terminal emulator, multiplexers, prompt (p10k), zsh plugins, clipboard, sysinfo |
+| 01 | [[01-shell-terminal/INDEX\|Shell & Terminal]] | 9 | terminal emulator, multiplexers, prompt (p10k), zsh plugins, clipboard, sysinfo, process monitor |
 | 02 | [[02-file-management/INDEX\|File Management]] | 15 | tree view, TUI/GUI managers, renamers, archiver + modern CLI core (eza/bat/fd/rg/fzf/zoxide/dust) + yazi preview backends (7-Zip/resvg) |
 | 03 | [[03-dedup-cleanup/INDEX\|Dedup & Cleanup]] | 6 | duplicate finders, app uninstallers, file recovery |
 | 04 | [[04-dev-languages/INDEX\|Dev & Languages]] | 10 | editors, JS/Python runtimes & managers, jq, containers, LLM client, GitHub CLI |
@@ -44,6 +44,7 @@ Standalone multi-chapter guides (not per-tool reference docs, so they don't add 
 | # | Guide | Chapters | What it covers |
 |---|-------|:--------:|----------------|
 | 14 | [[14-supabase/INDEX\|Supabase, from zero]] | 9 | Beginner guide to Supabase/Postgres for the `kol-lightroom` project — databases, API keys, migrations, git sync, data in/out, pitfalls. **CLI:** `brew install supabase/tap/supabase`. |
+| 15 | [[15-cloudflare/INDEX\|Cloudflare, from zero]] | 5 | Beginner guide to Cloudflare R2 (object storage/buckets), Pages (static hosting + serverless Functions), and Wrangler (CLI). Covers the kol-media bucket + admin tool setup at `admin.kolkrabbi.io`. |
 
 ## Related
 - [[TOOLING|Tooling audit & sync]] — the drift audit, Brewfile reconciliation, cross-arch portability notes, and open items.

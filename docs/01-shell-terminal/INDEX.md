@@ -2,7 +2,7 @@
 title: Shell & Terminal
 type: index
 status: active
-updated: 2026-06-12
+updated: 2026-06-19
 description: The terminal emulator, multiplexers, zsh prompt, and shell enhancements that make up the command-line environment.
 tags:
   - domain/shell
@@ -20,6 +20,7 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | [[06-pbcopy-pbpaste\|pbcopy & pbpaste]] | macOS clipboard from the shell — pipe text in/out; recipes with fzf, jq, git, pngpaste. (built-in) |
 | [[07-fastfetch\|fastfetch]] | Fast system-info tool printing specs alongside an OS logo. |
 | [[08-glow\|glow]] | Terminal markdown renderer — open any `.md` as styled, readable text, instantly. |
+| [[11-htop\|htop]] | Interactive process/resource monitor (TUI) — find and kill whatever's eating CPU or memory. |
 
 ## Guides
 - [[10-tmux-help\|tmux help & cheat sheet]] — built-in help commands first, then the keys, shell commands, and workflows you actually use with the [[02-tmux\|tmux]] config.

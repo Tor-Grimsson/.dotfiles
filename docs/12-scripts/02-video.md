@@ -2,7 +2,7 @@
 title: Video scripts
 type: reference
 status: active
-updated: 2026-06-10
+updated: 2026-06-19
 description: vid-* — video transcode/scale/crop/remux helpers (ffmpeg).
 tags:
   - project/dotfiles
@@ -12,6 +12,8 @@ related:
   - "[[vid-archive|Archive to 10-bit H.265 (deep-dive)]]"
   - "[[vid-remux-mp4|Rewrap to MP4 (deep-dive)]]"
   - "[[vid-h264-web|H.264 web encode (deep-dive)]]"
+  - "[[vid-convert|Reframe to an aspect (deep-dive)]]"
+  - "[[vid-reframe|Batch reframe a folder to export-spec aspect]]"
   - "[[au-transcribe|Transcribe a video URL/file to markdown (deep-dive)]]"
 ---
 
@@ -57,7 +59,8 @@ Two shapes:
 
 | Script | Does | Usage |
 |--------|------|-------|
-| `vid-convert.sh` | **Flagship.** Scale + crop one video to a target aspect/res/anchor (no letterbox), software H.265 | `vid-convert.sh -a <16:9\|5:3\|4:3\|1:1\|3:4\|3:5\|9:16> -r <1k\|2k\|4k> -o <left\|right\|center\|top\|bottom> -i <in> -p <outdir> [-n name]` |
+| `vid-reframe.sh` | **Batch reframe.** `cd` into `frame-9-16/16-9/4-5`, run, done. Auto-detects dims, squares anamorphic pixels (SAR→1:1), kebabs names, outputs to `_export/`. No flags. | `vid-reframe.sh` (or `vid-reframe.sh <file> …` for specific clips) |
+| `vid-convert.sh` | **Single-file reframe.** Scale + crop one video to a target aspect/res/anchor (no letterbox), software H.265 | `vid-convert.sh -a <16:9\|5:3\|4:3\|1:1\|3:4\|3:5\|9:16> -r <1k\|2k\|4k> -o <left\|right\|center\|top\|bottom> -i <in> -p <outdir> [-n name]` |
 | `vid-archive.sh` | **Archive default.** Batch SW H.265, **10-bit**, constant-quality **CRF** `.mp4` — small + band-free, any res; `-s` downscales (never upscales) | `vid-archive.sh [-s height] [-q crf] [-g]` |
 | `vid-h265.sh` | Batch HW H.265, 10-bit, 80M (high-bitrate master) | `vid-h265.sh` |
 | `vid-h265-8b.sh` | Batch HW H.265, 8-bit main, 200M master | `vid-h265-8b.sh` |
@@ -77,6 +80,8 @@ Two shapes:
 
 - **Does** — scales the source to FILL the target box (longest side = chosen res),
   then crops the overflow to the exact aspect at the chosen anchor. No letterbox.
+  Full write-up (flags, the export-specs @Nx mapping, the 4:5/mp4/kebab gaps):
+  [[vid-convert|deep-dive]].
 - **Usage** — `vid-convert.sh -a <aspect> -r <res> -o <origin> -i <input> -p <outdir> [-n <name>]`.
 - **Options** — `-a` aspect, `-r` res (`1k`=1920 / `2k`=2560 / `4k`=3840 on the longest
   side), `-o` crop anchor (default `center`), `-i` input, `-p` outdir, `-n` filename

@@ -20,6 +20,7 @@ covers:
   - Generating a config file
 related:
   - "[[01-iterm2|iTerm2]]"
+  - "[[11-htop|htop]]"
 ---
 
 ## Summary

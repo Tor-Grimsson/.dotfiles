@@ -19,6 +19,7 @@ related:
   - "[[video-archive-pipeline|Video archive pipeline (workflow)]]"
   - "[[02-video|Video scripts (vid-)]]"
   - "[[vid-remux-mp4|Rewrap to MP4 (deep-dive)]]"
+  - "[[vid-convert|Reframe to an aspect (deep-dive)]]"
   - "[[01-ffmpeg|ffmpeg reference]]"
 ---
 

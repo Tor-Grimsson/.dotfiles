@@ -20,6 +20,7 @@ covers:
   - First-run setup
 related:
   - "[[01-raycast|Raycast]]"
+  - "[[01-shell-terminal/11-htop|htop]]"
 ---
 
 ## Summary
