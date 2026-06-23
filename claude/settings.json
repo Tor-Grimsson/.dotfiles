@@ -30,12 +30,26 @@
     ]
   },
   "enabledPlugins": {
-    "rust-analyzer-lsp@claude-plugins-official": true
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "ponytail@ponytail": true
+  },
+  "extraKnownMarketplaces": {
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    }
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
   "voice": {
     "enabled": true,
     "mode": "hold"
+  },
+  "tui": "fullscreen",
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/plugins/marketplaces/ponytail/hooks/ponytail-statusline.sh\""
   }
 }

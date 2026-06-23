@@ -73,6 +73,13 @@ if command -v claude >/dev/null 2>&1; then
   claude mcp add --scope user glif -e 'GLIF_API_TOKEN=${GLIF_API_TOKEN}' -- npx -y @glifxyz/glif-mcp-server@latest 2>/dev/null || true
 fi
 
+# Claude plugins — runtime state (the cloned repos + *.json) lives in ~/.claude/plugins
+# and is NOT tracked; we reproduce the intent here, same as the MCP block above.
+if command -v claude >/dev/null 2>&1; then
+  claude plugin marketplace add DietrichGebert/ponytail 2>/dev/null || true
+  claude plugin install ponytail@ponytail 2>/dev/null || true
+fi
+
 # Claude skill dependencies (claude/packages → ~/.local/bin)
 if [ -d "$DOT/claude/packages" ]; then
   mkdir -p "$HOME/.local/bin"

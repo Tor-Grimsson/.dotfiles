@@ -194,6 +194,8 @@ on-mode-changed = []
     alt-shift-y = 'move-node-to-workspace Y'
     alt-shift-z = 'move-node-to-workspace Z'
 
+    cmd-alt-shift-f = 'fullscreen'
+
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
@@ -202,8 +204,22 @@ on-mode-changed = []
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-semicolon = 'mode service'
 
+    # new mode resize
+    cmd-alt-shift-r = 'mode resize'
+
+[mode.resize.binding]
+    h = 'resize width -50'
+    j = 'resize height +50'
+    k = 'resize height -50'
+    l = 'resize width +50'
+    b = 'balance-sizes'
+
+    enter = 'mode main'
+    esc = 'mode main'
+
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+
 [mode.service.binding]
     esc = ['reload-config', 'mode main']
     r = ['flatten-workspace-tree', 'mode main'] # reset layout
@@ -229,3 +245,8 @@ run = "move-node-to-workspace B"
 [[on-window-detected]]
 if.app-id = 'org.mozilla.firefoxdeveloperedition'
 run = "move-node-to-workspace B"
+
+[[on-window-detected]]
+if.app-id = 'com.canva.affinity'
+run = "move-node-to-workspace P"
+
