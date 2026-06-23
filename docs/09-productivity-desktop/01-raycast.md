@@ -20,6 +20,7 @@ covers:
   - First-run setup on macOS
 related:
   - "[[02-obsidian|Obsidian]]"
+  - "[[05-aerospace|AeroSpace]]"
 ---
 
 ## Summary

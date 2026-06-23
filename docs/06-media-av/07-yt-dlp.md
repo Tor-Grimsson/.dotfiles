@@ -2,7 +2,7 @@
 title: yt-dlp
 type: reference
 status: active
-updated: 2026-06-10
+updated: 2026-06-20
 description: Download video/audio from YouTube, TikTok, and ~1800 other sites. `-x` rips audio-only — the feed for whisper transcription.
 aliases:
   - yt-dlp
@@ -22,6 +22,7 @@ covers:
 related:
   - "[[01-ffmpeg|FFmpeg]]"
   - "[[04-whisper-cpp|whisper.cpp]]"
+  - "[[12-download|dl-yt.sh (download wrapper)]]"
 ---
 
 ## Summary
@@ -72,3 +73,5 @@ One command, one tool, ~1800 sites — and `-x` drops straight into the [[04-whi
 
 ## Future use
 Built: [[au-transcribe|au-transcribe.sh]] — `yt-dlp` grabs the caption + metadata (frontmatter) and the audio, `whisper-cli` transcribes it → a single `.md` note. This is the script that finally wired up [[04-whisper-cpp|whisper.cpp]].
+
+Built: [[12-download|dl-yt.sh]] — a thin **keep-the-file** wrapper. Defaults to best video + best audio merged to **MKV**, because forcing `.mp4` caps audio to AAC and drops the Opus stream; `-a` rips best audio in its native codec, `-m` falls back to MP4 for portability.

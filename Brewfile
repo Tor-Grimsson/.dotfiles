@@ -95,6 +95,7 @@ cask "iterm2"                      # Terminal emulator
 cask "visual-studio-code"          # Code editor
 
 # Window / launcher / menu bar
+cask "aerospace"                   # Tiling window manager (i3-like, keyboard-driven)
 cask "raycast"                     # Launcher / command palette
 cask "hiddenbar"                   # Hide menu-bar items
 cask "stats"                       # Menu-bar system monitor

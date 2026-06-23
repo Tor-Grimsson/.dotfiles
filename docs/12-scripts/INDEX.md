@@ -2,8 +2,8 @@
 title: Scripts
 type: index
 status: active
-updated: 2026-06-17
-description: The bin/ helper scripts, grouped by domain prefix (au-/vid-/img-/pdf-/art-/batch-/tor-/fs-/ss-/finder-/qa-). One doc per family.
+updated: 2026-06-20
+description: The bin/ helper scripts, grouped by domain prefix (au-/vid-/img-/pdf-/art-/batch-/tor-/fs-/ss-/finder-/qa-/dl-/dot-). One doc per family.
 tags:
   - project/dotfiles
   - domain/scripts
@@ -27,6 +27,7 @@ CLI helpers in `~/.dotfiles/bin` (symlinked to `~/bin`, on PATH). Renamed 2026-0
 | `fs-` / `ss-` | [[08-system\|System & clipboard]] | 3 | — |
 | `finder-` | [[09-finder\|Finder selection]] | 1 | ⇧⌥⌃A, ⇧⌥⌃S (Quick Actions) |
 | `qa-` | [[10-quick-actions\|Quick Actions]] | 1 | generator — stamps new Quick Actions |
+| `dl-` | [[12-download\|Download]] | 1 | yt-dlp wrapper — highest-quality fetch (MKV default) |
 | `dot-` | [[11-dot-sync\|Dotfiles sync]] | 1 | launchd daemon — every 30 min |
 
 Some scripts are also wired as **Finder Quick Actions** (`macos/services/`, symlinked by `bootstrap.sh`,

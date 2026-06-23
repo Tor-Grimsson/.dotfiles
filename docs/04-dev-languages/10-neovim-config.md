@@ -2,7 +2,7 @@
 title: Neovim config (IDE setup)
 type: guide
 status: active
-updated: 2026-06-13
+updated: 2026-06-20
 audience: internal
 description: The full lazy.nvim-based Neovim IDE config in this repo — structure, plugin roster, and keybindings. A replication of josean-dev's setup under the `grim` namespace, tracked at nvim/ and symlinked to ~/.config/nvim.
 aliases:
@@ -51,6 +51,7 @@ nvim/
 ├── lazy-lock.json               -- pinned plugin versions (synced across machines)
 ├── .stylua.toml                 -- lua formatter config
 ├── after/
+│   ├── ftplugin/markdown.lua    -- per-filetype prose settings (wrap/conceal/textwidth)
 │   ├── lsp/*.lua                -- per-server overrides (eslint, svelte, graphql, emmet_ls)
 │   └── queries/ecma/            -- custom Tree-sitter textobjects
 └── lua/grim/
@@ -65,6 +66,18 @@ nvim/
 ```
 
 `init.lua` is a three-line loader; the namespace folder (`lua/grim/`) keeps these modules from colliding with plugin module names.
+
+## Filetype overrides (`after/ftplugin/`)
+
+`core/options.lua` sets editor-wide defaults (notably `wrap = false`). Per-filetype
+tweaks live in `after/ftplugin/<ft>.lua` — Neovim sources these automatically when a
+buffer of that filetype opens, *after* the globals, so they win without any autocmd.
+Use `vim.opt_local` (not `vim.opt`) so the change stays scoped to that buffer.
+
+- **`markdown.lua`** — prose mode for `.md`: `wrap = true` (re-enables soft wrap that
+  the global turns off), `conceallevel = 2` (hides `**`/`_`/link markup), `textwidth = 80`
+  (hard-wrap column). This is the only filetype override so far; add a sibling file to
+  cover another (e.g. `gitcommit.lua`).
 
 ## Plugin roster
 

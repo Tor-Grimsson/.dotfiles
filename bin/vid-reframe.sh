@@ -54,15 +54,54 @@ for INPUT in "${FILES[@]}"; do
     continue
   fi
 
-  echo "→ $NAME.mp4  (${W}×${H})"
-  # First pass normalizes anamorphic sources (non-square SAR, e.g. 1440×1080 DVD
-  # 16:9) to square pixels at their true display size, so the cover-scale below
-  # works in display space and the output isn't left with a stretched SAR. Without
-  # it, a 1440×1080 SAR-4:3 clip comes out 1920×1080 flagged SAR 4:3 = 2560×1080.
-  ffmpeg -nostdin -y -i "$INPUT" \
+  # Largest output the SOURCE can fill WITHOUT upscaling. The reframe must keep
+  # the folder aspect (W:H), but blowing a 720p / 1440×1080 clip up to the full
+  # target only adds pixels and bytes — that's what made outputs bigger than
+  # inputs. So probe the source, find the biggest W:H box it covers at native
+  # density, and cap the target to it. Big sources still downscale to W×H.
+  read -r SW SH SAR < <(ffprobe -v error -select_streams v:0 \
+    -show_entries stream=width,height,sample_aspect_ratio -of csv=p=0 "$INPUT" 2>/dev/null | tr ',' ' ')
+  case "$SAR" in *:*) sarN=${SAR%:*}; sarD=${SAR#*:} ;; *) sarN=1; sarD=1 ;; esac
+  [[ "$sarN" =~ ^[0-9]+$ && "$sarD" =~ ^[0-9]+$ && $sarN -gt 0 && $sarD -gt 0 ]] || { sarN=1; sarD=1; }
+
+  if [[ "$SW" =~ ^[0-9]+$ && "$SH" =~ ^[0-9]+$ && $SW -gt 0 && $SH -gt 0 ]]; then
+    dispW=$(( SW * sarN / sarD )); dispH=$SH            # square-pixel display size
+    if (( dispW * H >= dispH * W )); then               # source wider than target → height-limited
+      oH=$dispH; oW=$(( dispH * W / H ))
+    else                                                # source taller than target → width-limited
+      oW=$dispW; oH=$(( dispW * H / W ))
+    fi
+    if (( oW >= W )); then oW=$W; oH=$H; fi             # source ≥ target → downscale to target (as before)
+    oW=$(( oW - oW % 2 )); oH=$(( oH - oH % 2 ))        # even dims for yuv420/HEVC
+    (( oW < 2 )) && oW=2; (( oH < 2 )) && oH=2
+  else
+    oW=$W; oH=$H                                         # ffprobe failed → original behavior
+  fi
+
+  note=""; (( oW < W )) && note="  [clamped — no upscale]"
+  echo "→ $NAME.mp4  (${oW}×${oH})${note}"
+
+  # First pass squares anamorphic sources (non-square SAR, e.g. 1440×1080 DVD
+  # 16:9) to their true display size so the cover-scale works in display space
+  # and the output isn't left with a stretched SAR.
+  if ffmpeg -nostdin -y -i "$INPUT" \
     -map 0:v:0 -map '0:a:0?' \
-    -vf "scale=trunc(iw*sar/2)*2:ih,setsar=1,scale=${W}:${H}:force_original_aspect_ratio=increase:flags=lanczos,crop=${W}:${H},setsar=1" \
+    -vf "scale=trunc(iw*sar/2)*2:ih,setsar=1,scale=${oW}:${oH}:force_original_aspect_ratio=increase:flags=lanczos,crop=${oW}:${oH},setsar=1" \
     -c:v libx265 -preset medium -crf 22 -pix_fmt yuv420p -tag:v hvc1 \
     -movflags +faststart -c:a aac -b:a 128k \
-    "$OUT" && echo "   done: $NAME.mp4" || echo "   FAIL: $INPUT"
+    "$OUT"; then
+    # Never leave a file bigger than its source. If even the no-upscale encode
+    # came out larger (source already very efficiently compressed), throw it away
+    # and keep the original — better no reframe than silent bloat.
+    in_sz=$(stat -f%z "$INPUT" 2>/dev/null || stat -c%s "$INPUT" 2>/dev/null)
+    out_sz=$(stat -f%z "$OUT"   2>/dev/null || stat -c%s "$OUT"   2>/dev/null)
+    if [[ -n "$in_sz" && -n "$out_sz" ]] && (( out_sz >= in_sz )); then
+      rm -f "$OUT"
+      echo "   skipped: $NAME.mp4 would grow ($(( out_sz/1048576 ))MB ≥ $(( in_sz/1048576 ))MB) — source kept, no output"
+    else
+      echo "   done: $NAME.mp4 ($(( out_sz/1048576 ))MB)"
+    fi
+  else
+    echo "   FAIL: $INPUT"
+  fi
 done

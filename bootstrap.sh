@@ -88,6 +88,12 @@ if [ -d "$DOT/mpv" ]; then
   ln -sf "$DOT/mpv/input.conf" "$HOME/.config/mpv/input.conf"
 fi
 
+# aerospace (tiling window manager — single config file)
+if [ -d "$DOT/aerospace" ]; then
+  mkdir -p "$HOME/.config/aerospace"
+  ln -sf "$DOT/aerospace/aerospace.toml" "$HOME/.config/aerospace/aerospace.toml"
+fi
+
 # nvim (whole dir)
 [ -d "$DOT/nvim" ] && ln -sfn "$DOT/nvim" "$HOME/.config/nvim"
 
