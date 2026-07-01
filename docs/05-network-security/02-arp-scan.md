@@ -21,6 +21,7 @@ covers:
   - Identifying hardware vendors from MAC OUI
 related:
   - "[[01-nmap|nmap]]"
+  - "[[../00-kol-cli/05-network-security|Network & remote card]]"
 ---
 
 ## Summary

@@ -15,7 +15,7 @@ timestamps. With -d it sends the frames to the `llm` CLI for a short "Visual
 overview" so you can reorient to the footage without rewatching.
 
 USAGE
-  au-transcribe-ss.sh [-m MODEL] [-l LANG] [-o OUTDIR] [-n N] [-d] [-k] <url|file> [more…]
+  au-transcribe-ss.sh [-m MODEL] [-l LANG] [-o OUTDIR] [-n N] [-c BROWSER] [-d] [-k] <url|file> [more…]
 
 OPTIONS
   -m  whisper model (default: base). tiny|base|small|medium|large-v3, plus .en
@@ -23,6 +23,8 @@ OPTIONS
   -l  spoken-language hint (default: auto). e.g. -l en, -l is.
   -o  output directory for the .md + frames (default: current dir).
   -n  number of key frames to grab (default: 6). 0 disables frames.
+  -c  load yt-dlp cookies from a browser (chrome|firefox|safari|edge|brave|…)
+      for login-gated URLs like TikTok collections. e.g. -c firefox. URLs only.
   -d  generate an AI "Visual overview" from the frames via the `llm` CLI
       (default model: whatever `llm models default` reports; override with
       $AU_SS_LLM_MODEL). Off by default.
@@ -52,13 +54,14 @@ case "${1:-}" in -h|--help|"") usage; exit 0 ;; esac
 
 set -euo pipefail
 
-model="base"; lang="auto"; outdir="."; nframes=6; describe=false; keep=false
-while getopts "m:l:o:n:dkh" opt; do
+model="base"; lang="auto"; outdir="."; nframes=6; describe=false; keep=false; cookies=""
+while getopts "m:l:o:n:c:dkh" opt; do
   case "$opt" in
     m) model="$OPTARG" ;;
     l) lang="$OPTARG" ;;
     o) outdir="$OPTARG" ;;
     n) nframes="$OPTARG" ;;
+    c) cookies="$OPTARG" ;;
     d) describe=true ;;
     k) keep=true ;;
     h) usage; exit 0 ;;
@@ -119,8 +122,9 @@ transcribe_one() {
     command -v yt-dlp >/dev/null || { echo "error: yt-dlp not found (needed for URLs)" >&2; return 1; }
     local fmt="${AU_SS_FORMAT:-bestvideo[height<=720]+bestaudio/best[height<=720]/best}"
     echo "▸ fetching video: $input" >&2
-    if ! yt-dlp --no-warnings --no-playlist -f "$fmt" --merge-output-format mp4 \
-           --write-info-json -o "$tmp/src.%(ext)s" "$input"; then
+    local ytflags=(--no-warnings --no-playlist -f "$fmt" --merge-output-format mp4 --write-info-json)
+    [ -n "$cookies" ] && ytflags+=(--cookies-from-browser "$cookies")
+    if ! yt-dlp "${ytflags[@]}" -o "$tmp/src.%(ext)s" "$input"; then
       echo "error: yt-dlp failed on $input" >&2; return 1
     fi
     local info
@@ -143,18 +147,22 @@ transcribe_one() {
 
   [ -n "${media_src:-}" ] && [ -f "$media_src" ] || { echo "error: no media for $input" >&2; return 1; }
 
-  # → 16 kHz mono PCM wav, the input whisper.cpp expects
-  local wav="$tmp/audio.wav"
-  if ! ffmpeg -nostdin -y -loglevel error -i "$media_src" -ar 16000 -ac 1 -c:a pcm_s16le "$wav"; then
-    echo "error: ffmpeg audio extract failed for $input" >&2; return 1
+  # → 16 kHz mono PCM wav, the input whisper.cpp expects. Frames are the point of
+  # this script, so a silent/video-only clip (no audio stream) degrades to an
+  # empty transcript instead of failing the whole entry.
+  local wav="$tmp/audio.wav" transcript=""
+  if ffmpeg -nostdin -y -loglevel error -i "$media_src" -ar 16000 -ac 1 -c:a pcm_s16le "$wav" 2>/dev/null \
+       && [ -s "$wav" ]; then
+    echo "▸ transcribing ($model, lang=$lang)…" >&2
+    if "$whisper" -m "$model_file" -f "$wav" -l "$lang" -nt -np -otxt -of "$tmp/transcript" >/dev/null 2>&1 \
+         && [ -f "$tmp/transcript.txt" ]; then
+      transcript=$(sed -E '/^[[:space:]]*$/d; s/^[[:space:]]+//' "$tmp/transcript.txt")
+    else
+      echo "  (whisper produced no transcript — continuing with frames)" >&2
+    fi
+  else
+    echo "  (no audio stream — transcript skipped, grabbing frames only)" >&2
   fi
-
-  echo "▸ transcribing ($model, lang=$lang)…" >&2
-  if ! "$whisper" -m "$model_file" -f "$wav" -l "$lang" -nt -np -otxt -of "$tmp/transcript" >/dev/null 2>&1; then
-    echo "error: whisper failed for $input" >&2; return 1
-  fi
-  local transcript=""
-  if [ -f "$tmp/transcript.txt" ]; then transcript=$(sed -E '/^[[:space:]]*$/d; s/^[[:space:]]+//' "$tmp/transcript.txt"); fi
   [ -n "$transcript" ] || transcript="_(no speech detected)_"
 
   # pick the output paths (skip clobbering an existing <slug>.md / -frames dir)
@@ -231,7 +239,7 @@ transcribe_one() {
 
   echo "✓ $out"
   [ -n "$frames_md" ] && echo "  frames: $framedir"
-  if [ "$keep" = true ]; then cp -f "$wav" "$outdir/$base.wav"; echo "  audio: $outdir/$base.wav"; fi
+  if [ "$keep" = true ] && [ -s "$wav" ]; then cp -f "$wav" "$outdir/$base.wav"; echo "  audio: $outdir/$base.wav"; fi
 }
 
 fail=0

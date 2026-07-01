@@ -1,0 +1,162 @@
+#!/usr/bin/env python3
+"""cplan — a "what's actually coming up" calendar view.
+
+Lists gcalcli events over a window, hiding the weekly/biweekly (and daily)
+recurring noise so you see the one-offs and rare events you'd actually forget.
+
+  cplan                list the next 30 days ahead (default)
+  cplan --30d-p        same — p = positive = future, next 30 days
+  cplan --7d-p         next 7 days
+  cplan --30d-n        n = negative = past, last 30 days
+  cplan --30d-bp       bp = bipolar = both, 30 days either side of now
+  cplan --10d-n --30d-p   asymmetric: 10 days back AND 30 days ahead
+  cplan --30d-p -a     -a/--all = don't hide recurring events (global, not per-side)
+
+Two window flags compose into one range — a past (-n) and a future (-p) flag
+together span both. --bp is just shorthand for a symmetric pair.
+
+How the noise filter works: Google gives each recurring *instance* an id ending
+in `_YYYYMMDD[THHMMSSZ]` on a shared base id; one-offs don't. We group by that
+base, measure the gap between instances, and drop any series whose typical gap is
+<= 15 days (daily / weekly / biweekly). Monthly+ series and true one-offs stay.
+A recurring series with only one instance in the window can't be measured, so it
+stays too (erring toward showing).
+"""
+import re
+import subprocess
+import sys
+from datetime import date, datetime, timedelta
+
+WINDOW_RE = re.compile(r"^--(\d+)d-(p|n|bp)$")
+# trailing instance suffix that marks a recurring occurrence
+INSTANCE_RE = re.compile(r"^(.*)_(\d{8})(T\d{6}Z)?$")
+GAP_SKIP_DAYS = 15  # <= this typical gap => daily/weekly/biweekly => hide
+
+
+def usage(code=0):
+    print(__doc__.rstrip(), file=sys.stderr)
+    sys.exit(code)
+
+
+def parse_args(argv):
+    """past/fut days either side of now; window flags compose (don't clobber)."""
+    past, fut, show_all, saw_window = None, None, False, False
+    for a in argv:
+        if a in ("-h", "--help"):
+            usage(0)
+        elif a in ("-a", "--all"):
+            show_all = True
+        elif m := WINDOW_RE.match(a):
+            saw_window = True
+            n, direction = int(m.group(1)), m.group(2)
+            if direction == "p":
+                fut = n
+            elif direction == "n":
+                past = n
+            else:  # bp = symmetric pair
+                past = fut = n
+        else:
+            print(f"cplan: unknown arg {a!r}\n", file=sys.stderr)
+            usage(2)
+    if not saw_window:
+        fut = 30  # default view: a month ahead
+    return past or 0, fut or 0, show_all
+
+
+def window(past, fut):
+    """Return (start, end) ISO strings; end is exclusive so add a day to include
+    the far boundary fully."""
+    today = date.today()
+    start = today - timedelta(days=past)
+    end = today + timedelta(days=fut + 1)
+    return start.isoformat(), end.isoformat()
+
+
+def fetch(start, end):
+    out = subprocess.run(
+        ["gcalcli", "agenda", start, end, "--tsv", "--details", "id"],
+        capture_output=True, text=True,
+    )
+    if out.returncode != 0:
+        sys.stderr.write(out.stderr)
+        sys.exit(out.returncode)
+    rows = []
+    for line in out.stdout.splitlines()[1:]:  # skip header
+        parts = line.split("\t")
+        if len(parts) < 6:
+            continue
+        eid, sdate, stime, _edate, _etime, title = parts[:6]
+        rows.append({"id": eid, "date": sdate, "time": stime, "title": title})
+    return rows
+
+
+def median(xs):
+    xs = sorted(xs)
+    mid = len(xs) // 2
+    return xs[mid] if len(xs) % 2 else (xs[mid - 1] + xs[mid]) / 2
+
+
+def base_id(eid):
+    """Base recurring id if this row is a recurring instance, else None."""
+    m = INSTANCE_RE.match(eid)
+    return m.group(1) if m else None
+
+
+def recurring_bases_to_hide(rows):
+    """Bases whose instances recur every <= GAP_SKIP_DAYS days."""
+    groups = {}
+    for r in rows:
+        b = base_id(r["id"])
+        if b is not None:
+            groups.setdefault(b, []).append(r["date"])
+    hide = set()
+    for b, dates in groups.items():
+        if len(dates) < 2:
+            continue  # can't measure frequency -> keep
+        ds = sorted(date.fromisoformat(d) for d in dates)
+        gaps = [(ds[i + 1] - ds[i]).days for i in range(len(ds) - 1)]
+        if median(gaps) <= GAP_SKIP_DAYS:
+            hide.add(b)
+    return hide
+
+
+def fmt(r):
+    d = datetime.strptime(r["date"], "%Y-%m-%d")
+    when = f"{d:%a %d %b}"
+    t = r["time"] if r["time"] else "all-day"
+    return f"{when}  {t:>7}  {r['title']}"
+
+
+def label(past, fut):
+    if past and fut:
+        return f"-{past}d → +{fut}d"
+    if fut:
+        return f"{fut}d ahead"
+    return f"{past}d back"
+
+
+def main():
+    past, fut, show_all = parse_args(sys.argv[1:])
+    start, end = window(past, fut)
+    rows = fetch(start, end)
+
+    hidden = 0
+    if not show_all:
+        hide = recurring_bases_to_hide(rows)
+        kept = [r for r in rows if base_id(r["id"]) not in hide]
+        hidden = len(rows) - len(kept)
+        rows = kept
+
+    rows.sort(key=lambda r: (r["date"], r["time"]))
+
+    note = "" if show_all else f", {hidden} recurring hidden"
+    print(f"▸ {len(rows)} events ({label(past, fut)}{note})\n", file=sys.stderr)
+    if not rows:
+        print("  nothing on. enjoy.", file=sys.stderr)
+        return
+    for r in rows:
+        print(fmt(r))
+
+
+if __name__ == "__main__":
+    main()

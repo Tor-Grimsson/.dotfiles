@@ -1,0 +1,110 @@
+#!/usr/bin/env python3
+"""kol-kb — print / edit the Obsidian kol-capture kanban from the terminal.
+
+Reads the SAME files the kol-dashboard plugin uses — the inbox markdown and the
+plugin's data.json — so the terminal and Obsidian show the same board. No daemon,
+no API: edit in one, re-run to see it in the other.
+
+Usage:
+  kol-kb                     print the board
+  kol-kb move <n> <column>   move card n -> triage | todo | doing | done
+  kol-kb --selftest
+  kol-kb -h | --help
+"""
+import json, os, re, sys
+
+VAULT   = os.path.expanduser("~/dev/projects/kol-vault")
+INBOX   = os.path.join(VAULT, "kol-inbox", "inbox.md")
+DATA    = os.path.join(VAULT, ".obsidian", "plugins", "kol-dashboard", "data.json")
+COLUMNS = ["triage", "todo", "doing", "done"]
+COLORS  = {"triage": "2", "todo": "36", "doing": "33", "done": "32"}  # dim / cyan / yellow / green
+LINE_RE = re.compile(r"^-\s+(\d{4}-\d{2}-\d{2} \d{2}:\d{2})\s+(.*\S)\s*$")
+
+
+def col(code, s):
+    return f"\033[{code}m{s}\033[0m" if sys.stdout.isatty() else s
+
+
+def load_state():
+    try:
+        with open(DATA) as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def parse_card(raw, state):
+    m = LINE_RE.match(raw)
+    if not m:
+        return None
+    c = state.get("inboxState", {}).get(raw, "triage")
+    return {"line": raw, "ts": m.group(1), "text": m.group(2),
+            "col": c if c in COLUMNS else "triage"}
+
+
+def load_cards(state):
+    try:
+        with open(INBOX) as f:
+            body = f.read()
+    except FileNotFoundError:
+        return []
+    cards = [c for c in (parse_card(l, state) for l in body.splitlines()) if c]
+    for i, c in enumerate(cards, 1):
+        c["n"] = i
+    return cards
+
+
+def print_board(cards):
+    if not cards:
+        print("inbox empty — text the bot  #kol-ob <thought>")
+        return
+    for name in COLUMNS:
+        items = [c for c in cards if c["col"] == name]
+        print(col("1;" + COLORS[name], f"{name.upper()} ({len(items)})"))
+        if not items:
+            print(col("2", "   —"))
+        for c in items:
+            print("  " + col("2", f"[{c['n']}]") + " " + c["text"])
+        print()
+
+
+def do_move(n, name):
+    if name not in COLUMNS:
+        sys.exit(f"column must be one of: {', '.join(COLUMNS)}")
+    state = load_state()
+    card = next((c for c in load_cards(state) if c["n"] == n), None)
+    if not card:
+        sys.exit(f"no card #{n} (run kol-kb to list)")
+    state.setdefault("inboxState", {})[card["line"]] = name
+    # ponytail: full-file load+dump preserves the plugin's other settings; a race with
+    # a live Obsidian save is the known ceiling — reload Obsidian if a move reverts.
+    with open(DATA, "w") as f:
+        json.dump(state, f, indent=2)
+    print("moved " + col("2", f"[{n}]") + " -> " + col("1;" + COLORS[name], name) + ": " + card["text"])
+
+
+def selftest():
+    st = {"inboxState": {"- 2026-06-26 10:00 ship it": "done"}}
+    assert parse_card("- 2026-06-26 10:00 ship it", st)["col"] == "done"
+    assert parse_card("- 2026-06-26 10:00 buy milk", st)["col"] == "triage"
+    assert parse_card("not a card", st) is None
+    assert parse_card("- 2026-06-26 10:00 bad", {"inboxState": {"- 2026-06-26 10:00 bad": "nope"}})["col"] == "triage"
+    print("selftest passed")
+
+
+def main(a):
+    if not a:
+        return print_board(load_cards(load_state()))
+    if a[0] in ("-h", "--help"):
+        return print(__doc__)
+    if a[0] == "--selftest":
+        return selftest()
+    if a[0] == "move":
+        if len(a) != 3 or not a[1].isdigit():
+            sys.exit("usage: kol-kb move <n> <column>")
+        return do_move(int(a[1]), a[2])
+    sys.exit(f"unknown command: {a[0]} (try -h)")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

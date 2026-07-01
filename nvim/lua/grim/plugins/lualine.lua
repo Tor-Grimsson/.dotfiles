@@ -52,7 +52,7 @@ return {
     -- configure lualine with modified theme
     lualine.setup({
       options = {
-        theme = my_lualine_theme,
+        theme = "auto", -- follows the editor colorscheme (Dracula); revert: theme = my_lualine_theme
       },
       sections = {
         lualine_x = {

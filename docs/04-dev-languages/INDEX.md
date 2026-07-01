@@ -27,3 +27,4 @@ The runtimes, package managers, editors, and container tooling this machine deve
 ## Guides
 - [[11-neovim-cheatsheet\|Neovim cheatsheet (beginner)]] — zero-assumptions reference for writing and navigating text in [[03-neovim\|Neovim]]: modes, movement, editing, search/replace, panic button.
 - [[10-neovim-config\|Neovim config (IDE setup)]] — the lazy.nvim plugin system, structure, and keybindings for the [[03-neovim\|Neovim]] setup.
+- [[14-git-worktrees\|Git worktrees (parallel-agent workflow)]] — run two coding agents on one repo without clashing: a worktree per agent, own branch + directory, with the install/port frictions and merge-back steps.

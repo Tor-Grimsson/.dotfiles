@@ -23,6 +23,7 @@ covers:
 related:
   - "[[04-bitwarden|Bitwarden desktop]]"
   - "[[08-vault-to-env-pattern|Vault → env pattern]]"
+  - "[[../00-kol-cli/05-network-security|Network & remote card]]"
 ---
 
 ## Summary

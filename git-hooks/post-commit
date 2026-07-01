@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# post-commit: when a commit touches docs/, refresh the kol-vault rsync mirror
+# (kol-dotfiles-docs-rs) so the iPad gets fresh docs on the next vault push.
+# No-op if docs/ wasn't touched, or if the vault isn't on this machine.
+# Tracked in git-hooks/; installed as .git/hooks/post-commit by bootstrap.sh.
+set -euo pipefail
+
+# Did this commit change anything under docs/ ? (first commit has no parent -> all files)
+git diff-tree --no-commit-id --name-only -r HEAD -- docs/ | grep -q . || exit 0
+
+SYNC="$HOME/dev/projects/kol-vault/_system/_kol-config/_files/_scripts/sync-dotfiles-docs-rs.sh"
+if [ -x "$SYNC" ]; then
+  "$SYNC"
+fi

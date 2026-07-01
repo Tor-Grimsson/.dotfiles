@@ -1,17 +1,101 @@
--- Gruvbox Material (sainnhe/gruvbox-material).
--- Previous theme (TokyoNight, custom navy palette) archived at:
+-- Neovim colorscheme. Three specs live here; only the enabled one loads.
+-- Switch by flipping `enabled` (and the active one's config runs its colorscheme cmd).
+-- Previous theme (standalone TokyoNight, navy) archived at:
 --   nvim/_archive/colorscheme-tokyonight.lua
 return {
-  "sainnhe/gruvbox-material",
-  priority = 1000,
-  config = function()
-    -- gruvbox-material is configured via vim.g globals, set BEFORE :colorscheme.
-    vim.g.gruvbox_material_background = "medium" -- "hard" | "medium" | "soft"
-    vim.g.gruvbox_material_foreground = "material" -- "material" | "mix" | "original"
-    vim.g.gruvbox_material_enable_bold = 1
-    vim.g.gruvbox_material_enable_italic = 1
-    vim.g.gruvbox_material_better_performance = 1
+  -- DISABLED: Shades of Purple.
+  {
+    "Rigellute/shades-of-purple.vim",
+    enabled = false,
+    priority = 1000,
+    config = function()
+      vim.cmd("colorscheme shades_of_purple")
+    end,
+  },
 
-    vim.cmd("colorscheme gruvbox-material")
-  end,
+  -- DISABLED: Dracula (dark).
+  {
+    "Mofiqul/dracula.nvim",
+    name = "dracula",
+    enabled = false,
+    priority = 1000,
+    config = function()
+      require("dracula").setup({})
+      vim.cmd("colorscheme dracula")
+    end,
+  },
+
+  -- DISABLED: TokyoNight "night" with the "coolnight" navy override (josean's palette).
+  {
+    "folke/tokyonight.nvim",
+    enabled = false,
+    priority = 1000,
+    config = function()
+      local transparent = false -- set to true to enable transparency
+
+      local bg = "#011628"
+      local bg_dark = "#011423"
+      local bg_highlight = "#143652"
+      local bg_search = "#0A64AC"
+      local bg_visual = "#275378"
+      local fg = "#CBE0F0"
+      local fg_dark = "#B4D0E9"
+      local fg_gutter = "#627E97"
+      local border = "#547998"
+
+      require("tokyonight").setup({
+        style = "night",
+        transparent = transparent,
+        styles = {
+          sidebars = transparent and "transparent" or "dark",
+          floats = transparent and "transparent" or "dark",
+        },
+        on_colors = function(colors)
+          colors.bg = bg
+          colors.bg_dark = transparent and colors.none or bg_dark
+          colors.bg_float = transparent and colors.none or bg_dark
+          colors.bg_highlight = bg_highlight
+          colors.bg_popup = bg_dark
+          colors.bg_search = bg_search
+          colors.bg_sidebar = transparent and colors.none or bg_dark
+          colors.bg_statusline = transparent and colors.none or bg_dark
+          colors.bg_visual = bg_visual
+          colors.border = border
+          colors.fg = fg
+          colors.fg_dark = fg_dark
+          colors.fg_float = fg
+          colors.fg_gutter = fg_gutter
+          colors.fg_sidebar = fg_dark
+        end,
+      })
+
+      vim.cmd("colorscheme tokyonight")
+    end,
+  },
+
+  -- DISABLED: Catppuccin Mocha. To use: enabled = true here, false on the others.
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    enabled = false,
+    priority = 1000,
+    config = function()
+      require("catppuccin").setup({ flavour = "mocha" })
+      vim.cmd("colorscheme catppuccin-mocha")
+    end,
+  },
+
+  -- ACTIVE: Gruvbox Material. Switch: set enabled=false here, drop `enabled` on another.
+  {
+    "sainnhe/gruvbox-material",
+    priority = 1000,
+    config = function()
+      vim.g.gruvbox_material_background = "medium"
+      vim.g.gruvbox_material_foreground = "material"
+      vim.g.gruvbox_material_enable_bold = 1
+      vim.g.gruvbox_material_enable_italic = 1
+      vim.g.gruvbox_material_better_performance = 1
+      vim.cmd("colorscheme gruvbox-material")
+    end,
+  },
 }

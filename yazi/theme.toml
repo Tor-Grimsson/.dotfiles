@@ -1,6 +1,10 @@
-# theme.toml — colors. We use a flavor (a packaged theme) rather than hand-rolling
-# every color. gruvbox-dark matches the nvim colorscheme (sainnhe/gruvbox-material).
-# Installed via `ya pkg add bennyyip/gruvbox-dark` → flavors/gruvbox-dark.yazi.
+# theme.toml — colors. ACTIVE: gruvbox-dark flavor (flavors/gruvbox-dark.yazi).
+# To go back to terminal-inheritance (josean's no-flavor setup, palette from the iTerm
+# preset), comment out the [flavor] block below. Flavors are vendored under flavors/*.yazi.
+
+# [flavor]
+# dark  = "catppuccin-mocha"
+# light = "catppuccin-mocha"
 
 [flavor]
 dark  = "gruvbox-dark"

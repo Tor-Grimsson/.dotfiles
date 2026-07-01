@@ -2,7 +2,7 @@
 title: Neovim config (IDE setup)
 type: guide
 status: active
-updated: 2026-06-20
+updated: 2026-06-24
 audience: internal
 description: The full lazy.nvim-based Neovim IDE config in this repo — structure, plugin roster, and keybindings. A replication of josean-dev's setup under the `grim` namespace, tracked at nvim/ and symlinked to ~/.config/nvim.
 aliases:
@@ -13,6 +13,7 @@ tags:
   - domain/dev/editor
   - pattern/tui
 related:
+  - "[[01-cli-cheatsheet|CLI cheatsheet]]"
   - "[[11-neovim-cheatsheet|Neovim cheatsheet (beginner)]]"
   - "[[03-neovim|Neovim]]"
   - "[[02-visual-studio-code|VS Code]]"
@@ -84,7 +85,7 @@ Use `vim.opt_local` (not `vim.opt`) so the change stays scoped to that buffer.
 | Function | Plugin(s) |
 |---|---|
 | Plugin manager | `lazy.nvim` |
-| Colorscheme | `tokyonight` (folke) — customized `night`, deep-blue background |
+| Colorscheme | `tokyonight` (folke) — `night` + josean's "coolnight" navy override; `catppuccin` + `gruvbox-material` kept as disabled specs to flip |
 | File explorer | `nvim-tree` |
 | Fuzzy finder | `telescope` + `telescope-fzf-native` + `plenary` |
 | LSP | `nvim-lspconfig`, `mason`, `mason-lspconfig`, `mason-tool-installer` |
@@ -162,7 +163,9 @@ Use `vim.opt_local` (not `vim.opt`) so the change stays scoped to that buffer.
 
 ## Theme
 
-tokyonight, configured in `plugins/colorscheme.lua`. It overrides the `night` palette with a custom deep-blue background. Flip `local transparent = false` to `true` for a transparent background, or swap `style`/`colorscheme` to retheme.
+tokyonight, configured in `plugins/colorscheme.lua`. It overrides the `night` palette with josean's "coolnight" navy (bg `#011628`) — matching the iTerm `coolnight` terminal theme. The statusline uses the matching `tokyonight` lualine theme (`plugins/lualine.lua`).
+
+`colorscheme.lua` holds three specs; only the `enabled` one loads. To switch theme, flip `enabled` (tokyonight → catppuccin → gruvbox-material) — the other two are parked, not deleted. Flip `local transparent = false` to `true` for a transparent background.
 
 ## Cross-machine
 

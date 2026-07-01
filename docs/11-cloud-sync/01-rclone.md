@@ -19,7 +19,8 @@ covers:
   - Configuring remotes
   - copy / sync / move between local and cloud
   - macOS mount caveat (use nfsmount)
-related: []
+related:
+  - "[[../00-kol-cli/07-storage-redundancy|Storage redundancy & backup]]"
 ---
 
 ## Summary

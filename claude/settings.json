@@ -29,6 +29,10 @@
       "Bash(git:*)"
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/plugins/marketplaces/ponytail/hooks/ponytail-statusline.sh\""
+  },
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true,
     "ponytail@ponytail": true
@@ -43,13 +47,9 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
+  "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"
-  },
-  "tui": "fullscreen",
-  "statusLine": {
-    "type": "command",
-    "command": "bash \"$HOME/.claude/plugins/marketplaces/ponytail/hooks/ponytail-statusline.sh\""
   }
 }

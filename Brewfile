@@ -22,10 +22,12 @@ brew "yazi"        # TUI file manager (Rust, async I/O)
 brew "sevenzip"    # 7-Zip — yazi preview backend: browse/extract inside archives
 brew "resvg"       # SVG renderer — yazi preview backend for .svg
 brew "broot"       # Tree navigation + fuzzy jump
-brew "glow"        # Render markdown in the terminal
+brew "glow"        # Render markdown in the terminal (used by scripts + Quick Actions)
+brew "mdcat"       # Markdown renderer — yazi .md previewer + `M` full-screen viewer (clean headings, inline iTerm2 images)
 brew "watch"       # Run a command on an interval, fullscreen output (procps-ng)
 brew "chawan"      # TUI web browser (text-mode, renders in terminal)
 brew "w3m"         # Classic text-mode browser — instant, no JS; -dump renders HTML to stdout
+brew "gcalcli"     # Google Calendar from the terminal — agenda/week/month, natural-language quick-add (needs a one-time OAuth client; token is machine-local, not in the repo)
 
 # ── Modern CLI core ───────────────────────────────────────────────────────────
 brew "fzf"         # Fuzzy finder — interactive filter for files, history, any list
@@ -35,6 +37,7 @@ brew "eza"         # Modern `ls` — colors, tree view, git status (maintained e
 brew "ripgrep"     # Fast recursive content search (`rg`) — pairs with fzf
 brew "zoxide"      # Smarter cd — `z` jumps to frecency-ranked visited dirs (init wired in .zshrc)
 brew "dust"        # Modern `du` — tree view of what's eating disk, biggest-first (du-dust, Rust)
+brew "tealdeer"    # `tldr` — community cheat-sheets of real examples per command (fast Rust client)
 
 # ── Deduplication ─────────────────────────────────────────────────────────────
 brew "jdupes"      # Fast exact-dupe finder (fork of fdupes) — quick CLI sweeps

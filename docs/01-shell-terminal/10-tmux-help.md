@@ -13,13 +13,14 @@ tags:
   - domain/shell
   - pattern/tui
 related:
+  - "[[01-cli-cheatsheet|CLI cheatsheet]]"
   - "[[02-tmux|tmux]]"
   - "[[09-tmux-tips|tmux tips & tricks]]"
 ---
 
 # tmux help & cheat sheet
 
-Quick-reference card for this repo's [[02-tmux|tmux]] config. **The prefix is `Ctrl-b`** — every binding below is `Ctrl-b` then a key, written `prefix`. Press `Ctrl-b`, release, then the key.
+Quick-reference card for this repo's [[02-tmux|tmux]] config. **The prefix is `Ctrl-a`** — every binding below is `Ctrl-a` then a key, written `prefix`. Press `Ctrl-a`, release, then the key.
 
 ## Built-in help — find anything without leaving tmux
 

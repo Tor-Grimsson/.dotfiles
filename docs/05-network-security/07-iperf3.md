@@ -21,6 +21,7 @@ covers:
 related:
   - "[[01-nmap|nmap]]"
   - "[[02-arp-scan|arp-scan]]"
+  - "[[../00-kol-cli/05-network-security|Network & remote card]]"
 ---
 
 ## Summary

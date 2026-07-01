@@ -2,7 +2,7 @@
 title: Shell & Terminal
 type: index
 status: active
-updated: 2026-06-19
+updated: 2026-06-25
 description: The terminal emulator, multiplexers, zsh prompt, and shell enhancements that make up the command-line environment.
 tags:
   - domain/shell
@@ -21,6 +21,11 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | [[07-fastfetch\|fastfetch]] | Fast system-info tool printing specs alongside an OS logo. |
 | [[08-glow\|glow]] | Terminal markdown renderer — open any `.md` as styled, readable text, instantly. |
 | [[11-htop\|htop]] | Interactive process/resource monitor (TUI) — find and kill whatever's eating CPU or memory. |
+| [[12-tldr\|tldr (tealdeer)]] | Community cheat-sheets of real per-command examples — the fast antidote to a long man page. |
+| [[13-shell-functions\|Shell functions]] | Custom one-liners in `.zshrc` — `killport <port>` and future additions. |
+| [[14-gcalcli\|gcalcli]] | Google Calendar from the terminal — agenda/week/month views, natural-language quick-add, edit and import. |
+| [[15-mdcat\|mdcat]] | Terminal markdown renderer — clean headings (no `##`), inline iTerm2 images; the yazi `.md` previewer. |
+| [[16-kanban-tui\|kanban-tui]] | Kanban/todo board in the terminal (Textual TUI) — also a CLI + MCP server; local SQLite. |
 
 ## Guides
 - [[10-tmux-help\|tmux help & cheat sheet]] — built-in help commands first, then the keys, shell commands, and workflows you actually use with the [[02-tmux\|tmux]] config.

@@ -43,14 +43,14 @@ tmux new -s work          # start a named session "work"
 tmux ls                   # list running sessions
 tmux attach -t work       # reattach to "work"
 
-# Inside tmux, the prefix is Ctrl-b. With this repo's ~/.tmux.conf:
-#   Ctrl-b |   split left/right         Ctrl-b -   split top/bottom
-#   Ctrl-b h/j/k/l   move between panes (arrows work too)
-#   Ctrl-b z   zoom a pane fullscreen (toggle)
-#   Ctrl-b c   new window               Ctrl-b 1..9   jump to window N
-#   Ctrl-b n / p   next / previous window
-#   Ctrl-b d   detach (session keeps running)
-#   Ctrl-b [   copy/scroll mode (q to exit)   Ctrl-b r   reload config
+# Inside tmux, the prefix is Ctrl-a. With this repo's ~/.tmux.conf:
+#   Ctrl-a |   split left/right         Ctrl-a -   split top/bottom
+#   Ctrl-a h/j/k/l   move between panes (arrows work too)
+#   Ctrl-a z   zoom a pane fullscreen (toggle)
+#   Ctrl-a c   new window               Ctrl-a 1..9   jump to window N
+#   Ctrl-a n / p   next / previous window
+#   Ctrl-a d   detach (session keeps running)
+#   Ctrl-a [   copy/scroll mode (q to exit)   Ctrl-a r   reload config
 # (tmux's stock " and % splits still work — see Configuration below.)
 ```
 

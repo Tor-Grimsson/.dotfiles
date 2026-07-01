@@ -25,7 +25,7 @@ The moves that make tmux fast once the basics click — copy mode (scrolling and
 ## Prerequisites
 
 - tmux installed and `~/.dotfiles/tmux/.tmux.conf` symlinked to `~/.tmux.conf` — see [[02-tmux|tmux]].
-- **The prefix is `Ctrl-b`.** Every command is `Ctrl-b` then a key; written `prefix` below. Press `Ctrl-b`, let go, then the key.
+- **The prefix is `Ctrl-a`.** Every command is `Ctrl-a` then a key; written `prefix` below. Press `Ctrl-a`, let go, then the key.
 - The config sets `mode-keys vi`, so copy mode moves like vim.
 
 ## Copy mode — scroll, search, and grab text

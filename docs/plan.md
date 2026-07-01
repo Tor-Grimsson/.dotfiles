@@ -51,4 +51,27 @@ If the hotkey window goes unused after a few weeks, drop the launchd agents and 
 
 ---
 
+## Doc link syntax — wikilinks vs standard markdown  (ONGOING — not deciding today, revisit later)
+
+**Premise:** the kol-docs catalog + the Obsidian vault use Obsidian `[[wikilinks]]`. Outside Obsidian (mdcat, GitHub, pandoc) those render as raw text, and image **embeds** `![[img.png]]` don't render in the yazi mdcat preview at all (mdcat is CommonMark, `![[...]]` isn't). Surfaced while wiring mdcat as the `.md` previewer: should docs move toward standard markdown for portability? **Deferred.**
+
+### where the conversation landed
+- **Keep wikilinks** — Obsidian-native, concise; embeds + block-refs + autocomplete + rename-safety. Cost: raw text everywhere else; images invisible in mdcat.
+- **Go full standard** (`[label](path.md)` / `![](img.png)`) — renders in mdcat/GitHub/pandoc. Cost: verbose, loses note-transclusion `![[note]]` (no CommonMark equivalent) + block-refs, and **diverges from the kol-docs `[[path|display]]` convention** (it's mandated in CLAUDE.md).
+- **Split — the leaning option, not committed:** images as standard `![](...)` (render in mdcat *and* Obsidian), note links stay `[[...]]`. Snag: Obsidian's *Files & Links → "Use [[Wikilinks]]"* toggle is vault-wide, so flipping it to get standard image-embeds-on-paste *also* makes note links standard — so the split needs manual authoring discipline, not a setting.
+
+### open questions
+- Do we actually read image-heavy notes in the terminal? If not, the whole thing is moot.
+- Is GitHub/pandoc rendering of these docs a real workflow, or only Obsidian + mdcat?
+- If we ever switch: new-links-only via the toggle, or bulk-convert existing via the **Link Converter** community plugin?
+
+### current state (no action taken)
+- dotfiles `docs/` has ~**0** `![[...]]` image embeds and 1 standard `![](...)` image → nothing to convert there; the question is really about the broader vault + future authoring habit.
+- No syntax changed, no plugin installed, no vault setting touched.
+
+### kill criteria
+If terminal/GitHub reading never becomes a habit, keep wikilinks as-is and close this — converting + diverging from the kol-docs convention isn't worth it for cosmetic link rendering.
+
+---
+
 Nothing here is committed. This is a thought exercise until items move to `llm-context/AGENT-CONTEXT.md`.

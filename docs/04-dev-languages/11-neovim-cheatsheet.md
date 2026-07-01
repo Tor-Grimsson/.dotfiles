@@ -13,6 +13,7 @@ tags:
   - domain/dev/editor
   - pattern/tui
 related:
+  - "[[01-cli-cheatsheet|CLI cheatsheet]]"
   - "[[10-neovim-config|Neovim config (IDE setup)]]"
   - "[[03-neovim|Neovim]]"
 ---

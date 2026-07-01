@@ -1,8 +1,8 @@
 ---
 title: Jellyfin
 type: reference
-status: draft
-updated: 2026-06-19
+status: active
+updated: 2026-06-26
 description: Self-hosted media server (free Plex alternative) — library, transcoding, and apps; reached remotely over Tailscale instead of port-forwarding.
 aliases:
   - jellyfin
@@ -11,6 +11,8 @@ tags:
   - domain/network
 related:
   - "[[09-tailscale|tailscale]]"
+  - "[[../00-kol-cli/06-tailscale-jellyfin|Tailscale + Jellyfin setup]]"
+  - "[[../00-kol-cli/05-network-security|Network & remote card]]"
 ---
 
 # Jellyfin

@@ -2,7 +2,7 @@
 title: Yazi
 type: reference
 status: active
-updated: 2026-06-14
+updated: 2026-06-26
 description: Blazing-fast terminal file manager (Rust, async I/O, inline image/video previews). Configured here as a media cockpit — `y` drops the shell into wherever you quit.
 aliases:
   - yazi
@@ -19,19 +19,21 @@ links:
 covers:
   - The y() cd-on-quit wrapper
   - Preview dependencies (what each filetype needs)
-  - Tracked config files, plugins, and the gruvbox flavor
+  - Tracked config files, plugins, and theming (terminal-inherited)
   - Default + custom keybindings, and practical workflows
 related:
+  - "[[01-cli-cheatsheet|CLI cheatsheet]]"
   - "[[17-yazi-cheatsheet|Yazi cheatsheet (beginner)]]"
   - "[[03-broot|broot]]"
   - "[[01-tree|tree]]"
   - "[[13-zoxide|zoxide]]"
+  - "[[../01-shell-terminal/15-mdcat|mdcat]]"
 ---
 
 ## Summary
 Full-screen terminal file manager: Miller-column layout (parent · current · preview), async previews that never block, Vim-style keys, first-class bulk rename and selection. The `y` shell function launches it and `cd`s the shell to wherever you quit — so yazi doubles as a visual `cd`.
 
-This install is tuned for media work: large high-quality image/video previews, a gruvbox flavor matching nvim, and three plugins.
+This install is tuned for media work: large high-quality image/video previews, terminal-inherited colors (no yazi flavor — the iTerm `coolnight` palette paints everything), and four plugins.
 
 ## Preview dependencies
 Previews are handed off to external tools. Yazi degrades gracefully — a missing tool just means that filetype shows no preview.
@@ -39,6 +41,7 @@ Previews are handed off to external tools. Yazi degrades gracefully — a missin
 | Preview | Backend | Brew dep | Status |
 |---|---|---|---|
 | Text + syntax | built-in | — | ✓ |
+| **Markdown** (rendered) | mdcat (via the `mdcat` plugin) | `mdcat` | ✓ |
 | Images (PNG/JPG/GIF/WebP) | built-in (iTerm2 image protocol) | — | ✓ |
 | HEIC / JPEG-XL / fonts | ImageMagick ≥ 7.1.1 | `imagemagick` | ✓ (7.1.2) |
 | **Video** (frame thumbnail) | ffmpeg | `ffmpeg` | ✓ |
@@ -54,9 +57,9 @@ All live in `~/.dotfiles/yazi/`, symlinked as a whole dir to `~/.config/yazi` (l
 
 | File | Controls |
 |---|---|
-| `yazi.toml` | layout, sort, preview size/quality (merged over yazi's defaults — only the deltas are stated) |
-| `keymap.toml` | keybindings — added via `prepend` so yours win, defaults stay |
-| `theme.toml` | points at the `gruvbox-dark` flavor |
+| `yazi.toml` | layout, sort, preview size/quality — the **full yazi default** inlined for reference; overrides marked `# ← custom` |
+| `keymap.toml` | keybindings — the **full default keymap** inlined for reference; customs marked `# ← custom` |
+| `theme.toml` | **no flavor** — yazi inherits the terminal palette (coolnight). catppuccin-mocha + gruvbox-dark stay vendored as commented `[flavor]` options |
 | `init.lua` | Lua startup — sets up the `full-border` plugin |
 | `package.toml` | plugin/flavor manifest used by `ya pkg` (pins each to a revision) |
 | `plugins/` `flavors/` | the vendored plugin & flavor repos (tracked, so a fresh machine needs no re-fetch) |
@@ -95,8 +98,10 @@ The stock bindings you'll use most (unchanged):
 | `d` / `D` | trash / delete permanently |
 | `a` `r` | create (end with `/` for a dir) · rename |
 | `.` | toggle hidden files |
-| `/` `s` | filter (current dir) · search (fd/rg) |
-| `f` | jump to a name (filter-as-you-type) |
+| `f` | filter the current listing (type to narrow; `Esc` clears) |
+| `/` `?` | find by name — jump as you type (`n` / `N` repeat) |
+| `s` `S` | search the tree — by name (fd) / by content (rg) |
+| `z` `Z` | jump via fzf (file/dir) / zoxide (frecent dir) |
 | `<Tab>` | spot info (metadata) for the hovered file |
 | `:` `q` `~` | command · quit · help |
 
@@ -108,28 +113,32 @@ Added in `keymap.toml`:
 | `<Enter>` | **smart-enter** — enter a dir or open a file (one key for both) |
 | `T` | **maximize the preview** (full-screen an image/video); press again to restore |
 | `<C-y>` | **Quick Look** the hovered/selected file(s) (macOS `qlmanage`) |
+| `M` | render the markdown file **full-screen with mdcat** (`-p` pager + inline iTerm2 images) — a bigger read than the preview pane; `q` returns to yazi |
 | `g h` | → `~` |
-| `g p` | → `~/thatComp--iMac` (projects, iMac) |
+| `g p` | → `~/dev/projects` |
 | `g d` | → `~/Downloads` |
 | `g D` | → `~/Desktop` |
 | `g .` | → `~/.dotfiles` |
 | `g t` | → `~/_temp` |
 
 ## Plugins
-Installed with `ya pkg add`, vendored under `plugins/` + `flavors/`, pinned in `package.toml`.
+Installed with `ya pkg add`, vendored under `plugins/` + `flavors/`, pinned in `package.toml` — except `mdcat`, which is hand-written and so carries no `package.toml` entry.
 
 | Plugin | Does | Trigger |
 |---|---|---|
 | `smart-enter` | Enter dir / open file with one key | `<Enter>` |
 | `toggle-pane` | maximize/hide a pane (respects the `ratio`) | `T` (max-preview); `:plugin toggle-pane <mode>` for others |
 | `full-border` | rounded borders around the panes | automatic (`init.lua`) |
-| `gruvbox-dark` (flavor) | gruvbox theme matching nvim | `theme.toml` |
+| `mdcat` | renders `.md` as styled markdown in the preview (clean headings, no `##` markers; frontmatter shown) | automatic (previewer matched by `*.{md,markdown}` — yazi tags `.md` as `text/plain`, so it's wired by extension, not mime) |
+
+> **Maintenance:** `plugins/mdcat.yazi/main.lua` is **hand-written** (not a `ya pkg` dep — no `package.toml` entry, no upgrade churn). It runs `mdcat --ansi --local --columns <pane-width>`: `--ansi` forces formatting when stdout is a pipe (no TTY), `--local` skips remote image fetches so the preview never stalls. A 2-column left/right margin is added by insetting the render area (`job.area:pad(ui.Pad.x(2))`) — mdcat has no margin flag of its own; tune the `pad` local at the top of `peek`. It was picked over **glow** (which keeps the `##` heading markers and strips frontmatter) after an A/B. The `glow` **binary stays installed** — it's used by scripts + Quick Actions — but is no longer wired into yazi.
+| `catppuccin-mocha`, `gruvbox-dark` (flavors) | vendored but **inactive** — colors come from the terminal (coolnight). Activate one by uncommenting its `[flavor]` block | `theme.toml` |
 
 ## Workflows
 - **Move files between two dirs** — `<Space>` to mark several (or `y`/`x` to copy/cut), navigate to the target with `h`/`l`, `p` to drop. Tabs (`t` new tab, `1`–`9` switch) let you keep source and target open at once.
 - **Bulk rename** — select files, `r`. Yazi opens the names in `$EDITOR` (nvim); edit the list, save, quit — every change applies at once.
 - **Review media fast** — hover a video or image, `T` to full-screen the preview, `j`/`k` to step through the folder, `T` again to restore. `<C-y>` for a full Quick Look.
-- **Find then act** — `s` (search via fd/rg) or `f` (jump to name) to land on a file, then operate on it.
+- **Find then act** — `s` (search by name, fd) / `S` (by content, rg), or `/` (jump to a name in this dir), to land on a file, then operate on it.
 - **Browse → cd** — launch with `y`, walk the tree, `q` — the shell is now in that directory.
 
 ## Why installed

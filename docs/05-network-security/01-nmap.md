@@ -21,7 +21,8 @@ covers:
   - Common scan flags for auditing a local network
 related:
   - "[[02-arp-scan|arp-scan]]"
-  - "[[06-iperf3|iperf3]]"
+  - "[[07-iperf3|iperf3]]"
+  - "[[../00-kol-cli/05-network-security|Network & remote card]]"
 ---
 
 ## Summary

@@ -2,7 +2,7 @@
 title: iTerm2
 type: reference
 status: active
-updated: 2026-06-04
+updated: 2026-06-24
 description: macOS terminal emulator that replaces Apple's Terminal.app with split panes, search, and deep customization.
 aliases:
   - iterm
@@ -18,6 +18,7 @@ links:
 covers:
   - First-run setup and where the important settings live
   - Split panes, search, and the features that beat Terminal.app
+  - Color theme (the tracked "coolnight" preset)
 related:
   - "[[02-tmux|tmux]]"
   - "[[03-powerlevel10k|powerlevel10k]]"
@@ -39,6 +40,7 @@ Native split panes plus instant scrollback search (Cmd+F) and the hotkey window 
 - First run: macOS will prompt to grant the app permissions; allow it, then set iTerm2 as the default terminal if desired (Preferences if offered, or just keep launching it directly).
 - Set a Nerd Font: Settings -> Profiles -> Text -> Font, pick a patched Nerd Font so powerlevel10k glyphs render.
 - Enable true color: Settings -> Profiles -> Terminal, report terminal type `xterm-256color`.
+- Colors / theme: the Default profile ships the **coolnight** palette (deep navy `#011423` + neon teal/green accents — josean-dev's theme; this is what drives the look of yazi, the prompt, tmux, since they inherit the 16 ANSI slots). Preset tracked at `iterm/coolnight.itermcolors`; re-apply via Settings -> Profiles -> Colors -> Color Presets -> **coolnight**. Prefs are **manual-save** — after any change, Settings -> General -> **Save Current Settings to Folder** or it won't persist to the repo.
 - Split panes: Cmd+D (vertical), Cmd+Shift+D (horizontal); navigate with Cmd+Opt+Arrow.
 - Search scrollback: Cmd+F.
 - Hotkey window: Settings -> Keys -> Hotkey, "Create a Dedicated Hotkey Window".

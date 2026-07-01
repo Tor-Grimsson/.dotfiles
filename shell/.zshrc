@@ -79,6 +79,7 @@ function y() {
 
 # ── Aliases ───────────────────────────────────────────────────────────────────
 alias vim='nvim'   # the configured editor is nvim (repo nvim/ → ~/.config/nvim)
+killport() { kill -9 $(lsof -ti:$1); }
 alias trm='transmission-remote'
 alias tdash='watch -n 1 transmission-remote -l'
 alias obs='open "obsidian://open?path=$HOME/dev/projects/kol-vault"'
@@ -109,6 +110,22 @@ carbonyl() {
   docker run -ti --rm fathyb/carbonyl --fps 30 --force-effective-connection-type=3G "$@"
 }
 alias hn='carbonyl https://news.ycombinator.com'
+
+# gcalcli: Google Calendar in the shell (--military = 24h time on the view commands)
+alias cag='gcalcli agenda --military'                  # upcoming (now → a week)
+alias cday='gcalcli agenda today tomorrow --military'  # today only (the "day view")
+alias cw='gcalcli calw --military'                     # week grid
+alias cm='gcalcli calm --military'                     # month grid
+alias cq='gcalcli quick'                               # cq "Dentist Thu 2pm" — natural-language add
+alias cadd='gcalcli add'                               # guided add (prompts title/when/where)
+# morning briefing: today's full schedule (recurring included) + the month-ahead
+# one-offs from cplan (recurring hidden). cplan is the bin/ script.
+cbrief() {
+  print -P "%F{cyan}── Today ──%f"
+  gcalcli agenda today tomorrow --military
+  print -P "\n%F{cyan}── Coming up (30d, one-offs) ──%f"
+  cplan --30d-p
+}
 
 # ── Bitwarden ─────────────────────────────────────────────────────────────────
 # unlock + export session key; reads master password from macOS Keychain (item: bw-master), falls back to prompt
@@ -204,3 +221,6 @@ HB="${HOMEBREW_PREFIX:-/usr/local}"
 [[ -r "$HB/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$HB/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 # zsh-syntax-highlighting — MUST be the last thing SOURCED in this file.
 [[ -r "$HB/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$HB/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# To customize prompt, run `p10k configure` or edit ~/.dotfiles/shell/.p10k.zsh.
+[[ ! -f ~/.dotfiles/shell/.p10k.zsh ]] || source ~/.dotfiles/shell/.p10k.zsh

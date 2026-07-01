@@ -1,0 +1,16 @@
+# gcalcli — general settings
+# Schema: https://raw.githubusercontent.com/insanum/gcalcli/HEAD/data/config-schema.json
+# Only these three sections exist. 24-hour time is NOT here — it's the --military
+# CLI flag (baked into the cag/cday/cw/cm aliases in shell/.zshrc).
+#
+# Secrets never live here (ARCHITECTURE §3): the client-secret can't go in this
+# file by design, and the OAuth token lives beside it as ./oauth (untracked).
+
+[output]
+week-start = "monday"
+
+[calendars]
+# Scope default commands to specific calendars. Leave commented to use all of
+# them (a wrong name here silently hides every event):
+# default-calendars = ["you@gmail.com"]
+# ignore-calendars  = ["Holidays in Iceland"]

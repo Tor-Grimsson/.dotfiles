@@ -1,21 +1,256 @@
-# yazi.toml — main config.
-# Merged OVER yazi's built-in defaults: top-level keys override by key, opener
-# names override by name, and open/previewer/preloader rules extend via
-# *.prepend_*/*.append_*. So this file only states what differs from stock.
+# yazi.toml — full config.
+#
+# This is the COMPLETE yazi default config (from https://yazi-rs.github.io/docs/configuration/yazi)
+# so every option is present, documented, and editable here — change a value in place.
+# Lines marked "# ← custom" are this user's overrides; everything else is yazi stock.
+#
 # Repo-tracked; live via the ~/.config/yazi -> ~/.dotfiles/yazi symlink.
+# Note: this freezes the defaults — after a major yazi upgrade, re-pull the default
+# file and re-apply the "# ← custom" lines if you want new stock defaults.
+
+#:schema https://yazi-rs.github.io/schemas/yazi.json
 
 [mgr]
-linemode       = "size"     # show each file's size in the current column
-sort_by        = "natural"  # 2, 10, 100 — not 10, 100, 2
-sort_dir_first = true        # directories before files
-show_hidden    = false       # toggle live with `.`
+ratio          = [ 2, 4, 3 ]      # parent : current : preview column widths
+sort_by        = "natural"        # ← custom (default "alphabetical"); 2,10,100 not 10,100,2. opts: none|mtime|btime|extension|alphabetical|natural|size|random
+sort_sensitive = false            # case-sensitive sorting
+sort_reverse   = false            # reverse sort order
+sort_dir_first = true             # directories before files
+sort_translit  = false            # transliterate non-ASCII names for sorting
+sort_fallback  = "alphabetical"   # tie-breaker when sort_by produces equal keys
+linemode       = "size"           # ← custom (default "none"); per-file info column. opts: none|size|btime|mtime|permissions|owner
+show_hidden    = true             # show dotfiles (toggle live with `.`)
+show_symlink   = true             # show "-> target" after symlinked names
+scrolloff      = 5                # min rows kept above/below the cursor
+mouse_events   = [ "click", "scroll", "drag" ]
 
 [preview]
-max_width     = 1000          # render previews larger (image/video-heavy work)
-max_height    = 1400
-image_filter  = "lanczos3"    # highest-quality downscale (was: triangle)
-image_quality = 90
+wrap            = "yes"           # ← custom (default no): wrap long lines in text/code preview
+tab_size        = 2              # tab width in the preview
+max_width       = 1000           # ← custom (default 600); render previews larger
+max_height      = 1400           # ← custom (default 900)
+cache_dir       = ""             # image preview cache dir ("" = yazi's default cache)
+image_delay     = 30             # ms to wait before rendering an image preview
+image_filter    = "lanczos3"     # ← custom (default "triangle"); downscale quality. opts: nearest|triangle|catmull-rom|lanczos3
+image_quality   = 90             # ← custom (default 75); precache quality 50–90
+ueberzug_scale  = 1              # Überzug++ scale ratio (Linux fallback only)
+ueberzug_offset = [ 0, 0, 0, 0 ] # Überzug++ x/y/w/h offset (Linux fallback only)
 
-# Openers are left at yazi's defaults — edit ($EDITOR=nvim), open (`open`),
-# reveal (`open -R`, "Reveal in Finder"), play, and extract are all stock.
-# Quick Look is wired as a keybind (<C-y>) in keymap.toml instead.
+[opener]
+edit = [
+	{ run = "${EDITOR:-vi} %s", desc = "$EDITOR",      for = "unix", block = true },
+	{ run = "code %s",          desc = "code",         for = "windows", orphan = true },
+	{ run = "code -w %s",       desc = "code (block)", for = "windows", block = true },
+]
+play = [
+	{ run = "xdg-open %s1",    desc = "Play", for = "linux", orphan = true },
+	{ run = "open %s",         desc = "Play", for = "macos" },
+	{ run = 'start "" %s1',    desc = "Play", for = "windows", orphan = true },
+	{ run = "termux-open %s1", desc = "Play", for = "android" },
+	{ run = "mediainfo %s1; echo 'Press enter to exit'; read _", block = true, desc = "Show media info", for = "unix" },
+	{ run = "mediainfo %s1 & pause", block = true, desc = "Show media info", for = "windows" },
+]
+open = [
+	{ run = "xdg-open %s1",    desc = "Open", for = "linux" },
+	{ run = "open %s",         desc = "Open", for = "macos" },
+	{ run = 'start "" %s1',    desc = "Open", for = "windows", orphan = true },
+	{ run = "termux-open %s1", desc = "Open", for = "android" },
+]
+reveal = [
+	{ run = "xdg-open %d1",         desc = "Reveal", for = "linux" },
+	{ run = "open -R %s1",          desc = "Reveal", for = "macos" },
+	{ run = "explorer /select,%s1", desc = "Reveal", for = "windows", orphan = true },
+	{ run = "termux-open %d1",      desc = "Reveal", for = "android" },
+	{ run = "clear; exiftool %s1; echo 'Press enter to exit'; read _", desc = "Show EXIF", for = "unix", block = true },
+]
+extract = [
+	{ run = "ya pub extract --list %s", desc = "Extract here" },
+]
+download = [
+	{ run = "ya emit download --open %S", desc = "Download and open" },
+	{ run = "ya emit download %S",        desc = "Download" },
+]
+
+[open]
+rules = [
+	# Folder
+	{ url = "*/", use = [ "edit", "open", "reveal" ] },
+	# Text
+	{ mime = "text/*", use = [ "edit", "reveal" ] },
+	# Image
+	{ mime = "image/*", use = [ "open", "reveal" ] },
+	# Media
+	{ mime = "{audio,video}/*", use = [ "play", "reveal" ] },
+	# Code
+	{ mime = "application/{json,ndjson,javascript,wine-extension-ini}", use = [ "edit", "reveal" ] },
+	# Archive
+	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "reveal" ] },
+	# Empty file
+	{ mime = "inode/empty", use = [ "edit", "reveal" ] },
+	# Virtual file system
+	{ mime = "vfs/{absent,stale}", use = "download" },
+	# Fallback
+	{ url = "*", use = [ "open", "reveal" ] },
+]
+
+[tasks]
+file_workers     = 3              # concurrent file ops (copy/move/...)
+plugin_workers   = 5              # concurrent plugin tasks
+fetch_workers    = 5              # concurrent metadata fetchers
+preload_workers  = 2              # concurrent preloaders
+process_workers  = 5              # concurrent opened processes
+bizarre_retry    = 3              # retries on a "bizarre" failure
+image_alloc      = 536870912     # max bytes for image decoding (512MB)
+image_bound      = [ 10000, 10000 ] # max image w/h to decode
+suppress_preload = false         # skip preloading entirely
+
+[plugin]
+fetchers = [
+	# MIME-type
+	{ url = "*/",         run = "mime.dir",    prio = "high", group = "mime" },
+	{ url = "local://*",  run = "mime.local",  prio = "high", group = "mime" },
+	{ url = "remote://*", run = "mime.remote", prio = "high", group = "mime" },
+]
+spotters = [
+	# Multi-file
+	{ mime = "multi/*", run = "multi" },
+	# Folder
+	{ url = "*/", run = "folder" },
+	# Code
+	{ mime = "text/*", run = "code" },
+	{ mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
+	# Image
+	{ mime = "image/{avif,hei?,jxl}", run = "magick" },
+	{ mime = "image/svg+xml", run = "svg" },
+	{ mime = "image/*", run = "image" },
+	# Video
+	{ mime = "video/*", run = "video" },
+	# Virtual file system
+	{ mime = "vfs/*", run = "vfs" },
+	# Error
+	{ mime = "null/*", run = "null" },
+	# Fallback
+	{ url = "*", run = "file" },
+]
+preloaders = [
+	# Image
+	{ mime = "image/{avif,hei?,jxl}", run = "magick" },
+	{ mime = "image/svg+xml", run = "svg" },
+	{ mime = "image/*", run = "image" },
+	# Video
+	{ mime = "video/*", run = "video" },
+	# PDF
+	{ mime = "application/pdf", run = "pdf" },
+	# Font
+	{ mime = "font/*", run = "font" },
+	{ mime = "application/ms-opentype", run = "font" },
+]
+previewers = [
+	{ url = "*/", run = "folder" },
+	# Markdown — rendered via mdcat ( ← custom; by extension, since yazi tags .md as text/plain )
+	{ url = "*.{md,markdown}", run = "mdcat" },
+	# Code
+	{ mime = "text/*", run = "code" },
+	{ mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
+	# JSON
+	{ mime = "application/{json,ndjson}", run = "json" },
+	# Image
+	{ mime = "image/{avif,hei?,jxl}", run = "magick" },
+	{ mime = "image/svg+xml", run = "svg" },
+	{ mime = "image/*", run = "image" },
+	# Video
+	{ mime = "video/*", run = "video" },
+	# PDF
+	{ mime = "application/pdf", run = "pdf" },
+	# Archive
+	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", run = "archive" },
+	{ mime = "application/{debian*-package,redhat-package-manager,rpm,android.package-archive}", run = "archive" },
+	{ url = "*.{AppImage,appimage}", run = "archive" },
+	# Virtual Disk / Disk Image
+	{ mime = "application/{iso9660-image,qemu-disk,ms-wim,apple-diskimage}", run = "archive" },
+	{ mime = "application/virtualbox-{vhd,vhdx}", run = "archive" },
+	{ url = "*.{img,fat,ext,ext2,ext3,ext4,squashfs,ntfs,hfs,hfsx}", run = "archive" },
+	# Font
+	{ mime = "font/*", run = "font" },
+	{ mime = "application/ms-opentype", run = "font" },
+	# Empty file
+	{ mime = "inode/empty", run = "empty" },
+	# Virtual file system
+	{ mime = "vfs/*", run = "vfs" },
+	# Error
+	{ mime = "null/*", run = "null" },
+	# Fallback
+	{ url = "*", run = "file" },
+]
+
+[input]
+cursor_blink = false
+
+# cd
+cd_title  = "Change directory:"
+cd_origin = "top-center"
+cd_offset = [ 0, 2, 50, 3 ]
+
+# create
+create_title  = [ "Create:", "Create (dir):" ]
+create_origin = "top-center"
+create_offset = [ 0, 2, 50, 3 ]
+
+# rename
+rename_title  = "Rename:"
+rename_origin = "hovered"
+rename_offset = [ 0, 1, 50, 3 ]
+
+# filter
+filter_title  = "Filter:"
+filter_origin = "top-center"
+filter_offset = [ 0, 2, 50, 3 ]
+
+# find
+find_title  = [ "Find next:", "Find previous:" ]
+find_origin = "top-center"
+find_offset = [ 0, 2, 50, 3 ]
+
+# search
+search_title  = "Search via {n}:"
+search_origin = "top-center"
+search_offset = [ 0, 2, 50, 3 ]
+
+# shell
+shell_title  = [ "Shell:", "Shell (block):" ]
+shell_origin = "top-center"
+shell_offset = [ 0, 2, 50, 3 ]
+
+[confirm]
+# trash
+trash_title  = "Trash {n} selected file{s}?"
+trash_origin = "center"
+trash_offset = [ 0, 0, 70, 20 ]
+
+# delete
+delete_title  = "Permanently delete {n} selected file{s}?"
+delete_origin = "center"
+delete_offset = [ 0, 0, 70, 20 ]
+
+# overwrite
+overwrite_title  = "Overwrite file?"
+overwrite_body   = "Will overwrite the following file:"
+overwrite_origin = "center"
+overwrite_offset = [ 0, 0, 50, 15 ]
+
+# quit
+quit_title  = "Quit?"
+quit_body   = "There are unfinished tasks, quit anyway?\n(Open task manager with default key 'w')"
+quit_origin = "center"
+quit_offset = [ 0, 0, 50, 15 ]
+
+[pick]
+open_title  = "Open with:"
+open_origin = "hovered"
+open_offset = [ 0, 1, 50, 7 ]
+
+[which]
+sort_by        = "none"          # which-key candidate order: none|key|desc
+sort_sensitive = false
+sort_reverse   = false
+sort_translit  = false

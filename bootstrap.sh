@@ -25,6 +25,12 @@ ln -sfn "$DOT/bin" "$HOME/bin"
 # tmux
 [ -f "$DOT/tmux/.tmux.conf" ] && ln -sf "$DOT/tmux/.tmux.conf" "$HOME/.tmux.conf"
 
+# Git hooks (post-commit: mirror docs/ into the kol-vault rsync copy on change)
+if [ -d "$DOT/.git" ]; then
+  chmod +x "$DOT/git-hooks/"* 2>/dev/null || true
+  ln -sf "$DOT/git-hooks/post-commit" "$DOT/.git/hooks/post-commit"
+fi
+
 # SSH config (no keys)
 if [ -f "$DOT/ssh/config" ]; then
   ln -sf "$DOT/ssh/config" "$HOME/.ssh/config"
@@ -101,6 +107,13 @@ if [ -d "$DOT/aerospace" ]; then
   ln -sf "$DOT/aerospace/aerospace.toml" "$HOME/.config/aerospace/aerospace.toml"
 fi
 
+# gcalcli (single config file — the OAuth token lives beside it in this dir and
+# is machine-local, so only config.toml is symlinked, not the whole dir)
+if [ -d "$DOT/gcalcli" ]; then
+  mkdir -p "$HOME/Library/Application Support/gcalcli"
+  ln -sf "$DOT/gcalcli/config.toml" "$HOME/Library/Application Support/gcalcli/config.toml"
+fi
+
 # nvim (whole dir)
 [ -d "$DOT/nvim" ] && ln -sfn "$DOT/nvim" "$HOME/.config/nvim"
 
@@ -134,6 +147,15 @@ if [ -f "$DOT/macos/launchd/com.kolkrabbi.dot-sync.plist" ]; then
   cp "$DOT/macos/launchd/com.kolkrabbi.dot-sync.plist" "$HOME/Library/LaunchAgents/"
   launchctl bootout "gui/$(id -u)/com.kolkrabbi.dot-sync" 2>/dev/null || true
   launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.kolkrabbi.dot-sync.plist"
+fi
+
+# tg-inbox launchd agent — poll the Telegram capture bot every 2 min (bin/tg-inbox.sh)
+# Copied, not symlinked (launchd dislikes symlinked plists). Needs ~/.secrets with the tokens.
+if [ -f "$DOT/macos/launchd/com.kolkrabbi.tg-inbox.plist" ]; then
+  mkdir -p "$HOME/Library/LaunchAgents"
+  cp "$DOT/macos/launchd/com.kolkrabbi.tg-inbox.plist" "$HOME/Library/LaunchAgents/"
+  launchctl bootout "gui/$(id -u)/com.kolkrabbi.tg-inbox" 2>/dev/null || true
+  launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.kolkrabbi.tg-inbox.plist"
 fi
 
 # Terminal.app prefs — import (not symlink; Terminal is cfprefsd-cached). Close Terminal first.

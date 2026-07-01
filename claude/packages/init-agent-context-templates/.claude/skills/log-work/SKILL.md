@@ -4,7 +4,7 @@ description: Create a session log (always) and optionally a session-bridge hando
 disable-model-invocation: true
 argument-hint: "[brief description of work]"
 _template:
-  version: 1
+  version: 2
   path: .claude/skills/log-work/SKILL.md
   sync: replace
 ---
@@ -79,6 +79,10 @@ Summary from user: $ARGUMENTS
 ```
 
 5. Update `docs/llm-context/AGENT-CONTEXT.md` with any changes to long-lived state (status, what works, key files, contracts, etc).
+   **Keep it bounded — this file loads every session start, so it must not grow without limit:**
+   - If the "Last updated" state is a rolling chain of session entries, prepend the new entry then **trim to the 5 most recent**; cut the older tail. Nothing is lost — each entry links its own `session-log/…md`, which is the archive.
+   - AGENT-CONTEXT is *current state*, not history. If any append-only section runs past ~5 entries, or the file exceeds ~30 KB, trim the oldest.
+   - Keep each entry tight (a few sentences). Verbosity is the other half of the bloat.
 
 6. Say "Session log created at [path]. [Handoff created at [path] | Handoff skipped — work concluded.] AGENT-CONTEXT.md updated."
 

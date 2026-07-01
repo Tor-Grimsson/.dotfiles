@@ -20,6 +20,7 @@ covers:
   - the Ctrl-R / Ctrl-T / Alt-C keybindings
   - how it's wired (fd source, bat/eza previews, fzf-tab)
 related:
+  - "[[01-cli-cheatsheet|CLI cheatsheet]]"
   - "[[10-fd|fd]]"
   - "[[11-ripgrep|ripgrep]]"
   - "[[08-eza|eza]]"

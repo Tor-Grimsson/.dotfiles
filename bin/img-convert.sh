@@ -17,10 +17,11 @@ render at 72 dpi and the result would be tiny. One output per source by default
 (first page) — pass -a to export every page as <base>-p01, -p02, ….
 
 USAGE
-  img-convert.sh [-f jpg|png] [-r GEOMETRY] [-q QUALITY] [-d DPI] [-a] [-o OUTDIR] FILE...
+  img-convert.sh [-F] [-f jpg|png] [-r GEOMETRY] [-q QUALITY] [-d DPI] [-a] [-o OUTDIR] FILE...
   img-convert.sh -P [other opts] FILE...        # GUI: prompt for format (for Quick Actions)
 
 OPTIONS
+  -F  force overwrite if output already exists (default: skip with warning)
   -f  output format: jpg (default) or png
   -r  resize geometry (default 2000x2000> — fit within 2000px, shrink-only);
       -r none keeps full size. Geometry: 1920x1080 (fit) | 1920x1080^ (fill) |
@@ -60,9 +61,9 @@ case "${1:-}" in -h|--help) usage; exit 0 ;; esac
 
 set -euo pipefail
 
-format=jpg; resize="2000x2000>"; quality=90; dpi=300; outdir=""; pick=false; allpages=false
+format=jpg; resize="2000x2000>"; quality=90; dpi=300; outdir=""; pick=false; allpages=false; force=0
 
-while getopts "f:r:q:d:ao:hP" opt; do
+while getopts "f:r:q:d:ao:FhP" opt; do
   case "$opt" in
     f) format="$OPTARG" ;;
     r) resize="$OPTARG" ;;
@@ -70,6 +71,7 @@ while getopts "f:r:q:d:ao:hP" opt; do
     d) dpi="$OPTARG" ;;
     a) allpages=true ;;
     o) outdir="$OPTARG" ;;
+    F) force=1 ;;
     P) pick=true ;;
     h) usage; exit 0 ;;
     *) usage >&2; exit 1 ;;
@@ -117,6 +119,7 @@ for src in "$@"; do
       dst="$dir/$base$suffix.$format"
     fi
     shown="$dst"
+    [[ $force -eq 0 && -f "$dst" ]] && { echo "skip (exists): $dst — use -F to overwrite"; continue; }
   fi
 
   args+=(-auto-orient)

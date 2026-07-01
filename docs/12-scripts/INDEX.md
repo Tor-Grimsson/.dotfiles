@@ -2,13 +2,14 @@
 title: Scripts
 type: index
 status: active
-updated: 2026-06-20
-description: The bin/ helper scripts, grouped by domain prefix (au-/vid-/img-/pdf-/art-/batch-/tor-/fs-/ss-/finder-/qa-/dl-/dot-). One doc per family.
+updated: 2026-06-26
+description: The bin/ helper scripts, grouped by domain prefix (au-/vid-/img-/pdf-/art-/batch-/tor-/fs-/ss-/finder-/qa-/dl-/dot-/tg-/kol-). One doc per family.
 tags:
   - project/dotfiles
   - domain/scripts
 related:
   - "[[INDEX|tooling catalog]]"
+  - "[[03-scripts|Scripts at a glance (grouped)]]"
 ---
 
 # Scripts (`bin/`)
@@ -29,6 +30,18 @@ CLI helpers in `~/.dotfiles/bin` (symlinked to `~/bin`, on PATH). Renamed 2026-0
 | `qa-` | [[10-quick-actions\|Quick Actions]] | 1 | generator — stamps new Quick Actions |
 | `dl-` | [[12-download\|Download]] | 1 | yt-dlp wrapper — highest-quality fetch (MKV default) |
 | `dot-` | [[11-dot-sync\|Dotfiles sync]] | 1 | launchd daemon — every 30 min |
+| `bucket-` | [[14-bucket-drift\|Bucket drift]] | 1 | read-only CDN drift check (consumer owns the map) |
+| `tg-` | [[16-capture\|Capture pipeline]] | 1 | **Telegram bot → Todoist / Obsidian / calendar** — one frictionless inbox, phone or desktop, hands-free via a launchd timer |
+| `kol-` | [[17-kol-dashboard-cli\|Dashboard CLI]] | 2 | terminal twins of the Obsidian kol-dashboard — kanban (`kol-kb`, prints+moves) + surfaces (`kol-dash` links/growth/pinned/tracks/week) |
+| _(none)_ | [[15-calendar\|Calendar]] | 1 | `cplan` — hides recurring noise over a date window ([[../01-shell-terminal/14-gcalcli\|gcalcli]] companion) |
+
+`cplan` is **non-prefixed** (callable as `cplan`, matching the `c*` gcalcli aliases)
+rather than `cal-…`. The other non-prefixed script is `tor-search`, under
+[[07-torrent|Torrent]].
+
+Repo automation that isn't a `bin/` script: [[13-docs-mirror|docs → vault mirror]] —
+a git post-commit hook + rsync that keep `~/.dotfiles/docs/` readable in the kol-vault
+(and on the iPad). Sibling of [[11-dot-sync|dot-sync]].
 
 Some scripts are also wired as **Finder Quick Actions** (`macos/services/`, symlinked by `bootstrap.sh`,
 hotkeys in `macos/defaults.sh` §8): Open in glow, Open in mpv, Open in TextEdit (⇧⌥⌃E),

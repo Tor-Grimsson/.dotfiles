@@ -196,6 +196,12 @@ on-mode-changed = []
 
     cmd-alt-shift-f = 'fullscreen'
 
+    # Disable AeroSpace: stops managing windows AND stops intercepting keys, so
+    # app-native shortcuts (Figma, Affinity) work fully. NOTE: while disabled
+    # AeroSpace ignores ALL keys, so this binding canNOT re-enable it — bring it
+    # back with `aerospace enable on` (terminal, or a Raycast hotkey).
+    cmd-alt-shift-d = 'enable off' # d = disable; re-enable via Raycast / CLI
+
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
@@ -234,9 +240,14 @@ on-mode-changed = []
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
 
+
+# T for Terminal and CLI
+
 [[on-window-detected]]
 if.app-id = 'com.googlecode.iterm2'
 run = "move-node-to-workspace T"
+
+# B for Browsers 
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
@@ -246,7 +257,60 @@ run = "move-node-to-workspace B"
 if.app-id = 'org.mozilla.firefoxdeveloperedition'
 run = "move-node-to-workspace B"
 
+
+# P for graphic editors
+
 [[on-window-detected]]
 if.app-id = 'com.canva.affinity'
 run = "move-node-to-workspace P"
 
+[[on-window-detected]]
+if.app-id = 'com.figma.Desktop'
+run = "move-node-to-workspace P"
+
+
+# O for Obsidian and Note-taking
+
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = "move-node-to-workspace O"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.TextEdit'
+run = "move-node-to-workspace O"
+
+
+# M for Mail and Music
+
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = "move-node-to-workspace M"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = "move-node-to-workspace M"
+
+
+# S for Socials and Messages
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = "move-node-to-workspace S"
+
+
+# W for windows, finder
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = "move-node-to-workspace W"
+
+
+# A for automation, bots & work
+
+[[on-window-detected]]
+if.app-id = 'ru.keepcoder.Telegram'
+run = "move-node-to-workspace A"
+
+[[on-window-detected]]
+if.app-id = 'com.todoist.mac.Todoist'
+run = "move-node-to-workspace A"

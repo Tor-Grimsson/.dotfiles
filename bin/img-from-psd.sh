@@ -10,9 +10,10 @@ where macOS `sips` chokes. JPG flattens onto white; PNG keeps transparency.
 Writes one output per source — beside it, or into -o DIR.
 
 USAGE
-  img-from-psd.sh [-f png|jpg] [-r GEOMETRY] [-q QUALITY] [-d DPI] [-o OUTDIR] FILE...
+  img-from-psd.sh [-F] [-f png|jpg] [-r GEOMETRY] [-q QUALITY] [-d DPI] [-o OUTDIR] FILE...
 
 OPTIONS
+  -F  force overwrite if output already exists (default: skip with warning)
   -f  output format: jpg (default) or png
   -r  resize geometry — 1920x1080 (fit) | 1920x1080^ (fill) | 50% | 2000x | x1080
   -q  jpg quality 1-100 (default 90; ignored for png)
@@ -39,15 +40,16 @@ case "${1:-}" in -h|--help) usage; exit 0 ;; esac
 
 set -euo pipefail
 
-format=jpg; resize=""; quality=90; dpi=""; outdir=""
+format=jpg; resize=""; quality=90; dpi=""; outdir=""; force=0
 
-while getopts "f:r:q:d:o:h" opt; do
+while getopts "f:r:q:d:o:Fh" opt; do
   case "$opt" in
     f) format="$OPTARG" ;;
     r) resize="$OPTARG" ;;
     q) quality="$OPTARG" ;;
     d) dpi="$OPTARG" ;;
     o) outdir="$OPTARG" ;;
+    F) force=1 ;;
     h) usage; exit 0 ;;
     *) usage >&2; exit 1 ;;
   esac
@@ -63,6 +65,7 @@ for src in "$@"; do
   base="$(basename "${src%.*}")"
   dir="${outdir:-$(dirname "$src")}"
   dst="$dir/$base.$format"
+  [[ $force -eq 0 && -f "$dst" ]] && { echo "skip (exists): $dst — use -F to overwrite"; continue; }
 
   args=()
   [ -n "$dpi" ] && args+=(-density "$dpi")    # DPI tag only; must precede the input

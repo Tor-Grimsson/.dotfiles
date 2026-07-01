@@ -14,6 +14,7 @@ covers:
   - Script self-fetch fallback and ${VAR} config refs
 related:
   - "[[03-bitwarden-cli|Bitwarden CLI]]"
+  - "[[../00-kol-cli/05-network-security|Network & remote card]]"
 ---
 
 ## 0. Prerequisites

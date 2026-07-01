@@ -10,6 +10,7 @@ tags:
 related:
   - "[[INDEX|Scripts index]]"
   - "[[dot-sync-explained|dot-sync, explained slowly]]"
+  - "[[13-docs-mirror|Docs → vault mirror]]"
 ---
 
 # Dotfiles sync (`dot-`)

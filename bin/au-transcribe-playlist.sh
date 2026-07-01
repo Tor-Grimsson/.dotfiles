@@ -23,6 +23,10 @@ OPTIONS
   -c  load yt-dlp cookies from a browser (chrome|firefox|safari|…) — required for
       login-gated lists like TikTok collections. Used for BOTH the playlist
       expansion and each entry fetch. e.g. -c firefox.
+  -s  grab N key screenshots per video, spread evenly through it, saved beside
+      each .md in <slug>-frames/ and embedded with timestamps. Switches the
+      per-entry transcriber to au-transcribe-ss.sh. e.g. -s 5. (Excludes -M.)
+  -d  with -s, also add an AI "Visual overview" of the frames via the `llm` CLI.
   -M  identify the movie/show each clip is from (caption + top comments +
       transcript → llm). Passed through to au-transcribe.sh; needs the `llm` CLI.
   -k  keep each extracted .wav beside its .md.
@@ -33,6 +37,8 @@ EXAMPLES
   au-transcribe-playlist.sh https://www.tiktok.com/@user
   # a TikTok collection/playlist, first 10, into a folder, small model
   au-transcribe-playlist.sh -n 10 -m small -o ~/Notes/tt https://www.tiktok.com/@user/playlist/Name-123
+  # a TikTok collection with 5 screenshots per clip
+  au-transcribe-playlist.sh -s 5 -c firefox -o ~/Desktop/code https://www.tiktok.com/@user/collection/Code-123
   # a YouTube playlist
   au-transcribe-playlist.sh https://www.youtube.com/playlist?list=PL...
 
@@ -52,14 +58,16 @@ case "${1:-}" in -h|--help|"") usage; exit 0 ;; esac
 
 set -euo pipefail
 
-model=""; lang=""; outdir="."; limit=""; keep=false; identify=false; cookies=""
-while getopts "m:l:o:n:c:kMh" opt; do
+model=""; lang=""; outdir="."; limit=""; keep=false; identify=false; cookies=""; frames=""; describe=false
+while getopts "m:l:o:n:c:s:dkMh" opt; do
   case "$opt" in
     m) model="$OPTARG" ;;
     l) lang="$OPTARG" ;;
     o) outdir="$OPTARG" ;;
     n) limit="$OPTARG" ;;
     c) cookies="$OPTARG" ;;
+    s) frames="$OPTARG" ;;
+    d) describe=true ;;
     k) keep=true ;;
     M) identify=true ;;
     h) usage; exit 0 ;;
@@ -72,10 +80,24 @@ playlist="$1"
 
 command -v yt-dlp >/dev/null || { echo "error: yt-dlp not found (needed to expand the playlist)" >&2; exit 1; }
 
-# locate the sibling transcriber (fall back to PATH if not found next to this script)
+# -s picks the screenshot transcriber; it can't combine with -M (different script)
+if [ -n "$frames" ]; then
+  case "$frames" in
+    ''|*[!0-9]*) echo "error: -s N must be a non-negative integer" >&2; exit 1 ;;
+  esac
+  if [ "$identify" = true ]; then
+    echo "error: -s (screenshots, au-transcribe-ss.sh) and -M (movie ID, au-transcribe.sh) use different transcribers — pick one" >&2; exit 1
+  fi
+fi
+if [ "$describe" = true ] && [ -z "$frames" ]; then
+  echo "error: -d (visual overview) requires -s N" >&2; exit 1
+fi
+
+# locate the sibling transcriber (-s → the screenshot variant); fall back to PATH
 here="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
-au_transcribe="$here/au-transcribe.sh"
-[ -x "$au_transcribe" ] || au_transcribe="au-transcribe.sh"
+transcriber="au-transcribe.sh"; [ -n "$frames" ] && transcriber="au-transcribe-ss.sh"
+au_transcribe="$here/$transcriber"
+[ -x "$au_transcribe" ] || au_transcribe="$transcriber"
 
 # validate -n if given
 if [ -n "$limit" ]; then
@@ -118,6 +140,8 @@ fwd=(-o "$outdir")
 [ -n "$model" ]        && fwd+=(-m "$model")
 [ -n "$lang" ]         && fwd+=(-l "$lang")
 [ -n "$cookies" ]      && fwd+=(-c "$cookies")
+[ -n "$frames" ]       && fwd+=(-n "$frames")
+[ "$describe" = true ] && fwd+=(-d)
 [ "$keep" = true ]     && fwd+=(-k)
 [ "$identify" = true ] && fwd+=(-M)
 

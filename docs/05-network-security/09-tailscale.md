@@ -1,8 +1,8 @@
 ---
 title: Tailscale
 type: guide
-status: draft
-updated: 2026-06-19
+status: active
+updated: 2026-06-26
 description: Mesh VPN (WireGuard-based) for reaching your own machines remotely and connecting two separate people's devices into one private network.
 aliases:
   - tailscale
@@ -11,6 +11,8 @@ tags:
   - integration/brew-cask
 related:
   - "[[05-termius|termius]]"
+  - "[[../00-kol-cli/06-tailscale-jellyfin|Tailscale + Jellyfin setup]]"
+  - "[[../00-kol-cli/05-network-security|Network & remote card]]"
 ---
 
 # Tailscale

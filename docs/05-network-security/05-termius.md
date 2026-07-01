@@ -19,6 +19,7 @@ covers:
   - First-run setup and connecting to a server
 related:
   - "[[01-nmap|nmap]]"
+  - "[[../00-kol-cli/05-network-security|Network & remote card]]"
 ---
 
 ## Summary

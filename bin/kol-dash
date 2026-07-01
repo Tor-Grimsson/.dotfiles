@@ -1,0 +1,157 @@
+#!/usr/bin/env python3
+"""kol-dash — print kol-dashboard surfaces from the terminal (read-only twins).
+
+The dashboard is a view over files; this reads the same files so iTerm shows the
+same data. Companion to `kol-kb` (the kanban, which also edits).
+
+Usage:
+  kol-dash links     link registry, grouped
+  kol-dash growth    socials: followers vs goal
+  kol-dash pinned    pinned notes (pinned: true)
+  kol-dash tracks    active projects (dashboard: true) + open tasks
+  kol-dash week      this week's reminders / notes
+  kol-dash -h | --help
+"""
+import datetime, json, os, re, subprocess, sys
+
+VAULT = os.path.expanduser("~/dev/projects/kol-vault")
+CFG   = os.path.join(VAULT, "_system", "_kol-config")
+DATA  = os.path.join(VAULT, ".obsidian", "plugins", "kol-dashboard", "data.json")
+
+
+def col(c, s):
+    return f"\033[{c}m{s}\033[0m" if sys.stdout.isatty() else s
+
+
+def head(s):
+    print(col("1;36", s))
+
+
+def fm(path):
+    """Minimal frontmatter → dict of scalar keys (no pyyaml dependency)."""
+    d = {}
+    try:
+        txt = open(path).read()
+    except OSError:
+        return d
+    if not txt.startswith("---"):
+        return d
+    end = txt.find("\n---", 3)
+    if end < 0:
+        return d
+    for line in txt[3:end].splitlines():
+        m = re.match(r"^([A-Za-z0-9_-]+):\s*(\S.*)$", line)
+        if m:
+            d[m.group(1)] = m.group(2).strip().strip("'\"")
+    return d
+
+
+def md_files(subdir):
+    p = os.path.join(CFG, subdir)
+    if not os.path.isdir(p):
+        return []
+    return sorted(e.path for e in os.scandir(p) if e.name.endswith(".md") and e.name != "INDEX.md")
+
+
+def grep_l(pattern):
+    out = subprocess.run(["grep", "-rl", pattern, "--include=*.md", VAULT],
+                         capture_output=True, text=True).stdout
+    return [p for p in out.splitlines() if "/.obsidian/" not in p]
+
+
+def cmd_links():
+    groups = {}
+    for p in md_files("links"):
+        d = fm(p)
+        groups.setdefault(d.get("group", "other"), []).append(d)
+    for g, items in groups.items():
+        head(g)
+        for d in items:
+            print(f"  {col('1', d.get('label', '?'))}  {col('2', d.get('url', ''))}")
+            if d.get("note"):
+                print("    " + col("2", d["note"]))
+        print()
+
+
+def cmd_growth():
+    head("GROWTH")
+    for p in md_files("socials"):
+        d = fm(p)
+        plat = d.get("platform", os.path.basename(p)[:-3])
+        handle = d.get("handle", "")
+        fol, goal = d.get("followers"), d.get("goal-followers")
+        if fol and goal:
+            try:
+                pct = max(0, min(100, int(int(fol) / int(goal) * 100)))
+            except (ValueError, ZeroDivisionError):
+                pct = 0
+            bar = "█" * (pct // 10) + "·" * (10 - pct // 10)
+            tail = f"{fol}/{goal}  {col('32', bar)} {pct}%"
+        else:
+            tail = col("2", "— followers/goal not set")
+        print(f"  {col('1', plat):<22} {handle:<18} {tail}")
+
+
+def cmd_pinned():
+    head("PINNED")
+    rows = sorted(grep_l("^pinned: true"))
+    for p in rows:
+        d = fm(p)
+        print(f"  {col('1', d.get('title', os.path.basename(p)[:-3]))}  {col('2', os.path.relpath(p, VAULT))}")
+    if not rows:
+        print(col("2", "  (none)"))
+
+
+def cmd_tracks():
+    head("TRACKS")
+    for idx in sorted(grep_l("^dashboard: true")):
+        d, folder = fm(idx), os.path.dirname(idx)
+        print(col("1", d.get("title", os.path.basename(folder))))
+        tasks = subprocess.run(["grep", "-rhoE", r"- \[ \] .*", "--include=*.md", folder],
+                               capture_output=True, text=True).stdout.splitlines()
+        for t in tasks[:8]:
+            print("  " + col("33", "☐") + " " + t[6:].strip())
+        if not tasks:
+            print(col("2", "  (no open tasks)"))
+        print()
+
+
+def cmd_week():
+    try:
+        we = json.load(open(DATA)).get("weekEntries", {})
+    except Exception:
+        we = {}
+    today = datetime.date.today()
+    monday = today - datetime.timedelta(days=today.weekday())
+    head(f"WEEK of {monday}")
+    any_ = False
+    for i in range(7):
+        day = (monday + datetime.timedelta(days=i)).isoformat()
+        e = we.get(day)
+        if not e:
+            continue
+        any_ = True
+        print(col("1", day))
+        for r in e.get("reminders", []):
+            print("  ⏰ " + r)
+        for n in e.get("notes", []):
+            print("  · " + n)
+    if not any_:
+        print(col("2", "  (no entries this week)"))
+
+
+CMDS = {"links": cmd_links, "growth": cmd_growth, "pinned": cmd_pinned,
+        "tracks": cmd_tracks, "week": cmd_week}
+
+
+def main(a):
+    if not a or a[0] in ("-h", "--help"):
+        return print(__doc__)
+    fn = CMDS.get(a[0])
+    if not fn:
+        sys.exit(f"unknown surface: {a[0]} (try -h)")
+    fn()
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
