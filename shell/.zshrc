@@ -79,6 +79,7 @@ function y() {
 
 # ── Aliases ───────────────────────────────────────────────────────────────────
 alias vim='nvim'   # the configured editor is nvim (repo nvim/ → ~/.config/nvim)
+alias cl='clear'
 killport() { kill -9 $(lsof -ti:$1); }
 alias trm='transmission-remote'
 alias tdash='watch -n 1 transmission-remote -l'

@@ -2,7 +2,7 @@
 title: AeroSpace
 type: reference
 status: active
-updated: 2026-06-24
+updated: 2026-07-02
 description: i3-like tiling window manager for macOS, driven entirely from the keyboard.
 aliases:
   - aerospace
@@ -81,6 +81,15 @@ Zero-privilege install. Unlike yabai it needs no SIP changes — just an Accessi
 | iTerm2 | `T` |
 | Google Chrome | `B` |
 | Firefox Developer Edition | `B` |
+| Affinity | `P` |
+| Figma | `P` |
+| Obsidian | `O` |
+| Spotify | `M` |
+| Mail | `M` |
+| Messages | `S` |
+| Finder | `W` |
+| Telegram | `A` |
+| Todoist | `A` |
 
 ## Disabling for apps that need their own shortcuts
 Apps like Figma and Affinity bind their own `Alt`-combos, which AeroSpace would otherwise swallow. There is **no per-app keybinding disable** in AeroSpace (that would need Karabiner) — the only way to hand keys back is to turn AeroSpace off globally:
@@ -95,7 +104,14 @@ Apps like Figma and Affinity bind their own `Alt`-combos, which AeroSpace would 
 
 > The CLI client is the brew-symlinked `aerospace`, **not** `/Applications/AeroSpace.app/Contents/MacOS/aerospace` (that's the server and rejects `enable on`). The Raycast script puts both arch brew bins on `PATH` so it resolves under Raycast's minimal environment.
 
-Alternative for *tiling-only* exemption (let an app float free but keep AeroSpace's keys live): add an `on-window-detected` rule with `run = 'layout floating'` instead of disabling.
+Alternative for *tiling-only* exemption (let an app float free but keep AeroSpace's keys live): add an `on-window-detected` rule with `run = 'layout floating'` instead of disabling. `run` takes an array to combine it with a workspace assignment (e.g. `run = ["layout floating", "move-node-to-workspace O"]`) if you want both.
+
+**Currently always-floating** (floating-only, no workspace assignment):
+
+| App | app-id |
+| --- | --- |
+| TextEdit | `com.apple.TextEdit` |
+| Bitwarden | `com.bitwarden.desktop` |
 
 ## Future use
 Add more `on-window-detected` rules to route apps to dedicated workspaces, `after-startup-command` to lay out a session on login, or per-monitor workspace assignment for the iMac's external display. Pairs with Raycast — Raycast launches, AeroSpace arranges.

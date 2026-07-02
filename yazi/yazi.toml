@@ -63,6 +63,11 @@ reveal = [
 	{ run = "termux-open %d1",      desc = "Reveal", for = "android" },
 	{ run = "clear; exiftool %s1; echo 'Press enter to exit'; read _", desc = "Show EXIF", for = "unix", block = true },
 ]
+markdown = [
+	{ run = "glow -p %s1",  desc = "glow (pager)",  for = "unix", block = true }, # ← custom
+	{ run = "mdcat -p %s1", desc = "mdcat (pager)", for = "unix", block = true }, # ← custom
+	{ run = "nano %s",      desc = "nano",          for = "unix", block = true }, # ← custom
+]
 extract = [
 	{ run = "ya pub extract --list %s", desc = "Extract here" },
 ]
@@ -75,8 +80,12 @@ download = [
 rules = [
 	# Folder
 	{ url = "*/", use = [ "edit", "open", "reveal" ] },
+	# Markdown ( ← custom; glow/mdcat/nano alongside $EDITOR — scoped to .md so html/css/jsx/etc keep the generic Text rule below )
+	{ url = "*.{md,markdown}", use = [ "edit", "markdown", "reveal" ] },
 	# Text
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
+	# SVG ( ← custom; XML/text under the hood, not just a raster image — worth $EDITOR too )
+	{ mime = "image/svg+xml", use = [ "edit", "open", "reveal" ] },
 	# Image
 	{ mime = "image/*", use = [ "open", "reveal" ] },
 	# Media

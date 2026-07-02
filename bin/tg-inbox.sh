@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # tg-inbox.sh — poll a personal Telegram bot and route each message to its home.
 #
-#   #t <text>   → Todoist task
-#   #e <text>   → calendar event via `gcalcli quick`
-#   #n <text>   → note appended to the Obsidian vault inbox
-#   (no tag)    → note (catch-all)
+#   #t / #td  <text>   → Todoist task           (long form: #kol-td)
+#   #e / #cal <text>   → calendar event         (long form: #kol-cal, via `gcalcli quick`)
+#   #n / #ob  <text>   → note → Obsidian inbox   (long form: #kol-ob)
+#   (no tag)           → note (catch-all)
 #
 # Secrets come from Bitwarden (run `bwu` once to unlock), never the repo.
 # Designed for a launchd timer (`--once`) or a manual run. bash-3.2 safe.
@@ -37,9 +37,9 @@ classify() {
   tag="${t%% *}"; rest="${t#* }"
   [ "$rest" = "$t" ] && rest=""          # no space → no payload after the tag
   case "$tag" in
-    '#kol-td'|'#t')  printf 'task\t%s'  "$rest" ;;   # → Todoist
-    '#kol-cal'|'#e') printf 'event\t%s' "$rest" ;;   # → calendar (gcalcli)
-    '#kol-ob'|'#n')  printf 'note\t%s'  "$rest" ;;   # → Obsidian vault inbox
+    '#kol-td'|'#t'|'#td')   printf 'task\t%s'  "$rest" ;;   # → Todoist
+    '#kol-cal'|'#e'|'#cal') printf 'event\t%s' "$rest" ;;   # → calendar (gcalcli)
+    '#kol-ob'|'#n'|'#ob')   printf 'note\t%s'  "$rest" ;;   # → Obsidian vault inbox
     *)               printf 'note\t%s'  "$t"    ;;   # untagged → note, whole message
   esac
 }
@@ -48,10 +48,13 @@ selftest() {
   local out fail=0
   check() { out="$(classify "$1")"; [ "$out" = "$2" ] && echo "ok: $1" || { echo "FAIL: '$1' → '$out' (want '$2')"; fail=1; }; }
   check '#t buy milk'          $'task\tbuy milk'
+  check '#td buy milk'         $'task\tbuy milk'
   check '#kol-td buy milk'     $'task\tbuy milk'
   check '#e dentist thu 2pm'   $'event\tdentist thu 2pm'
+  check '#cal dentist 2pm'     $'event\tdentist 2pm'
   check '#kol-cal dentist 2pm' $'event\tdentist 2pm'
   check '#n cool idea'         $'note\tcool idea'
+  check '#ob cool idea'        $'note\tcool idea'
   check '#kol-ob cool idea'    $'note\tcool idea'
   check 'random thought'       $'note\trandom thought'
   check '#t'                   $'task\t'

@@ -2,7 +2,7 @@
 title: Neovim config (IDE setup)
 type: guide
 status: active
-updated: 2026-06-24
+updated: 2026-07-02
 audience: internal
 description: The full lazy.nvim-based Neovim IDE config in this repo — structure, plugin roster, and keybindings. A replication of josean-dev's setup under the `grim` namespace, tracked at nvim/ and symlinked to ~/.config/nvim.
 aliases:
@@ -17,6 +17,7 @@ related:
   - "[[11-neovim-cheatsheet|Neovim cheatsheet (beginner)]]"
   - "[[03-neovim|Neovim]]"
   - "[[02-visual-studio-code|VS Code]]"
+  - "[[02-yazi|yazi]]"
 ---
 
 # Neovim config (IDE setup)
@@ -85,7 +86,7 @@ Use `vim.opt_local` (not `vim.opt`) so the change stays scoped to that buffer.
 | Function | Plugin(s) |
 |---|---|
 | Plugin manager | `lazy.nvim` |
-| Colorscheme | `tokyonight` (folke) — `night` + josean's "coolnight" navy override; `catppuccin` + `gruvbox-material` kept as disabled specs to flip |
+| Colorscheme | `gruvbox-material` (sainnhe) — active; `tokyonight` (folke, `night` + josean's "coolnight" navy override), `catppuccin`, `dracula`, `shades-of-purple` kept as disabled specs to flip |
 | File explorer | `nvim-tree` |
 | Fuzzy finder | `telescope` + `telescope-fzf-native` + `plenary` |
 | LSP | `nvim-lspconfig`, `mason`, `mason-lspconfig`, `mason-tool-installer` |
@@ -95,13 +96,13 @@ Use `vim.opt_local` (not `vim.opt`) so the change stays scoped to that buffer.
 | Linting | `nvim-lint` — pylint (python); lints on save / leave-insert |
 | Git | `gitsigns` (gutter + hunk ops), `lazygit` (full TUI) |
 | UI | `lualine` (statusline), `bufferline` (tabs mode), `alpha` (dashboard), `dressing`, `indent-blankline` |
-| Editing | `autopairs`, `nvim-surround`, `substitute`, `vim-maximizer`, `todo-comments`, `trouble`, `which-key` |
-| Navigation | `vim-tmux-navigator` (Ctrl-h/j/k/l across splits + tmux panes), `auto-session` |
-| Disabled | `flash`, `ai` — present but fully commented out (no-op placeholders) |
+| Editing | `autopairs`, `nvim-surround`, `substitute`, `flash` (jump motions), `vim-maximizer`, `todo-comments`, `trouble` |
+| Navigation | `vim-tmux-navigator` (Ctrl-h/j/k/l across splits + tmux panes), `auto-session`, `yazi.nvim` (`<leader>fy` — floating [[02-yazi\|yazi]] at the current file) |
+| Disabled | `which-key`, `ai` (ChatGPT) — present but fully commented out (no-op placeholders) |
 
 ## Keybindings
 
-**Leader is `Space`.** Two keys discover everything else: **`<leader>fk`** searches every keybind via Telescope, and **which-key** pops a menu whenever you press `<leader>` and pause.
+**Leader is `Space`.** **`<leader>fk`** searches every keybind via Telescope. (**which-key** is present in the plugin roster but fully commented out — no popup menu on leader-wait; `<leader>fk` is the actual way to discover keys.)
 
 ### Core & windows
 | Key | Action |
@@ -123,6 +124,7 @@ Use `vim.opt_local` (not `vim.opt`) so the change stays scoped to that buffer.
 | `<leader>fc` | grep word under cursor |
 | `<leader>fr` | recent files |
 | `<leader>ft` | find todos |
+| `<leader>fy` | open [[02-yazi|yazi]] at the current file (yazi.nvim, floating) |
 
 ### Code intelligence (LSP — active once mason finishes)
 | Key | Action |

@@ -2,7 +2,7 @@
 title: Yazi
 type: reference
 status: active
-updated: 2026-06-26
+updated: 2026-07-02
 description: Blazing-fast terminal file manager (Rust, async I/O, inline image/video previews). Configured here as a media cockpit — `y` drops the shell into wherever you quit.
 aliases:
   - yazi
@@ -28,6 +28,7 @@ related:
   - "[[01-tree|tree]]"
   - "[[13-zoxide|zoxide]]"
   - "[[../01-shell-terminal/15-mdcat|mdcat]]"
+  - "[[10-neovim-config|Neovim config (IDE setup)]]"
 ---
 
 ## Summary
@@ -81,6 +82,8 @@ yazi              # raw launch (no cd-on-quit)
 ```
 
 `y` (in `shell/.zshrc`) writes yazi's exit directory to a temp file and `cd`s the shell there — navigate visually, the shell follows.
+
+**From inside Neovim:** `<leader>fy` opens yazi in a floating window at the current file (`yazi.nvim`) — picking a file returns you to that buffer. See [[10-neovim-config|Neovim config]].
 
 ## Keys — built-in
 The stock bindings you'll use most (unchanged):

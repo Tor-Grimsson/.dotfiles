@@ -275,10 +275,6 @@ run = "move-node-to-workspace P"
 if.app-id = 'md.obsidian'
 run = "move-node-to-workspace O"
 
-[[on-window-detected]]
-if.app-id = 'com.apple.TextEdit'
-run = "move-node-to-workspace O"
-
 
 # M for Mail and Music
 
@@ -314,3 +310,14 @@ run = "move-node-to-workspace A"
 [[on-window-detected]]
 if.app-id = 'com.todoist.mac.Todoist'
 run = "move-node-to-workspace A"
+
+
+# Floating-only — no workspace assignment, always opens as a float
+
+[[on-window-detected]]
+if.app-id = 'com.apple.TextEdit'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.bitwarden.desktop'
+run = "layout floating"
