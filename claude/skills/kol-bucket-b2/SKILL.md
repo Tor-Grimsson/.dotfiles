@@ -1,11 +1,11 @@
 ---
-name: kol-bucket
-description: Browse, fetch, and upload to the Kolkrabbi Backblaze B2 CDN bucket via the `bucket` CLI wrapper. Use when the user asks about CDN files, asset URLs, listing/inspecting bucket contents, or uploading/downloading media. Default remote is kolkrabbi:kolkrabbi/website (the public CDN lane).
+name: kol-bucket-b2
+description: Browse, fetch, and upload to the Kolkrabbi Backblaze B2 CDN bucket (kolkrabbi/website — art prints, asset library, HLS video) via the `bucket` CLI wrapper. Use when the user asks about the CDN bucket, art-print/asset-library files, or HLS output. For the kol-media Cloudflare R2 bucket (kol-media-admin project), use kol-bucket-r2 instead.
 ---
 
-# kol-bucket
+# kol-bucket-b2
 
-Thin rclone wrapper for the Kolkrabbi Backblaze B2 CDN bucket. Lives at `~/.local/bin/bucket`.
+Thin rclone wrapper for the Kolkrabbi Backblaze B2 CDN bucket. Lives at `~/.local/bin/bucket`. (Backend is B2 — see [[kol-bucket-r2]] for the separate Cloudflare R2 `kol-media` bucket.)
 
 ## Bucket model
 

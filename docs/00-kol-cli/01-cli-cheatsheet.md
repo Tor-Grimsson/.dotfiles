@@ -233,6 +233,9 @@ Most edits = a **verb** then a **target**. `ciw` = change inner word. `dap` = de
 | `pfx w` | pick from list | `pfx z` | **zoom** pane (tap again to pop) |
 | `pfx &` | close (confirms) | `pfx x` | close pane (confirms) |
 | `pfx space` | cycle layouts | `pfx q` | flash pane numbers → tap to jump |
+| `pfx N` `P` ¹ | move window fwd / back (repeatable) | `pfx F` `G` ¹ | move window to first / last |
+
+¹ repo-added, not stock tmux — `N`/`P` pair with the stock `n`/`p` above (lowercase looks, uppercase takes the window with it); `F`/`G` borrow vim's `gg`/`G` start/end feel.
 
 ### Copy mode (grab scrollback) & one-offs
 

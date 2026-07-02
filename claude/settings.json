@@ -29,6 +29,7 @@
       "Bash(git:*)"
     ]
   },
+  "model": "sonnet",
   "statusLine": {
     "type": "command",
     "command": "bash \"$HOME/.claude/plugins/marketplaces/ponytail/hooks/ponytail-statusline.sh\""
@@ -51,6 +52,5 @@
   "voice": {
     "enabled": true,
     "mode": "hold"
-  },
-  "model": "claude-fable-5[1m]"
+  }
 }

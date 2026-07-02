@@ -2,7 +2,7 @@
 title: tmux tips & tricks
 type: guide
 status: active
-updated: 2026-06-14
+updated: 2026-07-02
 audience: internal
 description: Day-to-day tmux beyond the basics — copy mode explained in full (scroll, search, select, copy to the macOS clipboard), plus pane, window, and session tricks tuned to this repo's ~/.tmux.conf.
 aliases:
@@ -129,10 +129,14 @@ prefix 1..9   jump to window by number
 prefix n / p  next / previous window
 prefix w      pick a window from an interactive list
 prefix &      close (kill) the current window         (asks to confirm)
-prefix .      move the current window to a different number
+prefix .      move the current window to a typed-in number
+prefix N / P  move the current window forward / backward one slot (repeatable)
+prefix F / G  move the current window to the first / last slot
 ```
 
 Names beat numbers once you have a few windows open — `prefix ,` and call it `edit`, `server`, `logs`.
+
+`N`/`P`/`F`/`G` are this repo's own bindings, not stock tmux — `N`/`P` mirror the stock lowercase `n`/`p` (lowercase looks, uppercase takes the window with it); `F`/`G` borrow vim's start/end feel (`gg`/`G`). They stay on screen when they move — the binding re-selects the window after the swap, so you don't just end up staring at whatever used to be in that slot.
 
 ## Session tricks
 
