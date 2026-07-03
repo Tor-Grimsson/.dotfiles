@@ -27,7 +27,8 @@ If none exists, say "No agent context found here (looked for `.kol/llm-context/`
 3. Read `<ctx>/AGENT-CONTEXT.md` — current project state
 4. Find the most recent session log in `<ctx>/session-log/` (sort by date) and read it
 5. Check `<ctx>/session-bridge/` for `handoff-*.md`. If the newest handoff's timestamp is newer than the newest session log, read it too — it carries in-flight state the log doesn't. Otherwise skip.
-6. Say "Context loaded — on the **\<iMac|MBP\>**. What would you like me to work on?" — if context was found at a **legacy** location (2–4), append: "This repo uses the legacy context layout — `/kol-migrate-structure` converges it to `.kol/`."
-7. **STOP and WAIT** — do not start any work until the user specifies a task
+6. **KOL-update check** (guard: only if `package.json` declares an `@kolkrabbi/*` dependency — otherwise skip silently). Check for newer published versions: `pnpm outdated "@kolkrabbi/*"` if `pnpm-lock.yaml` exists, else `npm outdated "@kolkrabbi/*"`. Registry unreachable (offline) → note it in one line, move on. **Report only — never bump or install in this step.**
+7. Say "Context loaded — on the **\<iMac|MBP\>**. What would you like me to work on?" — if context was found at a **legacy** location (2–4), append: "This repo uses the legacy context layout — `/kol-migrate-structure` converges it to `.kol/`." If step 6 found stale KOL packages, add a line listing them (`name current→latest`) and ask whether to update before starting — apply the bump + install **only on the user's explicit OK**.
+8. **STOP and WAIT** — do not start any work until the user specifies a task
 
 If you find yourself proposing something that contradicts ARCHITECTURE.md, flag the contradiction to the user before acting. Those rules can be broken — but only deliberately.

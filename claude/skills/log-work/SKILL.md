@@ -7,7 +7,9 @@ argument-hint: "[brief description of work]"
 
 # Log Work
 
-Create a session log for work completed this session.
+Create a session log (retrospective) for work completed this session. No prompts — it just writes the log.
+
+For a forward-looking handoff carrying in-flight state to the next session, use `/log-work-handoff` (separate skill; run it when work is mid-arc).
 
 Summary from user: $ARGUMENTS
 
@@ -24,10 +26,9 @@ If none exists, say "No agent context found here (looked for `.kol/llm-context/`
 
 ## Steps
 
-1. Read the current `<ctx>/AGENT-CONTEXT.md` to understand prior state
-2. **Ask via `AskUserQuestion`:** "Also write a session-bridge handoff?" — **Yes — mid-arc** (carries in-flight state forward to the next session) or **No — concluded** (session log suffices). The session log is always written; this only controls whether a handoff is also written.
-3. Create a new session log at `<ctx>/session-log/!`date +%Y-%m-%d`-$ARGUMENTS.md` (slugify the description)
-4. Use this format:
+1. Read the current `<ctx>/AGENT-CONTEXT.md` to understand prior state.
+2. Create a new session log at `<ctx>/session-log/!`date +%Y-%m-%d`-$ARGUMENTS.md` (slugify the description).
+3. Use this format:
 
 ```
 # Session: [Brief Description]
@@ -57,31 +58,9 @@ If none exists, say "No agent context found here (looked for `.kol/llm-context/`
 2. [Follow-up work]
 ```
 
-5. (If **Yes** in step 2) Create a handoff at `<ctx>/session-bridge/handoff-!`date +%Y-%m-%d-%H%M`-$ARGUMENTS.md` — the `HHMM` lets the startup "newer wins" rule compare it against the session log. Format:
-
-```
-# Handoff — YYYY-MM-DD HH:MM
-
-## Goal of the current arc
-[One or two sentences on what this push is aiming at.]
-
-## Last actions taken (causal trail, newest first)
-- [Recent action]
-- [Prior action]
-
-## Current state / open decision points
-- [Where we are, what's blocking, what's been deferred]
-
-## Next intended action
-- [What the next session should do first]
-
-## Working memory not yet in AGENT-CONTEXT
-- [Observations, half-formed ideas that matter now but don't earn a place in the long-lived doc]
-```
-
-6. Update `<ctx>/AGENT-CONTEXT.md` with the new current state.
+4. Update `<ctx>/AGENT-CONTEXT.md` with the new current state.
    **Keep it bounded — this file loads every session, so it must not grow without limit:**
    - Prepend the new entry to the "Last updated" chain, then **trim the chain to the 5 most recent entries**. Cut the older tail outright — each entry already links its own `session-log/…md`, so nothing is lost.
    - AGENT-CONTEXT is *current state*, not an archive. `session-log/` is the archive. If any rolling/append-only section (a status list, a chain) is past ~5 entries or the file is past ~30 KB, trim the oldest.
    - Keep each new entry tight (a few sentences) — verbosity is the other half of the bloat.
-7. Say "Session log created at [path]. [Handoff at [path] | Handoff skipped — work concluded.] AGENT-CONTEXT.md updated."
+5. Say "Session log created at [path]. AGENT-CONTEXT.md updated."

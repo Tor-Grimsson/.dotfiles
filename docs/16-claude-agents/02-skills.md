@@ -3,7 +3,7 @@ title: Skills
 type: reference
 status: active
 updated: 2026-07-03
-description: What Claude Code skills are, how they're sourced from kol-system (ARCHITECTURE §4) vs local-authored, the whole-dir symlink mechanism, and the 25 installed skills grouped by job.
+description: What Claude Code skills are, how they're sourced from kol-system (ARCHITECTURE §4) vs local-authored, the whole-dir symlink mechanism, and the 28 installed skills grouped by job.
 aliases:
   - skills
 tags:
@@ -23,7 +23,9 @@ A **skill** is a bundle of instructions (a `SKILL.md` + optional assets) that Cl
 
 Canonical source is `~/dev/projects/kol-system/claude/skills/` + `.../_framework/`. Curated copies live here in `claude/skills/`. The `kol-docs` skill **bundles** `_framework/` so it has no external dependency — the repo stays portable to a machine without kol-system. Re-pull with the `init-agent-context-sync` skill.
 
-**Local-authored exceptions** (hand-written in dotfiles, so they *won't* ride a kol-system re-sync): `export-specs`, `kol-lobby`, `kol-bucket-r2`, `kol-bucket-b2` (the last renamed from the old `kol-bucket`), `kol-press-research`, `kol-migrate-structure`, `claude-clear`, `claude-bullet`. Fine for personal-workflow skills; move canonical copies upstream if they ever need sharing.
+**Local-authored exceptions** (hand-written in dotfiles, so they *won't* ride a kol-system re-sync): `export-specs`, `kol-lobby`, `kol-bucket-r2`, `kol-bucket-b2` (the last renamed from the old `kol-bucket`), `kol-press-research`, `kol-migrate-structure`, `kol-type-conform`, `claude-clear`, `claude-bullet`, `init-scaffold` (headless base). Fine for personal-workflow skills; move canonical copies upstream if they ever need sharing.
+
+> **Divergence note:** the former upstream `init-scaffold` (KOL-wired) now lives here as `init-scaffold-kol`, and the plain `init-scaffold` name is the local headless base. A kol-system re-sync still ships an upstream `init-scaffold` — reconcile it into `init-scaffold-kol`, don't let it clobber the headless base.
 
 ## Symlink mechanism
 
@@ -31,14 +33,14 @@ Canonical source is `~/dev/projects/kol-system/claude/skills/` + `.../_framework
 
 Skill *dependencies* (CLI helpers a skill shells out to) live in `claude/packages/` and are copied to `~/.local/bin` by bootstrap.
 
-## The installed set (25)
+## The installed set (28)
 
 | Group | Skills |
 |---|---|
-| **Agent-context** (6) | `init-agent-context` · `init-agent-context-sync` · `init-agent` · `init-scaffold` · `log-work` · `kol-migrate-structure` — scaffold, sync, load, log, and converge repos onto the [protocol](01-agent-context-protocol.md) (`.kol/` layout; init-scaffold now installs the published `@kolkrabbi/kol-*` npm packages instead of copying source) |
+| **Agent-context** (8) | `init-agent-context` · `init-agent-context-sync` · `init-agent` · `init-scaffold` · `init-scaffold-kol` · `log-work` · `log-work-handoff` · `kol-migrate-structure` — scaffold, sync, load, log, and converge repos onto the [protocol](01-agent-context-protocol.md) (`.kol/` layout). `init-scaffold` is the **headless** base (Vite + React + Tailwind 4, no design system); `init-scaffold-kol` is the same stack wired to the published `@kolkrabbi/kol-*` npm packages (AppShell/SideNav + the 4-point contract). `log-work` writes the retrospective session log (no prompts); `log-work-handoff` writes the forward-looking session-bridge handoff — split so `/log-work` never stops to ask |
 | **Docs** (1) | `kol-docs` — the kol-docs framework spec (frontmatter, 9 archetypes, tags, wikilinks) |
 | **Buckets** (2) | `kol-bucket-b2` (Backblaze CDN) · `kol-bucket-r2` (Cloudflare R2 / kol-media) |
-| **Design system / brand** (2) | `kol-lobby` — stage a component into the DS lobby as a spec · `kol-press-research` — press/mention/timeline research emitting brand-manifest entries (judgment half of the `kol-scrape` CLI) |
+| **Design system / brand** (3) | `kol-lobby` — stage a component into the DS lobby as a spec · `kol-press-research` — press/mention/timeline research emitting brand-manifest entries (judgment half of the `kol-scrape` CLI) · `kol-type-conform` — enforce the KOL type protocol (JetBrains mono, the wrap/no-wrap line-height fault line) on ported or authored code |
 | **Media / art** (4) | `glif-art` · `algorithmic-art` · `export-specs` · `vcap-capture` |
 | **GSAP animation** (8) | `gsap-core` · `-frameworks` · `-performance` · `-plugins` · `-react` · `-scrolltrigger` · `-timeline` · `-utils` |
 | **Utility** (2) | `claude-clear` (restate the last reply, tighter) · `claude-bullet` (reformat the last reply into bullets/lists/checks) |

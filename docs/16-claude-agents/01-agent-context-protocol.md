@@ -38,7 +38,7 @@ A repo on the protocol has all machinery **hidden at repo root**, keeping `docs/
 | Skill | Job |
 |---|---|
 | [init-agent-context](02-skills.md) | scaffold the protocol into a repo — `LLM_RULES.md` + `.kol/{llm-context, docs-framework}` |
-| `init-agent` | load the context (ARCHITECTURE → AGENT-CONTEXT → latest session log) and **stop** — wait for a task; detects the machine, checks session-bridge, nags on legacy layouts |
+| `init-agent` | load the context (ARCHITECTURE → AGENT-CONTEXT → latest session log) and **stop** — wait for a task; detects the machine, checks session-bridge, nags on legacy layouts, and (guard: repo consumes `@kolkrabbi/*`) reports stale KOL packages via `pnpm/npm outdated`, asking before any bump — report-only, apply on explicit OK |
 | `log-work` | **only when asked** — write a session log + prepend the AGENT-CONTEXT "Last updated" chain |
 | `kol-migrate-structure` | converge a legacy repo onto `.kol/` — moves, `LLM_RULES.md` backfill, reference repoints; optionally proposes the `docs/documentation/` numbered-section system |
 | `init-scaffold` | scaffold a new app on the **published** `@kolkrabbi/kol-*` npm packages (4-point consumer contract wired) |
