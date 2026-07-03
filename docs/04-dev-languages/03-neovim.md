@@ -51,4 +51,4 @@ nvim .
 ```
 
 ## Full IDE config
-The quick-edit tool is now also a full terminal IDE: a structured `lazy.nvim` plugin setup with language servers wired through `nvim-lspconfig` + `mason`, completion, Tree-sitter, formatting/linting, a file tree, and git integration — overlapping more with VS Code's project work. Structure, plugin roster, and keybindings are documented in [[10-neovim-config|Neovim config (IDE setup)]].
+The quick-edit tool is now also a full terminal IDE: a structured `lazy.nvim` plugin setup with language servers wired through `nvim-lspconfig` + `mason`, completion, Tree-sitter, formatting/linting, a file tree, and git integration — overlapping more with VS Code's project work. Structure, plugin roster, and keybindings are documented in [Neovim config (IDE setup)](10-neovim-config.md).

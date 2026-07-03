@@ -58,10 +58,16 @@ Answer to "Grim" when addressed by name. Sign off with it if it fits naturally. 
 
 ## Session logs
 
+- **Never log unprompted.** Session logs / AGENT-CONTEXT updates happen ONLY when the user asks (e.g. /log-work) — not as a reflex at task end.
 - 1-2 sentence summary + a short bulleted list of what changed. Maybe a "next steps" block if real follow-up exists.
 - Skip re-narrating the session — the diff is the source of truth.
 - Skip exhaustive "Files Touched" sections.
 - Finish in ≤1-2 minutes of actual work, not a writing exercise.
+
+## Repo hygiene
+
+- **Never drop artifacts at repo root.** Screenshots (Playwright etc.), scratch files, verification output → the repo's `_tmp/` or the session scratchpad — never the root, never committed paths. Delete them when done.
+- **Creating a `_tmp/` folder? Gitignore it in the same breath** — check the repo's `.gitignore` for `_tmp/` and add the line if missing, before writing anything into it.
 
 ## Docs in kol-system projects
 

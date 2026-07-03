@@ -62,7 +62,7 @@ tmux attach -t work       # reattach to "work"
 - **Quiet top status bar** — faint window list flush top-left (`#I:#W#F`), with a blank second row for breathing space above the p10k prompt.
 - **base-index 1**, 50k scrollback, true-colour passthrough, `prefix r` to reload.
 
-Day-to-day keys, copy mode in full, and pane/window/session tricks: see [[09-tmux-tips|tmux tips & tricks]].
+Day-to-day keys, copy mode in full, and pane/window/session tricks: see [tmux tips & tricks](09-tmux-tips.md).
 
 ## Future use
 The tpm plugin manager with `tmux-resurrect` / `tmux-continuum` to save and auto-restore full session layouts **across reboots** (native detach/reattach only survives while the machine stays on). Deliberately not adopted — it adds a plugin-clone bootstrap step the config is currently free of.

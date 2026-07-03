@@ -62,4 +62,4 @@ The function bakes in two optimizations:
 - On YouTube, additionally set player quality to 240p manually — anything above 360p is wasted bits at terminal resolution.
 
 ## Future use
-Add more site aliases next to `hn` for frequent destinations; pin the image to a digest if upstream ever publishes a breaking `latest`. Upstream maintenance is sparse — if it ever bites, [[02-w3m|w3m]] is the fallback.
+Add more site aliases next to `hn` for frequent destinations; pin the image to a digest if upstream ever publishes a breaking `latest`. Upstream maintenance is sparse — if it ever bites, [w3m](02-w3m.md) is the fallback.

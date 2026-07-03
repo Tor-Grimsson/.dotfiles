@@ -20,7 +20,7 @@ related:
 
 # Neovim cheatsheet (beginner)
 
-Assumes you've never used vim. Read top to bottom once, then keep it open while you work. For the full keybind tables and plugin list, see [[10-neovim-config|Neovim config (IDE setup)]].
+Assumes you've never used vim. Read top to bottom once, then keep it open while you work. For the full keybind tables and plugin list, see [Neovim config (IDE setup)](10-neovim-config.md).
 
 ## The one thing to understand: modes
 
@@ -134,7 +134,7 @@ These come from the plugins. Press `Space`, then the keys. The handful you'll us
 | `<leader>mp` | auto-format the file |
 | `gd` / `K` | (in code) go to definition / show docs popup |
 
-Full tables for LSP, git, diagnostics, etc. live in [[10-neovim-config|Neovim config (IDE setup)]].
+Full tables for LSP, git, diagnostics, etc. live in [Neovim config (IDE setup)](10-neovim-config.md).
 
 ## When you're stuck (panic button)
 

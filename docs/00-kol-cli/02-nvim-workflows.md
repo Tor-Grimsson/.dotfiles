@@ -21,7 +21,7 @@ related:
 
 # Neovim workflows — reshaping & handling text
 
-The cheatsheet ([[01-cli-cheatsheet|CLI cheatsheet]]) lists the **keys**. This lists the **sequences** — the real tasks where you need three or four keys in the right order — plus the **process** for the most common job: you paste a chunk of text and it's not shaped the way you want (indented, too wide, stray blank lines, ugly wrapping) and you want to fix it fast.
+The cheatsheet ([CLI cheatsheet](01-cli-cheatsheet.md)) lists the **keys**. This lists the **sequences** — the real tasks where you need three or four keys in the right order — plus the **process** for the most common job: you paste a chunk of text and it's not shaped the way you want (indented, too wide, stray blank lines, ugly wrapping) and you want to fix it fast.
 
 Each recipe is *keys, in order* → what happens. Type them literally; spaces in the key column are just for reading. Leader = `Space`; start each from **Normal mode** (`Esc` if unsure). `⏎` = Enter.
 
@@ -246,5 +246,5 @@ Two fuller ones:
 ---
 
 ## See also
-- [[01-cli-cheatsheet|CLI cheatsheet]] — the flat keymaps these recipes draw on (Neovim section `^sec-neovim`).
-- [[10-neovim-config|Neovim config]] · [[11-neovim-cheatsheet|Neovim beginner]] — full per-tool docs.
+- [CLI cheatsheet](01-cli-cheatsheet.md) — the flat keymaps these recipes draw on (Neovim section).
+- [Neovim config](../04-dev-languages/10-neovim-config.md) · [Neovim beginner](../04-dev-languages/11-neovim-cheatsheet.md) — full per-tool docs.

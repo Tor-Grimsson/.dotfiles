@@ -41,7 +41,7 @@ Ask an LLM a question from the terminal — one-shot or interactive. Multi-provi
 Picked over `ata`/`trf`: those only speak OpenAI-compatible providers, so reaching Claude through them means the OpenAI-compat shim. `llm` + `llm-anthropic` talks to the **native** Anthropic API instead.
 
 ## Setup
-1. Install: `uv tool install llm` (see [[04-uv|uv]])
+1. Install: `uv tool install llm` (see [uv](04-uv.md))
 2. Add Claude support: `llm install llm-anthropic` — this is **llm's own** plugin installer (injects into llm's venv), not `uv install`.
 3. Key: `llm keys set anthropic` → paste the Anthropic API key (from the vault). It's stored in llm's config dir, **not** the repo — run `llm keys path` to see where.
 4. Default to the cheap model: `llm models default claude-haiku-4.5`
@@ -77,7 +77,7 @@ A lightweight terminal client for quick LLM questions without opening a browser 
 `cat <thing> | llm "..."` — pipe any file, log, or man page straight into Claude from the shell, and every exchange is logged to SQLite for free (`-c` to continue, `llm logs` to review).
 
 ## Reproduce on the other machine
-`brew bundle` already installs [[04-uv|uv]]. Then re-run the four setup steps — the plugin, key, and default model live in llm's own config dir (not the repo), so they don't sync:
+`brew bundle` already installs [uv](04-uv.md). Then re-run the four setup steps — the plugin, key, and default model live in llm's own config dir (not the repo), so they don't sync:
 
 ```sh
 uv tool install llm

@@ -104,4 +104,4 @@ You may end up with two databases: a **local** one (`supabase start`) and the **
 
 ---
 
-**Next:** [[07-getting-data-in-and-out|Getting data in & out — the SQL editor, the table editor, the ingest script, and reading from the app]]
+**Next:** [Getting data in & out — the SQL editor, the table editor, the ingest script, and reading from the app](07-getting-data-in-and-out.md)

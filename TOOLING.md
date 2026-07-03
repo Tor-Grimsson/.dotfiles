@@ -264,7 +264,7 @@ Rule going forward: use the command name (rely on PATH) or `$(brew --prefix)/bin
 - [ ] `rm -rf ~/.claude-server-commander` — orphaned Desktop Commander MCP logs (last used 9 Mar; MCP no longer wired).
 - [ ] macfuse is left out of the bundle — `brew install --cask macfuse` by hand if a fresh machine needs it.
 - [ ] Review iMac-only *leaves* for unwanted ghosts (autoremove only catches orphaned deps, not unwanted explicit installs).
-- [x] ~~Resolve p10k / zsh-plugin duplication~~ — **DONE 2026-06-09: brew on both, omz copies dropped** (theme + plugins sourced from `${HOMEBREW_PREFIX}/share/…` in `shell/.zshrc`). See `docs/llm-context/session-log/2026-06-09-fzf-stack-zsh-plugins.md`.
+- [x] ~~Resolve p10k / zsh-plugin duplication~~ — **DONE 2026-06-09: brew on both, omz copies dropped** (theme + plugins sourced from `${HOMEBREW_PREFIX}/share/…` in `shell/.zshrc`). See `.kol/llm-context/session-log/2026-06-09-fzf-stack-zsh-plugins.md`.
 - [ ] Decide pipx → uv consolidation.
 - [ ] **miniconda on the MBP** (4th Python variant, outside brew) — audit `conda env list`, then uninstall + drop the `conda init` block from `shell/.zshrc`, or guard it with `[ -d /opt/miniconda3 ]`.
 - [ ] **python.org 3.13 framework on the MBP** (5th variant) — uninstall per § Python; `rm ~/.zprofile.pysave`.

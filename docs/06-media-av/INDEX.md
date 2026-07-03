@@ -12,10 +12,10 @@ Command-line media stack — the FFmpeg engine plus a player, a preset transcode
 
 | Tool | Description |
 | --- | --- |
-| [[01-ffmpeg\|FFmpeg]] | Universal CLI engine for decoding, encoding, transcoding, filtering, and probing audio/video. |
-| [[02-mpv\|mpv]] | Minimal, scriptable, high-quality media player driven from the command line and config files. |
-| [[03-handbrake\|HandBrake]] | Open-source video transcoder with tuned presets, exposed as HandBrakeCLI. |
-| [[04-whisper-cpp\|whisper.cpp]] | Local offline speech-to-text via OpenAI's Whisper model, run with whisper-cli. |
-| [[05-transmission-cli\|Transmission (CLI)]] | Lightweight headless BitTorrent client — daemon plus remote control utilities. |
-| [[06-edge-tts\|edge-tts]] | Neural text-to-speech via Microsoft Edge's free voices — `speak` reads the clipboard aloud through mpv. |
-| [[07-yt-dlp\|yt-dlp]] | Download video/audio from YouTube, TikTok + ~1800 sites; `-x` rips audio for whisper transcription. |
+| [FFmpeg](01-ffmpeg.md) | Universal CLI engine for decoding, encoding, transcoding, filtering, and probing audio/video. |
+| [mpv](02-mpv.md) | Minimal, scriptable, high-quality media player driven from the command line and config files. |
+| [HandBrake](03-handbrake.md) | Open-source video transcoder with tuned presets, exposed as HandBrakeCLI. |
+| [whisper.cpp](04-whisper-cpp.md) | Local offline speech-to-text via OpenAI's Whisper model, run with whisper-cli. |
+| [Transmission (CLI)](05-transmission-cli.md) | Lightweight headless BitTorrent client — daemon plus remote control utilities. |
+| [edge-tts](06-edge-tts.md) | Neural text-to-speech via Microsoft Edge's free voices — `speak` reads the clipboard aloud through mpv. |
+| [yt-dlp](07-yt-dlp.md) | Download video/audio from YouTube, TikTok + ~1800 sites; `-x` rips audio for whisper transcription. |

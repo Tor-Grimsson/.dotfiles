@@ -25,7 +25,7 @@ Each template Markdown file (and each framework file) carries a `_template:` blo
 ---
 _template:
   version: 1            # bumped manually when the file materially changes
-  path: docs/llm-context/AGENT-CONTEXT.md   # path relative to repo root
+  path: .kol/llm-context/AGENT-CONTEXT.md   # path relative to repo root
   sync: skip            # policy: replace | notify-only | skip
 ---
 ```
@@ -50,19 +50,19 @@ The underscore prefix marks the block as **tool-managed**. The sync skill reads/
 
 2. **Sanity check.** Confirm the target repo has been init-agent-context'd:
    - `LLM_RULES.md` exists at root, AND
-   - `docs/llm-context/` exists.
+   - `.kol/llm-context/` exists.
 
    If not, stop and tell the user to run `/init-agent-context` first.
 
 3. **Enumerate source files.** Run two finds:
    - `find ~/.dotfiles/claude/packages/init-agent-context-templates -type f -name '*.md'` for template files.
-   - `find ~/.dotfiles/claude/packages/kol-docs-framework -type f -name '*.md'` for framework files. Framework files target `docs/_framework/` in the consumer repo.
+   - `find ~/.dotfiles/claude/packages/kol-docs-framework -type f -name '*.md'` for framework files. Framework files target `.kol/docs-framework/` in the consumer repo.
 
 4. **For each source file, compute the diff state.** Build a report with one row per file:
    - **Status:** `missing` (target file doesn't exist), `out-of-date` (target version < source version), `current` (versions match), `customized` (target content differs but version matches — user edited a `replace`/`notify-only` file).
    - **Source version, target version, policy.**
 
-   Read frontmatter via Read or a small Bash one-liner. Don't trust path inference — read `_template.path` from the source's frontmatter for the canonical relative path. For framework files (no `_template.path`), derive the target path as `docs/_framework/<relative path from src/>`.
+   Read frontmatter via Read or a small Bash one-liner. Don't trust path inference — read `_template.path` from the source's frontmatter for the canonical relative path. For framework files (no `_template.path`), derive the target path as `.kol/docs-framework/<relative path from src/>`.
 
 5. **Surface the report to the user.** Print a table:
 
@@ -70,10 +70,10 @@ The underscore prefix marks the block as **tool-managed**. The sync skill reads/
    File                                          src  tgt  policy        action
    --------------------------------------------- ---  ---  ------------  -------------------
    .claude/skills/log-work/SKILL.md              2    1    replace       will replace
-   docs/llm-context/session-bridge/README.md     1    -    replace       will create (missing)
-   docs/_framework/01-conventions.md             2    1    replace       will replace
+   .kol/llm-context/session-bridge/README.md     1    -    replace       will create (missing)
+   .kol/docs-framework/01-conventions.md             2    1    replace       will replace
    LLM_RULES.md                                  1    1    notify-only   in sync
-   docs/llm-context/AGENT-CONTEXT.md             1    1    skip          (untracked — project-owned)
+   .kol/llm-context/AGENT-CONTEXT.md             1    1    skip          (untracked — project-owned)
    ```
 
 6. **Confirm via `AskUserQuestion`** before applying anything. Options:

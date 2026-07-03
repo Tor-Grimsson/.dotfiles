@@ -40,7 +40,7 @@ transmission-remote -a "<magnet>"               ← download starts in the daemo
 `tor-search` resolves the key in this order:
 
 1. `JACKETT_API_KEY` env var, if exported.
-2. Bitwarden: `bw get password Jackett` (folder `kol-tokens`) — needs an unlocked session, so in practice: `bwu` once per shell, then `tor-search` just works. See [[../05-network-security/03-bitwarden-cli|Bitwarden CLI]].
+2. Bitwarden: `bw get password Jackett` (folder `kol-tokens`) — needs an unlocked session, so in practice: `bwu` once per shell, then `tor-search` just works. See [Bitwarden CLI](../05-network-security/03-bitwarden-cli.md).
 
 The key itself comes from the Jackett dashboard (top-right "API Key").
 
@@ -66,7 +66,7 @@ tor-search foo
 Error: no API key …      # locked vault → run `bwu` first
 ```
 
-## Streamlining (speculative — see docs/plan.md)
+## Streamlining (speculative — see .kol/llm-context/plan.md)
 
 Target flow: *anywhere in the UI → hotkey → terminal drops down → type query → results.* The friction points and their fixes, in impact order:
 
@@ -79,4 +79,4 @@ With (1) + (2) the whole flow is: hotkey → `tor-search query` → pick → don
 
 ## Watch downloads live
 
-See [[../06-media-av/05-transmission-cli|Transmission (CLI)]] — `watch -n 1 transmission-remote -l` renders a self-refreshing download dashboard in the terminal.
+See [Transmission (CLI)](../06-media-av/05-transmission-cli.md) — `watch -n 1 transmission-remote -l` renders a self-refreshing download dashboard in the terminal.

@@ -24,16 +24,16 @@ related:
 
 ## Purpose
 
-Turns [[03-neovim|Neovim]] from a quick-edit tool into a full terminal IDE: LSP completion and diagnostics, fuzzy finding, Tree-sitter syntax, formatting/linting on save, a file tree, and git integration — all on `lazy.nvim`, one plugin per file. It's a replication of [josean-dev's config](https://github.com/josean-dev/dev-environment-files) (the YouTube setup), copied verbatim except the lua namespace was renamed `josean` → **`grim`**.
+Turns [Neovim](03-neovim.md) from a quick-edit tool into a full terminal IDE: LSP completion and diagnostics, fuzzy finding, Tree-sitter syntax, formatting/linting on save, a file tree, and git integration — all on `lazy.nvim`, one plugin per file. It's a replication of [josean-dev's config](https://github.com/josean-dev/dev-environment-files) (the YouTube setup), copied verbatim except the lua namespace was renamed `josean` → **`grim`**.
 
 The config is tracked at `nvim/` in this repo and `~/.config/nvim` is a whole-directory symlink to it (`bootstrap.sh`), so edits to either side are the same files.
 
 ## Prerequisites
 
-- **Neovim ≥ 0.11** — the LSP layer uses the native `vim.lsp.enable` + `after/lsp/` style (this machine runs 0.12.2). See [[03-neovim|Neovim]].
+- **Neovim ≥ 0.11** — the LSP layer uses the native `vim.lsp.enable` + `after/lsp/` style (this machine runs 0.12.2). See [Neovim](03-neovim.md).
 - **node + npm** — most LSP servers mason installs are node-based (ts_ls, html, cssls, tailwindcss, svelte, graphql, emmet_ls, prismals, eslint, pyright).
 - **git + a C compiler + `make`** — lazy.nvim clones itself on first run; `telescope-fzf-native` compiles via `make`.
-- **A Nerd Font** in the terminal for the icons — see [[10-fonts/INDEX|Fonts]].
+- **A Nerd Font** in the terminal for the icons — see [Fonts](../10-fonts/INDEX.md).
 
 ## First launch
 
@@ -97,7 +97,7 @@ Use `vim.opt_local` (not `vim.opt`) so the change stays scoped to that buffer.
 | Git | `gitsigns` (gutter + hunk ops), `lazygit` (full TUI) |
 | UI | `lualine` (statusline), `bufferline` (tabs mode), `alpha` (dashboard), `dressing`, `indent-blankline` |
 | Editing | `autopairs`, `nvim-surround`, `substitute`, `flash` (jump motions), `vim-maximizer`, `todo-comments`, `trouble` |
-| Navigation | `vim-tmux-navigator` (Ctrl-h/j/k/l across splits + tmux panes), `auto-session`, `yazi.nvim` (`<leader>fy` — floating [[02-yazi\|yazi]] at the current file) |
+| Navigation | `vim-tmux-navigator` (Ctrl-h/j/k/l across splits + tmux panes), `auto-session`, `yazi.nvim` (`<leader>fy` — floating [yazi](../02-file-management/02-yazi.md) at the current file) |
 | Disabled | `which-key`, `ai` (ChatGPT) — present but fully commented out (no-op placeholders) |
 
 ## Keybindings
@@ -124,7 +124,7 @@ Use `vim.opt_local` (not `vim.opt`) so the change stays scoped to that buffer.
 | `<leader>fc` | grep word under cursor |
 | `<leader>fr` | recent files |
 | `<leader>ft` | find todos |
-| `<leader>fy` | open [[02-yazi|yazi]] at the current file (yazi.nvim, floating) |
+| `<leader>fy` | open [yazi](../02-file-management/02-yazi.md) at the current file (yazi.nvim, floating) |
 
 ### Code intelligence (LSP — active once mason finishes)
 | Key | Action |
@@ -171,7 +171,7 @@ tokyonight, configured in `plugins/colorscheme.lua`. It overrides the `night` pa
 
 ## Cross-machine
 
-`lazy-lock.json` pins exact plugin commits, so committing it makes the [[03-neovim|Neovim]] setup reproduce identically on the MBP via dot-sync. No hardcoded paths anywhere — `stdpath` everywhere — so it's cross-arch clean; the compiled bits (`fzf-native`, mason tools) rebuild per machine on first launch.
+`lazy-lock.json` pins exact plugin commits, so committing it makes the [Neovim](03-neovim.md) setup reproduce identically on the MBP via dot-sync. No hardcoded paths anywhere — `stdpath` everywhere — so it's cross-arch clean; the compiled bits (`fzf-native`, mason tools) rebuild per machine on first launch.
 
 ## Source
 

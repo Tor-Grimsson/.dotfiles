@@ -1,13 +1,13 @@
 ---
 name: init-agent-context
-description: Scaffold the LLM agent-context protocol into the current repo (LLM_RULES.md, ARCHITECTURE/AGENT-CONTEXT/history/plan, init-agent and log-work skills, docs/_framework/)
+description: Scaffold the LLM agent-context protocol into the current repo (LLM_RULES.md, ARCHITECTURE/AGENT-CONTEXT/history/plan, init-agent and log-work skills, .kol/docs-framework/)
 disable-model-invocation: true
 allowed-tools: Bash, Read, Edit, Write, Glob, Grep, AskUserQuestion
 ---
 
 # init-agent-context
 
-Scaffold the Kolkrabbi-style LLM agent context protocol into the current working directory. Produces `LLM_RULES.md`, `docs/llm-context/{ARCHITECTURE,AGENT-CONTEXT,README}.md`, `docs/{history,plan}.md`, `docs/_framework/` (kol-docs framework — frontmatter spec, archetypes, tag taxonomy), and `.claude/skills/{init-agent,log-work}/SKILL.md` — all wired up with `/init-agent` and `/log-work` ready to use.
+Scaffold the Kolkrabbi-style LLM agent context protocol into the current working directory. Produces `LLM_RULES.md`, `.kol/llm-context/{ARCHITECTURE,AGENT-CONTEXT,README,history,plan}.md`, `.kol/docs-framework/` (kol-docs framework — frontmatter spec, archetypes, tag taxonomy), and `.claude/skills/{init-agent,log-work}/SKILL.md` — all wired up with `/init-agent` and `/log-work` ready to use.
 
 Templates live in `~/.dotfiles/claude/packages/init-agent-context-templates/`. The docs framework lives at `~/.dotfiles/claude/packages/kol-docs-framework/` and is copied at scaffold time so it stays in sync with the canonical source.
 
@@ -19,8 +19,8 @@ Templates live in `~/.dotfiles/claude/packages/init-agent-context-templates/`. T
 
 2. **Sanity check.** Check if any of these already exist in the target:
    - `LLM_RULES.md`
-   - `docs/llm-context/`
-   - `docs/_framework/`
+   - `.kol/llm-context/`
+   - `.kol/docs-framework/`
    - `.claude/skills/init-agent/`
 
    If any exist, stop and ask the user if they want to overwrite. Do not overwrite without confirmation — agent context is often hand-tuned.
@@ -45,9 +45,9 @@ Templates live in `~/.dotfiles/claude/packages/init-agent-context-templates/`. T
 
 6. **Copy framework.** Run:
    ```sh
-   mkdir -p docs/_framework && cp -R ~/.dotfiles/claude/packages/kol-docs-framework/. docs/_framework/
+   mkdir -p .kol/docs-framework && cp -R ~/.dotfiles/claude/packages/kol-docs-framework/. .kol/docs-framework/
    ```
-   This lands the framework spec in `docs/_framework/` of the target repo (flattened — `src/_framework/INDEX.md` → `docs/_framework/INDEX.md`, etc.). Obsidian wikilinks like `[[../_framework/INDEX|the kol-docs framework]]` resolve against this.
+   This lands the framework spec in `.kol/docs-framework/` of the target repo (flattened — `src/_framework/INDEX.md` → `.kol/docs-framework/INDEX.md`, etc.). Obsidian wikilinks like `[[../_framework/INDEX|the kol-docs framework]]` resolve against this.
 
 7. **Find-replace placeholders** across all copied files. Use Grep to list files containing `{{`, then Edit each one to substitute:
    - `{{PROJECT_NAME}}` → collected value
@@ -81,10 +81,9 @@ Templates live in `~/.dotfiles/claude/packages/init-agent-context-templates/`. T
 
     Created:
     - LLM_RULES.md
-    - docs/history.md, docs/plan.md
-    - docs/llm-context/{README,ARCHITECTURE,AGENT-CONTEXT}.md
-    - docs/llm-context/session-log/ (empty)
-    - docs/_framework/ (kol-docs framework, copied from ~/.dotfiles/claude/packages/kol-docs-framework)
+    - .kol/llm-context/{README,ARCHITECTURE,AGENT-CONTEXT,history,plan}.md
+    - .kol/llm-context/session-log/ (empty)
+    - .kol/docs-framework/ (kol-docs framework, copied from ~/.dotfiles/claude/packages/kol-docs-framework)
     - .claude/skills/init-agent/SKILL.md
     - .claude/skills/log-work/SKILL.md
 

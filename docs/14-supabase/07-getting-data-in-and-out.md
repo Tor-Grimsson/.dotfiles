@@ -95,7 +95,7 @@ You can shape the query:
 
 ## 6. Seeing the data without code
 
-Anytime, in the dashboard: **Table Editor** shows the rows; **SQL Editor** runs `select * from images;`. If the app shows nothing but the Table Editor shows rows, the problem is in the app's connection (URL/key), not the data — see [[08-pitfalls-and-troubleshooting|pitfalls]].
+Anytime, in the dashboard: **Table Editor** shows the rows; **SQL Editor** runs `select * from images;`. If the app shows nothing but the Table Editor shows rows, the problem is in the app's connection (URL/key), not the data — see [pitfalls](08-pitfalls-and-troubleshooting.md).
 
 ## 7. Which way should I use?
 
@@ -108,4 +108,4 @@ Anytime, in the dashboard: **Table Editor** shows the rows; **SQL Editor** runs 
 
 ---
 
-**Next:** [[08-pitfalls-and-troubleshooting|Pitfalls & troubleshooting — everything that bit us, and the fix]]
+**Next:** [Pitfalls & troubleshooting — everything that bit us, and the fix](08-pitfalls-and-troubleshooting.md)

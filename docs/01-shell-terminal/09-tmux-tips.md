@@ -20,11 +20,11 @@ related:
 
 ## Purpose
 
-The moves that make tmux fast once the basics click — copy mode (scrolling and grabbing text), and the pane / window / session tricks worth muscle memory. Tuned to this repo's [[02-tmux|tmux]] config, so the keys below assume `~/.tmux.conf` is in place.
+The moves that make tmux fast once the basics click — copy mode (scrolling and grabbing text), and the pane / window / session tricks worth muscle memory. Tuned to this repo's [tmux](02-tmux.md) config, so the keys below assume `~/.tmux.conf` is in place.
 
 ## Prerequisites
 
-- tmux installed and `~/.dotfiles/tmux/.tmux.conf` symlinked to `~/.tmux.conf` — see [[02-tmux|tmux]].
+- tmux installed and `~/.dotfiles/tmux/.tmux.conf` symlinked to `~/.tmux.conf` — see [tmux](02-tmux.md).
 - **The prefix is `Ctrl-a`.** Every command is `Ctrl-a` then a key; written `prefix` below. Press `Ctrl-a`, let go, then the key.
 - The config sets `mode-keys vi`, so copy mode moves like vim.
 

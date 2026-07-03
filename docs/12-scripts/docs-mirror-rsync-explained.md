@@ -72,6 +72,6 @@ A snapshot is stale the moment the source changes, which is why `-rs` needs a tr
 
 ## What runs the sync
 
-You never have to remember. A `post-commit` hook ([[13-docs-mirror]]) runs the rsync
+You never have to remember. A `post-commit` hook ([13-docs-mirror](13-docs-mirror.md)) runs the rsync
 whenever a commit touches `docs/`, so the `-rs` copy is fresh by the time you push the
 vault. Manual run any time: `sync-dotfiles-docs-rs.sh`.

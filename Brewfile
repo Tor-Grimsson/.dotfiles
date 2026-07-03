@@ -83,6 +83,12 @@ brew "pngpaste"    # Paste clipboard PNG to a file
 #       pdftoppm) that clash with poppler's symlinks. Use poppler's CLI directly, or
 #       the Python pdf2image lib via `uv tool install pdf2image` / pipx.
 
+# ── Documents & publishing ────────────────────────────────────────────────────
+brew "pandoc"      # Universal document converter (md→PDF/HTML/…); drives a PDF engine — docs/17-documents/
+brew "typst"       # Modern typesetting engine — Pandoc's fast default PDF engine (--pdf-engine=typst)
+brew "weasyprint"  # HTML+CSS→PDF (CSS Paged Media, no browser) — Pandoc's CSS engine (--pdf-engine=weasyprint)
+brew "entr"        # Re-run a command when files change (watch mode) — pdf-from-md.sh -w
+
 # ── System & cloud ──────────────────────────────────────────────────────────
 brew "fastfetch"   # System info banner (neofetch successor — neofetch was pulled from Homebrew)
 brew "htop"        # Interactive process/resource monitor (TUI) — live CPU/mem, find & kill hoggers

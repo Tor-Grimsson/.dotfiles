@@ -27,7 +27,7 @@ Before any commands, the map. Four things, each with one job.
 | **The app** (Vite + React) | The website you run with `pnpm dev`, served at `localhost:5173`. | Show the UI — the editor (`/develop`) and the library (`/library`). |
 | **Supabase** (Postgres) | Your hosted database. | Store one **row of metadata** per image: filename, camera, tags, the edit, and a **link** to the file. |
 | **Backblaze B2** (object storage / "the bucket") | A place on the internet that holds **files** (the actual image bytes), reached via the `bucket` command. | Hold the heavy stuff — the JPEGs/derivatives — and serve them over a CDN URL. |
-| **git + GitHub** | Version control — a time-machine for your code. | Track every change to the code and the database's shape (migrations). See [[06-git-github-and-syncing|chapter 06]]. |
+| **git + GitHub** | Version control — a time-machine for your code. | Track every change to the code and the database's shape (migrations). See [chapter 06](06-git-github-and-syncing.md). |
 
 ## 2. Why files and metadata are separated
 
@@ -57,7 +57,7 @@ What happens when you open `/library`:
 5. The page renders the grid.
 ```
 
-And when you *publish* a new image (the ingest script, [[07-getting-data-in-and-out|chapter 07]]):
+And when you *publish* a new image (the ingest script, [chapter 07](07-getting-data-in-and-out.md)):
 
 ```
 1. Push the JPEG file → Backblaze B2 (the `bucket up` command).
@@ -67,7 +67,7 @@ And when you *publish* a new image (the ingest script, [[07-getting-data-in-and-
 
 ## 4. Where each secret lives
 
-This matters for safety (full detail in [[04-api-keys-and-environment|chapter 04]]):
+This matters for safety (full detail in [chapter 04](04-api-keys-and-environment.md)):
 
 | Secret | Lives in | Why there |
 |---|---|---|
@@ -88,4 +88,4 @@ Everything else (migrations, the ingest script, the bucket) is occasional.
 
 ---
 
-**Next:** [[03-setup-walkthrough|Setting it up from scratch — the copy-paste walkthrough]]
+**Next:** [Setting it up from scratch — the copy-paste walkthrough](03-setup-walkthrough.md)

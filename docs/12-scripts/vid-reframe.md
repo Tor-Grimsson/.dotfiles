@@ -28,7 +28,7 @@ related:
 folder's export-spec aspect, kebab-named, and dropped in `../_export/<folder>/`.
 No flags. No arguments. No thinking required.
 
-This exists because [[vid-convert|vid-convert.sh]] requires explicit `-a`, `-r`,
+This exists because [vid-convert.sh](vid-convert.md) requires explicit `-a`, `-r`,
 `-o`, `-i`, `-p` flags on every call — correct for one-off reframes, wrong for
 "just process this whole folder." `vid-reframe.sh` is the batch wrapper that should
 have shipped with the library job from the start.

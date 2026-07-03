@@ -49,5 +49,5 @@ The main agent delegates via the Task tool (`subagent_type: kol-color-agent`), o
 
 ## Skills vs subagents
 
-- **[[02-skills|Skill]]** = instructions loaded into the *current* context. Cheap, inline, no separate window.
+- **[Skill](02-skills.md)** = instructions loaded into the *current* context. Cheap, inline, no separate window.
 - **Subagent** = a *separate* context window for scoped, parallelizable, or context-heavy work. Use when you want isolation or fan-out.

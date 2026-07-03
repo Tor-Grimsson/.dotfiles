@@ -66,7 +66,7 @@ Consequences:
 - Keys don't belong in your code history (anyone with the repo would have them forever).
 - Each machine/person can have their own `.env.local` pointing at their own project.
 
-If you ever see `.env.local` show up in `git status` as a file to commit, **stop** — your `.gitignore` is wrong. (See [[06-git-github-and-syncing|chapter 06]].)
+If you ever see `.env.local` show up in `git status` as a file to commit, **stop** — your `.gitignore` is wrong. (See [chapter 06](06-git-github-and-syncing.md).)
 
 ## 6. Row Level Security (RLS), briefly
 
@@ -90,4 +90,4 @@ So a visitor holding the publishable key can *look* but not *touch*. The secret 
 
 ---
 
-**Next:** [[05-schema-tables-and-migrations|Schema, tables & migrations — changing the database safely]]
+**Next:** [Schema, tables & migrations — changing the database safely](05-schema-tables-and-migrations.md)

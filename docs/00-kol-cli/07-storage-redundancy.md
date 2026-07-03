@@ -205,4 +205,4 @@ diskutil eject /dev/disk6                    # unmount safely before unplugging
 
 ---
 
-*Living doc. Tool depth: [[01-rclone|rclone]]. The golden rule stays §0 — redundancy keeps you running, backup lets you undo; you want both. Symlinked into the kol-vault for print.*
+*Living doc. Tool depth: [rclone](../11-cloud-sync/01-rclone.md). The golden rule stays §0 — redundancy keeps you running, backup lets you undo; you want both. Symlinked into the kol-vault for print.*

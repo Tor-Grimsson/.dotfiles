@@ -26,7 +26,7 @@ related:
 ---
 
 ## Summary
-`z` replaces `cd` for directories you've been to before: zoxide records every visit, ranks dirs by **frecency** (frequency + recency), and `z <fragment>` jumps to the best match. `zi` shows the ranked candidates in [[12-fzf|fzf]] instead of jumping blind.
+`z` replaces `cd` for directories you've been to before: zoxide records every visit, ranks dirs by **frecency** (frequency + recency), and `z <fragment>` jumps to the best match. `zi` shows the ranked candidates in [fzf](12-fzf.md) instead of jumping blind.
 
 It only knows dirs visited *after* install — the database starts empty and fills as you move around.
 
@@ -57,7 +57,7 @@ zoxide remove <path>   # evict a dead/renamed dir
 No config file. The hook is one line at the end of `shell/.zshrc` — `eval "$(zoxide init zsh)"` (guarded on the binary existing; must run after compinit, which oh-my-zsh handles). Database lives in `~/Library/Application Support/zoxide/` (override: `_ZO_DATA_DIR`), machine-local by design — each Mac learns its own paths.
 
 ## Why installed
-The fifth member of the modern-CLI core ([[12-fzf|fzf]]/[[10-fd|fd]]/[[09-bat|bat]]/[[08-eza|eza]]/[[11-ripgrep|ripgrep]] were already in). The omz `dirhistory` plugin only walks Alt-arrow history; zoxide makes any deep project dir two keystrokes from anywhere.
+The fifth member of the modern-CLI core ([fzf](12-fzf.md)/[fd](10-fd.md)/[bat](09-bat.md)/[eza](08-eza.md)/[ripgrep](11-ripgrep.md) were already in). The omz `dirhistory` plugin only walks Alt-arrow history; zoxide makes any deep project dir two keystrokes from anywhere.
 
 ## Biggest win
 `z` + a fragment beats tab-completing nested paths every time — `z workbox` from a fresh shell lands in an iCloud path nobody wants to type.

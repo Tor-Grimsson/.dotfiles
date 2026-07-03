@@ -62,4 +62,4 @@ whisper-cli -m models/ggml-large-v3.bin -f audio.wav -l is
 ```
 
 ## Future use
-Built: [[au-transcribe|au-transcribe.sh]] runs the `ffmpeg` extract + `whisper-cli` transcribe in one step (URL or local file → markdown), and auto-downloads models to `~/.cache/whisper`. Still open: pulling the larger multilingual model (`large-v3`) for hard non-English source audio.
+Built: [au-transcribe.sh](../12-scripts/au-transcribe.md) runs the `ffmpeg` extract + `whisper-cli` transcribe in one step (URL or local file → markdown), and auto-downloads models to `~/.cache/whisper`. Still open: pulling the larger multilingual model (`large-v3`) for hard non-English source audio.

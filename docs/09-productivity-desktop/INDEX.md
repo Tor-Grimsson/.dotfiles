@@ -12,8 +12,8 @@ Everyday desktop tools installed as Homebrew casks: the launcher, the docs edito
 
 | Tool | Description |
 | --- | --- |
-| [[01-raycast\|Raycast]] | Keyboard-driven launcher and command palette for macOS. |
-| [[02-obsidian\|Obsidian]] | Local-first knowledge base built on a folder of plain Markdown files. |
-| [[03-firefox-developer-edition\|Firefox Developer Edition]] | Mozilla's developer-focused Firefox build with the latest devtools. |
-| [[04-stats\|Stats]] | Open-source macOS menu-bar system monitor. |
-| [[05-aerospace\|AeroSpace]] | i3-like tiling window manager driven from the keyboard. |
+| [Raycast](01-raycast.md) | Keyboard-driven launcher and command palette for macOS. |
+| [Obsidian](02-obsidian.md) | Local-first knowledge base built on a folder of plain Markdown files. |
+| [Firefox Developer Edition](03-firefox-developer-edition.md) | Mozilla's developer-focused Firefox build with the latest devtools. |
+| [Stats](04-stats.md) | Open-source macOS menu-bar system monitor. |
+| [AeroSpace](05-aerospace.md) | i3-like tiling window manager driven from the keyboard. |

@@ -19,7 +19,7 @@ related:
 
 # Video (`vid-`)
 
-These re-encode/rewrap video. To turn a video **URL or file into a text transcript** (markdown), see [[au-transcribe|au-transcribe.sh]] in the audio family (yt-dlp + whisper).
+These re-encode/rewrap video. To turn a video **URL or file into a text transcript** (markdown), see [au-transcribe.sh](au-transcribe.md) in the audio family (yt-dlp + whisper).
 
 All scripts shell out to `ffmpeg`. The `vid-h265*` encoders also need an `ffmpeg`
 built with Apple **VideoToolbox** (macOS hardware HEVC); `vid-archive.sh`,
@@ -81,7 +81,7 @@ Two shapes:
 - **Does** — scales the source to FILL the target box (longest side = chosen res),
   then crops the overflow to the exact aspect at the chosen anchor. No letterbox.
   Full write-up (flags, the export-specs @Nx mapping, the 4:5/mp4/kebab gaps):
-  [[vid-convert|deep-dive]].
+  [deep-dive](vid-convert.md).
 - **Usage** — `vid-convert.sh -a <aspect> -r <res> -o <origin> -i <input> -p <outdir> [-n <name>]`.
 - **Options** — `-a` aspect, `-r` res (`1k`=1920 / `2k`=2560 / `4k`=3840 on the longest
   side), `-o` crop anchor (default `center`), `-i` input, `-p` outdir, `-n` filename
@@ -97,7 +97,7 @@ Two shapes:
 - **Does** — batch software HEVC (`libx265`) at a constant **quality** (CRF, default
   20), **10-bit** `yuv420p10le`, in a `.mp4`. The archive default: small but band-free,
   size follows the content, plays everywhere. Optional `-s` downscales (never upscales);
-  any source resolution in. Full write-up: [[vid-archive|deep-dive]].
+  any source resolution in. Full write-up: [deep-dive](vid-archive.md).
 - **Usage** — `vid-archive.sh [-s <height>] [-q <crf>] [-g]` (no positional args; globs the cwd).
 - **Options** — `-s` max output height (downscale only, e.g. `1080`/`720`; omit = native
   res), `-q` CRF (default 20; 18 ≈ visually lossless, 23 = smaller), `-g` add `-tune grain`

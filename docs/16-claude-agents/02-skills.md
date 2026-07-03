@@ -3,7 +3,7 @@ title: Skills
 type: reference
 status: active
 updated: 2026-07-03
-description: What Claude Code skills are, how they're sourced from kol-system (ARCHITECTURE §4) vs local-authored, the whole-dir symlink mechanism, and the 22 installed skills grouped by job.
+description: What Claude Code skills are, how they're sourced from kol-system (ARCHITECTURE §4) vs local-authored, the whole-dir symlink mechanism, and the 25 installed skills grouped by job.
 aliases:
   - skills
 tags:
@@ -23,7 +23,7 @@ A **skill** is a bundle of instructions (a `SKILL.md` + optional assets) that Cl
 
 Canonical source is `~/dev/projects/kol-system/claude/skills/` + `.../_framework/`. Curated copies live here in `claude/skills/`. The `kol-docs` skill **bundles** `_framework/` so it has no external dependency — the repo stays portable to a machine without kol-system. Re-pull with the `init-agent-context-sync` skill.
 
-**Local-authored exceptions** (hand-written in dotfiles, so they *won't* ride a kol-system re-sync): `export-specs`, `kol-lobby`, `kol-bucket-r2`, `kol-bucket-b2` (the last renamed from the old `kol-bucket`). Fine for personal-workflow skills; move canonical copies upstream if they ever need sharing.
+**Local-authored exceptions** (hand-written in dotfiles, so they *won't* ride a kol-system re-sync): `export-specs`, `kol-lobby`, `kol-bucket-r2`, `kol-bucket-b2` (the last renamed from the old `kol-bucket`), `kol-press-research`, `kol-migrate-structure`, `claude-clear`, `claude-bullet`. Fine for personal-workflow skills; move canonical copies upstream if they ever need sharing.
 
 ## Symlink mechanism
 
@@ -31,22 +31,22 @@ Canonical source is `~/dev/projects/kol-system/claude/skills/` + `.../_framework
 
 Skill *dependencies* (CLI helpers a skill shells out to) live in `claude/packages/` and are copied to `~/.local/bin` by bootstrap.
 
-## The installed set (22)
+## The installed set (25)
 
 | Group | Skills |
 |---|---|
-| **Agent-context** (5) | `init-agent-context` · `init-agent-context-sync` · `init-docs` · `init-scaffold` · `log-work` — boot, sync, load, scaffold, and log the [[01-agent-context-protocol\|protocol]] |
+| **Agent-context** (6) | `init-agent-context` · `init-agent-context-sync` · `init-agent` · `init-scaffold` · `log-work` · `kol-migrate-structure` — scaffold, sync, load, log, and converge repos onto the [protocol](01-agent-context-protocol.md) (`.kol/` layout; init-scaffold now installs the published `@kolkrabbi/kol-*` npm packages instead of copying source) |
 | **Docs** (1) | `kol-docs` — the kol-docs framework spec (frontmatter, 9 archetypes, tags, wikilinks) |
 | **Buckets** (2) | `kol-bucket-b2` (Backblaze CDN) · `kol-bucket-r2` (Cloudflare R2 / kol-media) |
-| **Design system** (1) | `kol-lobby` — stage a component into the DS lobby as a spec |
+| **Design system / brand** (2) | `kol-lobby` — stage a component into the DS lobby as a spec · `kol-press-research` — press/mention/timeline research emitting brand-manifest entries (judgment half of the `kol-scrape` CLI) |
 | **Media / art** (4) | `glif-art` · `algorithmic-art` · `export-specs` · `vcap-capture` |
 | **GSAP animation** (8) | `gsap-core` · `-frameworks` · `-performance` · `-plugins` · `-react` · `-scrolltrigger` · `-timeline` · `-utils` |
-| **Utility** (1) | `claude-clear` |
+| **Utility** (2) | `claude-clear` (restate the last reply, tighter) · `claude-bullet` (reformat the last reply into bullets/lists/checks) |
 
 ## Adding a skill
 
 Create `claude/skills/<name>/SKILL.md` with `name` + `description` frontmatter. It's live immediately (whole-dir symlink). Local-authored skills should note in their session log that they won't ride the kol-system re-sync.
 
 ## Related
-- [[03-agents|Subagents]] — the other capability layer (separate context windows, invoked via the Task tool).
-- [[04-hooks-and-tools|Hooks & tools]] — the wiring (statusline, plugins, MCP) around the skills.
+- [Subagents](03-agents.md) — the other capability layer (separate context windows, invoked via the Task tool).
+- [Hooks & tools](04-hooks-and-tools.md) — the wiring (statusline, plugins, MCP) around the skills.

@@ -93,14 +93,14 @@ supabase db push
 
 This reads the migration files in `supabase/migrations/` and applies them to your cloud database — creating the `images` table and its rules. It lists what it will apply and asks `[Y/n]`; type `y`.
 
-You should see *"Finished supabase db push."* Your cloud database now has the table. (What a migration *is* → [[05-schema-tables-and-migrations|chapter 05]].)
+You should see *"Finished supabase db push."* Your cloud database now has the table. (What a migration *is* → [chapter 05](05-schema-tables-and-migrations.md).)
 
 ## 6. Get the two values the app needs
 
 In the dashboard: **Project Settings → API Keys**.
 
 - **Project URL** — actually shown on the project home / API page. It's `https://{{PROJECT_REF}}.supabase.co`.
-- **Publishable key** — the one starting `sb_publishable_…`. Click **Copy**. (This is the browser-safe key. It is *not* labelled "anon" anymore — that's the single most confusing rename; see [[04-api-keys-and-environment|chapter 04]].)
+- **Publishable key** — the one starting `sb_publishable_…`. Click **Copy**. (This is the browser-safe key. It is *not* labelled "anon" anymore — that's the single most confusing rename; see [chapter 04](04-api-keys-and-environment.md).)
 
 Do **not** copy the **Secret key** for the app — that one is for servers only.
 
@@ -128,6 +128,6 @@ pnpm dev
 
 1. Open `localhost:5173/library`.
 2. It loads with **no error**. If the database is empty it says *"No images yet"* — that's success (it connected; there's just no data).
-3. To prove data flows, add rows (the SQL Editor or the ingest script — [[07-getting-data-in-and-out|chapter 07]]) and refresh; cards appear.
+3. To prove data flows, add rows (the SQL Editor or the ingest script — [chapter 07](07-getting-data-in-and-out.md)) and refresh; cards appear.
 
-If instead you see *"Failed to load"*, the URL or key is wrong — recheck steps 6–7. If you see cards but **broken thumbnails**, the image links are bad, not Supabase — see [[08-pitfalls-and-troubleshooting|pitfalls]].
+If instead you see *"Failed to load"*, the URL or key is wrong — recheck steps 6–7. If you see cards but **broken thumbnails**, the image links are bad, not Supabase — see [pitfalls](08-pitfalls-and-troubleshooting.md).

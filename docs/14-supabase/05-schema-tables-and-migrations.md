@@ -56,7 +56,7 @@ supabase/migrations/20260614204500_images.sql
 
 The number in front is a timestamp, so migrations apply **in order**. The first one *creates* the `images` table; a future one might *add a column*. Together, run in sequence, they build your database from empty to current.
 
-> **Why bother?** Because the migration files live in git ([[06-git-github-and-syncing|chapter 06]]), your database's shape is **version-controlled and reproducible**. Anyone can recreate the exact same database by running the migrations. No "works on my machine" mystery.
+> **Why bother?** Because the migration files live in git ([chapter 06](06-git-github-and-syncing.md)), your database's shape is **version-controlled and reproducible**. Anyone can recreate the exact same database by running the migrations. No "works on my machine" mystery.
 
 ## 3. The two directions: push and pull
 
@@ -95,7 +95,7 @@ Done — every environment that runs your migrations now has a `caption` column,
 ## 5. Data vs schema — don't confuse them
 
 - **Schema migrations** change the *shape* (tables, columns, rules). They belong in `supabase/migrations/`.
-- **Data** (the actual rows) is separate. You add rows with `insert` statements, the ingest script, or the dashboard's Table Editor — see [[07-getting-data-in-and-out|chapter 07]]. Don't put one-off data inserts in migration files unless it's *seed* data meant to ship everywhere.
+- **Data** (the actual rows) is separate. You add rows with `insert` statements, the ingest script, or the dashboard's Table Editor — see [chapter 07](07-getting-data-in-and-out.md). Don't put one-off data inserts in migration files unless it's *seed* data meant to ship everywhere.
 
 ## 6. Inspecting the schema in the dashboard
 
@@ -107,4 +107,4 @@ You don't have to read SQL to see your schema:
 
 ---
 
-**Next:** [[06-git-github-and-syncing|Git, GitHub & syncing — version control and how Supabase ties in]]
+**Next:** [Git, GitHub & syncing — version control and how Supabase ties in](06-git-github-and-syncing.md)

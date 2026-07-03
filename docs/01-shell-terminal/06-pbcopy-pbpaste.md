@@ -27,16 +27,16 @@ related:
 ## Summary
 The macOS clipboard as a pipe endpoint. `pbcopy` reads **stdin** and puts it on the clipboard; `pbpaste` writes the clipboard to **stdout**. Everything below is composition — there are no other moving parts.
 
-Both are **macOS built-ins** (`/usr/bin`), text-only. For images, use [[04-pngpaste|pngpaste]] (`pbpaste` for pixels).
+Both are **macOS built-ins** (`/usr/bin`), text-only. For images, use [pngpaste](../07-pdf-images/04-pngpaste.md) (`pbpaste` for pixels).
 
 | Command | Does | Note |
 |---|---|---|
 | `pbcopy` | stdin → clipboard | text only; ignores arguments — you must **pipe** into it |
 | `pbpaste` | clipboard → stdout | text only |
-| [[04-pngpaste\|pngpaste]] | clipboard image → file/stdout | brew; the image counterpart `pbpaste` can't do |
+| [pngpaste](../07-pdf-images/04-pngpaste.md) | clipboard image → file/stdout | brew; the image counterpart `pbpaste` can't do |
 | `copypath` | copy a file/dir **path** to the clipboard | oh-my-zsh plugin (loaded) — `copypath [file]`, no arg = cwd |
 | `copyfile` | copy a file's **contents** to the clipboard | oh-my-zsh plugin (loaded) — `copyfile <file>` |
-| `speak` | clipboard → spoken aloud | your function — `pbpaste` → sanitizer → [[06-edge-tts\|edge-playback]] |
+| `speak` | clipboard → spoken aloud | your function — `pbpaste` → sanitizer → [edge-playback](../06-media-av/06-edge-tts.md) |
 
 ## Core idioms
 
@@ -111,7 +111,7 @@ realpath ./some/file | tr -d '\n' | pbcopy       # copy an absolute path
 
 ## Images — the text-only limit
 
-`pbcopy`/`pbpaste` only move **text**. For images on the clipboard, [[04-pngpaste|pngpaste]] is the counterpart:
+`pbcopy`/`pbpaste` only move **text**. For images on the clipboard, [pngpaste](../07-pdf-images/04-pngpaste.md) is the counterpart:
 
 ```sh
 pngpaste shot.png                                # clipboard image → file
@@ -126,9 +126,9 @@ Screenshot straight to the clipboard with **⌘⌃⇧4** (region) or **⌘⌃⇧
 |---|---|
 | `echo` adds a trailing `\n` | `printf '%s'` or `echo -n` for exact strings |
 | `pbcopy "text"` does nothing | it reads **stdin**, not args — always pipe |
-| copying an image fails | `pbcopy` is text-only — use [[04-pngpaste\|pngpaste]] |
+| copying an image fails | `pbcopy` is text-only — use [pngpaste](../07-pdf-images/04-pngpaste.md) |
 | over SSH it "doesn't copy" | it targets the **remote** Mac's clipboard, not your local one |
 | UTF-8 mangled under a C locale | `export LANG=en_US.UTF-8` (already set in your shell) |
 
 ## Why it matters
-The clipboard is the universal hand-off: text from Claude Code, a browser, a man page, or an `fzf` pick all flow through the same two commands. Pairing `pbpaste`/`pbcopy` with the tools already in this setup — `fzf`, `jq`, `git`, `glow`, [[06-edge-tts|speak]], [[04-pngpaste|pngpaste]] — turns the clipboard into a scriptable junction instead of a manual ⌘C/⌘V step.
+The clipboard is the universal hand-off: text from Claude Code, a browser, a man page, or an `fzf` pick all flow through the same two commands. Pairing `pbpaste`/`pbcopy` with the tools already in this setup — `fzf`, `jq`, `git`, `glow`, [speak](../06-media-av/06-edge-tts.md), [pngpaste](../07-pdf-images/04-pngpaste.md) — turns the clipboard into a scriptable junction instead of a manual ⌘C/⌘V step.

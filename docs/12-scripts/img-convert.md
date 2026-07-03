@@ -29,7 +29,7 @@ related:
 
 ## Overview
 
-The generic sibling of [[img-from-psd|img-from-psd.sh]]: same flag style, but it
+The generic sibling of [img-from-psd.sh](img-from-psd.md): same flag style, but it
 takes **any** raster source (jpg/png/tif/webp/heic/psd/…) **or a PDF/EPS** instead
 of only PSDs, defaults to fitting the result **within a 2000px box**, and exposes
 the **jpg/png choice** both as a flag (`-f`) and as a run-time dialog (`-P`) so a
@@ -74,7 +74,7 @@ kept, and the `>` means **shrink-only** (a smaller source is left alone).
 
 The reusable form lives at `bin/img-convert.sh` — batch input, format/resize/
 quality/outdir flags, a `-P` format prompt, and `--help`. Run
-`img-convert.sh --help` for the full contract; catalog entry in [[03-image|Image scripts]].
+`img-convert.sh --help` for the full contract; catalog entry in [Image scripts](03-image.md).
 
 ```sh
 img-convert.sh photo.heic                  # → photo.jpg, fit within 2000px
@@ -132,7 +132,7 @@ img-convert.sh -r 1600x2000 -e photo.jpg   # exactly 1600x2000, guaranteed
 crops any overflow, pads any shortfall with the same background already in
 use (white for jpg, transparent for png). No distortion (that's `!`, a
 different thing) — this is cover+crop, the same mechanism
-[[img-canvas|img-canvas.sh]] uses for its aspect presets, just exposed as a
+[img-canvas.sh](img-canvas.md) uses for its aspect presets, just exposed as a
 flag here instead of a separate tool. Requires `-r` to be a literal `WxH`;
 errors clearly on `-r none`, `-r 50%`, or single-axis forms like `-r 2000x`
 (no second dimension to extend against).
@@ -207,12 +207,12 @@ img-convert.sh -a -f png slides.pdf
 Page numbering is 1-based (`-p01`, `-p02`, …). The JPG path composites each page
 onto white with `-alpha remove` **per image** — not `-flatten`, which would merge
 every page into a single composite. For an all-pages full-resolution dump (300 dpi,
-no fit) reach for [[04-pdf|pdf-to-png.sh]] instead; this tool is the sized/export form.
+no fit) reach for [pdf-to-png.sh](04-pdf.md) instead; this tool is the sized/export form.
 
 ## 6. Wire it into a Finder Quick Action
 
 The generic recipe (and `qa-make.sh` to stamp one from a single line) is in
-[[10-quick-actions|Quick Actions]]. The PATH export lists **both** brew prefixes
+[Quick Actions](10-quick-actions.md). The PATH export lists **both** brew prefixes
 so the action works on the Intel iMac (`/usr/local`) *and* the Apple-Silicon MBP
 (`/opt/homebrew`) — the absent one is just an ignored PATH entry.
 
@@ -243,7 +243,7 @@ qa-make.sh -t public.image,com.adobe.pdf "Convert image (pick format)" \
 ```
 
 To prompt for resolution too, drop an inline `choose from list` into the action
-body the way [[img-from-psd]] §5 does and pass the chosen `-r` through.
+body the way [img-from-psd](img-from-psd.md) §5 does and pass the chosen `-r` through.
 
 ## 8. Verification
 

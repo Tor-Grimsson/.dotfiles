@@ -80,7 +80,7 @@ Zero-privilege install. Unlike yabai it needs no SIP changes — just an Accessi
 > Service-mode keys are bare (no Shift needed). `Shift+F` isn't bound here — it collides with the main-mode `Alt+Shift+F` (throw focused window to workspace **F**, one of the `Alt+Shift+A`…`Z` workspace binds). That just relocates the window off-screen to workspace F; it looks like the other window got killed because the remaining one expands to fill the tile.
 
 ## Auto-assigned apps
-`[[on-window-detected]]` rules send apps to a workspace on launch (edit these in the TOML as your app set changes):
+`on-window-detected` rules send apps to a workspace on launch (edit these in the TOML as your app set changes):
 
 | App | Workspace |
 | --- | --- |

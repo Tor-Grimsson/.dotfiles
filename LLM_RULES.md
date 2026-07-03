@@ -14,10 +14,10 @@ _template:
 **WHEN THE USER SAYS "read `LLM_RULES.md`" YOU MUST:**
 
 1. **DETECT THE MACHINE** — run `uname -m`: `arm64` = Apple-Silicon **MBP** (`/opt/homebrew`), `x86_64` = Intel **iMac** (`/usr/local`). Never ask the user which machine they're on.
-2. **READ** `/docs/llm-context/ARCHITECTURE.md` — load-bearing decisions and constraints
-3. **READ** `/docs/llm-context/AGENT-CONTEXT.md` — current project state
-4. **READ** the latest session log from `/docs/llm-context/session-log/` (sort by date, most recent first)
-5. **CHECK** `/docs/llm-context/session-bridge/` for `handoff-*.md` files. If the newest handoff has a timestamp newer than the newest session log, **also READ that handoff** — it carries in-flight state the session log doesn't. Otherwise skip. See `/docs/llm-context/session-bridge/README.md` for the full protocol.
+2. **READ** `.kol/llm-context/ARCHITECTURE.md` — load-bearing decisions and constraints
+3. **READ** `.kol/llm-context/AGENT-CONTEXT.md` — current project state
+4. **READ** the latest session log from `.kol/llm-context/session-log/` (sort by date, most recent first)
+5. **CHECK** `.kol/llm-context/session-bridge/` for `handoff-*.md` files. If the newest handoff has a timestamp newer than the newest session log, **also READ that handoff** — it carries in-flight state the session log doesn't. Otherwise skip. See `.kol/llm-context/session-bridge/README.md` for the full protocol.
 6. **STOP** and say "Context loaded — on the **\<iMac|MBP\>**. What would you like me to work on?" (name the machine from step 1)
 7. **WAIT** for the user to specify their task
 
@@ -38,14 +38,14 @@ Welcome to **dotfiles** — macOS configuration + tooling catalog for two machin
 ## Quick Start
 
 1. **Read this file** to understand the project structure
-2. **Read** `/docs/llm-context/ARCHITECTURE.md` for load-bearing decisions
-3. **Read** `/docs/llm-context/AGENT-CONTEXT.md` for current project state
-4. **Check** `/docs/llm-context/session-log/` for the most recent session log
+2. **Read** `.kol/llm-context/ARCHITECTURE.md` for load-bearing decisions
+3. **Read** `.kol/llm-context/AGENT-CONTEXT.md` for current project state
+4. **Check** `.kol/llm-context/session-log/` for the most recent session log
 5. **Follow** the conventions and guidelines below
 
 ## Project Overview
 
-Shell/git/ssh/editor configs, a reconciled `Brewfile` (with byte-identical `Brewfile-mirror.txt`), a per-tool docs catalog under `docs/`, and the repo-backed `~/.claude` config (symlinked from `claude/` by `bootstrap.sh`).
+Shell/git/ssh/editor configs, a reconciled `Brewfile`, a per-tool docs catalog under `docs/`, and the repo-backed `~/.claude` config (symlinked from `claude/` by `bootstrap.sh`).
 
 ### Tech Stack
 
@@ -58,23 +58,24 @@ Shell/git/ssh/editor configs, a reconciled `Brewfile` (with byte-identical `Brew
 
 ```
 dotfiles/
-├── Brewfile / Brewfile-mirror.txt   unified package manifest + byte-identical mirror
+├── Brewfile                          unified package manifest
 ├── bootstrap.sh                     installer: brew bundle + symlinks + macos/defaults.sh
 ├── TOOLING.md                       tooling audit: drift, portability, open items
 ├── claude/                          repo-backed ~/.claude (CLAUDE.md, settings, skills, agents, packages)
 ├── meta/                            secrets/setup docs
 ├── macos/                           defaults baseline
 ├── shell/ git/ ssh/ iterm/ vscode/ mpv/ nvim/ bin/ scripts/
-├── docs/
-│   ├── INDEX.md + 01-…12-…/         per-tool reference catalog (kol-docs)
-│   ├── history.md                   decision history — the "why"
-│   ├── plan.md                      future exploration
-│   └── llm-context/
+├── .kol/
+│   └── llm-context/                 agent-context protocol (hidden at repo root)
 │       ├── README.md
 │       ├── ARCHITECTURE.md          load-bearing decisions
 │       ├── AGENT-CONTEXT.md         current state, open items, gotchas, contracts
+│       ├── history.md               decision history — the "why"
+│       ├── plan.md                  future exploration
 │       ├── session-log/
 │       └── session-bridge/
+├── docs/
+│   └── INDEX.md + 01-…17-…/         per-tool reference catalog (kol-docs)
 └── LLM_RULES.md                     this file
 ```
 
@@ -84,7 +85,7 @@ This project uses **session logs** to maintain context across agents and session
 
 ### Reading Context
 
-**Always read the latest session log** in `/docs/llm-context/session-log/` before starting work. Session logs are named:
+**Always read the latest session log** in `.kol/llm-context/session-log/` before starting work. Session logs are named:
 - `YYYY-MM-DD-brief-description.md`
 
 Sort by date to find the most recent.
@@ -92,7 +93,7 @@ Sort by date to find the most recent.
 ### Writing Context
 
 When you complete significant work:
-1. Create a new session log in `/docs/llm-context/session-log/`
+1. Create a new session log in `.kol/llm-context/session-log/`
 2. Use the format: `YYYY-MM-DD-brief-description.md`
 3. Include: session metadata, changes made, current state, next steps
 4. Update `AGENT-CONTEXT.md` if the project's current state changed

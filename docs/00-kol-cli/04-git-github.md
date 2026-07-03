@@ -28,7 +28,7 @@ related:
 
 # Git & GitHub
 
-`git` is the version-control engine — it talks to **any** remote. **`gh` is GitHub-specific** — pull requests, issues, CI runs, releases, the API: the half git doesn't cover. This card is the practical layer; for the full `gh` flag reference see [[12-gh|gh]], for parallel-agent setups see [[14-git-worktrees|worktrees]].
+`git` is the version-control engine — it talks to **any** remote. **`gh` is GitHub-specific** — pull requests, issues, CI runs, releases, the API: the half git doesn't cover. This card is the practical layer; for the full `gh` flag reference see [gh](../04-dev-languages/12-gh.md), for parallel-agent setups see [worktrees](../04-dev-languages/14-git-worktrees.md).
 
 > **Auth, once:** `git push` here goes over **SSH with a keychain'd key** (`ssh/config` → `Host github.com`, `id_ed25519`), so git needs no token. `gh` is a **separate** login — `gh auth login` → GitHub.com → HTTPS → web browser. One unlocks pushes, the other unlocks PRs/issues/API.
 
@@ -132,7 +132,7 @@ Start each from inside the repo. `<branch>` / `<file>` / `<sha>` are placeholder
 
 ## 3. gh — the GitHub layer
 
-Authed via `gh auth login` (token in the system keychain, never the repo). Full reference: [[12-gh|gh]].
+Authed via `gh auth login` (token in the system keychain, never the repo). Full reference: [gh](../04-dev-languages/12-gh.md).
 
 ```sh
 # Pull requests
@@ -223,7 +223,7 @@ git worktree list
 git worktree remove ../proj-agent-b           # after merging
 ```
 
-Two frictions: each worktree needs its own `pnpm install` (fast — hardlinked store) and its own dev port (`pnpm dev --port 5174`). **Full guide:** [[14-git-worktrees|Git worktrees]].
+Two frictions: each worktree needs its own `pnpm install` (fast — hardlinked store) and its own dev port (`pnpm dev --port 5174`). **Full guide:** [Git worktrees](../04-dev-languages/14-git-worktrees.md).
 
 ---
 
@@ -265,4 +265,4 @@ Two frictions: each worktree needs its own `pnpm install` (fast — hardlinked s
 
 ---
 
-*Living doc — the daily-driver layer. Depth: [[12-gh|gh full reference]] · [[14-git-worktrees|worktrees]]. This repo's own git is sync-only ([[11-dot-sync|dot-sync]]) — the agent never commits; you do. Symlinked into the kol-vault for print.*
+*Living doc — the daily-driver layer. Depth: [gh full reference](../04-dev-languages/12-gh.md) · [worktrees](../04-dev-languages/14-git-worktrees.md). This repo's own git is sync-only ([dot-sync](../12-scripts/11-dot-sync.md)) — the agent never commits; you do. Symlinked into the kol-vault for print.*

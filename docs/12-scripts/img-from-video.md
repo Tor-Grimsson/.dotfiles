@@ -29,7 +29,7 @@ related:
 
 ## Overview
 
-Same shape as [[img-from-psd|img-from-psd.sh]] — a non-image source in, a JPG/PNG
+Same shape as [img-from-psd.sh](img-from-psd.md) — a non-image source in, a JPG/PNG
 out — but the source is a video, so the first step is a decode, not a read.
 **ImageMagick's own video delegate is unreliable** (it shells out through a
 fragile `ffmpeg → rawvideo` pipeline that errors on encode on this machine), so
@@ -70,7 +70,7 @@ stops after exactly one frame so ffmpeg doesn't decode the whole file.
 The reusable form lives at `bin/img-from-video.sh` — batch input, format/
 timestamp/resize/quality/outdir flags, and `--help`. Run
 `img-from-video.sh --help` for the full contract; catalog entry in
-[[03-image|Image scripts]].
+[Image scripts](03-image.md).
 
 ```sh
 img-from-video.sh clip.mp4                      # → clip.jpg, frame 1, full size
@@ -98,7 +98,7 @@ mode for "somewhere around N seconds in" on a longer file, where the speed of
 a keyframe-seek matters more than frame-exactness.
 
 `-r` takes the same ImageMagick geometry every other `img-` script uses — see
-[[img-convert|img-convert.sh]] §3 for the full table (fit / fill / force-exact
+[img-convert.sh](img-convert.md) §3 for the full table (fit / fill / force-exact
 / shrink-only).
 
 ```sh
@@ -121,14 +121,14 @@ the literal `WxH` you asked for, center-crop/pad as needed:
 img-from-video.sh -r 1600x2000 -e clip.mp4   # exactly 1600x2000, guaranteed
 ```
 
-Same mechanism as [[img-convert|img-convert.sh]]'s `-e` — see its §3 for the
+Same mechanism as [img-convert.sh](img-convert.md)'s `-e` — see its §3 for the
 full explanation of why fit-inside can miss the target and what `-e` does
 about it.
 
 ## 4. Wire it into a Finder Quick Action
 
 The generic recipe (and `qa-make.sh` to stamp one from a single line) is in
-[[10-quick-actions|Quick Actions]]. The PATH export lists **both** brew prefixes
+[Quick Actions](10-quick-actions.md). The PATH export lists **both** brew prefixes
 so the action works on the Intel iMac (`/usr/local`) *and* the Apple-Silicon
 MBP (`/opt/homebrew`) — the absent one is just an ignored PATH entry.
 
@@ -149,7 +149,7 @@ qa-make.sh -t public.movie "Grab first frame → JPG" \
 ## Don't quantize the output
 
 A video frame is photographic — gradients, sensor noise, compression
-artifacts. [[img-convert|img-convert.sh]]'s `-c` palette quantization is built
+artifacts. [img-convert.sh](img-convert.md)'s `-c` palette quantization is built
 for flat graphics/illustrations; run it on a video frame and you'll get visible
 banding. If the frame needs to shrink further, use `img-convert.sh -q` (jpg) or
 just `-r` a smaller size — not `-c`.

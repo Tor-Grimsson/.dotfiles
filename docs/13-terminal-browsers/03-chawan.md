@@ -72,7 +72,7 @@ man 5 cha-config                      # config format reference
 `~/.config/chawan/config.toml` (format: `man 5 cha-config`). Not symlinked into the dotfiles — defaults are fine; per-run `-o` covers the occasional opt-in. Inline images need a sixel- or kitty-protocol terminal (iTerm2 does sixel).
 
 ## Why installed
-The gap between the category's two extremes: [[02-w3m|w3m]] is instant but renders the modern web as soup (no CSS), [[01-carbonyl|Carbonyl]] renders everything but needs OrbStack running. Chawan does real layout standalone, and JS is one toggle away instead of a Docker pull.
+The gap between the category's two extremes: [w3m](02-w3m.md) is instant but renders the modern web as soup (no CSS), [Carbonyl](01-carbonyl.md) renders everything but needs OrbStack running. Chawan does real layout standalone, and JS is one toggle away instead of a Docker pull.
 
 ## Biggest win
 Buffers + link hints: `,`/`.` flip between pages like tabs, `f` jumps to any visible link by typing two characters — browsing text sites ends up faster than a GUI browser.

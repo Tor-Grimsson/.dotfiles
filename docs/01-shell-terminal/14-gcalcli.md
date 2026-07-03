@@ -101,7 +101,7 @@ cbrief   # function                            → morning briefing: today's ful
 **There is no day-grid view** — gcalcli only grids weeks (`calw`) and months (`calm`). A single day is just agenda scoped to today, which is exactly what `cday` (`agenda today tomorrow`) does.
 
 ## Planning view — `cplan`
-`cplan` is a `bin/` script (a gcalcli companion) that lists a window of events with the **daily/weekly/biweekly recurring noise hidden** — a month-ahead glance of just the one-offs you'd forget (`cplan`, `cplan --10d-n --30d-p`, …). Full flag set, the compose behaviour, and how the recurrence heuristic works live with the script: **→ [[../12-scripts/15-calendar|Calendar scripts (cplan)]]**. The `cbrief` morning briefing above is built on it.
+`cplan` is a `bin/` script (a gcalcli companion) that lists a window of events with the **daily/weekly/biweekly recurring noise hidden** — a month-ahead glance of just the one-offs you'd forget (`cplan`, `cplan --10d-n --30d-p`, …). Full flag set, the compose behaviour, and how the recurrence heuristic works live with the script: **→ [Calendar scripts (cplan)](../12-scripts/15-calendar.md)**. The `cbrief` morning briefing above is built on it.
 
 ## Why installed
 Glancing at and editing the calendar without leaving the terminal — a `gcalcli agenda` in a tmux pane or a shell alias beats opening a browser tab, and `quick` adds an event faster than any GUI. Scriptable too: pipe agenda into a status bar, a `caffeinate`-style "am I free" check, or a morning briefing.

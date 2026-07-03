@@ -89,4 +89,4 @@ What the MBP reconcile got right, what it missed, and what remains open:
 Update this section when the chain works end-to-end.
 
 ## Future use
-Pipe rendered docs (`glow doc.md | less -R`), set a default style/width via `~/.config/glow/glow.yml`. Note: terminals can't show images, so embedded `![]()` images render as nothing — text-only. (yazi's `.md` previewer is now [[15-mdcat|mdcat]], not glow — glow stays for scripts + the "Open in glow" Quick Action.)
+Pipe rendered docs (`glow doc.md | less -R`), set a default style/width via `~/.config/glow/glow.yml`. Note: terminals can't show images, so embedded `![]()` images render as nothing — text-only. (yazi's `.md` previewer is now [mdcat](15-mdcat.md), not glow — glow stays for scripts + the "Open in glow" Quick Action.)

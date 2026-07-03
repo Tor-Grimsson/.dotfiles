@@ -43,7 +43,7 @@ Every one of these actually happened while building this project. They're the fa
 ## 2. The dashboard has no "anon" key
 
 **Cause:** Supabase **renamed** the keys. The old **anon key** is now the **Publishable key** (`sb_publishable_…`); the old **service_role** is the **Secret key** (`sb_secret_…`). Old tutorials still say "anon."
-**Fix:** use the **Publishable key** wherever a guide says "anon key." See [[04-api-keys-and-environment|chapter 04]]. (Legacy-format keys still exist under a separate dashboard tab if something truly needs them.)
+**Fix:** use the **Publishable key** wherever a guide says "anon key." See [chapter 04](04-api-keys-and-environment.md). (Legacy-format keys still exist under a separate dashboard tab if something truly needs them.)
 
 ## 3. Library shows "Failed to load"
 

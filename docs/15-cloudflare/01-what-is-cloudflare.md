@@ -33,7 +33,7 @@ Think of R2 as a hard drive that lives on the internet. You put files in it. Eac
 - R2 gives it the URL: `https://media.kolkrabbi.io/video/asmr-sharp.mp4`
 - Anyone anywhere loads that URL and gets the video served from the nearest Cloudflare server
 
-This is called **object storage**. The full explanation is in [[02-r2-and-buckets|chapter 02]].
+This is called **object storage**. The full explanation is in [chapter 02](02-r2-and-buckets.md).
 
 ### Pages — website hosting
 
@@ -43,7 +43,7 @@ Cloudflare Pages lets you deploy a website. You build your site (a folder of HTM
 - It's a React app — you build it locally, then deploy
 - Cloudflare handles HTTPS, caching, global delivery
 
-The full explanation, including how deploys work, is in [[03-pages|chapter 03]].
+The full explanation, including how deploys work, is in [chapter 03](03-pages.md).
 
 ## 3. How you talk to Cloudflare
 
@@ -52,7 +52,7 @@ Almost everything goes through the Cloudflare **dashboard** (their website) or t
 - Dashboard: `dash.cloudflare.com` — click around, see your buckets, manage domains, check deploys
 - Wrangler: `pnpm wrangler …` — the thing you type to actually deploy, upload, check logs
 
-Wrangler is covered fully in [[04-wrangler|chapter 04]].
+Wrangler is covered fully in [chapter 04](04-wrangler.md).
 
 ## 4. How it differs from other providers
 
@@ -66,4 +66,4 @@ For our scale (images + videos for kol-labs, one admin tool) Cloudflare is essen
 
 ---
 
-**Next:** [[02-r2-and-buckets|What a bucket is and what R2 actually does]]
+**Next:** [What a bucket is and what R2 actually does](02-r2-and-buckets.md)

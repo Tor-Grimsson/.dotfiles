@@ -147,4 +147,4 @@ Want a real cert (green lock, no `http://` gotcha) **and** to drop the `:8096` p
 
 ---
 
-*Living doc — this tailnet's reality. Tool depth: [[09-tailscale|Tailscale]] · [[10-jellyfin|Jellyfin]]. Symlinked into the kol-vault for print.*
+*Living doc — this tailnet's reality. Tool depth: [Tailscale](../05-network-security/09-tailscale.md) · [Jellyfin](../05-network-security/10-jellyfin.md). Symlinked into the kol-vault for print.*

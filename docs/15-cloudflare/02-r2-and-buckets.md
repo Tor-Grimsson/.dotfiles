@@ -75,4 +75,4 @@ For images this is never a problem. For long videos it can be. The workaround (p
 
 ---
 
-**Next:** [[03-pages|What Cloudflare Pages is and how deploys work]]
+**Next:** [What Cloudflare Pages is and how deploys work](03-pages.md)

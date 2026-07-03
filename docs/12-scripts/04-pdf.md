@@ -2,8 +2,8 @@
 title: PDF scripts
 type: reference
 status: active
-updated: 2026-06-05
-description: pdf-* — PDF make/convert helpers (ImageMagick, img2pdf, Ghostscript, poppler, pandoc).
+updated: 2026-07-03
+description: pdf-* — PDF make/convert helpers (ImageMagick, img2pdf, Ghostscript, poppler, pandoc/typst/weasyprint).
 tags:
   - project/dotfiles
   - domain/scripts/pdf
@@ -22,6 +22,7 @@ level only); the rest take an input PDF.
 | `pdf-make-16bit-force.sh` | Same, but re-encodes **every** image through magick | `pdf-make-16bit-force.sh [out.pdf]` (cwd) |
 | `pdf-from-images.sh` | Bare `*.png`/`*.jpg` → `output.pdf`, no processing | `pdf-from-images.sh` (cwd) |
 | `pdf-notes.sh` | Concatenate `notes/**/*.md` (sorted) → `notes.pdf` | `pdf-notes.sh` |
+| `pdf-from-md.sh` | Markdown → **A4 PDF** via Pandoc; `-e typst\|weasyprint`, batch + `-w` watch | `pdf-from-md.sh [-e ENGINE] [-w] [file…]` — run `--help` |
 | `pdf-expand.sh` | Split a PDF into one **PDF** per page | `pdf-expand.sh <in.pdf>` |
 | `pdf-to-png.sh` | Rasterise a PDF to one **PNG** per page (300 dpi) | `pdf-to-png.sh <in.pdf>` |
 
@@ -67,6 +68,11 @@ Climb this ladder only when the previous rung fails.
   (sorted, NUL-safe), prepends a `<!-- path -->` banner per file, renders to
   `notes.pdf` via pandoc. Input dir and output name are hard-coded. Dep: pandoc
   (+ a PDF engine such as LaTeX).
+- **`pdf-from-md.sh`** — `pdf-from-md.sh [-e typst|weasyprint] [-c css] [-s size] [-w] [file…]`.
+  Markdown → **A4 PDF** via Pandoc, engine-selectable: `typst` (default, fast/generic) or
+  `weasyprint` (CSS via the sibling `bin/print.css`). Converts the files you pass or every
+  `*.md` in the cwd; `-w` watches (entr). The flexible successor to the hard-coded
+  `pdf-notes.sh`. Dep: pandoc + typst/weasyprint. Workflow: [Markdown → A4](../17-documents/05-markdown-to-a4.md).
 - **`pdf-expand.sh`** — `pdf-expand.sh <in.pdf>`. Splits into single-page PDFs
   with poppler's `pdfseparate` (content stays vector). Writes `page-NNN.pdf` into
   the first unused `frames-NN/` dir, so reruns never clobber. Dep: poppler.

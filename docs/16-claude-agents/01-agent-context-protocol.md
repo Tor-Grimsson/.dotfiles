@@ -3,7 +3,7 @@ title: Agent-context protocol
 type: reference
 status: active
 updated: 2026-07-03
-description: How an agent session loads a project's state and logs its work — the LLM_RULES.md boot file, the docs/llm-context/ layout, and the init-agent-context / init-docs / log-work skills that drive it.
+description: How an agent session loads a project's state and logs its work — the LLM_RULES.md boot file, the .kol/ layout (llm-context + docs-framework at repo root), and the init-agent-context / init-agent / log-work / kol-migrate-structure skills that drive it.
 aliases:
   - agent-context-protocol
 tags:
@@ -18,30 +18,31 @@ related:
 
 A portable convention every kol-system repo can carry, so any agent boots with the project's load-bearing decisions and current state — instead of re-deriving them each session. This repo (`~/.dotfiles`) carries it; so do `kol-media-admin`, `kol-design-system`, the vault, etc.
 
-## The layout
+## The layout (`.kol/` — current convention, 2026-07-03)
 
-A repo on the protocol has:
+A repo on the protocol has all machinery **hidden at repo root**, keeping `docs/` a pure documentation vault:
 
 | Path | Archetype | Holds |
 |---|---|---|
-| `LLM_RULES.md` (repo root) | boot pointer | "read this first" — points the agent at the context dir + rules |
-| `docs/llm-context/ARCHITECTURE.md` | decisions | load-bearing calls, each `§N` with a "do not revisit unless…" |
-| `docs/llm-context/AGENT-CONTEXT.md` | state | current project state + the "Last updated" chain |
-| `docs/llm-context/session-log/` | logs | one `YYYY-MM-DD-slug.md` per session |
-| `docs/history.md` | narrative | the *why* — alternatives considered, evolution |
-| `docs/plan.md` | plan | speculative / not-yet-committed work |
+| `LLM_RULES.md` (repo root) | boot pointer | "read this first" — points the agent at `.kol/` + the house rules |
+| `.kol/llm-context/ARCHITECTURE.md` | decisions | load-bearing calls, each `§N` with a "do not revisit unless…" |
+| `.kol/llm-context/AGENT-CONTEXT.md` | state | current project state + the "Last updated" chain |
+| `.kol/llm-context/session-log/` | logs | one `YYYY-MM-DD-slug.md` per session |
+| `.kol/llm-context/{history,plan}.md` + `backlog/`, `migration/` | narrative/plans | the *why*, speculative work, working queues |
+| `.kol/docs-framework/` | spec | the kol-docs framework the repo's docs conform to |
 
-Some repos use `.claude/llm-context/` or `.llm-context/` (vault-style) instead of `docs/llm-context/` (scaffolded-repo style) — the skills check all three, first match wins.
+**Legacy layouts** (`docs/llm-context/` + `docs/_framework/`, or `.claude/llm-context/`, or `.llm-context/`) still boot — the skills check `.kol/` first, then fall back, and nag once: *"legacy layout — run `/kol-migrate-structure`."* Reference implementation of the new shape: `kol-design-system`. Note: wikilinks from `docs/` into `.kol/` can't resolve (outside the Obsidian vault) — use standard relative links across that boundary.
 
 ## The driving skills
 
 | Skill | Job |
 |---|---|
-| [[02-skills\|init-agent-context]] | session boot — detect the machine (`uname -m`), read `LLM_RULES.md`, load the context dir |
-| `init-docs` | load the context (ARCHITECTURE → AGENT-CONTEXT → latest session log) and **stop** — wait for a task |
-| `log-work` | at session end — write a session log + prepend the AGENT-CONTEXT "Last updated" chain |
-| `init-scaffold` | stamp the protocol onto a fresh repo |
-| `init-agent-context-sync` | re-pull skills + `_framework` from kol-system (see §4) |
+| [init-agent-context](02-skills.md) | scaffold the protocol into a repo — `LLM_RULES.md` + `.kol/{llm-context, docs-framework}` |
+| `init-agent` | load the context (ARCHITECTURE → AGENT-CONTEXT → latest session log) and **stop** — wait for a task; detects the machine, checks session-bridge, nags on legacy layouts |
+| `log-work` | **only when asked** — write a session log + prepend the AGENT-CONTEXT "Last updated" chain |
+| `kol-migrate-structure` | converge a legacy repo onto `.kol/` — moves, `LLM_RULES.md` backfill, reference repoints; optionally proposes the `docs/documentation/` numbered-section system |
+| `init-scaffold` | scaffold a new app on the **published** `@kolkrabbi/kol-*` npm packages (4-point consumer contract wired) |
+| `init-agent-context-sync` | re-pull skills + the docs framework from kol-system (see §4) |
 
 Boot a session with `/init-agent` (or just "read `LLM_RULES.md`").
 
@@ -53,4 +54,4 @@ Boot a session with `/init-agent` (or just "read `LLM_RULES.md`").
 - **Dates are absolute.** Convert "today"/"yesterday" to ISO before writing.
 
 ## Related
-- The docs *inside* `docs/llm-context/` and the catalog docs both follow the [[04-dev-languages/13-ponytail|ponytail]]-adjacent [[02-skills|kol-docs]] framework, but the agent-context protocol (this doc) is a **separate** convention — it governs the `llm-context/` state files, not the published-doc spec.
+- The docs *inside* `.kol/llm-context/` and the catalog docs both follow the [ponytail](../04-dev-languages/13-ponytail.md)-adjacent [kol-docs](02-skills.md) framework, but the agent-context protocol (this doc) is a **separate** convention — it governs the `llm-context/` state files, not the published-doc spec.
