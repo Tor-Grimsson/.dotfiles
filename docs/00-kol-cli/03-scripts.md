@@ -2,7 +2,7 @@
 title: Scripts at a glance
 type: reference
 status: active
-updated: 2026-06-26
+updated: 2026-07-02
 description: The bin/ scripts grouped by what they're for — image, video, audio, PDF, download, files, capture, sync, helpers. One-line each with the key flags; links to the full family doc for depth.
 aliases:
   - scripts-glance
@@ -32,9 +32,10 @@ Convert, resize, reframe, and web-export stills. Full doc: [[03-image|Image / 2D
 
 | Script | Does | Key usage |
 |---|---|---|
-| `img-convert.sh` | **any image / PDF → JPG or PNG** (the generic one) | `-f jpg\|png`, `-P` pick-format, `-r` geometry, `-d` dpi, `-a` all PDF pages |
-| `img-canvas.sh` | fit an image into a **fixed social-aspect canvas** | presets `9:16…16:9`, `-s N` scale, `-m cover\|fit\|stretch`, `-g` gravity, `-P` pick |
+| `img-convert.sh` | **any image / PDF → JPG or PNG** (the generic one) | `-f jpg\|png`, `-P` pick-format, `-r` geometry, `-e` force exact dims, `-c` colors (PNG quantize), `-d` dpi, `-a` all PDF pages |
+| `img-canvas.sh` | fit an image into a **fixed social-aspect canvas** | presets `9:16…16:9` or raw `WxH`, `-s N` scale, `-m cover\|fit\|stretch`, `-g` gravity, `-c` colors (PNG quantize), `-P` pick |
 | `img-from-psd.sh` | flatten a **PSD → image** | the Photoshop-only sibling of `img-convert` |
+| `img-from-video.sh` | grab one **video frame → image** | `-t` frame # or timestamp, `-f jpg\|png`, `-r` geometry, `-e` force exact dims |
 | `img-web*.sh` | web-export variants (`-aspect`, `-batch`, `-thumb`) | quick downsized JPGs for the web |
 | `img-resize-1080.sh`, `img-crop-2000x2500*.sh` | fixed-size resize / crop presets | one-shot dimension recipes |
 

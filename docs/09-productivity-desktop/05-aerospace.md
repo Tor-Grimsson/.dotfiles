@@ -2,7 +2,7 @@
 title: AeroSpace
 type: reference
 status: active
-updated: 2026-07-02
+updated: 2026-07-03
 description: i3-like tiling window manager for macOS, driven entirely from the keyboard.
 aliases:
   - aerospace
@@ -56,6 +56,8 @@ Zero-privilege install. Unlike yabai it needs no SIP changes — just an Accessi
 | `Alt+-` / `Alt+=` | Resize focused window smaller / larger (±50) |
 | `Alt+/` | Tiles layout (toggle horizontal/vertical) |
 | `Alt+,` | Accordion layout (toggle horizontal/vertical) |
+| `Cmd+Alt+G` | **2×2 grid** — two columns of two (one-key macro; tuned for 4 windows) |
+| `Cmd+Alt+S` | **Main + stack** — one big window left, the rest stacked in a right column (macro; tuned for 4 windows) |
 | `Alt+1`…`9`, `Alt+A`…`Z` | Switch to workspace |
 | `Alt+Shift+1`…`9`, `Alt+Shift+A`…`Z` | Move focused window to workspace |
 | `Alt+Tab` | Jump to previous workspace (back-and-forth) |
@@ -63,15 +65,19 @@ Zero-privilege install. Unlike yabai it needs no SIP changes — just an Accessi
 | `Alt+Shift+;` | Enter **service mode** |
 | `Cmd+Alt+Shift+D` | **Disable** AeroSpace — release all keys to the focused app (re-enable with `Cmd+Alt+Shift+E`, see below) |
 
+> **Grid macros** — AeroSpace has no native grid layout (it's a binary tree, i3-style). `Cmd+Alt+G` / `Cmd+Alt+S` bundle the whole `flatten-workspace-tree` → `join-with` → `layout tiles vertical` / `move` sequence into one binding, with focus pinned to the workspace (`--boundaries workspace --boundaries-action stop`) so it can't wander to another workspace. Built + verified for a flat row of **4** windows; other counts still run (extra focus/join steps are harmless no-ops) but won't tile into a clean grid.
+
 **Service mode** (after `Alt+Shift+;`, each returns to main mode):
 
 | Key | Action |
 | --- | --- |
 | `Esc` | Reload config + exit |
-| `R` | Flatten / reset the workspace layout tree |
-| `F` | Toggle floating ↔ tiling for the focused window |
+| `r` | Flatten / reset the workspace layout tree |
+| `f` | Toggle floating ↔ tiling for the focused window |
 | `Backspace` | Close all windows but the current one |
 | `Alt+Shift+H/J/K/L` | Join the focused window with its neighbour |
+
+> Service-mode keys are bare (no Shift needed). `Shift+F` isn't bound here — it collides with the main-mode `Alt+Shift+F` (throw focused window to workspace **F**, one of the `Alt+Shift+A`…`Z` workspace binds). That just relocates the window off-screen to workspace F; it looks like the other window got killed because the remaining one expands to fill the tile.
 
 ## Auto-assigned apps
 `[[on-window-detected]]` rules send apps to a workspace on launch (edit these in the TOML as your app set changes):

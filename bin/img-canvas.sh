@@ -11,7 +11,7 @@ Default mode is COVER: fill the whole frame and center-crop the overflow — no
 bars, no distortion. Layered/multi-frame inputs use frame [0] (PSD composite).
 
 USAGE
-  img-canvas.sh -a RATIO [-s 1|2] [-m MODE] [-g GRAVITY] [-f jpg|png] [-q N] [-b BG] [-o DIR] FILE...
+  img-canvas.sh -a RATIO [-s 1|2] [-m MODE] [-g GRAVITY] [-f jpg|png] [-q N] [-c COLORS] [-b BG] [-o DIR] FILE...
   img-canvas.sh -P [other opts] FILE...        # GUI: prompt for aspect + scale (for Quick Actions)
 
 PRESETS (-a) — short side 1080 at 1x, doubled at 2x
@@ -33,6 +33,10 @@ OPTIONS
       east, west, northwest, …
   -f  output format: jpg (default) or png.
   -q  jpg quality 1-100 (default 90; ignored for png).
+  -c  png palette colors (e.g. -c 256), no dithering — quantizes for flat
+      graphics/illustrations, 70-90% smaller with no visible loss on that kind
+      of source. Skip for photos (banding). Ignored for jpg. See
+      img-convert.sh -h for the full explanation (same mechanism).
   -b  background for fit-pad / jpg flatten (default: white for jpg, none for png).
   -o  output directory (default: alongside each source).
   -P  pick mode: pop a macOS dialog for aspect + scale instead of -a/-s.
@@ -48,6 +52,7 @@ EXAMPLES
   img-canvas.sh -a 4:5 -s orig big.tif        # crop to 4:5 at native resolution
   img-canvas.sh -a orig photo.jpg             # keep ratio, short side → 1080
   img-canvas.sh -a orig -s orig raw.psd       # re-encode only (keep ratio + res)
+  img-canvas.sh -a 4:5 -f png -c 256 logo.png # flat PNG: canvas + quantize
 
 NOTES
   - Dep: imagemagick (magick).
@@ -65,9 +70,9 @@ case "${1:-}" in -h|--help) usage; exit 0 ;; esac
 
 set -euo pipefail
 
-aspect=""; scale=1; mode=cover; gravity=center; format=jpg; quality=90; bg=""; outdir=""; pick=false
+aspect=""; scale=1; mode=cover; gravity=center; format=jpg; quality=90; colors=""; bg=""; outdir=""; pick=false
 
-while getopts "a:s:m:g:f:q:b:o:hP" opt; do
+while getopts "a:s:m:g:f:q:c:b:o:hP" opt; do
   case "$opt" in
     a) aspect="$OPTARG" ;;
     s) scale="$OPTARG" ;;
@@ -75,6 +80,7 @@ while getopts "a:s:m:g:f:q:b:o:hP" opt; do
     g) gravity="$OPTARG" ;;
     f) format="$OPTARG" ;;
     q) quality="$OPTARG" ;;
+    c) colors="$OPTARG" ;;
     b) bg="$OPTARG" ;;
     o) outdir="$OPTARG" ;;
     P) pick=true ;;
@@ -169,6 +175,7 @@ for src in "$@"; do
   dst="$dir/${base}_${W}x${H}.$format"
   args=("${src}[0]" -auto-orient -background "$bg")
   if [ ${#geom[@]} -gt 0 ]; then args+=("${geom[@]}"); fi
+  [ "$format" = png ] && [ -n "$colors" ] && args+=(-dither None -colors "$colors")  # palette quantization, after the canvas is final; no dither = exact count + crisp edges
   [ "$format" = jpg ] && args+=(-flatten)        # composite any alpha onto bg
   args+=(-colorspace sRGB -depth 8)
   [ "$format" = jpg ] && args+=(-quality "$quality")

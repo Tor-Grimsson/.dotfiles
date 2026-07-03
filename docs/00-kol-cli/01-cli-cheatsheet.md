@@ -2,8 +2,8 @@
 title: CLI cheatsheet
 type: reference
 status: active
-updated: 2026-07-02
-description: One-page printable keymap for the daily drivers — Neovim, tmux, yazi, fzf, AeroSpace. Keys only; each section links to the tool's full doc for the why.
+updated: 2026-07-03
+description: One-page printable keymap for the daily drivers — Neovim, tmux, yazi, fzf, AeroSpace — plus a highlight table of the most-reached-for bin/ scripts. Keys only; each section links to the tool's full doc for the why.
 aliases:
   - cli-cheatsheet
   - kol-cli
@@ -17,6 +17,7 @@ covers:
   - yazi, fzf, and AeroSpace keymaps
   - Installed plugins per tool, and cross-tool integrations (yazi↔fzf/zoxide, Neovim↔yazi, tmux↔Neovim, Telescope↔fzf)
   - How to call up help inside each tool — first line of every section
+  - A handful of frequently-used bin/ scripts (img- family so far) — flags, not the full family map
 related:
   - "[[10-neovim-config|Neovim config (IDE setup)]]"
   - "[[11-neovim-cheatsheet|Neovim cheatsheet (beginner)]]"
@@ -26,6 +27,8 @@ related:
   - "[[05-aerospace|AeroSpace]]"
   - "[[04-git-github|Git & GitHub]]"
   - "[[05-network-security|Network, remote & secrets]]"
+  - "[[03-scripts|Scripts at a glance (full bin/ map)]]"
+  - "[[03-image|Image / 2D scripts]]"
 ---
 
 # CLI cheatsheet
@@ -39,6 +42,7 @@ related:
 | [[#^sec-yazi\|yazi]] | `~` |
 | [[#^sec-fzf\|fzf]] | `fzf --help` (shell) |
 | [[#^sec-aerospace\|AeroSpace]] | `aerospace --help` (shell) |
+| [[#^sec-scripts\|Scripts]] | `<script> -h` / `--help` (shell) |
 
 The daily drivers on one page. **Keys only** — for the *why* and the full tables, follow the section's doc link. Built for print: read across the columns, not down. Trigger key (leader / prefix / modifier) is noted per tool. **Cross-tool shortcuts** — keys where one tool actually drives another — are called out separately, right below the summary table.
 
@@ -49,6 +53,7 @@ The daily drivers on one page. **Keys only** — for the *why* and the full tabl
 | **3** | **[[#^sec-yazi\|yazi]]** | file manager | launch `y` | [[02-yazi\|yazi]] |
 | **4** | **[[#^sec-fzf\|fzf]]** | fuzzy finder | `Ctrl-R` `Ctrl-T` `Alt-C` | [[12-fzf\|fzf]] |
 | **5** | **[[#^sec-aerospace\|AeroSpace]]** | window manager | mod = `Alt` | [[05-aerospace\|aerospace]] |
+| **6** | **[[#^sec-scripts\|Scripts]]** | `bin/` CLI tools | invoke by name | [[03-scripts\|all scripts]] |
 
 ---
 
@@ -155,6 +160,10 @@ Most edits = a **verb** then a **target**. `ciw` = change inner word. `dap` = de
 | `:noh` / `<leader>nh` | clear highlight | `:g/pat/d` | **filter:** delete lines matching |
 | `:s/old/new/` | replace 1st on line | `:%!sort` | **filter:** pipe file thru `sort` |
 | `:s/old/new/g` | all on current line | `!ip sort` | filter a paragraph thru `sort` |
+| `gqap` / `gqq` | reflow paragraph / line to `textwidth` | `:%!par 80` | reflow whole file, balanced |
+| `:` then `↑`/`Ctrl-p` | recall last `:` command (repeat, then edit) | **`q:`** | **command-line window** — full history, editable, `⏎` runs the line under cursor |
+
+> **Reflow / wrap:** `gq` wraps to `textwidth` (`:set tw=80`) but is greedy — it can leave a one-word last line (orphan). `:%!par 80` pipes the buffer through **par** for balanced lines with no orphans; `:%!fmt -w 80` is the system-builtin greedy alt. Full walkthrough → [[02-nvim-workflows|Neovim workflows]].
 
 ### Surround (`nvim-surround`)
 
@@ -279,6 +288,17 @@ Launch with **`y`** (cd's the shell to wherever you quit). `q` quits.
 
 > `O` picks by file type: **.md/.markdown** → `$EDITOR`, **glow**, **mdcat**, **nano**, Reveal, Show EXIF · **.svg** (XML/text under the hood) → `$EDITOR` + Open (system viewer) + Reveal, Show EXIF · everything else under `text/*` (html/css/jsx/json/…) → just `$EDITOR`, Reveal, Show EXIF · other images (png/jpg/…) → just Open + Reveal, Show EXIF — no editor, not text.
 
+### Sequences
+
+| Flow | Keys |
+|---|---|
+| Copy files to another dir | mark `<Space>…` → `y` → target dir → `p` |
+| Move (cut) instead | mark → `x` → target → `p` |
+| Move across two open dirs | `t` new tab → open target → `1`/`2` switch → `p` |
+| Bulk rename | mark → `r` → edit the list in nvim → `:wq` (all apply) |
+| Browse → land the shell there | `y` → walk (`h`/`l`/`Z`/`/`) → `q` |
+| Find → act | `s <name>` ⏎ → land on it → `o` / `x` / `r` |
+
 ---
 
 ## 4. fzf → [[12-fzf|fzf]] ^sec-fzf
@@ -321,15 +341,65 @@ Modifier = **`Alt`**. Tiling WM with its own fast virtual workspaces.
 | `Alt+Shift+H/J/K/L` | move window ← ↓ ↑ → | `Alt+Shift+1`…`Z` | throw window to workspace |
 | `Alt+-` `Alt+=` | resize − / + 50 | `Alt+Tab` | last workspace (back-and-forth) |
 | `Alt+/` `Alt+,` | tiles / accordion layout | `Alt+Shift+Tab` | move workspace to next monitor |
+| `Cmd+Alt+G` | **2×2 grid** (4-win macro) | `Cmd+Alt+S` | **main+stack** (4-win macro) |
 | `Cmd+Alt+Shift+F` | fullscreen | `Cmd+Alt+Shift+R` | enter **resize mode** |
 | `Alt+Shift+;` | enter **service mode** | `Cmd+Alt+Shift+D` | **disable** AeroSpace (`enable on` / Raycast to undo) |
 
-**Service mode** (`Alt+Shift+;`, each returns to main): `Esc` reload · `R` reset layout · `F` float↔tile · `Backspace` close others · `Alt+Shift+H/J/K/L` join with neighbour.
-**Resize mode** (`Cmd+Alt+Shift+R`): `h`/`l` width ∓50 · `j`/`k` height ±50 · `b` balance · `Enter`/`Esc` exit.
+**Service mode** (`Alt+Shift+;`, each returns to main):
+
+| Key | Does | Key | Does |
+|---|---|---|---|
+| `Esc` | reload config, exit | `f` | float ↔ tile |
+| `r` | reset layout | `Backspace` | close all but current |
+| `Alt+Shift+H/J/K/L` | join with neighbour | | |
+
+> Service-mode keys are bare — no Shift. `Shift+F` isn't a service-mode binding at all; it collides with the main-mode `Alt+Shift+F` (throw window to workspace **F**), which just relocates the window rather than closing it — looks like a "kill" because the other window then expands to fill the screen.
+
+**Resize mode** (`Cmd+Alt+Shift+R`, stays in mode until exit):
+
+| Key | Does | Key | Does |
+|---|---|---|---|
+| `h` / `l` | width − / + 50 | `b` | balance sizes |
+| `j` / `k` | height + / − 50 | `Enter` / `Esc` | exit |
 
 **Auto-assigned workspaces:** `T` iTerm · `B` browsers · `P` Figma/Affinity · `O` Obsidian · `M` Spotify/Mail · `S` Messages · `W` Finder · `A` Telegram/Todoist.
 **Always-floating** (`layout floating` via `on-window-detected`, no workspace assignment): TextEdit · Bitwarden.
 
 ---
 
-*Living doc — iterate here as the keymaps change. Companions: [[02-workflows|CLI workflows]] (keystroke recipes) · [[03-scripts|Scripts at a glance]] (the `bin/` family map). Symlinked into the kol-vault for print.*
+## 6. Scripts → [[03-scripts|all scripts]] ^sec-scripts
+
+**Help:** every script answers `-h` / `--help` with purpose, args, and examples — that's always the authoritative source. This table is a **highlight**, not the full map: img- so far, more families added as they come up. Full `bin/` catalog: [[03-scripts|Scripts at a glance]].
+
+| Script | Does | Key flags |
+|---|---|---|
+| `img-convert.sh` | any image/PDF → JPG/PNG, fit 2000px | `-f jpg\|png` · `-r` geom · `-e` force exact WxH · `-c` colors (PNG quantize, flat art only) · `-d` dpi (PDF) · `-a` all pages |
+| `img-from-video.sh` | grab one video frame → JPG/PNG | `-t` frame # (bare int, 1-based) or timestamp (`HH:MM:SS`/decimal) · `-f` jpg\|png · `-r` geom · `-e` force exact WxH |
+| `img-canvas.sh` | fit an image into a fixed-aspect canvas, exact pixels always | `-a` preset (`9:16`…`16:9`) or raw `WxH` · `-s 1\|2` scale · `-m cover\|fit\|stretch` · `-g` gravity · `-c` colors (PNG quantize) |
+
+> `-t` on `img-from-video.sh` is two modes in one flag: a bare integer (`-t 23`) is always a **frame number**, never seconds — for a timestamp use `HH:MM:SS` or a decimal (`-t 5.5`).
+> `-e` on `img-convert.sh`/`img-from-video.sh` forces the literal `WxH` you asked for (crop/pad, no distortion) — plain `-r` is fit-inside and can land short on one axis from aspect-ratio rounding. `img-canvas.sh` does this by default (that's its whole job) plus aspect presets and a resolution multiplier — reach for it directly when you want presets, reach for `-e` when you already know the exact `WxH` and want to keep using `img-convert.sh`'s other flags (`-c`, `-d`, `-a`).
+
+**A clean, standardized export** — pair `-e` with an [[img-canvas|export-specs]] size (short-side-1080 table: `4:5`→`1080x1350`, `1:1`→`1080x1080`, `9:16`→`1080x1920`, …) instead of an arbitrary number:
+
+```sh
+img-convert.sh -r 1080x1350 -e -f png -c 256 art.png   # 4:5 @1x, exact, quantized
+img-from-video.sh -r 1080x1350 -e clip.mp4             # 4:5 @1x, exact, from a video frame
+```
+
+**`-c` vs `-q` — not an even split.** `-c` (palette colors) is the real size *and* quality lever for PNG — lossy, reduces color precision, dominates file size. `-q` on PNG is zlib compression *effort* only — always lossless, a few % at most, never visible. On jpg it flips: no `-c` (no palette concept), so `-q` becomes the real lossy lever.
+
+Measured floor on a 1600×2000 flat illustration (~4 real colors + AA noise) — not a universal number, eyeball your own source before shipping low:
+
+| `-c` | Size | Visible loss |
+|---|---|---|
+| 256 | 0.69 MB | none — safe default regardless of source |
+| 64 | 0.50 MB | none |
+| 32 | 0.39 MB | none |
+| 16 | 0.33 MB | none, at normal viewing size |
+| 8 | 0.25 MB | none for *this* source — sources with real gradients band much earlier |
+```
+
+---
+
+*Living doc — iterate here as the keymaps change. Companions: [[02-nvim-workflows|Neovim workflows]] (text handling) · [[03-scripts|Scripts at a glance]] (the `bin/` family map). Symlinked into the kol-vault for print.*

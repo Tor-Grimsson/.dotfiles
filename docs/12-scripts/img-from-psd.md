@@ -2,7 +2,7 @@
 title: PSD → image (and Quick Action)
 type: playbook
 status: active
-updated: 2026-06-08
+updated: 2026-07-02
 audience: internal
 description: img-from-psd.sh — convert PSD → JPG/PNG via ImageMagick with -resize resolution control, then wire it into a Finder right-click Quick Action (optionally with a resolution prompt).
 providers:
@@ -18,6 +18,7 @@ aliases:
   - psd2img
 related:
   - "[[03-image|Image scripts (img-)]]"
+  - "[[img-from-video|Video frame → image (deep-dive)]]"
   - "[[10-quick-actions|Quick Actions (qa-)]]"
 ---
 

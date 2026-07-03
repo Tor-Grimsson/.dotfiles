@@ -2,7 +2,7 @@
 title: Neovim cheatsheet (beginner)
 type: guide
 status: active
-updated: 2026-06-13
+updated: 2026-07-02
 audience: internal
 description: Zero-assumptions beginner reference for writing and navigating text in Neovim — modes, moving the cursor, editing, selecting, search/replace, the panic button, and the most-used shortcuts from this repo's config.
 aliases:
@@ -60,6 +60,8 @@ You don't type in Normal mode. Press one of these first, type your text, then `E
 | `:wq` or `:x` | save **and** quit |
 | `:q!` | quit and **throw away** unsaved changes |
 | `:wqa` | save and quit **everything** (all splits/tabs) |
+
+**Repeating a `:` command.** Typed something you want to run again? Press `:` then `↑` (or `Ctrl-p`) to bring back your last command — keep pressing to go further back, same idea as shell history. Better yet: from Normal mode, press **`q:`** to open the **command-line window** — a real editable buffer listing everything you've typed after `:`. Move to the line you want, edit it if needed, press `Enter` to run it. `q` closes the window without running anything.
 
 ## Move the cursor (Normal mode)
 

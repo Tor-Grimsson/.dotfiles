@@ -35,6 +35,7 @@ brew "fd"          # Friendly, fast `find` replacement (respects .gitignore)
 brew "bat"         # `cat` with syntax highlighting + line numbers (also the fzf preview)
 brew "eza"         # Modern `ls` — colors, tree view, git status (maintained exa fork)
 brew "ripgrep"     # Fast recursive content search (`rg`) — pairs with fzf
+brew "par"         # Paragraph reformatter — balanced line-wrapping with no orphans (nvim `:%!par N`)
 brew "zoxide"      # Smarter cd — `z` jumps to frecency-ranked visited dirs (init wired in .zshrc)
 brew "dust"        # Modern `du` — tree view of what's eating disk, biggest-first (du-dust, Rust)
 brew "tealdeer"    # `tldr` — community cheat-sheets of real examples per command (fast Rust client)

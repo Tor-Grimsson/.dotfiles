@@ -112,6 +112,35 @@ on-mode-changed = []
     alt-slash = 'layout tiles horizontal vertical'
     alt-comma = 'layout accordion horizontal vertical'
 
+    # One-key grid layouts (AeroSpace has no native grid — these run the join/move
+    # dance in one binding). Built + verified for a flat row of 4 windows.
+    # cmd-alt-g → 2x2: two columns of two.  cmd-alt-s → main+stack: 1 big left + rest stacked right.
+    # 'stop' boundaries keep focus inside the workspace (won't wander to another monitor/workspace).
+    cmd-alt-g = [
+        'flatten-workspace-tree',
+        'layout tiles horizontal',
+        'focus left --boundaries workspace --boundaries-action stop',
+        'focus left --boundaries workspace --boundaries-action stop',
+        'focus left --boundaries workspace --boundaries-action stop',
+        'join-with right',
+        'layout tiles vertical',
+        'focus right --boundaries workspace --boundaries-action stop',
+        'join-with right',
+        'layout tiles vertical',
+    ]
+    cmd-alt-s = [
+        'flatten-workspace-tree',
+        'layout tiles horizontal',
+        'focus left --boundaries workspace --boundaries-action stop',
+        'focus left --boundaries workspace --boundaries-action stop',
+        'focus left --boundaries workspace --boundaries-action stop',
+        'focus right --boundaries workspace --boundaries-action stop',
+        'join-with right',
+        'layout tiles vertical',
+        'focus right --boundaries workspace --boundaries-action stop',
+        'move left',
+    ]
+
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
     alt-h = 'focus left'
     alt-j = 'focus down'

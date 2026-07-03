@@ -2,7 +2,7 @@
 title: Any image or PDF → JPG/PNG (and Quick Action)
 type: playbook
 status: active
-updated: 2026-06-08
+updated: 2026-07-02
 audience: internal
 description: img-convert.sh — convert any raster image or PDF → JPG/PNG via ImageMagick (Ghostscript for PDF), fit within 2000px by default, then wire it into a Finder right-click Quick Action with a jpg/png prompt.
 providers:
@@ -21,6 +21,7 @@ aliases:
 related:
   - "[[03-image|Image scripts (img-)]]"
   - "[[img-from-psd|PSD → image (deep-dive)]]"
+  - "[[img-from-video|Video frame → image (deep-dive)]]"
   - "[[10-quick-actions|Quick Actions (qa-)]]"
 ---
 
@@ -35,14 +36,14 @@ the **jpg/png choice** both as a flag (`-f`) and as a run-time dialog (`-P`) so 
 single Finder Quick Action can ask the format on each run.
 
 PDFs are vector, so they get one extra step — a render resolution (`-d`, default
-300 dpi) applied **before** the resize. See §4. By default only the first page
+300 dpi) applied **before** the resize. See §5. By default only the first page
 is exported; `-a` writes every page as `<base>-p01.<fmt>, -p02, …`.
 
 The script is the source of truth (`~/.dotfiles/bin/img-convert.sh`, symlinked
 onto `PATH`); this doc is the reference.
 
 > Same Automator gotcha as every image action: it runs with a **bare PATH**, so
-> `magick` is invisible unless you export `PATH` inside the action (see §4).
+> `magick` is invisible unless you export `PATH` inside the action (see §6).
 
 ## 0. Prerequisites
 
@@ -83,6 +84,7 @@ img-convert.sh -f png shot.tif             # → shot.png, keeps transparency
 img-convert.sh -r none big.tif             # → big.jpg, full size (no resize)
 img-convert.sh -d 600 -r none poster.pdf   # → poster.jpg, 600dpi full-res render
 img-convert.sh -o out -q 92 *.heic         # batch into ./out at quality 92
+img-convert.sh -f png -c 256 art.png       # flat PNG: quantize palette (see §4)
 ```
 
 **Collision guard:** writing `<base>.<fmt>` beside a source of the *same* format
@@ -107,7 +109,74 @@ overwritten. (Cross-format — `photo.png` → `photo.jpg` — never collides.)
 | `50%` | scale to 50% |
 | `none` | no resize — keep the source's pixels |
 
-## 4. PDFs and other vector sources (`-d`, `-a`)
+### Why "fit" can land 1px off target — and `-e` to force it exact
+
+Plain `WxH` (no modifier) is a **fit-inside** box: ImageMagick picks the scale
+factor from whichever axis is the binding constraint, then rounds width and
+height *independently*. When the source's aspect ratio is close to but not
+exactly the target's, the non-binding axis can round to target **minus** a
+pixel — a 1854×2316 source fit into `1600x2000` lands at **1600×1999**, not
+1600×2000. This isn't a bug in the script or in ImageMagick; it's inherent to
+independent per-axis rounding of a shared scale factor, and it's a well-known
+ImageMagick quirk. (It can't round the *other* way and land at 1601 — a plain
+fit box never exceeds the target on either axis, by definition of "fit.")
+
+If you need the literal target dimensions — export specs, a print/social
+deliverable with a hard requirement — pass **`-e`** alongside a `WxH` `-r`:
+
+```sh
+img-convert.sh -r 1600x2000 -e photo.jpg   # exactly 1600x2000, guaranteed
+```
+
+`-e` runs a `-gravity center -extent WxH` pass after the normal resize —
+crops any overflow, pads any shortfall with the same background already in
+use (white for jpg, transparent for png). No distortion (that's `!`, a
+different thing) — this is cover+crop, the same mechanism
+[[img-canvas|img-canvas.sh]] uses for its aspect presets, just exposed as a
+flag here instead of a separate tool. Requires `-r` to be a literal `WxH`;
+errors clearly on `-r none`, `-r 50%`, or single-axis forms like `-r 2000x`
+(no second dimension to extend against).
+
+## 4. PNG compression (`-c`) — and why `-q` barely moves PNG at all
+
+`-q` is jpg's real lever (1-100 lossy quality). For png it only tunes zlib
+compression effort + filter — lossless, a few percent at best. It does **not**
+reduce color depth, which is what actually bloats a PNG.
+
+The real lever for a **flat graphic/illustration** (not a photo) is palette
+quantization: `-c N` reduces to N colors. A busy vector-style PNG — flat fills
+plus anti-aliased edges — routinely carries tens of thousands of distinct
+colors it doesn't need, almost all of it anti-aliasing noise along curves.
+Quantizing to 256 or fewer is usually visually identical and cuts file size
+70-90%:
+
+```sh
+img-convert.sh -f png -r 1600x2000 -c 256 art.png   # resize + quantize, one pass
+```
+
+Real numbers from a 1854×2316, 3.0 MB source (dense flat illustration, dark bg):
+
+| Pass | Colors | Size |
+|---|---|---|
+| resize only (`-r 1600x2000`, no `-c`) | 41,165 | 2.4 MB |
+| `-c 256` | 254 | 0.68 MB |
+| `-c 64` | 64 | 0.50 MB |
+
+**No dithering, deliberately.** `-c` uses `-dither None`, not the more common
+`FloydSteinberg`. Dithering error-diffuses the quantization error into
+neighboring pixels to fake smoother gradients — which inflates the *actual*
+output color count well past the requested `-c N` (`-c 256` measured **777**
+actual colors with dithering on this source). PNG's indexed color-type caps at
+256 palette entries; blow past that and ImageMagick silently falls back to
+full truecolor, and the whole size win evaporates. No dithering keeps the
+requested count exact and guarantees it stays palette-eligible — the right
+trade for flat art with hard edges. **Skip `-c` for photos** — no dithering
+means visible banding on real gradients; photos should stay off `-c` (or use
+jpg, where `-q` is the correct lossy lever).
+
+`-c` is ignored for jpg (jpg has no palette).
+
+## 5. PDFs and other vector sources (`-d`, `-a`)
 
 A PDF/EPS/AI has no pixels — ImageMagick rasterizes it through Ghostscript at a
 **density** you choose. The default is **72 dpi**, which makes a Letter page only
@@ -140,7 +209,7 @@ onto white with `-alpha remove` **per image** — not `-flatten`, which would me
 every page into a single composite. For an all-pages full-resolution dump (300 dpi,
 no fit) reach for [[04-pdf|pdf-to-png.sh]] instead; this tool is the sized/export form.
 
-## 5. Wire it into a Finder Quick Action
+## 6. Wire it into a Finder Quick Action
 
 The generic recipe (and `qa-make.sh` to stamp one from a single line) is in
 [[10-quick-actions|Quick Actions]]. The PATH export lists **both** brew prefixes
@@ -157,7 +226,7 @@ qa-make.sh -t public.image "Convert image → PNG (2000px)" \
   'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/.dotfiles/bin/img-convert.sh" -f png "$@"'
 ```
 
-## 6. One action, with a JPG/PNG prompt
+## 7. One action, with a JPG/PNG prompt
 
 The whole point of the `-P` flag: a single Quick Action that asks the format on
 each run. The script's built-in `osascript` dialog fires before any work, while
@@ -176,11 +245,13 @@ qa-make.sh -t public.image,com.adobe.pdf "Convert image (pick format)" \
 To prompt for resolution too, drop an inline `choose from list` into the action
 body the way [[img-from-psd]] §5 does and pass the chosen `-r` through.
 
-## 7. Verification
+## 8. Verification
 
 - CLI: `img-convert.sh -r 50% test.heic` prints `test.heic -> test.jpg`, and `magick identify test.jpg` reports the halved dimensions, sRGB, no alpha.
 - Default fit: a 3000×4000 source → `magick identify` shows `1500x2000` (long edge capped at 2000).
 - Collision guard: `img-convert.sh photo.jpg` writes `photo-2000px.jpg`, leaving `photo.jpg` untouched.
-- Quick Action: right-click an image **or PDF** in Finder → **Quick Actions** → your action. With the §6 `-P` body, the JPG/PNG dialog shows first.
+- Quick Action: right-click an image **or PDF** in Finder → **Quick Actions** → your action. With the §7 `-P` body, the JPG/PNG dialog shows first.
 - PDF: `img-convert.sh deck.pdf` → `deck.jpg`; `magick identify deck.jpg` shows the long edge at 2000px. `-a deck.pdf` writes `deck-p01.jpg`, `deck-p02.jpg`, … one per page.
-- PATH sanity: if the Quick Action silently does nothing, run the same body in Terminal — a `magick: command not found` confirms the PATH export (§5) is missing.
+- PATH sanity: if the Quick Action silently does nothing, run the same body in Terminal — a `magick: command not found` confirms the PATH export (§6) is missing.
+- PNG quantization: `img-convert.sh -f png -c 256 art.png`; `magick identify -format "%[colors]" art.png` reports ≤256, and file size drops sharply vs. no `-c`.
+- Exact dimensions: `img-convert.sh -r 1600x2000 -e photo.jpg`; `magick identify -format "%wx%h" photo.jpg` reports exactly `1600x2000` — compare against the same command without `-e`, which may land 1px short on one axis. `img-convert.sh -r 50% -e photo.jpg` errors clearly (no `WxH` to extend against).

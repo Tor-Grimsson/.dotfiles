@@ -2,7 +2,7 @@
 title: Tooling catalog
 type: index
 status: active
-updated: 2026-06-25
+updated: 2026-07-03
 description: One reference doc per installed tool (78 tools, 13 categories), each with verified links and a why/use/win/how/future write-up. Routes to every category.
 tags:
   - project/dotfiles
@@ -26,7 +26,7 @@ Printable personal reference cards for the daily drivers — not per-tool docs, 
 | # | Card | Covers |
 |---|------|--------|
 | 00 | [[00-kol-cli/01-cli-cheatsheet\|CLI cheatsheet]] | Neovim · tmux · yazi · fzf · AeroSpace keymaps on one page |
-| 00 | [[00-kol-cli/02-workflows\|CLI workflows]] | keystroke recipes — editing text blocks in nvim, navigating/moving/opening in yazi |
+| 00 | [[00-kol-cli/02-nvim-workflows\|Neovim workflows]] | reshaping & handling text in nvim — edit grammar, wrap/reflow (`gq`/`par`), regex, `:g` filters, worked examples |
 | 00 | [[00-kol-cli/03-scripts\|Scripts at a glance]] | the `bin/` scripts grouped by job (image/video/audio/PDF/download/files/sync/helpers) |
 | 00 | [[00-kol-cli/04-git-github\|Git & GitHub]] | git syntax by task, the `gh` layer (PRs/CI/API), worktrees, and the commands that lose work |
 | 00 | [[00-kol-cli/05-network-security\|Network, remote & secrets]] | SSH (incl. over Tailscale VPN), remote logging, Jellyfin sharing, iperf3, arp-scan/nmap, vault → env |
@@ -58,6 +58,13 @@ Standalone multi-chapter guides (not per-tool reference docs, so they don't add 
 |---|-------|:--------:|----------------|
 | 14 | [[14-supabase/INDEX\|Supabase, from zero]] | 9 | Beginner guide to Supabase/Postgres for the `kol-lightroom` project — databases, API keys, migrations, git sync, data in/out, pitfalls. **CLI:** `brew install supabase/tap/supabase`. |
 | 15 | [[15-cloudflare/INDEX\|Cloudflare, from zero]] | 5 | Beginner guide to Cloudflare R2 (object storage/buckets), Pages (static hosting + serverless Functions), and Wrangler (CLI). Covers the kol-media bucket + admin tool setup at `admin.kolkrabbi.io`. |
+
+## Agent layer
+The repo's own Claude Code / agent config (`claude/`, symlinked to `~/.claude/` per `ARCHITECTURE.md` §3) — documented as its own section, **not** counted among the installed tools.
+
+| # | Section | What it covers |
+|---|---------|----------------|
+| 16 | [[16-claude-agents/INDEX\|Claude & Agents]] | the agent-context protocol, skills, subagents, hooks, and MCP tools |
 
 ## Related
 - [[TOOLING|Tooling audit & sync]] — the drift audit, Brewfile reconciliation, cross-arch portability notes, and open items.

@@ -136,7 +136,9 @@ prefix F / G  move the current window to the first / last slot
 
 Names beat numbers once you have a few windows open — `prefix ,` and call it `edit`, `server`, `logs`.
 
-`N`/`P`/`F`/`G` are this repo's own bindings, not stock tmux — `N`/`P` mirror the stock lowercase `n`/`p` (lowercase looks, uppercase takes the window with it); `F`/`G` borrow vim's start/end feel (`gg`/`G`). They stay on screen when they move — the binding re-selects the window after the swap, so you don't just end up staring at whatever used to be in that slot.
+`N`/`P`/`F`/`G` are this repo's own bindings, not stock tmux — `N`/`P` mirror the stock lowercase `n`/`p` (lowercase looks, uppercase takes the window with it); `F`/`G` borrow vim's start/end feel (`gg`/`G`). They stay on screen when they move — the binding re-selects the window after moving, so you don't just end up staring at whatever used to be in that slot.
+
+`N`/`P` use `swap-window` (a straight 2-window trade — correct when only one other window is involved). `F`/`G` use tmux's separate `move-window` command with `-b`/`-a` instead: a real relocate that shifts every window in between back by one slot and leaves their relative order alone, rather than just trading places with whatever sits at the edge and scrambling everything in between. That distinction only shows up once you have 3+ windows and jump `F`/`G` across more than one — `swap-window` there would land the previous last/first window wherever the moved one used to be, not tucked in cleanly next to it.
 
 ## Session tricks
 
