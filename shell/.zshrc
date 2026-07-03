@@ -79,7 +79,7 @@ function y() {
 
 # ── Aliases ───────────────────────────────────────────────────────────────────
 alias vim='nvim'   # the configured editor is nvim (repo nvim/ → ~/.config/nvim)
-alias cl='clear'
+alias cc='clear'
 # reveal: Finder at PATH (default cwd); `reveal -f` = new FLOATING window on the current AeroSpace workspace. See bin/fs-reveal.sh
 alias reveal='fs-reveal.sh'
 killport() { kill -9 $(lsof -ti:$1); }
