@@ -2,7 +2,7 @@
 title: Obsidian vault-config source
 type: reference
 status: active
-updated: 2026-07-05
+updated: 2026-07-05 (2)
 description: The single .obsidian config source repos symlink or copy into docs/.obsidian, its two shapes, and the four-choice picker.
 tags:
   - framework/conventions
@@ -22,7 +22,7 @@ The vault config lives once at **`~/.dotfiles/claude/packages/scaffold/02-scaffo
 | Shape | Seeded from | For |
 |---|---|---|
 | `01-vault-shape/.obsidian/` | kol-monorepo | Rich general vault — plugins, snippets, themes, hotkeys, folder-notes, dataview. |
-| `02-kol-vault-shape/.obsidian/` | kol-vault | The actual dedicated Obsidian vault — 40+ plugins (`obsidian-git`, `templater-obsidian`, `kol-dashboard`, `quickadd`, …). The richest shape. |
+| `02-kol-vault-shape/.obsidian/` | kol-vault | The actual dedicated Obsidian vault — 30 enabled plugins (`dataview`, `templater-obsidian`, `quickadd`, …). The richest shape. |
 | `03-kol-ds-shape/.obsidian/` | kol-design-system | Minimal — core plugins only. Lightweight doc trees. |
 
 Each shape is an openable mini-vault (a `.obsidian/` + a dummy note) — open it in Obsidian to test plugins; changes flow to linked repos.

@@ -1,6 +1,6 @@
 ---
 name: agent-output-format
-description: Reinforce the CLAUDE.md report shape (fenced header card, tables-first, footer line) before it drifts over a long session. Loaded automatically by /init-agent and /log-work — not a standalone action.
+description: Reinforce the CLAUDE.md report shape (fenced header card, tables-first, footer line) before it drifts over a long session. Loaded automatically by /agent-reinforce (itself called last by /agent-init, /log-work, /log-work-handoff) — not a standalone action.
 ---
 
 # agent-output-format

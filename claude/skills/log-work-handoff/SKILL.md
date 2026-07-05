@@ -1,7 +1,6 @@
 ---
 name: log-work-handoff
 description: Create a session-bridge handoff carrying in-flight state to the next session
-disable-model-invocation: true
 argument-hint: "[brief description of work]"
 ---
 
@@ -49,7 +48,8 @@ If none exists, say "No agent context found here (looked for `.kol/llm-context/`
 - [Observations, half-formed ideas that matter now but don't earn a place in the long-lived doc]
 ```
 
-3. Say "Handoff created at [path]."
+3. **Load `/agent-reinforce`** via the Skill tool — reinforcement, last thing before reporting, not first.
+4. Say "Handoff created at [path]."
 
 ## Notes
 

@@ -24,7 +24,7 @@ related:
 
 `05-working-rules` *states* the Report-shape rules and `06-claude` describes the voice; this doc *shows* them — the reply skeleton plus a gallery of named layouts so the shape is legible at a glance. Refer to a layout by name ("use the build-report layout"). Source of the rules is `claude/CLAUDE.md` → **Report shape**.
 
-The `agent-output-format` skill (2026-07-05) condenses these same rules into a re-grounding checkpoint, auto-loaded as step 1 of both `/init-agent` and `/log-work` — this doc is the full reference; that skill is the mid-session nudge.
+The `agent-output-format` skill (2026-07-05) condenses these same rules into a re-grounding checkpoint, auto-loaded via `/agent-reinforce` as the **last** step of `/agent-init`, `/log-work`, and `/log-work-handoff` — this doc is the full reference; that skill is the mid-session nudge.
 
 ## The skeleton
 

@@ -2,7 +2,7 @@
 title: dotfiles — tooling audit & sync
 type: audit
 status: active
-updated: 2026-06-04
+updated: 2026-07-05
 description: Snapshot of the brew + Claude tooling across the Intel iMac and Apple-Silicon MBP, the Brewfile drift, cross-arch portability bugs, per-tool rationale, and the sync plan.
 audience: personal
 tags:
@@ -211,11 +211,13 @@ Rule going forward: use the command name (rely on PATH) or `$(brew --prefix)/bin
 ~/.dotfiles/claude/
   CLAUDE.md         # global personality / rules
   settings.json     # portable (bare `node`); no hooks — caveman fully removed
-  skills/           # kol-bucket, kol-docs-{fm,md}, scaffold-{llm-context,docs-system,dev-stack(-kol)},
-                    #   agent-{output-format,reinforce-rules,reinforce-memory}, gsap-* (8), algorithmic-art, glif-art
+  skills/           # kol-bucket-{b2,r2}, kol-docs-{fm,md}, scaffold-{llm-context,docs-system,dev-stack(-kol)},
+                    #   agent-init, agent-reinforce, agent-{output-format,reinforce-rules,reinforce-memory},
+                    #   gsap-* (8), algorithmic-art, glif-art
   agents/           # kol-{color,div,docs,type}-agent — KOL design-system subagents
   packages/         # shared skill deps: bucket (rclone wrapper → ~/.local/bin),
-                    #   kol-docs-{fm,md,lib}, init-agent-context-templates, algorithmic-art-templates
+                    #   kol-docs-{fm,md,lib}, scaffold/{01-scaffold-dev-stack,02-scaffold-docs,03-scaffold-llm-context},
+                    #   kol-packages/alga-tmpl
   hooks/            # empty (.gitkeep) — caveman hooks removed
   commands/         # placeholder (.gitkeep)
   output-styles/    # placeholder (.gitkeep)

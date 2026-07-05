@@ -1,6 +1,6 @@
 ---
 name: agent-reinforce-rules
-description: Reinforce the standing behavioral corrections in this repo's memory (sync docs on source edit, no unrequested options, terse verdicts, no provisioning) before they drift over a long session. Loaded automatically by /init-agent and /log-work — not a standalone action.
+description: Reinforce the standing behavioral corrections in this repo's memory (sync docs on source edit, no unrequested options, terse verdicts, no provisioning) before they drift over a long session. Loaded automatically by /agent-reinforce (itself called last by /agent-init, /log-work, /log-work-handoff) — not a standalone action.
 ---
 
 # agent-reinforce-rules

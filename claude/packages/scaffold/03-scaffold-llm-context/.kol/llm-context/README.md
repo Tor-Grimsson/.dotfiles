@@ -30,7 +30,7 @@ When starting work on this project:
 4. Check the latest file in `session-log/` for recent context
 5. Update `AGENT-CONTEXT.md` and add a new `session-log/` entry when completing significant work
 
-Or run the `/init-agent` skill to automate reading, and `/log-work "brief description"` to automate writing a session log.
+Or run the `/agent-init` skill to automate reading, and `/log-work "brief description"` to automate writing a session log.
 
 ## LLM Context Protocol
 

@@ -2,7 +2,7 @@
 title: Bucket drift
 type: reference
 status: active
-updated: 2026-06-25
+updated: 2026-07-05
 description: bucket-drift.sh — read-only drift check between a saved file-list baseline and a live rclone bucket. Reuses diff; the generic verb lives here, the remote→baseline map lives with the consumer.
 tags:
   - project/dotfiles
@@ -47,5 +47,5 @@ bucket-drift.sh kolkrabbi:kol-vault-media     .../02-vault-media-cdn/_snapshot.t
 
 - **Read-only on the remote** — `lsf` only, never writes. Safe against live hosting.
 - Baseline is a flat sorted `rclone lsf -R` snapshot — the "last known good" state.
-- Buckets are otherwise driven by the `bucket` CLI (kol-bucket skill, `~/.local/bin/bucket`);
+- Buckets are otherwise driven by the `bucket` CLI (`kol-bucket-b2`/`kol-bucket-r2` skills, `~/.local/bin/bucket`);
   `bucket-drift.sh` calls `rclone` directly so it accepts any remote, not just the website default.

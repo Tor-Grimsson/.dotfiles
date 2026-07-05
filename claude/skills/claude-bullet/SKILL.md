@@ -1,7 +1,6 @@
 ---
 name: claude-bullet
 description: User signal to reformat the last reply (or supplied text) into clean, scannable structure — bullets, numbered lists, checkboxes, tables. Structure over prose; keep the substance. Triggered by /claude-bullet (user-invoked only).
-disable-model-invocation: true
 ---
 
 # claude-bullet

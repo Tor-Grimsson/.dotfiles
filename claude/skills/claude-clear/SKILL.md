@@ -1,7 +1,6 @@
 ---
 name: claude-clear
 description: User signal that the last reply was a bloated, unclear text-dump. Restate the same point clearly with far fewer words. Triggered by /claude-clear (user-invoked only).
-disable-model-invocation: true
 ---
 
 # claude-clear

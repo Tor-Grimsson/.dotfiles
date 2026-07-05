@@ -1,6 +1,7 @@
 ---
 name: scaffold-docs-system
 description: Whole-repo docs-system slice of the kol-docs spec — stand up or normalise a repo's entire docs/ layout (documentation/ vs sibling machinery vs .kol/ agent state, the .obsidian symlink model, render-target link rule, contiguous numbering, INDEX.md coverage) AND the .kol/docs-framework/ machinery (copies of the kol-docs-fm/md/lib packages) a repo needs to actually follow the spec. Use for a repo's whole docs system. For one doc use kol-docs-md; for just frontmatter use kol-docs-fm.
+disable-model-invocation: true
 allowed-tools: Bash, Read, Edit, Write, Glob, Grep, AskUserQuestion
 ---
 
@@ -74,7 +75,7 @@ docs/
 
 The vault config source lives at **`~/.dotfiles/claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/`** with reference shapes:
 - `01-vault-shape/.obsidian/` — the rich general vault (from kol-monorepo: plugins, snippets, themes, hotkeys, folder-notes, dataview…).
-- `02-kol-vault-shape/.obsidian/` — the actual dedicated kol-vault Obsidian vault (40+ plugins: `obsidian-git`, `templater-obsidian`, `kol-dashboard`, `quickadd`, …) — the richest shape.
+- `02-kol-vault-shape/.obsidian/` — the actual dedicated kol-vault Obsidian vault (30 enabled plugins: `dataview`, `templater-obsidian`, `quickadd`, …) — the richest shape.
 - `03-kol-ds-shape/.obsidian/` — the minimal design-system docs shape (bare core plugins).
 
 On setup, **ask which to use** (AskUserQuestion, 6 options):

@@ -40,7 +40,7 @@ Each skill is self-contained (reads only its own package) and **local-authored**
 | Shape | Seeded from | For |
 |---|---|---|
 | `01-vault-shape/` | kol-monorepo | Rich general vault — plugins, snippets, themes, hotkeys, folder-notes, dataview. |
-| `02-kol-vault-shape/` | kol-vault | The actual dedicated Obsidian vault — 40+ plugins. The richest shape. |
+| `02-kol-vault-shape/` | kol-vault | The actual dedicated Obsidian vault — 30 enabled plugins. The richest shape. |
 | `03-kol-ds-shape/` | kol-design-system | Minimal — core plugins only. |
 
 Each shape is an openable mini-vault (a dummy note + `.obsidian/`) so you can test plugins directly at the source. `workspace.json`/`workspaces.json` (per-vault local UI state) are excluded and gitignored per repo. `scaffold-docs-system` offers a 6-way picker on setup: symlink or copy, any of the 3 shapes.

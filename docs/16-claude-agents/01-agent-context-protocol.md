@@ -3,7 +3,7 @@ title: Agent-context protocol
 type: reference
 status: active
 updated: 2026-07-05
-description: How an agent session loads a project's state and logs its work — the LLM_RULES.md boot file, the .kol/ layout (llm-context + docs-framework at repo root), and the scaffold-llm-context / scaffold-docs-system / init-agent / log-work skills that drive it.
+description: How an agent session loads a project's state and logs its work — the LLM_RULES.md boot file, the .kol/ layout (llm-context + docs-framework at repo root), and the scaffold-llm-context / scaffold-docs-system / agent-init / log-work skills that drive it.
 aliases:
   - agent-context-protocol
 tags:
@@ -40,14 +40,16 @@ A repo on the protocol has all machinery **hidden at repo root**, keeping `docs/
 |---|---|
 | [scaffold-llm-context](02-skills.md) | scaffold the protocol into a repo — `LLM_RULES.md` + `.kol/llm-context/` only. Docs system is a separate skill (below) — neither depends on the other |
 | [scaffold-docs-system](02-skills.md) | stand up/normalise a repo's whole `docs/` tree *and* `.kol/docs-framework/` (absorbed from the old `init-agent-context` 2026-07-05) |
-| `init-agent` | load the context (ARCHITECTURE → AGENT-CONTEXT → latest session log) and **stop** — wait for a task; loads the three `agent-reinforce-*`/`agent-output-format` reinforcement skills first, detects the machine, checks session-bridge, nags on legacy layouts, and (guard: repo consumes `@kolkrabbi/*`) reports stale KOL packages via `pnpm/npm outdated`, asking before any bump — report-only, apply on explicit OK |
-| `log-work` | **only when asked** — loads the same three reinforcement skills first, then writes a session log + prepends the AGENT-CONTEXT "Last updated" chain |
+| `agent-init` (renamed from `init-agent` 2026-07-05) | load the context (ARCHITECTURE → AGENT-CONTEXT → latest session log) and **stop** — wait for a task; detects the machine, checks session-bridge, nags on legacy layouts, (guard: repo consumes `@kolkrabbi/*`) reports stale KOL packages via `pnpm/npm outdated` asking before any bump, then loads `/agent-reinforce` **last** — right before reporting "Context loaded" |
+| `log-work` | **only when asked** — writes a session log + prepends the AGENT-CONTEXT "Last updated" chain, then loads `/agent-reinforce` last, right before the "Session log created" report |
+| `log-work-handoff` | **only when asked** — writes a forward-looking session-bridge handoff, then loads `/agent-reinforce` last, right before the "Handoff created" report |
+| `agent-reinforce` | bundles the three reinforcement skills (`agent-output-format`, `agent-reinforce-rules`, `agent-reinforce-memory`) into one call — used as the **last** step, right before reporting status, by `agent-init`, `log-work`, `log-work-handoff`, and the plain `LLM_RULES.md` boot path |
 | `scaffold-dev-stack` | scaffold a new **headless** app (Vite + React + Tailwind 4, no design system) |
 | `scaffold-dev-stack-kol` | scaffold a new app on the **published** `@kolkrabbi/kol-*` npm packages (4-point consumer contract wired) |
 
 No automated re-sync/migration skills exist anymore (`init-agent-context-sync`, `kol-migrate-structure` — both quarantined 2026-07-05, no evidence of real use). Pulling framework updates into an already-scaffolded repo, or converging a legacy layout, is a manual/conversational step now.
 
-Boot a session with `/init-agent` (or just "read `LLM_RULES.md`").
+Boot a session with `/agent-init` (or just "read `LLM_RULES.md`") — both now load `/agent-reinforce` as their last step, right before reporting status.
 
 ## Conventions that matter
 

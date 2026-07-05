@@ -1,6 +1,6 @@
 ---
 name: agent-reinforce-memory
-description: Reinforce that the agent has no git permission — never run a git command, never write one into a proposed plan, even as a future step. Loaded automatically by /init-agent and /log-work — not a standalone action.
+description: Reinforce that the agent has no git permission — never run a git command, never write one into a proposed plan, even as a future step. Loaded automatically by /agent-reinforce (itself called last by /agent-init, /log-work, /log-work-handoff) — not a standalone action.
 ---
 
 # agent-reinforce-memory

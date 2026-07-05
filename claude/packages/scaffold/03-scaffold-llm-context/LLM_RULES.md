@@ -16,8 +16,10 @@ project-specific fact lives in `.kol/llm-context/`, never here. One source at
 4. **CHECK** `.kol/llm-context/session-bridge/` for `handoff-*.md`. If the newest handoff is
    newer than the newest session log, **read it too** (same-date: handoff wins). Otherwise skip.
    Full protocol: `.kol/llm-context/session-bridge/README.md`.
-5. **STOP** and say "Context loaded. What would you like me to work on?"
-6. **WAIT** for the user to specify the task.
+5. **LOAD** `/agent-reinforce` via the Skill tool — bundles report-shape + standing-rules +
+   no-git-permission reinforcement in one call, last step before reporting status.
+6. **STOP** and say "Context loaded. What would you like me to work on?"
+7. **WAIT** for the user to specify the task.
 
 **Do not:** skip the context files · start before the user names a task · propose anything that
 contradicts `ARCHITECTURE.md` without flagging the contradiction first.

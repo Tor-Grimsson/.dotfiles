@@ -21,7 +21,7 @@ This section explains that layer. It is **not** part of the tool catalog (the ot
 |---|---|
 | `CLAUDE.md` | global personality + working rules ("Grim") |
 | `settings.json` | permissions, statusline, plugins, voice/effort/tui |
-| `skills/` | 33 Claude Code skills (whole-dir symlink) |
+| `skills/` | 34 Claude Code skills (whole-dir symlink) |
 | `agents/` | 4 `kol-*` subagents |
 | `hooks/` | `statusline.sh` (the only hook) |
 | `commands/`, `output-styles/` | present but empty |
@@ -31,7 +31,7 @@ This section explains that layer. It is **not** part of the tool catalog (the ot
 
 | # | Doc | Covers |
 |---|-----|--------|
-| 01 | [Agent-context protocol](01-agent-context-protocol.md) | how a session loads project state + logs work — `LLM_RULES.md`, `.kol/llm-context/`, the `scaffold-*`/`init-agent`/`log-work` skills, the AGENT-CONTEXT chain |
+| 01 | [Agent-context protocol](01-agent-context-protocol.md) | how a session loads project state + logs work — `LLM_RULES.md`, `.kol/llm-context/`, the `scaffold-*`/`agent-init`/`log-work` skills, the AGENT-CONTEXT chain |
 | 02 | [Skills](02-skills.md) | what skills are, kol-system sourcing (§4) vs local-authored, the symlink mechanism, the installed set |
 | 03 | [Subagents](03-agents.md) | the 4 `kol-*` design-system subagents + how they're defined and invoked |
 | 04 | [Hooks & tools](04-hooks-and-tools.md) | the statusline hook, `settings.json` config, plugins (ponytail/rust-analyzer), and MCP tools (playwright/glif) |

@@ -8,7 +8,7 @@ their `docs/.obsidian/`. Edit a shape here → every symlinked repo inherits it.
 | Shape | Seeded from | For |
 |---|---|---|
 | `01-vault-shape/` | `kol-monorepo/docs/.obsidian` | The rich general vault — plugins, snippets, themes, hotkeys, folder-notes, dataview. Default for a full working vault. |
-| `02-kol-vault-shape/` | `kol-vault/.obsidian` | The actual dedicated Obsidian vault — 90+ community plugins (`obsidian-git`, `templater-obsidian`, `quickadd`, …). The richest shape; use for a full power-user vault. |
+| `02-kol-vault-shape/` | `kol-vault/.obsidian` | The actual dedicated Obsidian vault — 30 enabled community plugins (`dataview`, `templater-obsidian`, `quickadd`, …). The 60+ installed-but-disabled plugins were stripped 2026-07-05 (dead weight in a template). |
 | `03-kol-ds-shape/` | `kol-design-system/docs/.obsidian` | Minimal — core plugins only. For lightweight doc trees. |
 | `04-plugin-kol-dashboard/` | `kol-vault/.obsidian/plugins/kol-dashboard` | Custom plugin, not a vault shape — lifted out to its own sibling so it drops into any vault's `plugins/` regardless of chosen shape. Own `node_modules` (gitignored) + `src/`. |
 

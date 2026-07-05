@@ -18,8 +18,9 @@ _template:
 3. **READ** `.kol/llm-context/AGENT-CONTEXT.md` — current project state
 4. **READ** the latest session log from `.kol/llm-context/session-log/` (sort by date, most recent first)
 5. **CHECK** `.kol/llm-context/session-bridge/` for `handoff-*.md` files. If the newest handoff has a timestamp newer than the newest session log, **also READ that handoff** — it carries in-flight state the session log doesn't. Otherwise skip. See `.kol/llm-context/session-bridge/README.md` for the full protocol.
-6. **STOP** and say "Context loaded — on the **\<iMac|MBP\>**. What would you like me to work on?" (name the machine from step 1)
-7. **WAIT** for the user to specify their task
+6. **LOAD** `/agent-reinforce` via the Skill tool — bundles the report-shape + standing-rules + no-git-permission reinforcement in one call, last step before reporting status.
+7. **STOP** and say "Context loaded — on the **\<iMac|MBP\>**. What would you like me to work on?" (name the machine from step 1)
+8. **WAIT** for the user to specify their task
 
 **DO NOT:**
 - Skip reading the context files

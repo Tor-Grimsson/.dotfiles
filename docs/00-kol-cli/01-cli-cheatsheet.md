@@ -2,7 +2,7 @@
 title: CLI cheatsheet
 type: reference
 status: active
-updated: 2026-07-04
+updated: 2026-07-05
 description: One-page printable keymap for the daily drivers — Neovim, tmux, yazi, fzf, AeroSpace — plus a highlight table of the most-reached-for bin/ scripts. Keys only; each section links to the tool's full doc for the why.
 aliases:
   - cli-cheatsheet
@@ -424,6 +424,8 @@ Measured floor on a 1600×2000 flat illustration (~4 real colors + AA noise) —
 
 | Command | Does |
 |---|---|
+| `cl` | `claude` — launch Claude Code |
+| `cc` | `clear` — clear the terminal |
 | `reveal [PATH]` | open Finder at PATH (default: current dir); a file is selected in its folder |
 | `reveal -f [PATH]` | new **floating** Finder window on the *current* AeroSpace workspace — bypasses the blanket Finder→W rule (`fs-reveal.sh`, see [Scripts](#6-scripts-all-scripts)) |
 

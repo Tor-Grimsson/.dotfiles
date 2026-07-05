@@ -1,7 +1,6 @@
 ---
 name: log-work
 description: Create a session log documenting work done
-disable-model-invocation: true
 argument-hint: "[brief description of work]"
 ---
 
@@ -26,10 +25,9 @@ If none exists, say "No agent context found here (looked for `.kol/llm-context/`
 
 ## Steps
 
-1. Load `/agent-output-format`, `/agent-reinforce-rules`, and `/agent-reinforce-memory` via the Skill tool — reinforcement, not action; re-grounds report shape and standing behavioral corrections before writing the log.
-2. Read the current `<ctx>/AGENT-CONTEXT.md` to understand prior state.
-3. Create a new session log at `<ctx>/session-log/!`date +%Y-%m-%d`-$ARGUMENTS.md` (slugify the description).
-4. Use this format:
+1. Read the current `<ctx>/AGENT-CONTEXT.md` to understand prior state.
+2. Create a new session log at `<ctx>/session-log/!`date +%Y-%m-%d`-$ARGUMENTS.md` (slugify the description).
+3. Use this format:
 
 ```
 # Session: [Brief Description]
@@ -59,9 +57,10 @@ If none exists, say "No agent context found here (looked for `.kol/llm-context/`
 2. [Follow-up work]
 ```
 
-5. Update `<ctx>/AGENT-CONTEXT.md` with the new current state.
+4. Update `<ctx>/AGENT-CONTEXT.md` with the new current state.
    **Keep it bounded — this file loads every session, so it must not grow without limit:**
    - Prepend the new entry to the "Last updated" chain, then **trim the chain to the 5 most recent entries**. Cut the older tail outright — each entry already links its own `session-log/…md`, so nothing is lost.
    - AGENT-CONTEXT is *current state*, not an archive. `session-log/` is the archive. If any rolling/append-only section (a status list, a chain) is past ~5 entries or the file is past ~30 KB, trim the oldest.
    - Keep each new entry tight (a few sentences) — verbosity is the other half of the bloat.
+5. **Load `/agent-reinforce`** via the Skill tool — reinforcement, last thing before reporting, not first.
 6. Say "Session log created at [path]. AGENT-CONTEXT.md updated."
