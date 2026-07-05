@@ -73,6 +73,8 @@ exec zsh
 
 That gives you the full CLI environment — prompt, completions, tmux, nvim, yazi, the `bin/` scripts — with nothing touched that shouldn't be.
 
+> **Already `cd`'d into `~/.dotfiles`? Bare `bootstrap-cli.sh` will NOT run.** The shell never searches the current directory for commands — only `$PATH`. Typing just the filename gives `zsh: command not found`, every time, forever, until you prefix it. Run `./bootstrap-cli.sh` (leading `./` = "run the file right here"), or use the full path from the Quickstart above.
+
 > **Do NOT run `bootstrap.sh` on a foreign box.** It rewrites the machine's macOS defaults, installs GUI cask apps, imports iTerm/Terminal prefs, and loads auto-sync launchd agents — none of which belong on a box you only log into. It also runs under `set -e`, so one GUI step failing aborts the rest. Use `bootstrap-cli.sh`.
 
 ## Plugins hydrate separately

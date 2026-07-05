@@ -7,9 +7,6 @@
 # notes live in TOOLING.md.
 # ════════════════════════════════════════════════════════════════════════════
 
-# ── Taps ──────────────────────────────────────────────────────────────────────
-tap "raine/workmux"  # provides the workmux formula
-
 # ── Shell & prompt ──────────────────────────────────────────────────────────
 brew "tmux"                    # Terminal multiplexer
 brew "powerlevel10k"           # Zsh prompt theme — sourced from Homebrew in .zshrc
@@ -46,7 +43,8 @@ brew "tealdeer"    # `tldr` — community cheat-sheets of real examples per comm
 brew "sesh"        # Smart tmux session picker — fuzzy-finds running sessions, config, and zoxide dirs; being run against tmux-sessionx (TPM); docs/01-shell-terminal/17-sesh.md
 brew "tmuxinator"  # Define a project's full window/pane layout in YAML, `tmuxinator start` to launch it — hand-typed templates; docs/01-shell-terminal/18-tmuxinator.md
 brew "tmuxp"       # Same idea as tmuxinator, but `tmuxp freeze` snapshots an already-running session's layout into a config — tmuxinator has no equivalent; docs/01-shell-terminal/19-tmuxp.md
-brew "raine/workmux/workmux"  # git worktree + tmux window pairing (`workmux add`/`merge`) — parallel feature branches, no stashing; docs/01-shell-terminal/24-workmux.md
+# workmux (raine/workmux tap) is installed separately by bootstrap*.sh, not
+# bundled here — see the note in bootstrap-cli.sh for why.
 # NOTE: tmux-sessionx, tmux-harpoon, and tmux-agent-sidebar are TPM plugins
 #       (see tmux/.tmux.conf, section 5), not Homebrew packages. tmux-tea
 #       was dropped 2026-07-04 after evaluation (sesh vs tmux-sessionx is

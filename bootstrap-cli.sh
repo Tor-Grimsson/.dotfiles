@@ -63,6 +63,17 @@ else
   note_fail "brew (not installed — skipped brewfile-cli)"
 fi
 
+# workmux is the ONE third-party-tap formula the CLI set needs, kept OUT of
+# brewfile-cli's bundle on purpose: a box with $HOMEBREW_REQUIRE_TAP_TRUST set
+# refuses an untrusted tap, and that failure aborts brew bundle's whole run —
+# not just that formula — silently taking tmux/fzf/everything below it down
+# too. Isolated here so a workmux/trust failure can only ever cost workmux.
+if command -v brew >/dev/null 2>&1; then
+  brew tap raine/workmux
+  brew install raine/workmux/workmux \
+    || note_fail "brew: raine/workmux/workmux (third-party tap — run 'brew trust --formula raine/workmux/workmux' if refused)"
+fi
+
 # pipx- and uv-managed CLIs are NOT brew formulas (isolated Python venvs) but
 # sit in the same tier — scripts call them by name (au-transcribe → llm, etc.),
 # so a CLI box needs them too. Idempotent; each failure is recorded, not fatal.
