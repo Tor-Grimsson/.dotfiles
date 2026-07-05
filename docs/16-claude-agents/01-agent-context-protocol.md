@@ -11,6 +11,7 @@ tags:
   - domain/ai/llm
 related:
   - "[[02-skills|skills]]"
+  - "[[05-working-rules|working rules]]"
   - "[[16-claude-agents/INDEX|Claude & Agents]]"
 ---
 

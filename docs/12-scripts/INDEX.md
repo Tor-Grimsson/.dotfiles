@@ -30,7 +30,7 @@ CLI helpers in `~/.dotfiles/bin` (symlinked to `~/bin`, on PATH). Renamed 2026-0
 | `qa-` | [Quick Actions](10-quick-actions.md) | 1 | generator — stamps new Quick Actions |
 | `dl-` | [Download](12-download.md) | 1 | yt-dlp wrapper — highest-quality fetch (MKV default) |
 | `dot-` | [Dotfiles sync](11-dot-sync.md) | 1 | launchd daemon — every 30 min |
-| `bucket-` | [Bucket drift](14-bucket-drift.md) | 1 | read-only CDN drift check (consumer owns the map) |
+| `bucket-` | [Drift](14-bucket-drift.md) · [Tree snapshots](../18-cdn-r2b2/INDEX.md) | 2 | read-only CDN tooling — `bucket-drift.sh` (drift check) + `bucket-tree.sh` (tree snapshot → dotfiles → Obsidian) |
 | `tg-` | [Capture pipeline](16-capture.md) | 1 | **Telegram bot → Todoist / Obsidian / calendar** — one frictionless inbox, phone or desktop, hands-free via a launchd timer |
 | `kol-` | [Dashboard CLI](17-kol-dashboard-cli.md) | 2 | terminal twins of the Obsidian kol-dashboard — kanban (`kol-kb`, prints+moves) + surfaces (`kol-dash` links/growth/pinned/tracks/week) |
 | _(none)_ | [Calendar](15-calendar.md) | 1 | `cplan` — hides recurring noise over a date window ([gcalcli](../01-shell-terminal/14-gcalcli.md) companion) |

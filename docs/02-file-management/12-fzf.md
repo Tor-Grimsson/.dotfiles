@@ -25,6 +25,7 @@ related:
   - "[[11-ripgrep|ripgrep]]"
   - "[[08-eza|eza]]"
   - "[[13-zoxide|zoxide]]"
+  - "[[../01-shell-terminal/23-stdin-pipes|stdin, stdout & pipes]]"
 ---
 
 ## Summary

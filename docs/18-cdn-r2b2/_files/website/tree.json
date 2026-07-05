@@ -1,0 +1,2336 @@
+{
+  "art-prints": {
+    ".DS_Store": 6148,
+    "manifest.yaml": 3808,
+    "print-blokk": {
+      "artwork": {
+        "blokk-artwork-1132.jpg": 100595,
+        "blokk-artwork-1700.jpg": 238353,
+        "blokk-artwork-2840.jpg": 735193,
+        "blokk-artwork-566.jpg": 27426
+      },
+      "blokk-certificate.jpg": 832661,
+      "data.yaml": 446,
+      "print": {
+        "blokk-print-1132.jpg": 82284,
+        "blokk-print-1700.jpg": 199030,
+        "blokk-print-2840.jpg": 647649,
+        "blokk-print-566.jpg": 20847
+      }
+    },
+    "print-borg": {
+      "artwork": {
+        "borg-artwork-1132.jpg": 69682,
+        "borg-artwork-1700.jpg": 146618,
+        "borg-artwork-2840.jpg": 392957,
+        "borg-artwork-566.jpg": 20643
+      },
+      "borg-certificate.jpg": 689841,
+      "data.yaml": 442,
+      "print": {
+        "borg-print-1132.jpg": 74939,
+        "borg-print-1700.jpg": 183438,
+        "borg-print-2840.jpg": 592503,
+        "borg-print-566.jpg": 18899
+      }
+    },
+    "print-faust": {
+      "artwork": {
+        "faust-artwork-1132.jpg": 116426,
+        "faust-artwork-1700.jpg": 294485,
+        "faust-artwork-2840.jpg": 906087,
+        "faust-artwork-566.jpg": 23254
+      },
+      "data.yaml": 446,
+      "faust-certificate.jpg": 691436,
+      "print": {
+        "faust-print-1132.jpg": 118647,
+        "faust-print-1700.jpg": 298436,
+        "faust-print-2840.jpg": 912965,
+        "faust-print-566.jpg": 24256
+      }
+    },
+    "print-frank": {
+      "artwork": {
+        "frank-artwork-1132.jpg": 96997,
+        "frank-artwork-1700.jpg": 204275,
+        "frank-artwork-2840.jpg": 562785,
+        "frank-artwork-566.jpg": 26990
+      },
+      "data.yaml": 446,
+      "frank-certificate.jpg": 832419,
+      "print": {
+        "frank-print-1132.jpg": 75246,
+        "frank-print-1700.jpg": 186801,
+        "frank-print-2840.jpg": 585812,
+        "frank-print-566.jpg": 17277
+      }
+    },
+    "print-fvv": {
+      "artwork": {
+        "fvv-artwork-1132.jpg": 171706,
+        "fvv-artwork-1700.jpg": 390281,
+        "fvv-artwork-2840.jpg": 1076471,
+        "fvv-artwork-566.jpg": 42506
+      },
+      "data.yaml": 438,
+      "fvv-certificate.jpg": 690878,
+      "print": {
+        "fvv-print-1132.jpg": 141115,
+        "fvv-print-1700.jpg": 337923,
+        "fvv-print-2840.jpg": 992014,
+        "fvv-print-566.jpg": 32041
+      }
+    },
+    "print-himbrak": {
+      "artwork": {
+        "himbrak-artwork-1132.jpg": 49076,
+        "himbrak-artwork-1700.jpg": 123106,
+        "himbrak-artwork-2840.jpg": 412319,
+        "himbrak-artwork-566.jpg": 13348
+      },
+      "data.yaml": 454,
+      "himbrak-certificate.jpg": 832702,
+      "print": {
+        "himbrak-print-1132.jpg": 55803,
+        "himbrak-print-1700.jpg": 153375,
+        "himbrak-print-2840.jpg": 539623,
+        "himbrak-print-566.jpg": 12899
+      }
+    },
+    "print-himnuhorn": {
+      "artwork": {
+        "himnuhorn-artwork-1132.jpg": 70891,
+        "himnuhorn-artwork-1700.jpg": 170844,
+        "himnuhorn-artwork-2840.jpg": 547240,
+        "himnuhorn-artwork-566.jpg": 20387
+      },
+      "data.yaml": 462,
+      "himnuhorn-certificate.jpg": 833004,
+      "print": {
+        "himnuhorn-print-1132.jpg": 64621,
+        "himnuhorn-print-1700.jpg": 172228,
+        "himnuhorn-print-2840.jpg": 599785,
+        "himnuhorn-print-566.jpg": 15227
+      }
+    },
+    "print-hornhimna": {
+      "artwork": {
+        "hornhimna-artwork-1132.jpg": 141618,
+        "hornhimna-artwork-1700.jpg": 283402,
+        "hornhimna-artwork-2840.jpg": 741427,
+        "hornhimna-artwork-566.jpg": 46259
+      },
+      "data.yaml": 462,
+      "hornhimna-certificate.jpg": 833094,
+      "print": {
+        "hornhimna-print-1132.jpg": 109334,
+        "hornhimna-print-1700.jpg": 248616,
+        "hornhimna-print-2840.jpg": 736939,
+        "hornhimna-print-566.jpg": 29645
+      }
+    },
+    "print-launrad": {
+      "artwork": {
+        "launrad-artwork-1132.jpg": 166663,
+        "launrad-artwork-1700.jpg": 348565,
+        "launrad-artwork-2840.jpg": 885919,
+        "launrad-artwork-566.jpg": 52420
+      },
+      "data.yaml": 456,
+      "launrad-certificate.jpg": 833041,
+      "print": {
+        "launrad-print-1132.jpg": 129206,
+        "launrad-print-1700.jpg": 290281,
+        "launrad-print-2840.jpg": 827889,
+        "launrad-print-566.jpg": 38030
+      }
+    },
+    "print-midday": {
+      "artwork": {
+        "midday-artwork-1132.jpg": 87982,
+        "midday-artwork-1700.jpg": 169725,
+        "midday-artwork-2840.jpg": 419875,
+        "midday-artwork-566.jpg": 29753
+      },
+      "data.yaml": 450,
+      "midday-certificate.jpg": 710483,
+      "print": {
+        "midday-print-1132.jpg": 86739,
+        "midday-print-1700.jpg": 201205,
+        "midday-print-2840.jpg": 613750,
+        "midday-print-566.jpg": 23273
+      }
+    },
+    "print-midnight": {
+      "artwork": {
+        "midnight-artwork-1132.jpg": 105719,
+        "midnight-artwork-1700.jpg": 217864,
+        "midnight-artwork-2840.jpg": 560156,
+        "midnight-artwork-566.jpg": 35006
+      },
+      "data.yaml": 458,
+      "midnight-certificate.jpg": 710384,
+      "print": {
+        "midnight-print-1132.jpg": 98947,
+        "midnight-print-1700.jpg": 223087,
+        "midnight-print-2840.jpg": 674665,
+        "midnight-print-566.jpg": 26461
+      }
+    },
+    "print-myrkvi": {
+      "artwork": {
+        "myrkvi-artwork-1132.jpg": 102969,
+        "myrkvi-artwork-1700.jpg": 228654,
+        "myrkvi-artwork-2840.jpg": 591893,
+        "myrkvi-artwork-566.jpg": 26349
+      },
+      "data.yaml": 450,
+      "myrkvi-certificate.jpg": 832840,
+      "print": {
+        "myrkvi-print-1132.jpg": 78451,
+        "myrkvi-print-1700.jpg": 200566,
+        "myrkvi-print-2840.jpg": 632353,
+        "myrkvi-print-566.jpg": 17080
+      }
+    },
+    "print-mytar": {
+      "artwork": {
+        "mytar-artwork-1132.jpg": 110814,
+        "mytar-artwork-1700.jpg": 257241,
+        "mytar-artwork-2840.jpg": 762358,
+        "mytar-artwork-566.jpg": 26182
+      },
+      "data.yaml": 447,
+      "mytar-certificate.jpg": 690237,
+      "print": {
+        "mytar-print-1132.jpg": 84174,
+        "mytar-print-1700.jpg": 221916,
+        "mytar-print-2840.jpg": 716787,
+        "mytar-print-566.jpg": 17280
+      }
+    },
+    "print-skinnalon": {
+      "artwork": {
+        "skinnalon-artwork-1132.jpg": 70576,
+        "skinnalon-artwork-1700.jpg": 185856,
+        "skinnalon-artwork-2840.jpg": 637415,
+        "skinnalon-artwork-566.jpg": 17381
+      },
+      "data.yaml": 463,
+      "print": {
+        "skinnalon-print-1132.jpg": 71159,
+        "skinnalon-print-1700.jpg": 186809,
+        "skinnalon-print-2840.jpg": 646406,
+        "skinnalon-print-566.jpg": 17318
+      },
+      "skinnalon-certificate.jpg": 691361
+    },
+    "print-skovia": {
+      "artwork": {
+        "skovia-artwork-1132.jpg": 98847,
+        "skovia-artwork-1700.jpg": 233591,
+        "skovia-artwork-2840.jpg": 682422,
+        "skovia-artwork-566.jpg": 26386
+      },
+      "data.yaml": 450,
+      "print": {
+        "skovia-print-1132.jpg": 84973,
+        "skovia-print-1700.jpg": 212998,
+        "skovia-print-2840.jpg": 683579,
+        "skovia-print-566.jpg": 20591
+      },
+      "skovia-certificate.jpg": 3648141
+    },
+    "print-tangents": {
+      "artwork": {
+        "tangents-artwork-1132.jpg": 66893,
+        "tangents-artwork-1700.jpg": 182139,
+        "tangents-artwork-2840.jpg": 621718,
+        "tangents-artwork-566.jpg": 13083
+      },
+      "data.yaml": 458,
+      "print": {
+        "tangents-print-1132.jpg": 57511,
+        "tangents-print-1700.jpg": 167678,
+        "tangents-print-2840.jpg": 606231,
+        "tangents-print-566.jpg": 10933
+      },
+      "tangents-certificate.jpg": 692266
+    },
+    "print-timi-01": {
+      "artwork": {
+        "timi-01-artwork-1132.jpg": 46397,
+        "timi-01-artwork-1700.jpg": 91100,
+        "timi-01-artwork-2840.jpg": 231874,
+        "timi-01-artwork-566.jpg": 14655
+      },
+      "data.yaml": 452,
+      "print": {
+        "timi-01-print-1132.jpg": 65626,
+        "timi-01-print-1700.jpg": 161385,
+        "timi-01-print-2840.jpg": 509441,
+        "timi-01-print-566.jpg": 15711
+      },
+      "timi-01-certificate.jpg": 691377
+    },
+    "print-timi-02": {
+      "artwork": {
+        "timi-02-artwork-1132.jpg": 53366,
+        "timi-02-artwork-1700.jpg": 126119,
+        "timi-02-artwork-2840.jpg": 401229,
+        "timi-02-artwork-566.jpg": 14720
+      },
+      "data.yaml": 455,
+      "print": {
+        "timi-02-print-1132.jpg": 61263,
+        "timi-02-print-1700.jpg": 161988,
+        "timi-02-print-2840.jpg": 553135,
+        "timi-02-print-566.jpg": 13780
+      },
+      "timi-02-certificate.jpg": 690237
+    },
+    "print-timi-03": {
+      "artwork": {
+        "timi-03-artwork-1132.jpg": 84624,
+        "timi-03-artwork-1700.jpg": 166161,
+        "timi-03-artwork-2840.jpg": 406520,
+        "timi-03-artwork-566.jpg": 29384
+      },
+      "data.yaml": 458,
+      "print": {
+        "timi-03-print-1132.jpg": 81865,
+        "timi-03-print-1700.jpg": 190922,
+        "timi-03-print-2840.jpg": 585599,
+        "timi-03-print-566.jpg": 23242
+      },
+      "timi-03-certificate.jpg": 690469
+    },
+    "print-timi-04": {
+      "artwork": {
+        "timi-04-artwork-1132.jpg": 70473,
+        "timi-04-artwork-1700.jpg": 187432,
+        "timi-04-artwork-2840.jpg": 642187,
+        "timi-04-artwork-566.jpg": 17196
+      },
+      "data.yaml": 455,
+      "print": {
+        "timi-04-print-1132.jpg": 64543,
+        "timi-04-print-1700.jpg": 174928,
+        "timi-04-print-2840.jpg": 613386,
+        "timi-04-print-566.jpg": 14554
+      },
+      "timi-04-certificate.jpg": 690443
+    },
+    "print-traum": {
+      "artwork": {
+        "traum-artwork-1132.jpg": 104808,
+        "traum-artwork-1700.jpg": 234695,
+        "traum-artwork-2840.jpg": 681709,
+        "traum-artwork-566.jpg": 30926
+      },
+      "data.yaml": 446,
+      "print": {
+        "traum-print-1132.jpg": 88840,
+        "traum-print-1700.jpg": 214773,
+        "traum-print-2840.jpg": 678161,
+        "traum-print-566.jpg": 23993
+      },
+      "traum-certificate.jpg": 690163
+    },
+    "print-trolla": {
+      "artwork": {
+        "trolla-artwork-1132.jpg": 24322,
+        "trolla-artwork-1700.jpg": 48373,
+        "trolla-artwork-2840.jpg": 137724,
+        "trolla-artwork-566.jpg": 9503
+      },
+      "data.yaml": 451,
+      "print": {
+        "trolla-print-1132.jpg": 65581,
+        "trolla-print-1700.jpg": 169234,
+        "trolla-print-2840.jpg": 576596,
+        "trolla-print-566.jpg": 16686
+      },
+      "trolla-certificate.jpg": 832587
+    },
+    "print-uburoi": {
+      "artwork": {
+        "uburoi-artwork-1132.jpg": 124067,
+        "uburoi-artwork-1700.jpg": 265332,
+        "uburoi-artwork-2840.jpg": 726792,
+        "uburoi-artwork-566.jpg": 37019
+      },
+      "data.yaml": 451,
+      "print": {
+        "uburoi-print-1132.jpg": 106800,
+        "uburoi-print-1700.jpg": 246251,
+        "uburoi-print-2840.jpg": 745489,
+        "uburoi-print-566.jpg": 28107
+      },
+      "uburoi-certificate.jpg": 691541
+    },
+    "print-weissensee": {
+      "artwork": {
+        "weissensee-artwork-1132.jpg": 168355,
+        "weissensee-artwork-1700.jpg": 317520,
+        "weissensee-artwork-2840.jpg": 737705,
+        "weissensee-artwork-566.jpg": 53363
+      },
+      "data.yaml": 466,
+      "print": {
+        "weissensee-print-1132.jpg": 130665,
+        "weissensee-print-1700.jpg": 297047,
+        "weissensee-print-2840.jpg": 826690,
+        "weissensee-print-566.jpg": 32937
+      },
+      "weissensee-certificate.jpg": 692635
+    }
+  },
+  "asset-library": {
+    ".DS_Store": 6148,
+    "cms": {
+      "stack": {
+        "mood": {
+          "mood-01-1200.jpg": 28779,
+          "mood-01-1600.jpg": 56459,
+          "mood-01-2560.jpg": 194230,
+          "mood-01-400.jpg": 4791,
+          "mood-01-800.jpg": 13848,
+          "mood-02-1200.jpg": 52152,
+          "mood-02-1600.jpg": 90723,
+          "mood-02-2560.jpg": 225454,
+          "mood-02-400.jpg": 8760,
+          "mood-02-800.jpg": 26980,
+          "mood-03-1200.jpg": 32173,
+          "mood-03-1600.jpg": 51368,
+          "mood-03-2560.jpg": 118728,
+          "mood-03-400.jpg": 5637,
+          "mood-03-800.jpg": 16146,
+          "mood-04-1200.jpg": 98131,
+          "mood-04-1600.jpg": 148852,
+          "mood-04-2560.jpg": 307624,
+          "mood-04-400.jpg": 17036,
+          "mood-04-800.jpg": 52138
+        },
+        "stack-hero": {
+          "stack-hero-1200.jpg": 83663,
+          "stack-hero-1600.jpg": 142849,
+          "stack-hero-2560.jpg": 337348,
+          "stack-hero-400.jpg": 15311,
+          "stack-hero-800.jpg": 42346
+        }
+      },
+      "work": {
+        "work-hero": {
+          "work-1200.jpg": 50979,
+          "work-1600.jpg": 75691,
+          "work-2560.jpg": 135557,
+          "work-400.jpg": 7609,
+          "work-800.jpg": 26331
+        }
+      }
+    },
+    "collections": {
+      "collection-grids": {
+        "grids-featured": {
+          "grids-featured-1200.jpg": 25967,
+          "grids-featured-1600.jpg": 61189,
+          "grids-featured-400.jpg": 5011,
+          "grids-featured-800.jpg": 12876
+        },
+        "grids-featured.png": 1540856,
+        "grids-svg": {
+          "grid-01.svg": 5190,
+          "grid-02.svg": 3812,
+          "grid-03.svg": 1469,
+          "grid-04.svg": 5816,
+          "grid-05.svg": 17378,
+          "grid-06.svg": 6224,
+          "grid-07.svg": 36158,
+          "grid-08.svg": 3481,
+          "grid-09.svg": 17030,
+          "grid-10.svg": 6725,
+          "grid-11.svg": 7544,
+          "grid-12.svg": 2633,
+          "grid-13.svg": 2797,
+          "grid-14.svg": 271494,
+          "grid-15.svg": 10080,
+          "grid-16.svg": 10896,
+          "grid-17.svg": 39580,
+          "grid-18.svg": 33320,
+          "grid-19.svg": 24300,
+          "grid-20.svg": 5045,
+          "grid-21.svg": 12110,
+          "grid-22.svg": 12567,
+          "grid-23.svg": 13157,
+          "grid-24.svg": 2111,
+          "grid-25.svg": 10595,
+          "grid-26.svg": 13586,
+          "grid-27.svg": 6741,
+          "grid-28.svg": 10667,
+          "grid-29.svg": 1318,
+          "grid-30.svg": 1711,
+          "grid-31.svg": 8686,
+          "grid-32.svg": 2858,
+          "grid-33.svg": 18203,
+          "grid-34.svg": 10270,
+          "grid-35.svg": 2721,
+          "grid-36.svg": 1109,
+          "grid-37.svg": 2150,
+          "grid-38.svg": 2973,
+          "grid-39.svg": 1969,
+          "grid-40.svg": 996,
+          "grid-41.svg": 108464,
+          "grid-42.svg": 285220,
+          "grid-43.svg": 101768
+        }
+      },
+      "collection-illustrations": {
+        "illustrations-featured": {
+          "illustrations-featured-1200.jpg": 126219,
+          "illustrations-featured-1600.jpg": 216119,
+          "illustrations-featured-400.jpg": 17461,
+          "illustrations-featured-800.jpg": 61755
+        },
+        "illustrations-featured.png": 2331071,
+        "illustrations-svg": {
+          "illustration-01.svg": 8602,
+          "illustration-02.svg": 49238,
+          "illustration-03.svg": 1860,
+          "illustration-04.svg": 5890,
+          "illustration-05.svg": 2754,
+          "illustration-06.svg": 1905,
+          "illustration-07.svg": 1690,
+          "illustration-08.svg": 47809,
+          "illustration-09.svg": 35132,
+          "illustration-10.svg": 2671,
+          "illustration-11.svg": 3266,
+          "illustration-12.svg": 19395,
+          "illustration-13.svg": 14276,
+          "illustration-14.svg": 515555,
+          "illustration-15.svg": 23827,
+          "illustration-16.svg": 4774,
+          "illustration-17.svg": 1228,
+          "illustration-18.svg": 6699,
+          "illustration-19.svg": 3953,
+          "illustration-20.svg": 2390,
+          "illustration-21.svg": 11466,
+          "illustration-22.svg": 9336,
+          "illustration-23.svg": 14394,
+          "illustration-24.svg": 41306,
+          "illustration-25.svg": 3505,
+          "illustration-26.svg": 10697,
+          "illustration-27.svg": 1291,
+          "illustration-28.svg": 7796,
+          "illustration-29.svg": 8632,
+          "illustration-30.svg": 4293,
+          "illustration-31.svg": 18233,
+          "illustration-32.svg": 83583,
+          "illustration-33.svg": 2689,
+          "illustration-34.svg": 19019,
+          "illustration-35.svg": 26456,
+          "illustration-36.svg": 10845,
+          "illustration-37.svg": 7559,
+          "illustration-38.svg": 103615,
+          "illustration-39.svg": 2545
+        }
+      },
+      "collection-logomarks": {
+        "logomarks-featured": {
+          "logomarks-featured-1200.jpg": 83389,
+          "logomarks-featured-1600.jpg": 142055,
+          "logomarks-featured-400.jpg": 16278,
+          "logomarks-featured-800.jpg": 43962
+        },
+        "logomarks-featured.png": 2513450,
+        "logomarks-svg": {
+          "logo-bf.svg": 2141,
+          "logo-biskup.svg": 1115,
+          "logo-black-house.svg": 574,
+          "logo-canalix.svg": 753,
+          "logo-carrow.svg": 5791,
+          "logo-casedoc.svg": 721,
+          "logo-exmon.svg": 757,
+          "logo-flik.svg": 775,
+          "logo-foto.svg": 1236,
+          "logo-greind.svg": 1942,
+          "logo-hidash.svg": 3953,
+          "logo-kaffistofan.svg": 2261,
+          "logo-kolkrabbi.svg": 9352,
+          "logo-konsulat.svg": 4093,
+          "logo-likhamur.svg": 18474,
+          "logo-mbsk.svg": 1991,
+          "logo-microgroove.svg": 2088,
+          "logo-mobe.svg": 1085,
+          "logo-servado.svg": 628,
+          "logo-snjallingur.svg": 2093,
+          "logo-type-1.svg": 512,
+          "logo-type-2.svg": 663,
+          "logo-type-3.svg": 1132,
+          "logo-type-4.svg": 1942,
+          "logo-type-5.svg": 626
+        },
+        "logomarks.json": 5145
+      },
+      "collection-motion-graphics": {
+        "01-mg-type-abstract": {
+          "01-mg-type-abstract-1200.jpg": 105127,
+          "01-mg-type-abstract-1600.jpg": 153763,
+          "01-mg-type-abstract-400.jpg": 24910,
+          "01-mg-type-abstract-800.jpg": 61440
+        },
+        "02-mg-type-trolla": {
+          "02-mg-type-trolla-1200.jpg": 24583,
+          "02-mg-type-trolla-1600.jpg": 37150,
+          "02-mg-type-trolla-400.jpg": 5170,
+          "02-mg-type-trolla-800.jpg": 14136
+        },
+        "03-mg-dust": {
+          "03-mg-dust-1200.jpg": 18283,
+          "03-mg-dust-1600.jpg": 28843,
+          "03-mg-dust-400.jpg": 2899,
+          "03-mg-dust-800.jpg": 9410
+        },
+        "04-mg-sanid": {
+          "04-mg-sanid-1200.jpg": 108698,
+          "04-mg-sanid-1600.jpg": 165314,
+          "04-mg-sanid-400.jpg": 15182,
+          "04-mg-sanid-800.jpg": 57088
+        },
+        "05-mg-aftra": {
+          "05-mg-aftra-1200.jpg": 18933,
+          "05-mg-aftra-1600.jpg": 30659,
+          "05-mg-aftra-400.jpg": 2459,
+          "05-mg-aftra-800.jpg": 9020
+        },
+        "06-mg-field": {
+          "06-mg-field-1200.jpg": 122895,
+          "06-mg-field-1600.jpg": 179974,
+          "06-mg-field-400.jpg": 26168,
+          "06-mg-field-800.jpg": 72867
+        },
+        "07-mg-vatn": {
+          "07-mg-vatn-1200.jpg": 97904,
+          "07-mg-vatn-1600.jpg": 147782,
+          "07-mg-vatn-400.jpg": 17864,
+          "07-mg-vatn-800.jpg": 54779
+        },
+        "08-mg-type-gr": {
+          "08-mg-type-gr-1200.jpg": 8456,
+          "08-mg-type-gr-1600.jpg": 13849,
+          "08-mg-type-gr-400.jpg": 1292,
+          "08-mg-type-gr-800.jpg": 4098
+        },
+        "09-mg-textblock": {
+          "09-mg-textblock-1200.jpg": 39044,
+          "09-mg-textblock-1600.jpg": 57811,
+          "09-mg-textblock-400.jpg": 7975,
+          "09-mg-textblock-800.jpg": 22066
+        }
+      },
+      "collection-overview": {
+        "carousel-grid": {
+          "01-carousel-grid": {
+            "01-carousel-grid-1200.jpg": 39670,
+            "01-carousel-grid-1600.jpg": 62582,
+            "01-carousel-grid-400.jpg": 8034,
+            "01-carousel-grid-800.jpg": 21625
+          },
+          "02-carousel-grid": {
+            "02-carousel-grid-1200.jpg": 38475,
+            "02-carousel-grid-1600.jpg": 58089,
+            "02-carousel-grid-400.jpg": 9214,
+            "02-carousel-grid-800.jpg": 22208
+          },
+          "03-carousel-grid": {
+            "03-carousel-grid-1200.jpg": 34497,
+            "03-carousel-grid-1600.jpg": 51993,
+            "03-carousel-grid-400.jpg": 8571,
+            "03-carousel-grid-800.jpg": 20153
+          },
+          "04-carousel-grid": {
+            "04-carousel-grid-1200.jpg": 37211,
+            "04-carousel-grid-1600.jpg": 58645,
+            "04-carousel-grid-400.jpg": 7722,
+            "04-carousel-grid-800.jpg": 20771
+          }
+        },
+        "carousel-illustration": {
+          "01-carousel-illustration": {
+            "01-carousel-illustration-1200.jpg": 41290,
+            "01-carousel-illustration-1600.jpg": 79623,
+            "01-carousel-illustration-400.jpg": 6327,
+            "01-carousel-illustration-800.jpg": 17499
+          },
+          "02-carousel-illustration": {
+            "02-carousel-illustration-1200.jpg": 40319,
+            "02-carousel-illustration-1600.jpg": 75414,
+            "02-carousel-illustration-400.jpg": 7789,
+            "02-carousel-illustration-800.jpg": 21528
+          },
+          "03-carousel-illustration": {
+            "03-carousel-illustration-1200.jpg": 125886,
+            "03-carousel-illustration-1600.jpg": 214451,
+            "03-carousel-illustration-400.jpg": 17469,
+            "03-carousel-illustration-800.jpg": 61746
+          }
+        },
+        "carousel-logomark": {
+          "carousel-canalix": {
+            "carousel-canalix-1200.jpg": 52332,
+            "carousel-canalix-1600.jpg": 81464,
+            "carousel-canalix-400.jpg": 11018,
+            "carousel-canalix-800.jpg": 29730
+          },
+          "carousel-exmon": {
+            "carousel-exmon-1200.jpg": 69990,
+            "carousel-exmon-1600.jpg": 110600,
+            "carousel-exmon-400.jpg": 14924,
+            "carousel-exmon-800.jpg": 39256
+          },
+          "carousel-flik": {
+            "carousel-flik-1200.jpg": 27770,
+            "carousel-flik-1600.jpg": 41329,
+            "carousel-flik-400.jpg": 6689,
+            "carousel-flik-800.jpg": 16221
+          },
+          "carousel-kaffistofan": {
+            "carousel-kaffistofan-1200.jpg": 51317,
+            "carousel-kaffistofan-1600.jpg": 89321,
+            "carousel-kaffistofan-400.jpg": 8927,
+            "carousel-kaffistofan-800.jpg": 25819
+          }
+        },
+        "ql-card": {
+          "ql-grid": {
+            "ql-dark": {
+              "ql-dark.png": 23993,
+              "ql-dark.svg": 22863
+            },
+            "ql-light": {
+              "ql-light.png": 25721,
+              "ql-light.svg": 22851
+            }
+          },
+          "ql-illustration": {
+            "ql-dark": {
+              "ql-dark.png": 23541,
+              "ql-dark.svg": 14286
+            },
+            "ql-light": {
+              "ql-light.png": 25384,
+              "ql-light.svg": 14286
+            }
+          },
+          "ql-logomark": {
+            "ql-dark": {
+              "ql-dark.png": 94345,
+              "ql-dark.svg": 47760
+            },
+            "ql-light": {
+              "ql-light.png": 112116,
+              "ql-light.svg": 47764
+            }
+          },
+          "ql-motion-graphics": {
+            "ql-dark": {
+              "ql-dark.png": 55283,
+              "ql-dark.svg": 8345
+            },
+            "ql-light": {
+              "ql-light.png": 60818,
+              "ql-light.svg": 8369
+            }
+          }
+        }
+      }
+    },
+    "foundry": {
+      ".DS_Store": 6148,
+      "foundry-global": {
+        ".DS_Store": 6148,
+        "01-carousel": {
+          ".DS_Store": 6148,
+          "carousel-dylgjur": {
+            "carousel-dylgjur-1200.jpg": 73229,
+            "carousel-dylgjur-1600.jpg": 111535,
+            "carousel-dylgjur-400.jpg": 9420,
+            "carousel-dylgjur-800.jpg": 36325
+          },
+          "carousel-gullhamrar": {
+            "carousel-gullhamrar-1200.jpg": 12527,
+            "carousel-gullhamrar-1600.jpg": 18918,
+            "carousel-gullhamrar-400.jpg": 3257,
+            "carousel-gullhamrar-800.jpg": 7429
+          },
+          "carousel-malromur": {
+            "carousel-malromur-1200.jpg": 14127,
+            "carousel-malromur-1600.jpg": 21578,
+            "carousel-malromur-400.jpg": 3229,
+            "carousel-malromur-800.jpg": 7897
+          },
+          "carousel-raetur": {
+            "carousel-raetur-1200.jpg": 63404,
+            "carousel-raetur-1600.jpg": 130551,
+            "carousel-raetur-400.jpg": 6143,
+            "carousel-raetur-800.jpg": 23897
+          },
+          "carousel-trollatunga": {
+            "carousel-trollatunga-1200.jpg": 18986,
+            "carousel-trollatunga-1600.jpg": 26430,
+            "carousel-trollatunga-400.jpg": 5525,
+            "carousel-trollatunga-800.jpg": 12399
+          }
+        },
+        "02-ql-navigation": {
+          ".DS_Store": 6148,
+          "ql-dark": {
+            ".DS_Store": 6148,
+            "ql-card-01": {
+              ".DS_Store": 6148,
+              "ql-card-01.svg": 22335,
+              "ql-card-1200.jpg": 22620,
+              "ql-card-1600.jpg": 35602,
+              "ql-card-400.jpg": 5488,
+              "ql-card-800.jpg": 13939
+            },
+            "ql-card-02": {
+              ".DS_Store": 6148,
+              "ql-card-02.svg": 1753,
+              "ql-card-1200.jpg": 13509,
+              "ql-card-1600.jpg": 20533,
+              "ql-card-400.jpg": 3609,
+              "ql-card-800.jpg": 8108
+            },
+            "ql-card-03": {
+              ".DS_Store": 6148,
+              "ql-card-03.svg": 1619,
+              "ql-card-1200.jpg": 20742,
+              "ql-card-1600.jpg": 30509,
+              "ql-card-400.jpg": 5147,
+              "ql-card-800.jpg": 12311
+            },
+            "ql-card-04": {
+              ".DS_Store": 6148,
+              "ql-card-04.svg": 2211,
+              "ql-card-1200.jpg": 24056,
+              "ql-card-1600.jpg": 35065,
+              "ql-card-400.jpg": 6207,
+              "ql-card-800.jpg": 14553
+            }
+          },
+          "ql-light": {
+            ".DS_Store": 6148,
+            "ql-card-01": {
+              ".DS_Store": 6148,
+              "ql-card-01.svg": 22331,
+              "ql-card-1200.jpg": 24521,
+              "ql-card-1600.jpg": 39133,
+              "ql-card-400.jpg": 6153,
+              "ql-card-800.jpg": 15334
+            },
+            "ql-card-02": {
+              ".DS_Store": 6148,
+              "ql-card-02.svg": 1753,
+              "ql-card-1200.jpg": 13505,
+              "ql-card-1600.jpg": 20528,
+              "ql-card-400.jpg": 3618,
+              "ql-card-800.jpg": 8094
+            },
+            "ql-card-03": {
+              ".DS_Store": 6148,
+              "ql-card-03.svg": 1617,
+              "ql-card-1200.jpg": 20742,
+              "ql-card-1600.jpg": 30496,
+              "ql-card-400.jpg": 5139,
+              "ql-card-800.jpg": 12304
+            },
+            "ql-card-04": {
+              ".DS_Store": 6148,
+              "ql-card-04.svg": 2209,
+              "ql-card-1200.jpg": 24065,
+              "ql-card-1600.jpg": 35057,
+              "ql-card-400.jpg": 6215,
+              "ql-card-800.jpg": 14511
+            }
+          }
+        },
+        "03-overview-card": {
+          ".DS_Store": 6148,
+          "card-dark": {
+            "foundry-card-1200.jpg": 29211,
+            "foundry-card-1600.jpg": 42650,
+            "foundry-card-400.jpg": 6594,
+            "foundry-card-800.jpg": 16859,
+            "foundry-card.png": 55042
+          },
+          "card-light": {
+            "foundry-card-1200.jpg": 29769,
+            "foundry-card-1600.jpg": 44163,
+            "foundry-card-400.jpg": 6826,
+            "foundry-card-800.jpg": 17035,
+            "foundry-card.png": 55816
+          }
+        },
+        "04-ql-specimen": {
+          "01-quick-access.svg": 710,
+          "02-quick-access.svg": 1144,
+          "03-quick-access.svg": 557
+        }
+      },
+      "foundry-typefaces": {
+        ".DS_Store": 8196,
+        "01-malromur": {
+          ".DS_Store": 6148,
+          "card-malromur": {
+            ".DS_Store": 6148,
+            "01-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 32717,
+              "specimen-card-1600.jpg": 47769,
+              "specimen-card-400.jpg": 7877,
+              "specimen-card-800.jpg": 19100
+            },
+            "02-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 65129,
+              "specimen-card-1600.jpg": 101788,
+              "specimen-card-400.jpg": 12200,
+              "specimen-card-800.jpg": 35097
+            },
+            "03-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 90439,
+              "specimen-card-1600.jpg": 132900,
+              "specimen-card-400.jpg": 22462,
+              "specimen-card-800.jpg": 53924
+            }
+          },
+          "specimen-malromur": {
+            ".DS_Store": 8196,
+            "01-specimen-hero": {
+              ".DS_Store": 6148,
+              "specimen-hero-1200.jpg": 18205,
+              "specimen-hero-1600.jpg": 27947,
+              "specimen-hero-400.jpg": 4082,
+              "specimen-hero-800.jpg": 10062
+            },
+            "02-specimen-image": {
+              ".DS_Store": 6148,
+              "specimen-image-1200.jpg": 63254,
+              "specimen-image-1600.jpg": 99563,
+              "specimen-image-2560.jpg": 231374,
+              "specimen-image-400.jpg": 11438,
+              "specimen-image-800.jpg": 33178
+            },
+            "03-specimen-image": {
+              "specimen-image-1200.jpg": 37397,
+              "specimen-image-1600.jpg": 57622,
+              "specimen-image-400.jpg": 8638,
+              "specimen-image-800.jpg": 21499
+            },
+            "04-specimen-image": {
+              "specimen-image-1200.jpg": 53281,
+              "specimen-image-1600.jpg": 79049,
+              "specimen-image-400.jpg": 12356,
+              "specimen-image-800.jpg": 30658
+            },
+            "05-specimen-image": {
+              ".DS_Store": 6148,
+              "specimen-image-1200.jpg": 28485,
+              "specimen-image-1600.jpg": 42226,
+              "specimen-image-2560.jpg": 79669,
+              "specimen-image-400.jpg": 6651,
+              "specimen-image-800.jpg": 17081
+            }
+          },
+          "typefaces-malromur": {
+            ".DS_Store": 8196,
+            "01-typefaces-hero": {
+              "typefaces-hero-1200.jpg": 63254,
+              "typefaces-hero-1600.jpg": 99563,
+              "typefaces-hero-2560.jpg": 231374,
+              "typefaces-hero-400.jpg": 11438,
+              "typefaces-hero-800.jpg": 33178
+            },
+            "02-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 98015,
+              "typefaces-image-1600.jpg": 149466,
+              "typefaces-image-2560.jpg": 311066,
+              "typefaces-image-400.jpg": 21934,
+              "typefaces-image-800.jpg": 55825
+            },
+            "03-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 56518,
+              "typefaces-image-1600.jpg": 91412,
+              "typefaces-image-2560.jpg": 196548,
+              "typefaces-image-400.jpg": 11178,
+              "typefaces-image-800.jpg": 29416
+            },
+            "04-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 28485,
+              "typefaces-image-1600.jpg": 42226,
+              "typefaces-image-2560.jpg": 79669,
+              "typefaces-image-400.jpg": 6651,
+              "typefaces-image-800.jpg": 17081
+            },
+            "05-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 53281,
+              "typefaces-image-1600.jpg": 79049,
+              "typefaces-image-2560.jpg": 156950,
+              "typefaces-image-400.jpg": 12356,
+              "typefaces-image-800.jpg": 30658
+            }
+          }
+        },
+        "02-raetur": {
+          ".DS_Store": 6148,
+          "card-raetur": {
+            ".DS_Store": 6148,
+            "01-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 75112,
+              "specimen-card-1600.jpg": 133024,
+              "specimen-card-400.jpg": 7423,
+              "specimen-card-800.jpg": 30110
+            },
+            "02-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 79984,
+              "specimen-card-1600.jpg": 141056,
+              "specimen-card-400.jpg": 8316,
+              "specimen-card-800.jpg": 33124
+            },
+            "03-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 137461,
+              "specimen-card-1600.jpg": 229297,
+              "specimen-card-400.jpg": 16744,
+              "specimen-card-800.jpg": 64043
+            }
+          },
+          "specimen-raetur": {
+            ".DS_Store": 8196,
+            "01-specimen-hero": {
+              "specimen-hero-1200.jpg": 73000,
+              "specimen-hero-1600.jpg": 146556,
+              "specimen-hero-400.jpg": 7725,
+              "specimen-hero-800.jpg": 28890
+            },
+            "02-specimen-image": {
+              "specimen-image-1200.jpg": 65823,
+              "specimen-image-1600.jpg": 131558,
+              "specimen-image-400.jpg": 5872,
+              "specimen-image-800.jpg": 23533
+            },
+            "03-specimen-image": {
+              "specimen-image-1200.jpg": 124124,
+              "specimen-image-1600.jpg": 229344,
+              "specimen-image-400.jpg": 13216,
+              "specimen-image-800.jpg": 52512
+            },
+            "04-specimen-image": {
+              "specimen-image-1200.jpg": 68051,
+              "specimen-image-1600.jpg": 121521,
+              "specimen-image-400.jpg": 11096,
+              "specimen-image-800.jpg": 31554
+            },
+            "05-specimen-image": {
+              "specimen-image-1200.jpg": 90589,
+              "specimen-image-1600.jpg": 180726,
+              "specimen-image-400.jpg": 8722,
+              "specimen-image-800.jpg": 35024
+            }
+          },
+          "typefaces-raetur": {
+            ".DS_Store": 6148,
+            "01-typefaces-hero": {
+              "typefaces-hero-1200.jpg": 58235,
+              "typefaces-hero-1600.jpg": 111324,
+              "typefaces-hero-400.jpg": 8029,
+              "typefaces-hero-800.jpg": 25176
+            },
+            "02-typefaces-image": {
+              "typefaces-image-1200.jpg": 44906,
+              "typefaces-image-1600.jpg": 86267,
+              "typefaces-image-400.jpg": 6680,
+              "typefaces-image-800.jpg": 19633
+            },
+            "03-typefaces-image": {
+              "typefaces-image-1200.jpg": 70180,
+              "typefaces-image-1600.jpg": 127732,
+              "typefaces-image-400.jpg": 9925,
+              "typefaces-image-800.jpg": 31951
+            },
+            "04-typefaces-image": {
+              "typefaces-image-1200.jpg": 63409,
+              "typefaces-image-1600.jpg": 130575,
+              "typefaces-image-400.jpg": 6137,
+              "typefaces-image-800.jpg": 23876
+            },
+            "05-typefaces-image": {
+              "typefaces-image-1200.jpg": 79440,
+              "typefaces-image-1600.jpg": 138651,
+              "typefaces-image-400.jpg": 12095,
+              "typefaces-image-800.jpg": 35802
+            }
+          }
+        },
+        "03-dylgjur": {
+          ".DS_Store": 6148,
+          "card-dylgjur": {
+            ".DS_Store": 6148,
+            "01-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 61431,
+              "specimen-card-1600.jpg": 90845,
+              "specimen-card-400.jpg": 13291,
+              "specimen-card-800.jpg": 35349
+            },
+            "02-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 72838,
+              "specimen-card-1600.jpg": 106752,
+              "specimen-card-400.jpg": 16856,
+              "specimen-card-800.jpg": 42827
+            },
+            "03-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 85338,
+              "specimen-card-1600.jpg": 126800,
+              "specimen-card-400.jpg": 15887,
+              "specimen-card-800.jpg": 47277
+            }
+          },
+          "specimen-dylgjur": {
+            ".DS_Store": 8196,
+            "01-specimen-hero": {
+              ".DS_Store": 6148,
+              "specimen-hero-1200.jpg": 73229,
+              "specimen-hero-1600.jpg": 111535,
+              "specimen-hero-400.jpg": 9420,
+              "specimen-hero-800.jpg": 36325
+            },
+            "02-specimen-image": {
+              ".DS_Store": 6148,
+              "specimen-image-1200.jpg": 69817,
+              "specimen-image-1600.jpg": 101162,
+              "specimen-image-400.jpg": 15697,
+              "specimen-image-800.jpg": 40987
+            },
+            "03-specimen-image": {
+              ".DS_Store": 6148,
+              "specimen-image-1200.jpg": 90095,
+              "specimen-image-1600.jpg": 127245,
+              "specimen-image-400.jpg": 20455,
+              "specimen-image-800.jpg": 52496
+            },
+            "04-specimen-image": {
+              "specimen-image-1200.jpg": 84781,
+              "specimen-image-1600.jpg": 127840,
+              "specimen-image-400.jpg": 14205,
+              "specimen-image-800.jpg": 44732
+            },
+            "05-specimen-image": {
+              "specimen-image-1200.jpg": 80912,
+              "specimen-image-1600.jpg": 120405,
+              "specimen-image-400.jpg": 17569,
+              "specimen-image-800.jpg": 46284
+            }
+          },
+          "typefaces-dylgjur": {
+            ".DS_Store": 8196,
+            "01-typefaces-hero": {
+              "typefaces-hero-1200.jpg": 36566,
+              "typefaces-hero-1600.jpg": 54575,
+              "typefaces-hero-400.jpg": 7841,
+              "typefaces-hero-800.jpg": 20750
+            },
+            "02-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 84109,
+              "typefaces-image-1600.jpg": 126820,
+              "typefaces-image-400.jpg": 14138,
+              "typefaces-image-800.jpg": 44455
+            },
+            "03-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 75347,
+              "typefaces-image-1600.jpg": 108688,
+              "typefaces-image-400.jpg": 18498,
+              "typefaces-image-800.jpg": 46815
+            },
+            "04-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 115018,
+              "typefaces-image-1600.jpg": 170714,
+              "typefaces-image-400.jpg": 21401,
+              "typefaces-image-800.jpg": 65167
+            },
+            "05-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 80912,
+              "typefaces-image-1600.jpg": 120405,
+              "typefaces-image-400.jpg": 17569,
+              "typefaces-image-800.jpg": 46284
+            }
+          }
+        },
+        "04-gullhamrar": {
+          ".DS_Store": 6148,
+          "card-gullhamrar": {
+            ".DS_Store": 6148,
+            "01-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 81179,
+              "specimen-card-1600.jpg": 121973,
+              "specimen-card-400.jpg": 14439,
+              "specimen-card-800.jpg": 44339
+            },
+            "02-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 79209,
+              "specimen-card-1600.jpg": 114426,
+              "specimen-card-400.jpg": 18232,
+              "specimen-card-800.jpg": 46530
+            },
+            "03-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 106732,
+              "specimen-card-1600.jpg": 161630,
+              "specimen-card-400.jpg": 19113,
+              "specimen-card-800.jpg": 58560
+            }
+          },
+          "specimen-gullhamrar": {
+            ".DS_Store": 8196,
+            "01-specimen-hero": {
+              ".DS_Store": 6148,
+              "specimen-hero-1200.jpg": 43681,
+              "specimen-hero-1600.jpg": 65658,
+              "specimen-hero-400.jpg": 7053,
+              "specimen-hero-800.jpg": 23159
+            },
+            "02-specimen-image": {
+              ".DS_Store": 6148,
+              "specimen-image-1200.jpg": 53054,
+              "specimen-image-1600.jpg": 81922,
+              "specimen-image-400.jpg": 9489,
+              "specimen-image-800.jpg": 28393
+            },
+            "03-specimen-image": {
+              ".DS_Store": 6148,
+              "specimen-image-1200.jpg": 61434,
+              "specimen-image-1600.jpg": 90725,
+              "specimen-image-400.jpg": 11435,
+              "specimen-image-800.jpg": 34197
+            },
+            "04-specimen-image": {
+              ".DS_Store": 6148,
+              "specimen-image-1200.jpg": 77616,
+              "specimen-image-1600.jpg": 114070,
+              "specimen-image-400.jpg": 17119,
+              "specimen-image-800.jpg": 45503
+            },
+            "05-specimen-image": {
+              ".DS_Store": 6148,
+              "specimen-image-1200.jpg": 60845,
+              "specimen-image-1600.jpg": 88606,
+              "specimen-image-400.jpg": 13890,
+              "specimen-image-800.jpg": 35911
+            }
+          },
+          "typefaces-gullhamrar": {
+            ".DS_Store": 8196,
+            "01-typefaces-hero": {
+              ".DS_Store": 6148,
+              "typefaces-hero-1200.jpg": 66400,
+              "typefaces-hero-1600.jpg": 99458,
+              "typefaces-hero-400.jpg": 12012,
+              "typefaces-hero-800.jpg": 36632
+            },
+            "02-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 77363,
+              "typefaces-image-1600.jpg": 111634,
+              "typefaces-image-400.jpg": 15497,
+              "typefaces-image-800.jpg": 43367
+            },
+            "03-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 72699,
+              "typefaces-image-1600.jpg": 104443,
+              "typefaces-image-400.jpg": 17052,
+              "typefaces-image-800.jpg": 42875
+            },
+            "04-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 77616,
+              "typefaces-image-1600.jpg": 114070,
+              "typefaces-image-400.jpg": 17119,
+              "typefaces-image-800.jpg": 45503
+            },
+            "05-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 60845,
+              "typefaces-image-1600.jpg": 88606,
+              "typefaces-image-400.jpg": 13890,
+              "typefaces-image-800.jpg": 35911
+            }
+          }
+        },
+        "05-trollatunga": {
+          ".DS_Store": 6148,
+          "card-trollatunga": {
+            ".DS_Store": 6148,
+            "01-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 38131,
+              "specimen-card-1600.jpg": 55924,
+              "specimen-card-400.jpg": 9443,
+              "specimen-card-800.jpg": 23083
+            },
+            "02-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 31940,
+              "specimen-card-1600.jpg": 46630,
+              "specimen-card-400.jpg": 7825,
+              "specimen-card-800.jpg": 18948
+            },
+            "03-card": {
+              ".DS_Store": 6148,
+              "specimen-card-1200.jpg": 17914,
+              "specimen-card-1600.jpg": 25176,
+              "specimen-card-400.jpg": 5317,
+              "specimen-card-800.jpg": 11597
+            }
+          },
+          "specimen-trollatunga": {
+            ".DS_Store": 8196,
+            "01-specimen-hero": {
+              ".DS_Store": 6148,
+              "specimen-hero-1200.jpg": 28890,
+              "specimen-hero-1600.jpg": 56290,
+              "specimen-hero-400.jpg": 5550,
+              "specimen-hero-800.jpg": 14410
+            },
+            "02-specimen-image": {
+              ".DS_Store": 6148,
+              "specimen-image-1200.jpg": 61106,
+              "specimen-image-1600.jpg": 88854,
+              "specimen-image-400.jpg": 13549,
+              "specimen-image-800.jpg": 36104
+            },
+            "03-specimen-image": {
+              ".DS_Store": 6148,
+              "specimen-image-1200.jpg": 16986,
+              "specimen-image-1600.jpg": 24581,
+              "specimen-image-400.jpg": 4406,
+              "specimen-image-800.jpg": 10221
+            },
+            "04-specimen-image": {
+              ".DS_Store": 6148,
+              "specimen-image-1200.jpg": 49741,
+              "specimen-image-1600.jpg": 71379,
+              "specimen-image-400.jpg": 12644,
+              "specimen-image-800.jpg": 30318
+            },
+            "05-specimen-image": {
+              "specimen-image-1200.jpg": 55471,
+              "specimen-image-1600.jpg": 79066,
+              "specimen-image-400.jpg": 13953,
+              "specimen-image-800.jpg": 33431
+            }
+          },
+          "typefaces-trollatunga": {
+            ".DS_Store": 8196,
+            "01-typefaces-hero": {
+              ".DS_Store": 6148,
+              "typefaces-hero-1200.jpg": 55471,
+              "typefaces-hero-1600.jpg": 79066,
+              "typefaces-hero-400.jpg": 13953,
+              "typefaces-hero-800.jpg": 33431
+            },
+            "02-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 28548,
+              "typefaces-image-1600.jpg": 41114,
+              "typefaces-image-400.jpg": 6987,
+              "typefaces-image-800.jpg": 17115
+            },
+            "03-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 32020,
+              "typefaces-image-1600.jpg": 46217,
+              "typefaces-image-400.jpg": 8093,
+              "typefaces-image-800.jpg": 19283
+            },
+            "04-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 21994,
+              "typefaces-image-1600.jpg": 32914,
+              "typefaces-image-400.jpg": 5602,
+              "typefaces-image-800.jpg": 12936
+            },
+            "05-typefaces-image": {
+              ".DS_Store": 6148,
+              "typefaces-image-1200.jpg": 65813,
+              "typefaces-image-1600.jpg": 91959,
+              "typefaces-image-400.jpg": 15851,
+              "typefaces-image-800.jpg": 38933
+            }
+          }
+        }
+      }
+    },
+    "homepage": {
+      "home-about": {
+        "home-about-1200.jpg": 71852,
+        "home-about-1600.jpg": 110482,
+        "home-about-2560.jpg": 221675,
+        "home-about-400.jpg": 15451,
+        "home-about-800.jpg": 42509
+      },
+      "home-feat-kol": {
+        ".DS_Store": 6148,
+        "feat-kol-client": {
+          "feat-kol-client-1200.jpg": 48108,
+          "feat-kol-client-300.jpg": 8113,
+          "feat-kol-client-600.jpg": 17850,
+          "feat-kol-client-w-1200.jpg": 48108,
+          "feat-kol-client-w-300.jpg": 8124,
+          "feat-kol-client-w-600.jpg": 17842,
+          "feat-kol-client.svg": 1736
+        },
+        "feat-kol-collections": {
+          "feat-kol-collections-1200.jpg": 111842,
+          "feat-kol-collections-300.jpg": 15190,
+          "feat-kol-collections-600.jpg": 41663,
+          "feat-kol-collections-w-1200.jpg": 111625,
+          "feat-kol-collections-w-300.jpg": 14904,
+          "feat-kol-collections-w-600.jpg": 41665,
+          "feat-kol-collections.svg": 5034
+        },
+        "feat-kol-foundry": {
+          "feat-kol-foundry-1200.jpg": 76646,
+          "feat-kol-foundry-300.jpg": 13130,
+          "feat-kol-foundry-600.jpg": 30987,
+          "feat-kol-foundry-w-1200.jpg": 76526,
+          "feat-kol-foundry-w-300.jpg": 13143,
+          "feat-kol-foundry-w-600.jpg": 30963,
+          "feat-kol-foundry.svg": 2226
+        },
+        "feat-kol-workshop": {
+          "feat-kol-workshop-1200.jpg": 112018,
+          "feat-kol-workshop-300.jpg": 18146,
+          "feat-kol-workshop-600.jpg": 45245,
+          "feat-kol-workshop-w-1200.jpg": 111912,
+          "feat-kol-workshop-w-300.jpg": 17926,
+          "feat-kol-workshop-w-600.jpg": 44939,
+          "feat-kol-workshop.svg": 12347
+        }
+      },
+      "home-feat-workshop": {
+        ".DS_Store": 6148,
+        "workshop-components": {
+          "workshop-components-1200.jpg": 65302,
+          "workshop-components-1600.jpg": 102307,
+          "workshop-components-400.jpg": 12168,
+          "workshop-components-800.jpg": 36186
+        },
+        "workshop-documentation": {
+          "workshop-documentation-1200.jpg": 64079,
+          "workshop-documentation-1600.jpg": 96154,
+          "workshop-documentation-400.jpg": 9536,
+          "workshop-documentation-800.jpg": 33058
+        },
+        "workshop-foundation": {
+          "workshop-foundation-1200.jpg": 52625,
+          "workshop-foundation-1600.jpg": 85701,
+          "workshop-foundation-400.jpg": 9289,
+          "workshop-foundation-800.jpg": 29437
+        },
+        "workshop-introduction": {
+          "workshop-introduction-1200.jpg": 66533,
+          "workshop-introduction-1600.jpg": 103213,
+          "workshop-introduction-400.jpg": 10932,
+          "workshop-introduction-800.jpg": 35334
+        }
+      },
+      "home-foundry-card": {
+        ".DS_Store": 6148,
+        "foundry-card-dark": {
+          "foundry-card-dark-1200.jpg": 103936,
+          "foundry-card-dark-1600.jpg": 154008,
+          "foundry-card-dark-2560.jpg": 291896,
+          "foundry-card-dark-400.jpg": 19090,
+          "foundry-card-dark-800.jpg": 54758,
+          "foundry-card-dark.svg": 372976
+        },
+        "foundry-card-light": {
+          "foundry-card-light-1200.jpg": 104817,
+          "foundry-card-light-1600.jpg": 154429,
+          "foundry-card-light-2560.jpg": 292302,
+          "foundry-card-light-400.jpg": 19187,
+          "foundry-card-light-800.jpg": 55499,
+          "foundry-card-light.svg": 372972
+        }
+      },
+      "home-highlight": {
+        ".DS_Store": 6148,
+        "hl-analytics": {
+          ".DS_Store": 6148,
+          "hl-analytics-1200.jpg": 50035,
+          "hl-analytics-1600.jpg": 80023,
+          "hl-analytics-2560.jpg": 150422,
+          "hl-analytics-400.jpg": 8382,
+          "hl-analytics-800.jpg": 26040
+        },
+        "hl-chess": {
+          ".DS_Store": 6148,
+          "hl-chess-1200.jpg": 38410,
+          "hl-chess-1600.jpg": 51639,
+          "hl-chess-2560.jpg": 85698,
+          "hl-chess-400.jpg": 11619,
+          "hl-chess-800.jpg": 23898
+        },
+        "hl-malromur": {
+          ".DS_Store": 6148,
+          "hl-malromur-1200.jpg": 63254,
+          "hl-malromur-1600.jpg": 99563,
+          "hl-malromur-2560.jpg": 231374,
+          "hl-malromur-400.jpg": 11438,
+          "hl-malromur-800.jpg": 33178
+        },
+        "hl-print": {
+          ".DS_Store": 6148,
+          "hl-print-1200.jpg": 73164,
+          "hl-print-1600.jpg": 131847,
+          "hl-print-2560.jpg": 330730,
+          "hl-print-400.jpg": 9681,
+          "hl-print-800.jpg": 33335
+        },
+        "hl-radial": {
+          ".DS_Store": 6148,
+          "hl-radial-1200.jpg": 51245,
+          "hl-radial-1600.jpg": 75819,
+          "hl-radial-1920.png": 1198344,
+          "hl-radial-400.jpg": 9599,
+          "hl-radial-800.jpg": 28528
+        },
+        "hl-visuals": {
+          "hl-visuals-1200.jpg": 24583,
+          "hl-visuals-1600.jpg": 37150,
+          "hl-visuals-400.jpg": 5170,
+          "hl-visuals-800.jpg": 14136
+        }
+      }
+    },
+    "studio": {
+      ".DS_Store": 6148,
+      "card-about": {
+        ".DS_Store": 6148,
+        "studio-about-1200.jpg": 34912,
+        "studio-about-1600.jpg": 53665,
+        "studio-about-400.jpg": 6775,
+        "studio-about-800.jpg": 18945
+      },
+      "card-process": {
+        "process-dark.svg": 31734,
+        "process-light.svg": 31733
+      },
+      "ql-card-studio": {
+        ".DS_Store": 6148,
+        "ql-card-dark": {
+          "01-ql-card.svg": 22501,
+          "02-ql-card.svg": 8327,
+          "03-ql-card.svg": 17501,
+          "04-ql-card.svg": 1754
+        },
+        "ql-card-light": {
+          "01-ql-card.svg": 22501,
+          "02-ql-card.svg": 8327,
+          "03-ql-card.svg": 17501,
+          "04-ql-card.svg": 1754
+        }
+      },
+      "studio-video-still": {
+        "video-still-1200.jpg": 43233,
+        "video-still-1600.jpg": 66622,
+        "video-still-400.jpg": 7440,
+        "video-still-800.jpg": 23196
+      }
+    },
+    "website-global": {
+      "fallback": {
+        "README.md": 787,
+        "hz": {
+          "grid-01": {
+            "dark-1200.jpg": 41059,
+            "dark-1600.jpg": 57754,
+            "dark-400.jpg": 9430,
+            "dark-800.jpg": 23558,
+            "light-1200.jpg": 40966,
+            "light-1600.jpg": 57822,
+            "light-400.jpg": 9425,
+            "light-800.jpg": 23556
+          },
+          "grid-02": {
+            "dark-1200.jpg": 39109,
+            "dark-1600.jpg": 55976,
+            "dark-400.jpg": 7794,
+            "dark-800.jpg": 23016,
+            "light-1200.jpg": 38999,
+            "light-1600.jpg": 55881,
+            "light-400.jpg": 7807,
+            "light-800.jpg": 22980
+          },
+          "image-01": {
+            "1200.jpg": 45023,
+            "1600.jpg": 91029,
+            "400.jpg": 6372,
+            "800.jpg": 18084
+          },
+          "image-02": {
+            "1200.jpg": 68086,
+            "1600.jpg": 120738,
+            "400.jpg": 6189,
+            "800.jpg": 24239
+          }
+        },
+        "logo": {
+          "01": {
+            "1200.jpg": 85296,
+            "1600.jpg": 127905,
+            "400.jpg": 16373,
+            "800.jpg": 47171
+          },
+          "02": {
+            "1200.jpg": 81923,
+            "1600.jpg": 123511,
+            "400.jpg": 15746,
+            "800.jpg": 45927
+          }
+        },
+        "sq": {
+          "grid-01": {
+            "dark-1200.jpg": 38707,
+            "dark-1600.jpg": 59682,
+            "dark-400.jpg": 8705,
+            "dark-800.jpg": 23876,
+            "light-1200.jpg": 38739,
+            "light-1600.jpg": 59684,
+            "light-400.jpg": 8722,
+            "light-800.jpg": 23887
+          },
+          "grid-02": {
+            "dark-1200.jpg": 41887,
+            "dark-1600.jpg": 56464,
+            "dark-400.jpg": 9454,
+            "dark-800.jpg": 24039,
+            "light-1200.jpg": 41904,
+            "light-1600.jpg": 56377,
+            "light-400.jpg": 9409,
+            "light-800.jpg": 24060
+          },
+          "grid-03": {
+            "dark-1200.jpg": 65040,
+            "dark-1600.jpg": 98575,
+            "dark-400.jpg": 9553,
+            "dark-800.jpg": 33449,
+            "light-1200.jpg": 77340,
+            "light-1600.jpg": 117862,
+            "light-400.jpg": 12371,
+            "light-800.jpg": 41223
+          },
+          "logo": {
+            "dark-1200.jpg": 31386,
+            "dark-1600.jpg": 45720,
+            "dark-400.jpg": 8124,
+            "dark-800.jpg": 19103,
+            "light-1200.jpg": 31362,
+            "light-1600.jpg": 45705,
+            "light-400.jpg": 8138,
+            "light-800.jpg": 19130
+          }
+        },
+        "vt": {
+          "comp-01": {
+            "1200.jpg": 87752,
+            "1600.jpg": 130299,
+            "400.jpg": 20138,
+            "800.jpg": 51258
+          },
+          "comp-02": {
+            "1200.jpg": 81082,
+            "1600.jpg": 121294,
+            "400.jpg": 17571,
+            "800.jpg": 46311
+          },
+          "grid": {
+            "dark-1200.jpg": 112463,
+            "dark-1600.jpg": 166544,
+            "dark-400.jpg": 24735,
+            "dark-800.jpg": 63588,
+            "light-1200.jpg": 112465,
+            "light-1600.jpg": 166663,
+            "light-400.jpg": 24715,
+            "light-800.jpg": 63623
+          }
+        }
+      }
+    },
+    "workshop": {
+      "workshop-docs": {
+        "workshop-docs.svg": 3836,
+        "workshop-logo.svg": 3670
+      },
+      "workshop-halls": {
+        "halls-img": {
+          "halls-img-1200.jpg": 83663,
+          "halls-img-1600.jpg": 142849,
+          "halls-img-2560.jpg": 337348,
+          "halls-img-400.jpg": 15311,
+          "halls-img-800.jpg": 42346
+        }
+      },
+      "workshop-images": {
+        "ws-img-01": {
+          "workshop-image-1200.jpg": 183219,
+          "workshop-image-1600.jpg": 250176,
+          "workshop-image-400.jpg": 43217,
+          "workshop-image-800.jpg": 111531
+        }
+      },
+      "workshop-overview": {
+        "analytics.png": 8394,
+        "apparat.png": 11479,
+        "chess.png": 85369,
+        "components.png": 14625,
+        "design-system.png": 7169,
+        "hall-of-mirrors.png": 30964
+      }
+    }
+  },
+  "data-library": {
+    "chess-data": {
+      "generated": {
+        "index.js": 20064355
+      },
+      "pgn": {
+        "by-month": {
+          "2017-02.json": 157467,
+          "2017-03.json": 2592629,
+          "2017-04.json": 2546561,
+          "2017-05.json": 1583029,
+          "2017-06.json": 3234145,
+          "2017-07.json": 2379425,
+          "2017-08.json": 2707975,
+          "2017-09.json": 1971112,
+          "2017-10.json": 2070183,
+          "2017-11.json": 1064501,
+          "2017-12.json": 3330127,
+          "2018-01.json": 2389698,
+          "2018-02.json": 1064257,
+          "2018-03.json": 2598994,
+          "2018-04.json": 2017408,
+          "2018-05.json": 2070587,
+          "2018-06.json": 1296169,
+          "2018-07.json": 1395109,
+          "2018-08.json": 2051675,
+          "2018-09.json": 816078,
+          "2018-10.json": 875825,
+          "2018-11.json": 1919688,
+          "2018-12.json": 2096532,
+          "2019-01.json": 1704734,
+          "2019-02.json": 488918,
+          "2019-03.json": 705582,
+          "2019-04.json": 461156,
+          "2019-05.json": 1154076,
+          "2019-06.json": 898833,
+          "2019-07.json": 1248303,
+          "2019-08.json": 1511396,
+          "2019-09.json": 937719,
+          "2019-10.json": 1060696,
+          "2019-11.json": 1204659,
+          "2019-12.json": 574679,
+          "2020-01.json": 324744,
+          "2020-02.json": 576169,
+          "2020-03.json": 709541,
+          "2020-04.json": 921829,
+          "2020-05.json": 252718,
+          "2020-06.json": 360223,
+          "2020-07.json": 526221,
+          "2020-08.json": 19356,
+          "2020-09.json": 76103,
+          "2020-10.json": 9270,
+          "2020-11.json": 9085,
+          "2020-12.json": 33292,
+          "2021-01.json": 390807,
+          "2021-02.json": 740800,
+          "2021-03.json": 302025,
+          "2021-04.json": 172793,
+          "2021-05.json": 526204,
+          "2021-06.json": 305968,
+          "2021-07.json": 137340,
+          "2021-08.json": 546960,
+          "2021-09.json": 290905,
+          "2021-10.json": 361702,
+          "2021-11.json": 105548,
+          "2021-12.json": 90967,
+          "2022-01.json": 19756,
+          "2022-02.json": 36363,
+          "2022-03.json": 171777,
+          "2022-04.json": 101455,
+          "2022-05.json": 195560,
+          "2022-06.json": 69231,
+          "2022-07.json": 22977,
+          "2022-08.json": 69785,
+          "2022-09.json": 67127,
+          "2022-10.json": 100146,
+          "2022-11.json": 72818,
+          "2022-12.json": 59288,
+          "2023-01.json": 29830,
+          "2023-02.json": 42846,
+          "2023-03.json": 55807,
+          "2023-04.json": 23648,
+          "2023-05.json": 73880,
+          "2023-06.json": 64444,
+          "2023-07.json": 42405,
+          "2023-08.json": 156692,
+          "2023-09.json": 327120,
+          "2023-10.json": 198815,
+          "2023-11.json": 288594,
+          "2023-12.json": 301523,
+          "2024-01.json": 362621,
+          "2024-02.json": 276896,
+          "2024-03.json": 179220,
+          "2024-04.json": 465283,
+          "2024-05.json": 133320,
+          "2024-06.json": 70523,
+          "2024-07.json": 37385,
+          "2024-08.json": 87320,
+          "2024-09.json": 188561,
+          "2024-10.json": 164817,
+          "2024-11.json": 238005,
+          "2024-12.json": 270787,
+          "2025-01.json": 207321,
+          "2025-02.json": 157830,
+          "2025-03.json": 272388,
+          "2025-04.json": 476552,
+          "2025-05.json": 721118,
+          "2025-06.json": 433158,
+          "2025-07.json": 398398,
+          "2025-08.json": 701110,
+          "2025-09.json": 153931,
+          "2025-10.json": 56014,
+          "2025-11.json": 2195
+        }
+      },
+      "sources": {
+        "Biskupstunga_games.csv": 92046094
+      }
+    }
+  },
+  "hls-library": {
+    "video-home": {
+      "hero-dark": {
+        "hero_master-4k-dark_1920.mp4": 37205878,
+        "hls": {
+          "1080p": {
+            "index.m3u8": 2555,
+            "segment_*.ts": "[74 segments]"
+          },
+          "360p": {
+            "index.m3u8": 2555,
+            "segment_*.ts": "[74 segments]"
+          },
+          "480p": {
+            "index.m3u8": 2555,
+            "segment_*.ts": "[74 segments]"
+          },
+          "720p": {
+            "index.m3u8": 2555,
+            "segment_*.ts": "[74 segments]"
+          },
+          "master.m3u8": 504
+        },
+        "still-hero-4k-dark.jpg": 363594
+      },
+      "hero-light": {
+        "hero_master-4k-light_1920.mp4": 39292190,
+        "hls": {
+          "1080p": {
+            "index.m3u8": 2555,
+            "segment_*.ts": "[74 segments]"
+          },
+          "360p": {
+            "index.m3u8": 2555,
+            "segment_*.ts": "[74 segments]"
+          },
+          "480p": {
+            "index.m3u8": 2555,
+            "segment_*.ts": "[74 segments]"
+          },
+          "720p": {
+            "index.m3u8": 2555,
+            "segment_*.ts": "[74 segments]"
+          },
+          "master.m3u8": 504
+        },
+        "still-hero-4k-light.jpg": 380843
+      },
+      "hl-malmromur": {
+        "highlight-malromur-01_1920.mp4": 12686249,
+        "highlight-malromur-02.mp4": 23061494,
+        "hl-malromur-still.jpg": 349766,
+        "hls": {
+          "1080p": {
+            "index.m3u8": 1070,
+            "segment_*.ts": "[29 segments]"
+          },
+          "360p": {
+            "index.m3u8": 1070,
+            "segment_*.ts": "[29 segments]"
+          },
+          "480p": {
+            "index.m3u8": 1070,
+            "segment_*.ts": "[29 segments]"
+          },
+          "720p": {
+            "index.m3u8": 1070,
+            "segment_*.ts": "[29 segments]"
+          },
+          "master.m3u8": 503
+        }
+      },
+      "hl-radial": {
+        "hls": {
+          "1080p": {
+            "index.m3u8": 1202,
+            "segment_*.ts": "[33 segments]"
+          },
+          "360p": {
+            "index.m3u8": 1202,
+            "segment_*.ts": "[33 segments]"
+          },
+          "480p": {
+            "index.m3u8": 1202,
+            "segment_*.ts": "[33 segments]"
+          },
+          "720p": {
+            "index.m3u8": 1202,
+            "segment_*.ts": "[33 segments]"
+          },
+          "master.m3u8": 504
+        },
+        "radial-dial-still.png": 1198344,
+        "radial-remove-grid_1920.mp4": 7483259
+      },
+      "hl-sanid": {
+        "hls": {
+          "1080p": {
+            "index.m3u8": 1037,
+            "segment_*.ts": "[28 segments]"
+          },
+          "360p": {
+            "index.m3u8": 1037,
+            "segment_*.ts": "[28 segments]"
+          },
+          "480p": {
+            "index.m3u8": 1037,
+            "segment_*.ts": "[28 segments]"
+          },
+          "720p": {
+            "index.m3u8": 1037,
+            "segment_*.ts": "[28 segments]"
+          },
+          "master.m3u8": 503
+        },
+        "sanid-01-master_1920.mp4": 410612521,
+        "sanid-02-master.mp4": 235402428,
+        "sanid-still.png": 1025972
+      },
+      "hl-trollatunga": {
+        "hls": {
+          "1080p": {
+            "index.m3u8": 2060,
+            "segment_*.ts": "[59 segments]"
+          },
+          "360p": {
+            "index.m3u8": 2060,
+            "segment_*.ts": "[59 segments]"
+          },
+          "480p": {
+            "index.m3u8": 2060,
+            "segment_*.ts": "[59 segments]"
+          },
+          "720p": {
+            "index.m3u8": 2060,
+            "segment_*.ts": "[59 segments]"
+          },
+          "master.m3u8": 504
+        },
+        "trollatunga-still-narrow.jpg": 480563,
+        "trollatunga-still-wide.jpg": 514799,
+        "video_trollatunga-master_1920.mp4": 28511352
+      }
+    },
+    "video-library": {
+      "motion-graphics": {
+        ".DS_Store": 8196,
+        "01_mg-type-abstract": {
+          "hls": {
+            ".DS_Store": 6148,
+            "1080p": {
+              "index.m3u8": 283,
+              "segment_*.ts": "[5 segments]"
+            },
+            "360p": {
+              "index.m3u8": 283,
+              "segment_*.ts": "[5 segments]"
+            },
+            "480p": {
+              "index.m3u8": 283,
+              "segment_*.ts": "[5 segments]"
+            },
+            "720p": {
+              "index.m3u8": 283,
+              "segment_*.ts": "[5 segments]"
+            },
+            "master.m3u8": 503
+          },
+          "mg-motion-graphic_1920.mp4": 40777961,
+          "trollatunga-abstract-still.png": 1135431
+        },
+        "02_mg-type-trolla": {
+          ".DS_Store": 6148,
+          "hls": {
+            ".DS_Store": 6148,
+            "1080p": {
+              "index.m3u8": 2060,
+              "segment_*.ts": "[59 segments]"
+            },
+            "360p": {
+              "index.m3u8": 2060,
+              "segment_*.ts": "[59 segments]"
+            },
+            "480p": {
+              "index.m3u8": 2060,
+              "segment_*.ts": "[59 segments]"
+            },
+            "720p": {
+              "index.m3u8": 2060,
+              "segment_*.ts": "[59 segments]"
+            },
+            "master.m3u8": 504
+          },
+          "trollatunga-still-narrow.jpg": 480563,
+          "trollatunga-still-wide.jpg": 514799,
+          "video_trollatunga-master_1920.mp4": 28511352
+        },
+        "03_mg-dust": {
+          ".DS_Store": 6148,
+          "dust_motion-02.mp4": 22712161,
+          "dust_still.png": 190284,
+          "hls": {
+            ".DS_Store": 6148,
+            "1080p": {
+              "index.m3u8": 608,
+              "segment_*.ts": "[15 segments]"
+            },
+            "360p": {
+              "index.m3u8": 608,
+              "segment_*.ts": "[15 segments]"
+            },
+            "480p": {
+              "index.m3u8": 608,
+              "segment_*.ts": "[15 segments]"
+            },
+            "720p": {
+              "index.m3u8": 608,
+              "segment_*.ts": "[15 segments]"
+            },
+            "master.m3u8": 504
+          }
+        },
+        "04_mg-sanid": {
+          ".DS_Store": 6148,
+          "hls": {
+            ".DS_Store": 6148,
+            "1080p": {
+              "index.m3u8": 1037,
+              "segment_*.ts": "[28 segments]"
+            },
+            "360p": {
+              "index.m3u8": 1037,
+              "segment_*.ts": "[28 segments]"
+            },
+            "480p": {
+              "index.m3u8": 1037,
+              "segment_*.ts": "[28 segments]"
+            },
+            "720p": {
+              "index.m3u8": 1037,
+              "segment_*.ts": "[28 segments]"
+            },
+            "master.m3u8": 503
+          },
+          "sanid-01-master_1920.mp4": 410612521,
+          "sanid-02-master.mp4": 235402428,
+          "sanid-still.png": 3257633
+        },
+        "05_mg-aftra": {
+          ".DS_Store": 6148,
+          "aftra-still.png": 166994,
+          "aftra_master_1920.mp4": 11679018,
+          "hls": {
+            ".DS_Store": 6148,
+            "1080p": {
+              "index.m3u8": 443,
+              "segment_*.ts": "[10 segments]"
+            },
+            "360p": {
+              "index.m3u8": 443,
+              "segment_*.ts": "[10 segments]"
+            },
+            "480p": {
+              "index.m3u8": 443,
+              "segment_*.ts": "[10 segments]"
+            },
+            "720p": {
+              "index.m3u8": 443,
+              "segment_*.ts": "[10 segments]"
+            },
+            "master.m3u8": 503
+          }
+        },
+        "06_mg-field": {
+          ".DS_Store": 6148,
+          "field-motion.mp4": 75373302,
+          "field-still.png": 727077,
+          "hls": {
+            ".DS_Store": 6148,
+            "1080p": {
+              "index.m3u8": 575,
+              "segment_*.ts": "[14 segments]"
+            },
+            "360p": {
+              "index.m3u8": 575,
+              "segment_*.ts": "[14 segments]"
+            },
+            "480p": {
+              "index.m3u8": 575,
+              "segment_*.ts": "[14 segments]"
+            },
+            "720p": {
+              "index.m3u8": 575,
+              "segment_*.ts": "[14 segments]"
+            },
+            "master.m3u8": 504
+          }
+        },
+        "07_mg-vatn": {
+          ".DS_Store": 6148,
+          "hls": {
+            ".DS_Store": 6148,
+            "1080p": {
+              "index.m3u8": 1103,
+              "segment_*.ts": "[30 segments]"
+            },
+            "360p": {
+              "index.m3u8": 1103,
+              "segment_*.ts": "[30 segments]"
+            },
+            "480p": {
+              "index.m3u8": 1103,
+              "segment_*.ts": "[30 segments]"
+            },
+            "720p": {
+              "index.m3u8": 1103,
+              "segment_*.ts": "[30 segments]"
+            },
+            "master.m3u8": 505
+          },
+          "vatn-still.png": 1570418,
+          "vatn.mp4": 134070453
+        },
+        "08_mg-type-gr": {
+          ".DS_Store": 6148,
+          "hls": {
+            ".DS_Store": 6148,
+            "1080p": {
+              "index.m3u8": 377,
+              "segment_*.ts": "[8 segments]"
+            },
+            "360p": {
+              "index.m3u8": 377,
+              "segment_*.ts": "[8 segments]"
+            },
+            "480p": {
+              "index.m3u8": 377,
+              "segment_*.ts": "[8 segments]"
+            },
+            "720p": {
+              "index.m3u8": 377,
+              "segment_*.ts": "[8 segments]"
+            },
+            "master.m3u8": 504
+          },
+          "type_gr-2k-still.png": 516291,
+          "type_gr-4k-master_1920.mp4": 2211217
+        },
+        "09_mg-textblock": {
+          ".DS_Store": 6148,
+          "hls": {
+            ".DS_Store": 6148,
+            "1080p": {
+              "index.m3u8": 382,
+              "segment_*.ts": "[8 segments]"
+            },
+            "360p": {
+              "index.m3u8": 382,
+              "segment_*.ts": "[8 segments]"
+            },
+            "480p": {
+              "index.m3u8": 382,
+              "segment_*.ts": "[8 segments]"
+            },
+            "720p": {
+              "index.m3u8": 382,
+              "segment_*.ts": "[8 segments]"
+            },
+            "master.m3u8": 503
+          },
+          "mg-textblock-still.png": 741110,
+          "mg-textblock_1920.mp4": 22214570
+        }
+      },
+      "studio": {
+        "hls": {
+          "1080p": {
+            "index.m3u8": 1070,
+            "segment_*.ts": "[29 segments]"
+          },
+          "360p": {
+            "index.m3u8": 1070,
+            "segment_*.ts": "[29 segments]"
+          },
+          "480p": {
+            "index.m3u8": 1070,
+            "segment_*.ts": "[29 segments]"
+          },
+          "720p": {
+            "index.m3u8": 1070,
+            "segment_*.ts": "[29 segments]"
+          },
+          "master.m3u8": 504
+        },
+        "kolkrabbi-01_1080p.mp4": 119255842
+      },
+      "work": {
+        "aftra": {
+          "aftra-cms": {
+            "poster.jpg": 51402,
+            "video.mp4": 19757469
+          }
+        },
+        "grid-1": {
+          "grid-01-motion-01": {
+            "poster.jpg": 18906,
+            "video.mp4": 1217512
+          }
+        },
+        "grid-2": {
+          "grid-02-motion-01": {
+            "poster.jpg": 17510,
+            "video.mp4": 10997514
+          }
+        },
+        "kol-radial": {
+          "radial-dark-1080p": {
+            "poster.jpg": 51902,
+            "video.mp4": 51356634
+          }
+        },
+        "monitor": {
+          "02": {
+            "poster.jpg": 138568,
+            "video.mp4": 25218143
+          },
+          "12": {
+            "poster.jpg": 161184,
+            "video.mp4": 4001338
+          },
+          "tool-monitor-02b": {
+            "poster.jpg": 99294,
+            "video.mp4": 11697782
+          }
+        },
+        "motion-1": {
+          "motion-01-01": {
+            "poster.jpg": 44810,
+            "video.mp4": 7001516
+          },
+          "motion-01-06": {
+            "poster.jpg": 20416,
+            "video.mp4": 6850409
+          },
+          "td-dust-01": {
+            "poster.jpg": 38623,
+            "video.mp4": 28730240
+          },
+          "td-dust-02": {
+            "poster.jpg": 28451,
+            "video.mp4": 21009772
+          },
+          "td-field": {
+            "poster.jpg": 283109,
+            "video.mp4": 29371471
+          },
+          "td-trollatunga-12": {
+            "poster.jpg": 216909,
+            "video.mp4": 23452764
+          }
+        },
+        "motion-2": {
+          "motion-02-01": {
+            "poster.jpg": 244669,
+            "video.mp4": 74776543
+          },
+          "motion-02-02": {
+            "poster.jpg": 95926,
+            "video.mp4": 32061691
+          },
+          "motion-02-03": {
+            "poster.jpg": 75581,
+            "video.mp4": 9474513
+          },
+          "motion-02-04": {
+            "poster.jpg": 264954,
+            "video.mp4": 60186311
+          },
+          "motion-02-05": {
+            "poster.jpg": 102229,
+            "video.mp4": 12784001
+          },
+          "motion-02-06": {
+            "poster.jpg": 122242,
+            "video.mp4": 59547396
+          }
+        },
+        "tg-malromur": {
+          "malromur-hero": {
+            "poster.jpg": 100611,
+            "video.mp4": 12721600
+          }
+        }
+      }
+    }
+  }
+}

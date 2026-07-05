@@ -1,0 +1,60 @@
+{
+  "cascadeColors": false,
+  "colorBackground": false,
+  "palette": [
+    {
+      "id": "gA66A_MKqnmORjp56vZdG",
+      "name": "red",
+      "value": "#ce4646"
+    },
+    {
+      "id": "s63-zrg_VuoNqbuGGLO_t",
+      "name": "warm",
+      "value": "#d0d79d"
+    },
+    {
+      "id": "zcNF8dnqGRpNfbCrQXIrf",
+      "name": "dark",
+      "value": "#121215"
+    },
+    {
+      "id": "nllFdiJxD7BlGdsWQ6HLz",
+      "name": "blue",
+      "value": "#49a0a2"
+    },
+    {
+      "id": "a0qqdtHFTKBkGtxyWyTy9",
+      "name": "green",
+      "value": "#66a44c"
+    },
+    {
+      "id": "eGTOEYyaJzz4HwYA6S1Tq",
+      "name": "light",
+      "value": "#c1c3bb"
+    },
+    {
+      "id": "mFdTHa1L3XOGT6LdtNxNb",
+      "name": "yellow",
+      "value": "#ffe32e"
+    },
+    {
+      "id": "v5p0kF-y5cZCrev54kPP5",
+      "name": "orange",
+      "value": "#db8000"
+    }
+  ],
+  "fileColors": [
+    {
+      "path": "kol-project/kol-writing",
+      "color": "a0qqdtHFTKBkGtxyWyTy9"
+    },
+    {
+      "path": "kol-terminal",
+      "color": "mFdTHa1L3XOGT6LdtNxNb"
+    },
+    {
+      "path": "kol-prints/prints-library/00-template.md",
+      "color": "mFdTHa1L3XOGT6LdtNxNb"
+    }
+  ]
+}

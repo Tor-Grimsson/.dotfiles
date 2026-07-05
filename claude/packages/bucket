@@ -29,6 +29,16 @@ cdn_url() {
   echo "${CDN_BASE%/}/${p#/}"
 }
 
+# Refresh the CDN tree snapshot after a write (see docs/18-cdn-r2b2). Debounced +
+# backgrounded, non-fatal: a missing bucket-tree.sh or a snapshot error never breaks the write.
+snapshot_after_write() {
+  command -v bucket-tree.sh >/dev/null 2>&1 || return 0
+  local flag; flag="${TMPDIR:-/tmp}/bucket-tree-pending-$(printf '%s' "$REMOTE" | tr '/:' '__')"
+  [ -e "$flag" ] && return 0   # ponytail: a snapshot is already queued for this remote; coalesce the burst (3s ceiling)
+  : > "$flag"
+  ( sleep 3; rm -f "$flag"; bucket-tree.sh --for-remote "$REMOTE" ) >/dev/null 2>&1 &
+}
+
 usage() {
   cat <<EOF
 bucket — Kolkrabbi B2 CDN wrapper
@@ -70,6 +80,7 @@ case "$cmd" in
   up)
     [[ $# -lt 2 ]] && { echo "bucket up <local> <remote-path>" >&2; exit 2; }
     rclone copy "$1" "$(remote_path "$2")" -P
+    snapshot_after_write
     ;;
   down)
     [[ $# -lt 1 ]] && { echo "bucket down <remote> [local]" >&2; exit 2; }
@@ -78,10 +89,12 @@ case "$cmd" in
   sync)
     [[ $# -lt 2 ]] && { echo "bucket sync <local> <remote-path>" >&2; exit 2; }
     rclone sync "$1" "$(remote_path "$2")" -P
+    snapshot_after_write
     ;;
   rm)
     [[ $# -lt 1 ]] && { echo "bucket rm <file>" >&2; exit 2; }
     rclone deletefile "$(remote_path "$1")"
+    snapshot_after_write
     ;;
   *)
     echo "bucket: unknown command '$cmd'" >&2

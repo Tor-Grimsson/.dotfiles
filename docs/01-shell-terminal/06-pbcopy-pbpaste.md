@@ -22,6 +22,7 @@ covers:
 related:
   - "[[04-pngpaste|pngpaste]]"
   - "[[06-edge-tts|edge-tts]]"
+  - "[[23-stdin-pipes|stdin, stdout & pipes]]"
 ---
 
 ## Summary

@@ -1,0 +1,56 @@
+# ════════════════════════════════════════════════════════════════════════════
+# brewfile-gui — GUI apps (casks) + VS Code extensions. Run after brewfile-cli
+# on a machine you're setting up as your own daily driver. Skip entirely on a
+# foreign/remote box you only need CLI tools on.
+# Install/sync with:  brew bundle --file="$HOME/.dotfiles/brewfile-gui"
+# Rationale, drift audit, and portability notes live in TOOLING.md.
+# ════════════════════════════════════════════════════════════════════════════
+
+tap "siddharthvaddem/openscreen"   # provides the openscreen cask
+
+# Browser / terminal / editor
+cask "firefox@developer-edition"   # Web browser
+cask "iterm2"                      # Terminal emulator
+cask "visual-studio-code"          # Code editor
+
+# Window / launcher / menu bar
+cask "aerospace"                   # Tiling window manager (i3-like, keyboard-driven)
+cask "raycast"                     # Launcher / command palette
+cask "hiddenbar"                   # Hide menu-bar items
+cask "stats"                       # Menu-bar system monitor
+
+# File managers / file utils
+cask "marta"                       # Two-pane file manager
+cask "namechanger"                 # Batch file renaming
+cask "keka"                        # Archiver
+cask "disk-drill"                  # File recovery
+# NOTE: macfuse intentionally NOT bundled — its kext triggers a sudo/perms dance on
+#       every (re)install. Install manually when needed: brew install --cask macfuse
+
+# Cleanup
+cask "appcleaner"                  # App uninstaller
+cask "pearcleaner"                 # App uninstaller (open source)
+
+# Screen capture / recording
+cask "kap"                         # Screen recorder
+cask "keycastr"                    # Keystroke visualizer (for screencasts)
+cask "openscreen"                  # Screen recorder + video editor (siddharthvaddem tap)
+
+# Notes / dev / remote
+cask "obsidian"                    # Markdown knowledge base
+cask "orbstack"                    # Docker / Linux VMs
+cask "termius"                     # SSH client
+
+# Password manager
+cask "bitwarden"                   # Password manager (desktop)
+
+# Fonts
+cask "font-meslo-lg-nerd-font"     # Nerd Font (terminal/powerline glyphs)
+cask "font-meslo-for-powerlevel10k" # MesloLGS NF — the exact font iTerm profile + p10k reference
+cask "fontgoggles"                 # Font viewer for many font formats
+
+# ── VS Code extensions ────────────────────────────────────────────────────────
+vscode "ahmadawais.shades-of-purple"
+vscode "bradlc.vscode-tailwindcss"
+vscode "esbenp.prettier-vscode"
+vscode "oderwat.indent-rainbow"

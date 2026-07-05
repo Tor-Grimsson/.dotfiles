@@ -2,7 +2,7 @@
 title: CLI cheatsheet
 type: reference
 status: active
-updated: 2026-07-03
+updated: 2026-07-04
 description: One-page printable keymap for the daily drivers — Neovim, tmux, yazi, fzf, AeroSpace — plus a highlight table of the most-reached-for bin/ scripts. Keys only; each section links to the tool's full doc for the why.
 aliases:
   - cli-cheatsheet
@@ -29,6 +29,7 @@ related:
   - "[[05-network-security|Network, remote & secrets]]"
   - "[[03-scripts|Scripts at a glance (full bin/ map)]]"
   - "[[03-image|Image / 2D scripts]]"
+  - "[[../01-shell-terminal/23-stdin-pipes|stdin, stdout & pipes]]"
 ---
 
 # CLI cheatsheet
@@ -221,7 +222,7 @@ Most edits = a **verb** then a **target**. `ciw` = change inner word. `dap` = de
 
 **Prefix = `Ctrl-a`** (press, release, then the key — written `pfx`). Double-tap `Ctrl-a Ctrl-a` sends a literal Ctrl-a.
 
-**Plugins:** none — deliberately plugin-free (no tpm); native detach/reattach already covers session persistence.
+**Plugins:** tpm-managed — `tmux-sessionx` (`pfx O`), `tmux-harpoon` (bookmarks, own key table `pfx a` — not `Alt` or `Ctrl+Shift`, both ruled out, see [full docs](../01-shell-terminal/22-tmux-harpoon.md)), and `tmux-agent-sidebar` (`pfx e`/`pfx E`). Native detach/reattach still covers plain session persistence.
 
 ### Sessions (outlive the terminal) — mostly from the shell
 
@@ -230,6 +231,16 @@ Most edits = a **verb** then a **target**. `ciw` = change inner word. `dap` = de
 | `tmux new -s work` | start named session | `pfx d` | detach (keeps running) |
 | `tmux a -t work` | reattach (`tmux a` = last) | `pfx s` | session switcher |
 | `tmux ls` | list sessions | `pfx $` | rename session |
+
+### Session/project managers — [full docs](../01-shell-terminal/02-tmux.md)
+
+| Key | Does | Key | Does |
+|---|---|---|---|
+| `pfx O` | [tmux-sessionx](../01-shell-terminal/20-tmux-sessionx.md) popup — vs. `sesh`, still deciding | `pfx a`, `a` | [tmux-harpoon](../01-shell-terminal/22-tmux-harpoon.md) — bookmark current session |
+| `pfx a`, `1`…`4` | harpoon — jump to bookmark 1–4 | `pfx a`, `e` | harpoon — edit bookmark list (popup) |
+| `pfx e` | [tmux-agent-sidebar](../01-shell-terminal/25-tmux-agent-sidebar.md) — toggle in this window | `pfx E` | agent-sidebar — toggle everywhere |
+
+Shell-only, no tmux binding: [sesh](../01-shell-terminal/17-sesh.md) (`sesh picker` or `sesh connect <name>` — vs. `tmux-sessionx`, still deciding), [tmuxinator](../01-shell-terminal/18-tmuxinator.md) (`tmuxinator start` — upfront-designed layouts) + [tmuxp](../01-shell-terminal/19-tmuxp.md) (`tmuxp freeze` — snapshot a layout you already built by hand), kept side by side, not a winner, and [workmux](../01-shell-terminal/24-workmux.md) (`workmux add <branch>` / `workmux merge` — git worktree + tmux window paired in one command).
 
 ### Windows (tabs) & Panes (splits)
 
@@ -255,6 +266,8 @@ Most edits = a **verb** then a **target**. `ciw` = change inner word. `dap` = de
 | `Ctrl-v` | block select | `y` | copy → macOS clipboard, exit |
 | `q` | leave copy mode | `pfx ]` | paste tmux buffer |
 | `pfx r` | reload `~/.tmux.conf` | `pfx !` | break pane into its own window |
+
+> **Search by keyword in tmux** — copy mode is also the pane's find: `pfx [` to enter → **`?keyword`** searches *back* toward earlier output (usually what you want, you're at the bottom; `/keyword` goes forward) → `n`/`N` next/prev match → `q` exits. **Use case — search a Claude conversation:** grep Claude's on-screen replies, your prompts, and tool output in one pass. Only reaches text still in scrollback; for the *whole* session grep the transcript on disk — `~/.claude/projects/<cwd-slug>/*.jsonl`.
 
 ---
 
@@ -287,6 +300,8 @@ Launch with **`y`** (cd's the shell to wherever you quit). `q` quits.
 | `g h` `g .` `g d` `g D` `g t` | goto home · dotfiles · Downloads · Desktop · _temp | `g p` `g <Space>` | projects / cd interactive |
 
 > `O` picks by file type: **.md/.markdown** → `$EDITOR`, **glow**, **mdcat**, **nano**, Reveal, Show EXIF · **.svg** (XML/text under the hood) → `$EDITOR` + Open (system viewer) + Reveal, Show EXIF · everything else under `text/*` (html/css/jsx/json/…) → just `$EDITOR`, Reveal, Show EXIF · other images (png/jpg/…) → just Open + Reveal, Show EXIF — no editor, not text.
+
+**Sort/view:** `, n` natural (default) · `, a` alpha · `, e` ext · `, s` size · `, m` mtime · `, b` btime · `, r` random · add **Shift** to reverse · **`, d`** resets sort + linemode to defaults · `m s/b/m/o/p/n` sets the linemode (info column). A `,` sort is session-only — it overrides the config until you restart or hit `, d`.
 
 ### Sequences
 
@@ -363,7 +378,7 @@ Modifier = **`Alt`**. Tiling WM with its own fast virtual workspaces.
 | `j` / `k` | height + / − 50 | `Enter` / `Esc` | exit |
 
 **Auto-assigned workspaces:** `T` iTerm · `B` browsers · `P` Figma/Affinity · `O` Obsidian · `M` Spotify/Mail · `S` Messages · `W` Finder · `A` Telegram/Todoist.
-**Always-floating** (`layout floating` via `on-window-detected`, no workspace assignment): TextEdit · Bitwarden.
+**Always-floating** (`layout floating` via `on-window-detected`, no workspace assignment): TextEdit · Bitwarden · Claude.
 
 ---
 

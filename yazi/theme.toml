@@ -9,3 +9,6 @@
 [flavor]
 dark  = "gruvbox-dark"
 light = "gruvbox-dark"
+
+[indicator]
+preview = {}

@@ -2,8 +2,8 @@
 title: Obsidian
 type: reference
 status: active
-updated: 2026-06-04
-description: Local-first knowledge base built on a folder of plain Markdown files.
+updated: 2026-07-05
+description: Local-first knowledge base built on a folder of plain Markdown files, plus the shared vault-config source repos symlink from.
 aliases:
   - obsidian
 tags:
@@ -18,6 +18,7 @@ covers:
   - Vaults over a local Markdown folder
   - Wikilinks, backlinks, graph view
   - Plugins and first-run setup
+  - Shared vault-config source symlinked into repos
 related:
   - "[[01-raycast|Raycast]]"
 ---
@@ -39,6 +40,9 @@ Local plain-text storage with no lock-in. The vault is a normal directory that v
 - Create notes as `.md` files; link with `[[NN-tool|display name]]` per the doc spec.
 - Use the backlinks pane and graph view to navigate related docs.
 - Add community plugins via Settings → Community plugins only if a real need arises (keep the vault portable).
+
+## Vault-config source
+Repos symlink their `docs/.obsidian/` from a shared config source at `~/.dotfiles/obsidian/` — full setup, shapes, and the picker documented in [kol-docs system setup](../20-kol-docs-system-setup/INDEX.md).
 
 ## Future use
 Templates and the Dataview plugin could query the doc frontmatter (`type`, `status`, `tags`) to auto-generate the per-category INDEX tables instead of maintaining them by hand.

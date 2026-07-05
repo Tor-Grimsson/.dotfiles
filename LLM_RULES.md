@@ -45,12 +45,12 @@ Welcome to **dotfiles** — macOS configuration + tooling catalog for two machin
 
 ## Project Overview
 
-Shell/git/ssh/editor configs, a reconciled `Brewfile`, a per-tool docs catalog under `docs/`, and the repo-backed `~/.claude` config (symlinked from `claude/` by `bootstrap.sh`).
+Shell/git/ssh/editor configs, a reconciled `brewfile-cli` + `brewfile-gui`, a per-tool docs catalog under `docs/`, and the repo-backed `~/.claude` config (symlinked from `claude/` by `bootstrap.sh`).
 
 ### Tech Stack
 
 - zsh (+ oh-my-zsh / p10k)
-- Homebrew via `Brewfile`
+- Homebrew via `brewfile-cli` (CLI/TUI formulas) + `brewfile-gui` (casks + VS Code extensions)
 - bash scripts (`bootstrap.sh`, `bin/`, `scripts/`)
 - symlink-based install — no framework, no manager
 
@@ -58,7 +58,8 @@ Shell/git/ssh/editor configs, a reconciled `Brewfile`, a per-tool docs catalog u
 
 ```
 dotfiles/
-├── Brewfile                          unified package manifest
+├── brewfile-cli                       CLI/TUI formulas — safe to run standalone on a foreign box
+├── brewfile-gui                       GUI casks + VS Code extensions — daily-driver machines only
 ├── bootstrap.sh                     installer: brew bundle + symlinks + macos/defaults.sh
 ├── TOOLING.md                       tooling audit: drift, portability, open items
 ├── claude/                          repo-backed ~/.claude (CLAUDE.md, settings, skills, agents, packages)

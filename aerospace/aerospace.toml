@@ -350,3 +350,7 @@ run = "layout floating"
 [[on-window-detected]]
 if.app-id = 'com.bitwarden.desktop'
 run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
+run = "layout floating"

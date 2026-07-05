@@ -2,7 +2,7 @@
 title: AeroSpace
 type: reference
 status: active
-updated: 2026-07-03
+updated: 2026-07-04
 description: i3-like tiling window manager for macOS, driven entirely from the keyboard.
 aliases:
   - aerospace
@@ -118,6 +118,7 @@ Alternative for *tiling-only* exemption (let an app float free but keep AeroSpac
 | --- | --- |
 | TextEdit | `com.apple.TextEdit` |
 | Bitwarden | `com.bitwarden.desktop` |
+| Claude | `com.anthropic.claudefordesktop` |
 
 ## Future use
 Add more `on-window-detected` rules to route apps to dedicated workspaces, `after-startup-command` to lay out a session on login, or per-monitor workspace assignment for the iMac's external display. Pairs with Raycast — Raycast launches, AeroSpace arranges.

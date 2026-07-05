@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+# bucket-r2 — thin wrapper for the kol-media Cloudflare R2 bucket.
+# Reads (ls/url/cat) go through the public admin.kolkrabbi.io API — no auth.
+# Writes (up/rm) go through `wrangler r2 object put/delete --remote`, using
+# whatever OAuth session `wrangler login` already set up — no R2 API token.
+#   BUCKET_R2_API   (default: https://admin.kolkrabbi.io)
+#   BUCKET_R2_CDN   (default: https://media.kolkrabbi.io)
+#   BUCKET_R2_NAME  (default: kol-media)
+
+set -euo pipefail
+
+API="${BUCKET_R2_API:-https://admin.kolkrabbi.io}"
+CDN="${BUCKET_R2_CDN:-https://media.kolkrabbi.io}"
+BUCKET="${BUCKET_R2_NAME:-kol-media}"
+
+if ! command -v wrangler >/dev/null 2>&1 && ! command -v npx >/dev/null 2>&1; then
+  echo "bucket-r2: neither wrangler nor npx found" >&2
+  exit 1
+fi
+wrangler() { if command -v wrangler >/dev/null 2>&1; then command wrangler "$@"; else npx --yes wrangler "$@"; fi }
+
+cdn_url() {
+  local p="$1"
+  echo "${CDN%/}/${p#/}"
+}
+
+# Refresh the kol-media CDN tree snapshot after a write (see docs/18-cdn-r2b2). Debounced +
+# backgrounded, non-fatal: a missing bucket-tree.sh or a snapshot error never breaks the write.
+snapshot_after_write() {
+  command -v bucket-tree.sh >/dev/null 2>&1 || return 0
+  local flag="${TMPDIR:-/tmp}/bucket-tree-pending-kol-media"
+  [ -e "$flag" ] && return 0   # ponytail: a snapshot is already queued; coalesce the burst (3s ceiling)
+  : > "$flag"
+  ( sleep 3; rm -f "$flag"; bucket-tree.sh kol-media ) >/dev/null 2>&1 &
+}
+
+usage() {
+  cat <<EOF
+bucket-r2 — kol-media Cloudflare R2 wrapper
+
+Usage:
+  bucket-r2 ls  [prefix]              List objects under prefix (public API, no auth)
+  bucket-r2 url <key>                 Print the public CDN URL
+  bucket-r2 cat <key>                 Stream a file to stdout
+  bucket-r2 up  <local> <remote-key>  Upload a single file (wrangler, OAuth)
+  bucket-r2 down <remote> [local]     Download (default: ./)
+  bucket-r2 rm  <key>                 Delete a single object (wrangler, OAuth)
+
+Bucket: $BUCKET   API: $API   CDN: $CDN
+
+No bulk/recursive upload here — for a whole folder use the project's
+scripts/bulk-upload.sh in kol-media-admin (parallel, preserves paths).
+EOF
+}
+
+cmd="${1:-}"
+[[ -z "$cmd" || "$cmd" == "-h" || "$cmd" == "--help" ]] && { usage; exit 0; }
+shift || true
+
+case "$cmd" in
+  ls)
+    curl -fsS --get --data-urlencode "prefix=${1:-}" "$API/api/list" \
+      | jq -r '.objects[] | "\(.key)\t\(.size)B\t\(.uploaded)"' | column -t -s $'\t'
+    ;;
+  url)
+    [[ $# -lt 1 ]] && { echo "bucket-r2 url <key>" >&2; exit 2; }
+    cdn_url "$1"
+    ;;
+  cat)
+    [[ $# -lt 1 ]] && { echo "bucket-r2 cat <key>" >&2; exit 2; }
+    curl -fsS "$(cdn_url "$1")"
+    ;;
+  up)
+    [[ $# -lt 2 ]] && { echo "bucket-r2 up <local> <remote-key>" >&2; exit 2; }
+    ct=$(file --mime-type -b "$1")
+    wrangler r2 object put "$BUCKET/$2" --file="$1" --content-type="$ct" --remote
+    snapshot_after_write
+    ;;
+  down)
+    [[ $# -lt 1 ]] && { echo "bucket-r2 down <remote> [local]" >&2; exit 2; }
+    out="${2:-./$(basename "$1")}"
+    curl -fsS "$(cdn_url "$1")" -o "$out"
+    ;;
+  rm)
+    [[ $# -lt 1 ]] && { echo "bucket-r2 rm <key>" >&2; exit 2; }
+    wrangler r2 object delete "$BUCKET/$1" --remote
+    snapshot_after_write
+    ;;
+  *)
+    echo "bucket-r2: unknown command '$cmd'" >&2
+    usage
+    exit 2
+    ;;
+esac

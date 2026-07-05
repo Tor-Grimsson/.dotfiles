@@ -43,7 +43,7 @@ One Brewfile, identical on both machines (chosen over a per-host split).
 
 ## §4 — Skills are sourced from kol-system and bundled self-contained
 
-Canonical skill source is `~/dev/projects/kol-system/claude/skills/` + `~/dev/projects/kol-system/_framework/`. Curated copies live in `claude/skills/`. The kol-docs skill **bundles** `_framework/` so it has no external dependency.
+Canonical skill source is `~/dev/projects/kol-system/claude/skills/` + `~/dev/projects/kol-system/_framework/`. Curated copies live in `claude/skills/`. The kol-docs-* skills read their bundled `kol-docs-{fm,md,lib}` packages so they have no external dependency.
 
 **Consequence:** the repo is portable to a machine without kol-system. Re-sync skills/framework from kol-system via the `init-agent-context-sync` skill.
 

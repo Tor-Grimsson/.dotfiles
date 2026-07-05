@@ -2,7 +2,7 @@
 title: Shell & Terminal
 type: index
 status: active
-updated: 2026-06-25
+updated: 2026-07-04
 description: The terminal emulator, multiplexers, zsh prompt, and shell enhancements that make up the command-line environment.
 tags:
   - domain/shell
@@ -26,7 +26,15 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | [gcalcli](14-gcalcli.md) | Google Calendar from the terminal — agenda/week/month views, natural-language quick-add, edit and import. |
 | [mdcat](15-mdcat.md) | Terminal markdown renderer — clean headings (no `##`), inline iTerm2 images; the yazi `.md` previewer. |
 | [kanban-tui](16-kanban-tui.md) | Kanban/todo board in the terminal (Textual TUI) — also a CLI + MCP server; local SQLite. |
+| [sesh](17-sesh.md) | Smart tmux session picker — fuzzy-finds sessions, configs, and zoxide directories. Being evaluated against tmux-sessionx. |
+| [tmuxinator](18-tmuxinator.md) | Define a project's tmux window/pane layout in YAML, launch it with one command. Kept alongside tmuxp, not a winner. |
+| [tmuxp](19-tmuxp.md) | Same idea as tmuxinator, plus `tmuxp freeze` to snapshot an already-running layout — tmuxinator has no equivalent. |
+| [tmux-sessionx](20-tmux-sessionx.md) | TPM plugin — fzf popup session manager with live previews and git branch. Being evaluated against sesh. |
+| [tmux-harpoon](22-tmux-harpoon.md) | TPM plugin — bookmark a handful of tmux sessions, jump back with one key. |
+| [workmux](24-workmux.md) | Pairs a git worktree with a tmux window in one command — parallel branches/agents, no stashing. |
+| [tmux-agent-sidebar](25-tmux-agent-sidebar.md) | TPM plugin — live sidebar of every AI coding agent's status across all sessions/windows. |
 
 ## Guides
 - [tmux help & cheat sheet](10-tmux-help.md) — built-in help commands first, then the keys, shell commands, and workflows you actually use with the [tmux](02-tmux.md) config.
 - [tmux tips & tricks](09-tmux-tips.md) — copy mode in full, plus pane/window/session tricks for the [tmux](02-tmux.md) config.
+- [stdin, stdout & pipes](23-stdin-pipes.md) — the three standard streams, redirection, pipes, and the `-` convention CLI tools use to mean "read from stdin."

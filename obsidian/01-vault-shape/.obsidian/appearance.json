@@ -1,0 +1,13 @@
+{
+  "baseFontSize": 16,
+  "baseFontSizeAction": true,
+  "translucency": false,
+  "showRibbon": true,
+  "cssTheme": "Obsidian gruvbox",
+  "monospaceFontFamily": "JetBrains Mono NL,MesloLGS NF",
+  "interfaceFontFamily": "MesloLGS NF,JetBrains Mono NL,PP Right Grotesk Mono",
+  "textFontFamily": "MesloLGS NF,JetBrains Mono,PP Right Grotesk Mono",
+  "enabledCssSnippets": [
+    "lexicon-table"
+  ]
+}

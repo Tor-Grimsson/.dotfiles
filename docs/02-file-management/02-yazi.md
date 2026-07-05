@@ -123,6 +123,17 @@ Added in `keymap.toml`:
 | `g D` | → `~/Desktop` |
 | `g .` | → `~/.dotfiles` |
 | `g t` | → `~/_temp` |
+| `, n` `, N` | **sort** natural ↑ / ↓ — the default (`2, 10, 100`, not `10, 100, 2`) |
+| `, a` `, A` | sort alphabetical ↑ / ↓ |
+| `, e` `, E` | sort by extension ↑ / ↓ |
+| `, s` `, S` | sort by size ↑ / ↓ — also switches the linemode to `size` |
+| `, m` `, M` | sort by modified time ↑ / ↓ — also switches the linemode to `mtime` |
+| `, b` `, B` | sort by birth (created) time ↑ / ↓ — also switches the linemode to `btime` |
+| `, r` | sort random |
+| `, d` | **reset** sort + linemode back to defaults (natural + `size`) |
+| `m s/p/b/m/o/n` | linemode (the right-hand info column): size · permissions · btime · mtime · owner · none |
+
+> A `,` sort key sets the sort **for the session only** — it outranks `sort_by = "natural"` in `yazi.toml` until you restart or press `, d`. The time/size sorts also flip the linemode with them, so files can look like they "jump around" (they're sorted by size/date, not name) while directories stay put — yazi doesn't compute directory sizes, so they tie and fall back to natural. `, d` undoes the whole thing.
 
 ## Plugins
 Installed with `ya pkg add`, vendored under `plugins/` + `flavors/`, pinned in `package.toml` — except `mdcat`, which is hand-written and so carries no `package.toml` entry.

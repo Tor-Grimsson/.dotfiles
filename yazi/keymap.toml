@@ -136,6 +136,7 @@ keymap = [
 	{ on = [ ",", "s" ], run = [ "sort size --reverse=no", "linemode size" ],    desc = "Sort by size" },
 	{ on = [ ",", "S" ], run = [ "sort size --reverse=yes", "linemode size" ],   desc = "Sort by size (reverse)" },
 	{ on = [ ",", "r" ], run = "sort random --reverse=no",                       desc = "Sort randomly" },
+	{ on = [ ",", "d" ], run = [ "sort natural --reverse=no", "linemode size" ], desc = "Reset sort + linemode to defaults" },
 
 	# Goto
 	{ on = [ "g", "h" ],       run = "cd ~",               desc = "Go home" },

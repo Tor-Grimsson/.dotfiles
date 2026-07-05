@@ -2,7 +2,7 @@
 title: Claude & Agents
 type: index
 status: active
-updated: 2026-07-03
+updated: 2026-07-05
 description: The repo's own Claude Code / agent layer — the agent-context protocol, skills, subagents, hooks, and MCP tools. Distinct from the numbered tool catalog; this documents how `~/.claude` (repo-backed per ARCHITECTURE §3) is wired.
 tags:
   - project/dotfiles
@@ -21,7 +21,7 @@ This section explains that layer. It is **not** part of the tool catalog (the ot
 |---|---|
 | `CLAUDE.md` | global personality + working rules ("Grim") |
 | `settings.json` | permissions, statusline, plugins, voice/effort/tui |
-| `skills/` | 25 Claude Code skills (whole-dir symlink) |
+| `skills/` | 30 Claude Code skills (whole-dir symlink) |
 | `agents/` | 4 `kol-*` subagents |
 | `hooks/` | `statusline.sh` (the only hook) |
 | `commands/`, `output-styles/` | present but empty |
@@ -35,6 +35,9 @@ This section explains that layer. It is **not** part of the tool catalog (the ot
 | 02 | [Skills](02-skills.md) | what skills are, kol-system sourcing (§4) vs local-authored, the symlink mechanism, the installed set |
 | 03 | [Subagents](03-agents.md) | the 4 `kol-*` design-system subagents + how they're defined and invoked |
 | 04 | [Hooks & tools](04-hooks-and-tools.md) | the statusline hook, `settings.json` config, plugins (ponytail/rust-analyzer), and MCP tools (playwright/glif) |
+| 05 | [Working rules](05-working-rules.md) | the `CLAUDE.md` "Grim" rule-sections (Tone / Answering / Report shape / …) — section map + change log |
+| 06 | [Grim — the persona](06-claude.md) | the character `CLAUDE.md` casts — name, personality, how he works, how his output reads |
+| 07 | [Output formats](07-output-formats.md) | the reply skeleton + a gallery of named worked layouts (one-liner / build report / findings / recommendation / staged) — the visual reference for the Report-shape rules |
 
 ## Related
 - [ponytail](../04-dev-languages/13-ponytail.md) — the Claude Code plugin catalogued under Dev & Languages (the laziness layer, always-on via a SessionStart hook).

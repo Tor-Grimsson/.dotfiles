@@ -1,0 +1,111 @@
+# ════════════════════════════════════════════════════════════════════════════
+# brewfile-cli — CLI/TUI tools only, no GUI apps. Safe to run standalone on
+# any machine (e.g. a foreign box over SSH) without touching macOS defaults,
+# Terminal/iTerm prefs, or anything else bootstrap.sh does.
+# Install/sync with:  brew bundle --file="$HOME/.dotfiles/brewfile-cli"
+# GUI apps live in brewfile-gui. Rationale, drift audit, and portability
+# notes live in TOOLING.md.
+# ════════════════════════════════════════════════════════════════════════════
+
+# ── Taps ──────────────────────────────────────────────────────────────────────
+tap "raine/workmux"  # provides the workmux formula
+
+# ── Shell & prompt ──────────────────────────────────────────────────────────
+brew "tmux"                    # Terminal multiplexer
+brew "powerlevel10k"           # Zsh prompt theme — sourced from Homebrew in .zshrc
+brew "zsh-completions"         # Extra zsh completion definitions
+brew "zsh-syntax-highlighting" # Fish-like zsh syntax highlighting (sourced last in .zshrc)
+brew "zsh-autosuggestions"     # Fish-like history autosuggestions (grey ghost-text)
+brew "fzf-tab"                 # Replace the zsh completion menu with an fzf picker
+
+# ── File & navigation ───────────────────────────────────────────────────────
+brew "tree"        # Print directory trees
+brew "yazi"        # TUI file manager (Rust, async I/O)
+brew "sevenzip"    # 7-Zip — yazi preview backend: browse/extract inside archives
+brew "resvg"       # SVG renderer — yazi preview backend for .svg
+brew "broot"       # Tree navigation + fuzzy jump
+brew "glow"        # Render markdown in the terminal (used by scripts + Quick Actions)
+brew "mdcat"       # Markdown renderer — yazi .md previewer + `M` full-screen viewer (clean headings, inline iTerm2 images)
+brew "watch"       # Run a command on an interval, fullscreen output (procps-ng)
+brew "chawan"      # TUI web browser (text-mode, renders in terminal)
+brew "w3m"         # Classic text-mode browser — instant, no JS; -dump renders HTML to stdout
+brew "gcalcli"     # Google Calendar from the terminal — agenda/week/month, natural-language quick-add (needs a one-time OAuth client; token is machine-local, not in the repo)
+
+# ── Modern CLI core ───────────────────────────────────────────────────────────
+brew "fzf"         # Fuzzy finder — interactive filter for files, history, any list
+brew "fd"          # Friendly, fast `find` replacement (respects .gitignore)
+brew "bat"         # `cat` with syntax highlighting + line numbers (also the fzf preview)
+brew "eza"         # Modern `ls` — colors, tree view, git status (maintained exa fork)
+brew "ripgrep"     # Fast recursive content search (`rg`) — pairs with fzf
+brew "par"         # Paragraph reformatter — balanced line-wrapping with no orphans (nvim `:%!par N`)
+brew "zoxide"      # Smarter cd — `z` jumps to frecency-ranked visited dirs (init wired in .zshrc)
+brew "dust"        # Modern `du` — tree view of what's eating disk, biggest-first (du-dust, Rust)
+brew "tealdeer"    # `tldr` — community cheat-sheets of real examples per command (fast Rust client)
+
+# ── tmux session/project managers ────────────────────────────────────────────
+brew "sesh"        # Smart tmux session picker — fuzzy-finds running sessions, config, and zoxide dirs; being run against tmux-sessionx (TPM); docs/01-shell-terminal/17-sesh.md
+brew "tmuxinator"  # Define a project's full window/pane layout in YAML, `tmuxinator start` to launch it — hand-typed templates; docs/01-shell-terminal/18-tmuxinator.md
+brew "tmuxp"       # Same idea as tmuxinator, but `tmuxp freeze` snapshots an already-running session's layout into a config — tmuxinator has no equivalent; docs/01-shell-terminal/19-tmuxp.md
+brew "raine/workmux/workmux"  # git worktree + tmux window pairing (`workmux add`/`merge`) — parallel feature branches, no stashing; docs/01-shell-terminal/24-workmux.md
+# NOTE: tmux-sessionx, tmux-harpoon, and tmux-agent-sidebar are TPM plugins
+#       (see tmux/.tmux.conf, section 5), not Homebrew packages. tmux-tea
+#       was dropped 2026-07-04 after evaluation (sesh vs tmux-sessionx is
+#       still being decided). tmuxinator + tmuxp both kept, on purpose — not
+#       a duplicate pair: tmuxinator for layouts you design upfront, tmuxp
+#       for freezing one you already built by hand.
+
+# ── Deduplication ─────────────────────────────────────────────────────────────
+brew "jdupes"      # Fast exact-dupe finder (fork of fdupes) — quick CLI sweeps
+brew "rmlint"      # Dupes + empty dirs/broken links; emits a reviewable delete script (reflink-aware)
+brew "czkawka"     # czkawka_cli — exact AND fuzzy (similar images / video / music)
+
+# ── Dev & languages ─────────────────────────────────────────────────────────
+brew "neovim"      # Vim fork, extensible
+brew "node"        # JavaScript runtime
+brew "pnpm"        # Fast, disk-efficient JS package manager (can self-manage node)
+brew "pipx"        # Install Python CLI apps in isolated venvs (one app per env)
+                   #   pipx-managed (run per machine): edge-tts — clipboard TTS, docs/06-media-av/06-edge-tts.md
+brew "uv"          # Fast Python project/dep/version manager (+ uvx tool runner)
+                   #   uv-tool-managed (run per machine): llm — terminal LLM client, docs/04-dev-languages/09-llm.md
+                   #   uv-tool-managed (run per machine): pdf2image — PDF→raster; avoids the poppler-symlink clash the brew formula has
+brew "jq"          # Command-line JSON processor
+brew "yq"          # Command-line YAML/JSON processor (jq for YAML; reads .md frontmatter — au-tag.sh)
+brew "gh"          # GitHub CLI — PRs/issues/releases/CI + `gh api`; docs/04-dev-languages/12-gh.md
+
+# ── Network & security ──────────────────────────────────────────────────────
+brew "nmap"          # Port scanner
+brew "arp-scan"      # ARP scanning + fingerprinting
+brew "iperf3"        # Network throughput measurement (TCP/UDP/SCTP)
+brew "bitwarden-cli" # Bitwarden password manager CLI
+brew "clamav"        # Antivirus — driven by scripts/transmission_scan.sh quarantine
+
+# ── Media & torrents ────────────────────────────────────────────────────────
+brew "mpv"               # Terminal-friendly media player
+brew "ffmpeg"            # Audio/video convert, record, stream
+brew "handbrake"         # Video transcoder (HandBrakeCLI)
+brew "yt-dlp"            # Download video/audio from YouTube, TikTok + ~1800 sites; `-x` rips audio (whisper feed)
+brew "transmission-cli"  # Lightweight BitTorrent client
+brew "whisper-cpp"       # Speech-to-text (OpenAI Whisper in C++)
+
+# ── PDF & images ────────────────────────────────────────────────────────────
+brew "imagemagick" # Image manipulation toolkit
+brew "ghostscript" # PDF/PS rasterizer — gs; ImageMagick's PDF/EPS delegate (img-convert.sh, pdf-to-png.sh)
+brew "img2pdf"     # Images → PDF (lossless JPEG embedding)
+brew "pdf2svg"     # PDF → SVG (vector)
+brew "pngpaste"    # Paste clipboard PNG to a file
+# NOTE: pdf2image is uv-tool-managed (see the uv line above), not a brew formula —
+#       the formula ships poppler-duplicate binaries that clash with poppler's symlinks.
+
+# ── Documents & publishing ────────────────────────────────────────────────────
+brew "pandoc"      # Universal document converter (md→PDF/HTML/…); drives a PDF engine — docs/17-documents/
+brew "typst"       # Modern typesetting engine — Pandoc's fast default PDF engine (--pdf-engine=typst)
+brew "weasyprint"  # HTML+CSS→PDF (CSS Paged Media, no browser) — Pandoc's CSS engine (--pdf-engine=weasyprint)
+brew "entr"        # Re-run a command when files change (watch mode) — pdf-from-md.sh -w
+
+# ── System & cloud ──────────────────────────────────────────────────────────
+brew "fastfetch"   # System info banner (neofetch successor — neofetch was pulled from Homebrew)
+brew "htop"        # Interactive process/resource monitor (TUI) — live CPU/mem, find & kill hoggers
+brew "rclone"      # Rsync for cloud storage
+
+# NOTE: pkgconf + poppler + python@3.x are intentionally omitted — they arrive as
+#       dependencies (python is pulled by many formulae; poppler ← pdf2image / yazi).

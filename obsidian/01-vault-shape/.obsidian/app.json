@@ -1,0 +1,9 @@
+{
+  "attachmentFolderPath": "./attachments",
+  "newFileLocation": "current",
+  "showInlineTitle": false,
+  "showIndentGuide": false,
+  "readableLineLength": false,
+  "spellcheck": false,
+  "alwaysUpdateLinks": true
+}
