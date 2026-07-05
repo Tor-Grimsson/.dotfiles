@@ -24,6 +24,7 @@ related:
   - "[[14-git-worktrees|Git worktrees (parallel agents)]]"
   - "[[01-cli-cheatsheet|CLI cheatsheet]]"
   - "[[11-dot-sync|Dotfiles sync (dot-sync)]]"
+  - "[[21-dotfiles/01-repo-model|Repo model (foreign-box drift, skip-worktree)]]"
 ---
 
 # Git & GitHub
@@ -95,6 +96,17 @@ Start each from inside the repo. `<branch>` / `<file>` / `<sha>` are placeholder
 | Pull (fetch + merge/rebase) | `git pull` | `--rebase` keeps history linear |
 | Push current branch | `git push` | first push of a new branch: `git push -u origin <branch>` |
 | Push a deleted-local branch to remote | `git push origin --delete <branch>` |  |
+| What would a pull/merge actually change | `git diff HEAD origin/main --stat` | files only, no fetch needed if already fetched |
+| Commits you have that origin doesn't | `git log --oneline origin/main..main` |  |
+| Commits origin has that you don't | `git log --oneline main..origin/main` |  |
+
+> **>> STOP GIT TRACKING A FILE'S LOCAL DRIFT <<** — a foreign/disposable box (e.g. a remote SSH box) where some tool rewrites a tracked file on its own (nvim's `lazy-lock.json` on first launch) will show `git status` dirty for a file you never touched and never want to commit/push from *that* box:
+> ```sh
+> git update-index --skip-worktree <file>      # stop flagging local changes to it, this clone only
+> git update-index --no-skip-worktree <file>    # reverse it
+> git ls-files -v | grep '^S'                   # list every file currently skip-worktree'd
+> ```
+> **What it actually does to a pull/rebase (tested, not guessed):** it does *not* let git silently overwrite your drifted file (unlike `--assume-unchanged`, which has zero protection) — but it also doesn't silently preserve it and continue. If the file has real local drift when a pull/rebase/checkout needs to touch it, git **aborts the whole operation**: `"Your local changes to <file> would be overwritten by merge/checkout... Aborting."` Verified live: a fast-forward pull and a `rebase` both refused outright with drift present, even on an unrelated commit. So skip-worktree only silences `status`/`diff` reporting — it is **not** a "let pulls flow through untouched" mechanism. If a pull/rebase is refusing and one of your skip-worktree'd files is why, temporarily `git update-index --no-skip-worktree <file>`, reset or stash just that file, do the pull, restore your content, then `--skip-worktree` it again. Local-only, per-clone either way — doesn't touch the committed blob or other machines' clones. Full context: [repo model — foreign/disposable boxes](../21-dotfiles/01-repo-model.md#foreign-disposable-boxes-local-drift-on-a-tracked-file).
 
 ### Undo — the part worth knowing cold
 
@@ -257,6 +269,7 @@ Two frictions: each worktree needs its own `pnpm install` (fast — hardlinked s
 | Undo last commit, keep work | `git reset HEAD~1` |
 | Panic-recover a lost commit | `git reflog` → `git reset --hard <sha>` |
 | Park work | `git stash` / `git stash pop` |
+| Stop tracking a file's drift (foreign box) | `git update-index --skip-worktree <file>` |
 | Open a PR | `gh pr create --fill` |
 | Test a PR locally | `gh pr checkout <n>` |
 | Follow CI | `gh run watch` |
