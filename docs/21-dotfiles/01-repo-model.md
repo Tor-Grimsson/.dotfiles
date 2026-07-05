@@ -74,7 +74,7 @@ Rule of thumb: if it reproduces from a tracked declaration (a lock file, a `@plu
 
 `bootstrap-cli.sh` also targets **foreign/SSH boxes** that aren't one of the two fleet machines (see [provisioning](02-provisioning.md)'s Quickstart) — a one-off test or throwaway remote, not somewhere you `git commit` from.
 
-On a box like that, a tool can rewrite a tracked file as a normal side effect of doing its job — e.g. `nvim/lazy-lock.json` (see the table above): first launch resolves plugins against the pinned versions and can touch the lockfile even though nothing about the fleet's actual pins changed. Result: `git status` goes dirty on a box you never intended to commit from.
+On a box like that, a tool can rewrite a tracked file as a normal side effect of doing its job — e.g. `nvim/lazy-lock.json`: first launch resolves plugins against the pinned versions and can touch the lockfile even though nothing about the fleet's actual pins changed. Result: `git status` goes dirty on a box you never intended to commit from.
 
 You just don't want *that box's* incidental local rewrites tracked, shown as a diff, or ever accidentally pushed back over the real pins.
 
@@ -83,6 +83,8 @@ git update-index --skip-worktree nvim/lazy-lock.json
 ```
 
 Run once, on that box, inside `~/.dotfiles`. It's a **local, per-clone flag** — git stops reporting worktree changes to the file *in that clone only* (`git status`/`git diff` go quiet on it). Reverse it with `git update-index --no-skip-worktree nvim/lazy-lock.json` if that box is ever promoted to a real fleet member (at which point its lockfile changes become meaningful again and should be committed like on the iMac/MBP).
+
+**Live example — the `acyr` remote box:** currently has two files flagged this way, `claude/settings.json` and `nvim/lazy-lock.json` (confirmed via `git ls-files -v | grep '^S'`, 2026-07-05). `acyr` only ever pulls and holds these flags — it never commits from that box.
 
 **What this does *not* do (tested live, 2026-07-05, not assumed):** it does **not** mean "`git pull` keeps flowing the fleet's real updates through while ignoring local drift." If the file has actual local drift when a `pull`/`rebase`/`checkout` needs to touch it, git **aborts the whole operation** — `"Your local changes to <file> would be overwritten by merge/checkout... Aborting."` — the same way it would with any dirty tracked file, skip-worktree or not. It only silences *reporting* (`status`/`diff`); it does not make git tolerant of the drift during an actual sync. If a pull on this box ever refuses because of this file: `git update-index --no-skip-worktree nvim/lazy-lock.json`, then `git checkout -- nvim/lazy-lock.json` (drop the local rewrite, take the fleet's version) or stash it, pull, then re-apply `--skip-worktree`.
 
