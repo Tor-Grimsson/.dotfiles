@@ -44,8 +44,8 @@ Runs on **any** box and installs the **complete CLI tool set across every packag
   ```
   pipx install edge-tts
   uv tool install llm --with llm-anthropic
-  uv tool install pdf2image
   ```
+  (`uv tool install pdf2image` was tried and dropped 2026-07-05 — it's a library with no CLI entry point, so `uv tool install` has nothing to link; nothing in the repo imports it either. PDF→raster already has a working answer: poppler's `pdftoppm`/`pdftocairo`, pulled in as a dependency of `imagemagick`/`yazi`.)
 
 > **Why the pipx/uv tools live here:** the scoping axis is CLI-vs-GUI, **not** package manager. `au-transcribe.sh` needs `llm` whether brew or uv installed it; omitting a tool because it's a uv tool would leave scripts calling a binary that isn't there. A `bootstrap-cli.sh` that installs *some* CLI tools is broken by definition — so it installs all of them.
 

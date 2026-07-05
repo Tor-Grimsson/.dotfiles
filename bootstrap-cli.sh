@@ -82,7 +82,6 @@ if command -v pipx >/dev/null 2>&1; then
 fi
 if command -v uv >/dev/null 2>&1; then
   uv tool install llm --with llm-anthropic || note_fail "uv: llm"        # terminal LLM client + Claude plugin — docs/04-dev-languages/09-llm.md
-  uv tool install pdf2image || note_fail "uv: pdf2image"                 # PDF→raster; avoids the poppler-symlink clash of the brew formula
 fi
 
 # ── Shell + git symlinks ──────────────────────────────────────────────────────
