@@ -279,7 +279,7 @@ Shell-only, no tmux binding: [sesh](../01-shell-terminal/17-sesh.md) (`sesh pick
 > 6. `y` — copies, exits copy mode.
 > 7. `⌘V` in any local app — paste.
 >
-> Needs the *remote* box's `tmux.conf` to have `set -g set-clipboard on` + `allow-passthrough on` (2026-07-05) — if it's an older pulled dotfiles copy, `git pull` + `pfx r` on that box first. Full explanation: [remote dev workflow §3](../22-remote-machine/02-remote-dev-workflow.md#3-clipboard-over-ssh--tmux).
+> Needs the *remote* box's `tmux.conf` to have `set -g set-clipboard on` + `allow-passthrough on` (2026-07-05) — if it's an older pulled dotfiles copy, `git pull` + `pfx r` on that box first. **Also needs iTerm2 locally** set to Always Allow clipboard access (Settings -> General -> Selection) — "Ask Each Time" silently fails with no error. **Verified working end-to-end 2026-07-05.** Full explanation: [remote dev workflow §3](../22-remote-machine/02-remote-dev-workflow.md#3-clipboard-over-ssh--tmux), [iTerm2 setup](../01-shell-terminal/01-iterm2.md).
 
 ---
 

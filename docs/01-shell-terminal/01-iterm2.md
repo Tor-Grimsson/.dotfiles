@@ -2,7 +2,7 @@
 title: iTerm2
 type: reference
 status: active
-updated: 2026-06-24
+updated: 2026-07-05
 description: macOS terminal emulator that replaces Apple's Terminal.app with split panes, search, and deep customization.
 aliases:
   - iterm
@@ -40,10 +40,12 @@ Native split panes plus instant scrollback search (Cmd+F) and the hotkey window 
 - First run: macOS will prompt to grant the app permissions; allow it, then set iTerm2 as the default terminal if desired (Preferences if offered, or just keep launching it directly).
 - Set a Nerd Font: Settings -> Profiles -> Text -> Font, pick a patched Nerd Font so powerlevel10k glyphs render.
 - Enable true color: Settings -> Profiles -> Terminal, report terminal type `xterm-256color`.
-- Colors / theme: the Default profile ships the **coolnight** palette (deep navy `#011423` + neon teal/green accents — josean-dev's theme; this is what drives the look of yazi, the prompt, tmux, since they inherit the 16 ANSI slots). Preset tracked at `iterm/coolnight.itermcolors`; re-apply via Settings -> Profiles -> Colors -> Color Presets -> **coolnight**. Prefs are **manual-save** — after any change, Settings -> General -> **Save Current Settings to Folder** or it won't persist to the repo.
+- Colors / theme: the Default profile ships the **coolnight** palette (deep navy `#011423` + neon teal/green accents — josean-dev's theme; this is what drives the look of yazi, the prompt, tmux, since they inherit the 16 ANSI slots). Preset tracked at `iterm/coolnight.itermcolors`; re-apply via Settings -> Profiles -> Colors -> Color Presets -> **coolnight**.
+- **The tracked `iterm/com.googlecode.iterm2.plist` is a point-in-time export — the live app does NOT read from it.** Settings -> General -> Settings -> "Load preferences from a custom folder or URL" is deliberately **OFF**. Turning it on makes iTerm load whatever's in that file over live state, silently reverting any profile setting (font, colors, keybindings) that's drifted since the file was last exported — it broke live custom colors on 2026-07-05 (reverted same day). Don't re-enable this without a full diff of the active profile, not a spot-check.
 - Split panes: Cmd+D (vertical), Cmd+Shift+D (horizontal); navigate with Cmd+Opt+Arrow.
 - Search scrollback: Cmd+F.
 - Hotkey window: Settings -> Keys -> Hotkey, "Create a Dedicated Hotkey Window".
+- **Clipboard access (needed for tmux/OSC 52 copy from a remote box):** Settings -> General -> Selection tab -> check "Applications in terminal may access clipboard", set "Allow sending of clipboard contents?" to **Always Allow** (not "Ask Each Time" — iTerm can get stuck silently denying instead of prompting once a deny has been recorded). Without this, remote `y` yanks never reach the local clipboard, no error shown. Verified 2026-07-05, see [remote dev workflow §3](../22-remote-machine/02-remote-dev-workflow.md#3-clipboard-over-ssh--tmux).
 
 ## Future use
 Triggers (regex-driven actions on output), the Python API for scripting window layouts, and tmux integration mode (`tmux -CC`) which turns tmux windows into native iTerm2 tabs — all unexplored here and worth adopting for session automation.

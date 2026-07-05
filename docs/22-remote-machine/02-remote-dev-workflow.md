@@ -17,6 +17,7 @@ related:
   - "[[04-dev-languages/10-neovim-config|Neovim config]]"
   - "[[04-dev-languages/12-gh|GitHub CLI]]"
   - "[[00-kol-cli/05-network-security|Network, remote & secrets]]"
+  - "[[01-shell-terminal/01-iterm2|iTerm2]]"
 ---
 
 # Remote dev workflow — editor, git/gh, secrets, collaboration
@@ -79,7 +80,9 @@ No new SSH key to generate and register just for a box you might throw away. `gh
 
 ### 3. Clipboard over SSH + tmux
 
-**tmux's own copy mode (`prefix [` → `y`) is fixed** (2026-07-05): `tmux/.tmux.conf` now sets `set -g set-clipboard on` + `set -g allow-passthrough on`, and the `y`/mouse-drag bindings use `copy-selection-and-cancel` instead of piping to `pbcopy`. tmux relays the copy via **OSC 52** to the outer terminal (iTerm2 supports it), so a yank from a remote tmux session lands on *this* Mac's clipboard, not the remote box's. Works identically whether tmux is local or remote — nothing to think about, just `y`.
+**tmux's own copy mode (`prefix [` → `y`) is fixed and verified working** (2026-07-05): `tmux/.tmux.conf` now sets `set -g set-clipboard on` + `set -g allow-passthrough on`, and the `y`/mouse-drag bindings use `copy-selection-and-cancel` instead of piping to `pbcopy`. tmux relays the copy via **OSC 52** to the outer terminal, so a yank from a remote tmux session lands on *this* Mac's clipboard, not the remote box's. Works identically whether tmux is local or remote — nothing to think about, just `y`.
+
+**The other half of this lives in iTerm2, not tmux.** Even with the tmux side correct, iTerm2 silently drops the OSC 52 write unless "Applications in terminal may access clipboard" is checked and "Allow sending of clipboard contents?" is set to **Always Allow** (Settings -> General -> Selection). "Ask Each Time" can get stuck permanently denying with no dialog and no error once a deny has been recorded once — the failure looks identical to a tmux-side bug but isn't one. See [iTerm2 → How to use](../01-shell-terminal/01-iterm2.md) for the exact toggle.
 
 **nvim's own yank (`"+y`, `unnamedplus`) is still the open gap.** `nvim/lua/grim/core/options.lua:32` sets `opt.clipboard:append("unnamedplus")` — nvim shells out to `pbcopy`/`pbpaste` directly, bypassing tmux's relay entirely. On a remote box that still lands in *that box's* clipboard, invisible to you. Fix (not yet applied): give nvim 0.10+'s built-in OSC52 clipboard provider via `vim.g.clipboard`, or the `ojroques/vim-oscyank` plugin. Until then, `"+y` inside nvim only moves text within nvim's own registers — copy through **tmux's** copy mode instead (`prefix [`, select, `y`) when you need something out of a remote nvim session onto your local clipboard.
 
