@@ -2,7 +2,7 @@
 title: tmux help & cheat sheet
 type: guide
 status: active
-updated: 2026-06-14
+updated: 2026-07-05
 audience: internal
 description: Practical tmux cheat sheet — the built-in help commands first, then the keys, shell commands, and workflows you actually use day to day with this repo's ~/.tmux.conf.
 aliases:
@@ -85,7 +85,7 @@ When you forget a key or a command, ask tmux directly. You never need to memoris
 | `/` … / `?` … | search forward / backward; `n` `N` next / prev match |
 | `g` / `G` | top / bottom of the buffer |
 | `v` | start selecting |
-| `y` | copy selection to the **macOS clipboard** (`pbcopy`) and exit |
+| `y` | copy selection to the **system clipboard** (OSC 52 relay — works over SSH too) and exit |
 | `q` | leave copy mode |
 | `prefix ]` | paste tmux's own buffer back into a pane |
 
@@ -120,7 +120,7 @@ prefix z     zoom the editor fullscreen, prefix z again to pop back
 prefix [     enter copy mode
 ?error       search backward for "error", Enter   (n / N for more matches)
 v            select from there
-y            copy to the macOS clipboard → ⌘V anywhere
+y            copy to the system clipboard (OSC 52) → ⌘V anywhere, local or SSH
 ```
 
 **Run the same command across every pane** (e.g. several servers)

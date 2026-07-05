@@ -81,6 +81,8 @@ function y() {
 alias vim='nvim'   # the configured editor is nvim (repo nvim/ → ~/.config/nvim)
 alias cc='clear'
 alias cl='claude'
+alias cllm='llm -c'   # continue the previous llm conversation (logged to SQLite)
+alias llmc='llm chat'   # interactive llm REPL
 # reveal: Finder at PATH (default cwd); `reveal -f` = new FLOATING window on the current AeroSpace workspace. See bin/fs-reveal.sh
 alias reveal='fs-reveal.sh'
 killport() { kill -9 $(lsof -ti:$1); }
@@ -130,6 +132,9 @@ cbrief() {
   print -P "\n%F{cyan}── Coming up (30d, one-offs) ──%f"
   cplan --30d-p
 }
+
+# ── Location shortcuts (g-nav) ────────────────────────────────────────────────
+source "$HOME/.dotfiles/shell/functions/g-nav.zsh"
 
 # ── Bitwarden ─────────────────────────────────────────────────────────────────
 # unlock + export session key; reads master password from macOS Keychain (item: bw-master), falls back to prompt

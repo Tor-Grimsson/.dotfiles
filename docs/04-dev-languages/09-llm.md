@@ -2,7 +2,7 @@
 title: llm
 type: reference
 status: active
-updated: 2026-06-09
+updated: 2026-07-05
 verified: 2026-06-09
 description: Simon Willison's CLI for talking to LLMs from the terminal. Wired to Claude via the llm-anthropic plugin; defaults to Haiku 4.5 for cheap casual queries.
 aliases:
@@ -35,8 +35,9 @@ Ask an LLM a question from the terminal — one-shot or interactive. Multi-provi
 | Command | Does | Needs |
 |---|---|---|
 | `llm "..."` | one question → one answer, prints and exits | key + `llm-anthropic` |
-| `llm chat` | interactive back-and-forth REPL | key + `llm-anthropic` |
-| `llm -c "..."` | continue the previous conversation | a prior exchange (logged to SQLite) |
+| `llm chat` / `llmc` | interactive back-and-forth REPL, stays open until `exit`/Ctrl-D | key + `llm-anthropic` |
+| `llm -c "..."` / `cllm "..."` | continue the previous conversation (shell alias for `-c`) | a prior exchange (logged to SQLite) |
+| `cat file \| llm "..."` | pipe file/command output in as context for that one prompt | — |
 
 Picked over `ata`/`trf`: those only speak OpenAI-compatible providers, so reaching Claude through them means the OpenAI-compat shim. `llm` + `llm-anthropic` talks to the **native** Anthropic API instead.
 
@@ -52,13 +53,17 @@ Picked over `ata`/`trf`: those only speak OpenAI-compatible providers, so reachi
 ```sh
 llm "explain tmux in one sentence"            # one-shot, default model (Haiku 4.5)
 llm chat                                       # interactive session; exit / Ctrl-D to leave
+llmc                                        # same thing — shell alias for `llm chat`
 llm -c "and how do I detach?"                  # continue the previous answer
-cat error.log | llm "what's wrong here?"       # pipe stdin in
+cllm "and how do I detach?"                    # same thing — shell alias for `llm -c`
+cat error.log | llm "what's wrong here?"       # pipe stdin in — no flag needed, just works
 llm "summarize this" < notes.md                # file as input
 llm -m claude-sonnet-4.6 "harder question"     # one-off model override
 llm -s "you are a terse sysadmin" "..."        # set a system prompt
 llm logs -n 3                                  # show the last 3 logged exchanges
 ```
+
+**Piping vs `-c` — two different things.** Piping (`cat x | llm "..."`) feeds *content* into one prompt. `-c`/`cllm` (or `--cid <id>` for a specific past thread) continues *conversation memory* across separate one-shot calls — every `llm`/`llm chat` exchange is logged to a local SQLite DB (`llm logs path`) regardless, so `-c` always has something to continue. Verified 2026-07-05: `echo "the secret word is banana47" | llm "..."` then a separate `llm -c "..."` call both landed under the same `conversation:` ID in `llm logs list`.
 
 ## Models — `llm-anthropic` aliases use **dots**, not hyphens
 

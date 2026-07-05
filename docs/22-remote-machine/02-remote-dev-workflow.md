@@ -77,16 +77,11 @@ No new SSH key to generate and register just for a box you might throw away. `gh
 
 **Avoid `--web` / `gh browse` on a headless box** — both try to open a literal browser process on the machine you're SSH'd into, which either fails or does nothing useful with no logged-in GUI session there. Stick to text output: `gh pr view`, `gh pr diff`, `gh pr checkout <n>`, `gh run watch`.
 
-### 3. nvim clipboard over SSH + tmux
+### 3. Clipboard over SSH + tmux
 
-`nvim/lua/grim/core/options.lua:32` sets `opt.clipboard:append("unnamedplus")` — nvim shells out to `pbcopy`/`pbpaste` for system-clipboard yank/paste. Those binaries exist on a remote Mac too, which is the trap: a yank *appears* to work (no error) but lands in **that remote box's own clipboard**, invisible to you, not the clipboard on the machine you're actually typing on.
+**tmux's own copy mode (`prefix [` → `y`) is fixed** (2026-07-05): `tmux/.tmux.conf` now sets `set -g set-clipboard on` + `set -g allow-passthrough on`, and the `y`/mouse-drag bindings use `copy-selection-and-cancel` instead of piping to `pbcopy`. tmux relays the copy via **OSC 52** to the outer terminal (iTerm2 supports it), so a yank from a remote tmux session lands on *this* Mac's clipboard, not the remote box's. Works identically whether tmux is local or remote — nothing to think about, just `y`.
 
-The real fix is **OSC 52** — an escape sequence that asks the terminal *displaying* the session (yours, however many SSH/tmux hops away) to set its own clipboard, instead of shelling out to a local `pbcopy`. Two things have to both be true for it to reach you:
-
-1. **tmux must let the escape sequence through.** `tmux/.tmux.conf` doesn't currently set this — add `set -g allow-passthrough on`. (This is the same gap that broke yazi's image preview over this same SSH+tmux path — see [tmux tips → Troubleshooting](../01-shell-terminal/09-tmux-tips.md).)
-2. **nvim needs an OSC52-based clipboard provider** instead of the default `pbcopy`/`pbpaste` — nvim 0.10+ ships one (`vim.g.clipboard` can point at the built-in OSC52 provider, or a small plugin like `ojroques/vim-oscyank` does the same thing more explicitly).
-
-Until both land, treat yank-to-system-clipboard as **not working** on this box specifically — `"+y` inside nvim's own buffers (registers) still works fine for moving text around within nvim itself, it just won't cross out to your Mac's actual clipboard.
+**nvim's own yank (`"+y`, `unnamedplus`) is still the open gap.** `nvim/lua/grim/core/options.lua:32` sets `opt.clipboard:append("unnamedplus")` — nvim shells out to `pbcopy`/`pbpaste` directly, bypassing tmux's relay entirely. On a remote box that still lands in *that box's* clipboard, invisible to you. Fix (not yet applied): give nvim 0.10+'s built-in OSC52 clipboard provider via `vim.g.clipboard`, or the `ojroques/vim-oscyank` plugin. Until then, `"+y` inside nvim only moves text within nvim's own registers — copy through **tmux's** copy mode instead (`prefix [`, select, `y`) when you need something out of a remote nvim session onto your local clipboard.
 
 ### 4. Two GitHub accounts — practicing the real collaboration flow
 

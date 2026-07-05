@@ -263,11 +263,23 @@ Shell-only, no tmux binding: [sesh](../01-shell-terminal/17-sesh.md) (`sesh pick
 |---|---|---|---|
 | `pfx [` | enter copy mode (or scroll up) | `/` `?` | search fwd / back (`n` `N`) |
 | `v` | start selecting | `g` `G` | top / bottom of buffer |
-| `Ctrl-v` | block select | `y` | copy → macOS clipboard, exit |
+| `Ctrl-v` | block select | `y` | copy → system clipboard, exit |
 | `q` | leave copy mode | `pfx ]` | paste tmux buffer |
 | `pfx r` | reload `~/.tmux.conf` | `pfx !` | break pane into its own window |
+| `pfx m` | mark this pane (bg tint) | `pfx M` | clear the mark |
 
 > **Search by keyword in tmux** — copy mode is also the pane's find: `pfx [` to enter → **`?keyword`** searches *back* toward earlier output (usually what you want, you're at the bottom; `/keyword` goes forward) → `n`/`N` next/prev match → `q` exits. **Use case — search a Claude conversation:** grep Claude's on-screen replies, your prompts, and tool output in one pass. Only reaches text still in scrollback; for the *whole* session grep the transcript on disk — `~/.claude/projects/<cwd-slug>/*.jsonl`.
+
+> **>> REMOTE COPY <<** — `y` reaches your **local** clipboard even when tmux is running on a box you're SSH'd into. Steps, pane already focused:
+> 1. Focus the remote pane (click it, or `pfx h/j/k/l`).
+> 2. `pfx [` — enter copy mode.
+> 3. Move to the start of the text (`h j k l`, or `/text⏎` to search for it).
+> 4. `v` — start selecting.
+> 5. Move to extend the selection to the end.
+> 6. `y` — copies, exits copy mode.
+> 7. `⌘V` in any local app — paste.
+>
+> Needs the *remote* box's `tmux.conf` to have `set -g set-clipboard on` + `allow-passthrough on` (2026-07-05) — if it's an older pulled dotfiles copy, `git pull` + `pfx r` on that box first. Full explanation: [remote dev workflow §3](../22-remote-machine/02-remote-dev-workflow.md#3-clipboard-over-ssh--tmux).
 
 ---
 
@@ -426,8 +438,53 @@ Measured floor on a 1600×2000 flat illustration (~4 real colors + AA noise) —
 |---|---|
 | `cl` | `claude` — launch Claude Code |
 | `cc` | `clear` — clear the terminal |
+| `llm "..."` | one-shot question to an LLM — see the **4-part `llm` family** below |
+| `cllm "..."` | `llm -c` — continue the previous [llm](../04-dev-languages/09-llm.md) conversation |
+| `llmc` | `llm chat` — interactive llm REPL |
+| `cat file \| llm "..."` | pipe a file/command's output in as context (see below) |
 | `reveal [PATH]` | open Finder at PATH (default: current dir); a file is selected in its folder |
 | `reveal -f [PATH]` | new **floating** Finder window on the *current* AeroSpace workspace — bypasses the blanket Finder→W rule (`fs-reveal.sh`, see [Scripts](#6-scripts-all-scripts)) |
+
+### llm → [full doc](../04-dev-languages/09-llm.md)
+
+**Help:** `llm --help` · `llm prompt --help` for every prompting flag.
+
+| Command | Does |
+|---|---|
+| `llm "..."` | one-shot question, prints and exits |
+| `llm chat` / `llmc` | interactive REPL — stays open until `exit`/Ctrl-D |
+| `llm -c "..."` / `cllm "..."` | continue the previous conversation (logged to SQLite) |
+| `cat file \| llm "..."` | pipe file/command output in as context — no flag needed |
+
+Piping feeds *content* into one prompt; `-c`/`cllm` continues *conversation memory* across separate calls — different things, both native, no custom system needed.
+
+### Location shortcuts (g-nav) → `shell/functions/g-nav.zsh`
+
+Mirrors yazi's `g`-keybinds at the shell level. Zsh **functions** (not aliases — they take flags; not scripts — a script's `cd` can't reach the parent shell, same reason the `y()` yazi wrapper needs a temp-file). `<cmd> -h` shows a command's own target flags.
+
+**Shared flags — same on every command below:**
+
+| Flag | Does |
+|---|---|
+| *(none)* | `cd` there |
+| `-l` | `cd` + `ls` |
+| `-e` | open in nvim |
+| `-c` | copy path to clipboard |
+| `-p` | print path, no `cd` |
+| `-h` | this command's help |
+
+| Command | Target | Extra flags |
+|---|---|---|
+| `ghome` | `~` | `--desktop` `--downloads` `--documents` |
+| `gdot` | `~/.dotfiles` | `--shell` `--nvim` `--yazi` `--tmux` `--claude` `--aerospace` `--docs` `--bin` |
+| `zshrc` | `~/.dotfiles/shell/.zshrc` (a file — own verbs) | `-e` edit · `-s` `source ~/.zshrc` · `-c`/`-p` as shared · default = print path |
+| `gdev` | `~/dev` | `--monorepo` `--studio` `--typefaces` `--dashboard` `--chords` `--imweb` `--kclaude` |
+| `gobs` | `~/dev/projects/kol-vault` | `-a`/`--app` open in Obsidian.app |
+| `gapparat` | `~/dev/projects/kol-apparat` | `-1`…`-12`, alphabetical (`-h` lists names) |
+| `gclient` | `~/dev/projects/kol-client` | `-1`…`-8`, alphabetical (`-h` lists names) |
+| `gicloud` | iCloud Drive root | `--workbox` (used often) |
+
+**Renamed from the original ask to avoid real collisions:** `gh`→`ghome` (`gh` is the GitHub CLI binary), `zsh`→`zshrc` (`zsh` is the shell itself), `gcloud`→`gicloud` (it's iCloud, not Google Cloud — also sidesteps a future collision if the real `gcloud` CLI ever gets installed). `gd`→`gdot` was already the plan, sidesteps the existing `gd='git diff'` alias.
 
 ---
 

@@ -63,14 +63,18 @@ The moves that make tmux fast once the basics click — copy mode (scrolling and
 |---|---|
 | `v` | start selecting (move to extend the selection) |
 | `Ctrl-v` | toggle **block** (rectangular) selection |
-| `y` | copy the selection to the **macOS clipboard** via `pbcopy`, and leave copy mode |
+| `y` | copy the selection to the **system clipboard** (OSC 52 relay), and leave copy mode |
 | mouse drag | select; on release it copies to the clipboard too |
 
-After `y`, the text is on your real clipboard — `⌘V` pastes it into any app.
+After `y`, the text is on your real clipboard — `⌘V` pastes it into any app. This works the same whether tmux is running **locally** or on a **remote box over SSH** — `set -g set-clipboard on` + `set -g allow-passthrough on` make tmux relay the copy to your Mac's clipboard via an escape sequence instead of shelling out to `pbcopy` (which, run on a remote box, would copy to *that* box's clipboard, not yours). See [remote dev workflow §3](../22-remote-machine/02-remote-dev-workflow.md#3-nvim-clipboard-over-ssh--tmux).
 
 **Paste back into a pane:** `prefix ]` pastes tmux's own copy buffer (the last thing you copied) at the cursor.
 
 **Leave copy mode:** `q` (or `Esc`).
+
+## Marking a pane
+
+Panes look identical at a glance, which is a problem when a window mixes local and SSH panes. `prefix m` tints the current pane's background (grey); `prefix M` clears it. Mark whichever pane is your local one so it doesn't get mistaken for a remote session.
 
 > **Mouse selection vs the terminal's own:** with `mouse on`, dragging selects tmux's text. To use your terminal emulator's native selection instead (e.g. to copy across panes as one rectangle), hold **Option** (iTerm2's bypass modifier) while dragging.
 
@@ -185,6 +189,6 @@ prefix :  setw synchronize-panes off    # turn it off
 
 - **Colours look flat / wrong.** Your outer terminal must support true colour for the `RGB` override to bite — fine in iTerm2/WezTerm/Ghostty/Kitty/Alacritty, not in plain Terminal.app. Harmless either way.
 - **yazi image previews fail inside a remote tmux session** (`Terminal response timeout`, `failed to spawn chafa: No such file or directory`) — running yazi through SSH + tmux (the [session-survival pattern](#session-tricks) above) breaks yazi's usual iTerm2-inline-image detection, so it falls back to **chafa** (ASCII/unicode-block rendering) — a dependency the two daily-driver Macs never needed because they run yazi directly in local iTerm2. Fix: `brew install chafa` on the box running yazi (now in `brewfile-cli`, so a fresh `bootstrap-cli.sh`/`brew bundle` covers it going forward).
-- **`y` didn't reach the clipboard.** The copy binding pipes to `pbcopy`; confirm `echo hi | pbcopy && pbpaste` works in a plain shell. If it does, reload the config with `prefix r`.
+- **`y` didn't reach the clipboard.** The copy binding uses tmux's OSC 52 relay (`set-clipboard on`), not a direct `pbcopy` pipe. Confirm the outer terminal supports OSC 52 (iTerm2 does) and `allow-passthrough on` is set. If tmux is nested (tmux-in-tmux), the inner session also needs passthrough. Reload with `prefix r` after any config change.
 - **Edited the config but nothing changed.** tmux only reads `~/.tmux.conf` on server start — run `prefix r` (or `tmux kill-server` and reopen) to apply edits.
 - **Mouse drag selects the wrong thing.** That's tmux's selection winning over the terminal's; hold **Option** to fall back to the native selection.

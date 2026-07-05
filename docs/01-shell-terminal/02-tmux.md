@@ -2,7 +2,7 @@
 title: tmux
 type: reference
 status: active
-updated: 2026-07-04
+updated: 2026-07-05
 description: Terminal multiplexer that keeps shell sessions alive and splits one terminal into many panes and windows.
 aliases:
   - tmux
@@ -65,7 +65,8 @@ tmux attach -t work       # reattach to "work"
 `~/.tmux.conf` is repo-managed at `~/.dotfiles/tmux/.tmux.conf` (symlinked by `bootstrap.sh`), self-commented. Highlights:
 - **Mouse on** — click panes, drag borders to resize, scroll to scroll back.
 - **Intuitive splits** — `prefix |` / `prefix -`, opening in the current folder; `h/j/k/l` to move, `H/J/K/L` to resize. tmux's stock `"`/`%` still work.
-- **vi copy mode → macOS clipboard** — `v` select, `y` copy via `pbcopy`; mouse-drag copies too.
+- **vi copy mode → system clipboard** — `v` select, `y` copy (OSC 52 relay, works locally and over SSH+remote-tmux); mouse-drag copies too.
+- **Mark a pane** — `prefix m` tints the current pane so it stands out (e.g. the one LOCAL pane among SSH panes); `prefix M` clears it.
 - **Quiet top status bar** — faint window list flush top-left (`#I:#W#F`), with a blank second row for breathing space above the p10k prompt.
 - **base-index 1**, 50k scrollback, true-colour passthrough, `prefix r` to reload.
 - **TPM** (`tmux-plugins/tpm`, cloned + installed by `bootstrap.sh`) runs [tmux-sessionx](20-tmux-sessionx.md) (`prefix O`) — an fzf-based session picker being run head-to-head against the standalone [sesh](17-sesh.md) — and [tmux-harpoon](22-tmux-harpoon.md) (session bookmarking) — given its own key table, `prefix a` then `1`–`4`/`a`/`e`, after both `Alt` (collides with AeroSpace's global workspace keys) and `Ctrl+Shift` (this terminal doesn't report Shift on Ctrl-letter combos) were tried and ruled out. [tmuxinator](18-tmuxinator.md) and [tmuxp](19-tmuxp.md) (YAML project layouts) round out the set — no tmux binding needed, both are plain shell commands, kept side by side rather than picked as a winner (tmuxinator for upfront-designed layouts, tmuxp for freezing one already built by hand). (`tmux-tea` was evaluated alongside these and dropped 2026-07-04.) [tmux-agent-sidebar](25-tmux-agent-sidebar.md) (`prefix e`/`prefix E`) rounds out the plugin set — live AI-agent status across sessions/windows, paired with [workmux](24-workmux.md) (git worktree + tmux window pairing, not a TPM plugin, plain CLI) for parallel-branch/agent workflows. Note: workmux ships its own `workmux sidebar` command that overlaps somewhat with tmux-agent-sidebar's job — worth comparing before keeping both permanently.
