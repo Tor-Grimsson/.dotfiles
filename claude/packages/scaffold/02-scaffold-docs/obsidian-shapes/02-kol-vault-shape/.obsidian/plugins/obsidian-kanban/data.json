@@ -1,0 +1,39 @@
+{
+  "show-checkboxes": true,
+  "full-list-lane-width": true,
+  "new-note-folder": "kol-knowledge/_framework/_kanban",
+  "move-tags": true,
+  "tag-colors": [
+    {
+      "tagKey": "",
+      "color": "rgba(255, 255, 255, 1)",
+      "backgroundColor": "rgba(255, 0, 187, 1)"
+    },
+    {
+      "tagKey": "#tag1",
+      "color": "rgba(0, 0, 0, 1)",
+      "backgroundColor": "rgba(255, 233, 0, 1)"
+    },
+    {
+      "tagKey": "",
+      "color": "rgba(255, 255, 255, 1)",
+      "backgroundColor": "rgba(73, 100, 220, 1)"
+    }
+  ],
+  "move-dates": true,
+  "show-relative-date": true,
+  "link-date-to-daily-note": true,
+  "date-colors": [
+    {
+      "isToday": false,
+      "distance": 1,
+      "unit": "days",
+      "direction": "after",
+      "backgroundColor": "rgba(0, 18, 255, 1)",
+      "color": "rgba(255, 255, 255, 1)"
+    }
+  ],
+  "archive-with-date": true,
+  "append-archive-date": true,
+  "move-task-metadata": true
+}

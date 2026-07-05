@@ -1,0 +1,16 @@
+/* This works in both Editing (Live Preview) and Reading modes */
+.full-width-table table {
+    width: 100% !important;
+    table-layout: fixed !important;
+}
+
+.full-width-table td {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Slims the first column (#) */
+.full-width-table td:first-child, 
+.full-width-table th:first-child {
+    width: 50px;
+}

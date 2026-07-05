@@ -1,0 +1,46 @@
+{
+  "settings": {
+    "migrated": 6,
+    "iconPacksPath": ".obsidian/icons",
+    "fontSize": 16,
+    "emojiStyle": "native",
+    "iconColor": null,
+    "recentlyUsedIcons": [
+      "LiSquareLibrary",
+      "SiObsidian",
+      "LiLibraryBig",
+      "LiLibrary",
+      "LiLibrarySquare"
+    ],
+    "recentlyUsedIconsSize": 5,
+    "rules": [],
+    "extraMargin": {
+      "top": 0,
+      "right": 4,
+      "bottom": 0,
+      "left": 0
+    },
+    "iconInTabsEnabled": true,
+    "iconInTitleEnabled": true,
+    "iconInTitlePosition": "above",
+    "iconInFrontmatterEnabled": true,
+    "iconInFrontmatterFieldName": "icon",
+    "iconColorInFrontmatterFieldName": "iconColor",
+    "iconsBackgroundCheckEnabled": true,
+    "iconsInNotesEnabled": true,
+    "iconsInLinksEnabled": true,
+    "iconIdentifier": ":",
+    "lucideIconPackType": "native",
+    "debugMode": false,
+    "useInternalPlugins": true
+  },
+  "kol-project/kol-kitchen": "LiChefHat",
+  "kol-knowledge/_framework": "SiRobotframework",
+  "kol-knowledge/kol-client-kol": "SiOctopusdeploy",
+  "kol-knowledge/kol-client-acyr": "SiYr",
+  "kol-knowledge/kol-learn-js": "LiCodeSquare",
+  "kol-knowledge/kol-monorepo": "SiOctopusdeploy",
+  "kol-knowledge/kol-terminal": "LiTerminalSquare",
+  "kol-knowledge/kol-obsidian": "SiObsidian",
+  "kol-knowledge/kol-archive-2025-2026": "LiSquareLibrary"
+}

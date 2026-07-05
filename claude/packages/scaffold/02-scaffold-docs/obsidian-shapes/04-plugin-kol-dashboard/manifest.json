@@ -1,0 +1,9 @@
+{
+  "id": "kol-dashboard",
+  "name": "KOL Dashboard",
+  "author": "Tór Grímsson",
+  "version": "0.1.0",
+  "minAppVersion": "1.6.7",
+  "isDesktopOnly": false,
+  "description": "Live dashboard for kolkrabbi.io metrics (YouTube, Instagram, TikTok), latest content, and vault project/task tracker."
+}

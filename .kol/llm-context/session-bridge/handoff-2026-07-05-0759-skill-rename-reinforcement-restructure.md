@@ -1,0 +1,26 @@
+# Handoff — 2026-07-05 07:59
+
+## Goal of the current arc
+Restructure `claude/skills/` naming (accidental `init-`/`kol-` prefixes → grouped by what actually gets scaffolded), quarantine two unused skills, and build a reinforcement mechanism so report-shape and behavioral rules stop drifting mid-session. Runs alongside an earlier same-day arc (bootstrap-cli.sh verified end-to-end on a foreign SSH box, `acyr`) that has its own closed session log.
+
+## Last actions taken (causal trail, newest first)
+- Fixed `init-agent`'s `allowed-tools` (was missing `Skill` — step 1 would've been silently blocked) and strengthened step 8 to actually *print* a handoff's summary instead of silently folding it into context.
+- Self-audited for undocumented edits — found and fixed 3 real gaps: stale skill count (30→33) and a stale `init-*` mention in `docs/16-claude-agents/INDEX.md`, and `_tmp/` never documented in `docs/21-dotfiles/01-repo-model.md`'s tracked-vs-runtime table.
+- Built 3 reinforcement skills — `agent-output-format`, `agent-reinforce-rules`, `agent-reinforce-memory` — wired as step 1 of both `/init-agent` and `/log-work`. Found + fixed a real bug: `disable-model-invocation: true` blocks the Skill tool entirely (even a deliberate call), not just auto-invocation — removed it from all three so the wiring actually works.
+- Renamed 5 skills (`init-scaffold`→`scaffold-dev-stack`, `init-scaffold-kol`→`scaffold-dev-stack-kol`, `init-agent-context`→`scaffold-llm-context`, `kol-docs-lib`→`scaffold-docs-system`), split `.kol/docs-framework/` scaffolding OUT of `scaffold-llm-context` and INTO `scaffold-docs-system` (clean single-responsibility split). Quarantined `init-agent-context-sync` and `kol-migrate-structure` to `_tmp/` (zero real-world use found — asked directly, no supporting evidence for keeping either).
+- Grep-swept the whole repo for old skill names and repointed every living-doc reference (`TOOLING.md`, `ARCHITECTURE.md`, `AGENT-CONTEXT.md`, `README.md`, `docs/16-claude-agents/{01,02,INDEX,07}`, `docs/20-kol-docs-system-setup/INDEX.md`, `obsidian/INDEX.md`, package cross-refs). Deliberately left `session-log/*.md` and `history.md` untouched — historical records, not live docs.
+- Earlier same-day arc (separate topic, already closed): `bootstrap-cli.sh` fixed (tap-trust isolation for `workmux`, dead `pdf2image` line removed) and verified on a real foreign SSH box; `docs/22-remote-machine/` category built (SSH toolkit + remote dev workflow guides); `ssh/config` got a real `Host acyr` block (auto-tmux-attach + agent forwarding); `mosh` + a `racyr` alias added for that same box; `chafa` added to `brewfile-cli` (yazi image-preview fix, SSH+tmux breaks the usual iTerm2 detection).
+
+## Current state / open decision points
+- Skill count: **33**. Repo-wide grep confirmed clean — no remaining stale references to any of the old names outside historical logs.
+- Nothing blocking; no open design questions left in this arc. The `migrate-structure` fate question was resolved (quarantined, not kept) — don't re-litigate it.
+
+## Next intended action
+- **User still needs to run, on whichever box applies:** `brew install chafa` (yazi fix) and `brew install mosh` (or `brew bundle`) on both the local machine and `acyr` — `racyr` alias won't work until mosh lands.
+- **Not yet verified:** the `/init-agent` → auto-load-3-reinforcement-skills wiring hasn't been exercised by an actual fresh session yet (only manually tested the Skill-tool calls directly, after finding and fixing the `disable-model-invocation` + `allowed-tools` bugs). First real `/init-agent` run of a future session **is** that test — if step 1 errors or the skills don't visibly ground the reply shape, that's the thing to debug first.
+- No session log (`/log-work`) has been written for the skill-rename arc specifically — only this handoff. Offered to write one; user hadn't asked as of this handoff.
+- **`disable-model-invocation` audit done, deferred to next session:** of 33 skills, 8 have it set `true` (`claude-bullet`, `claude-clear`, `init-agent`, `log-work`, `log-work-handoff`, `scaffold-dev-stack`, `scaffold-dev-stack-kol`, `scaffold-llm-context`) — all correctly justified (real side effects: scaffolding, logging). One flagged inconsistency, not fixed: **`scaffold-docs-system`** does the same class of action (writes `.kol/docs-framework/` + a whole `docs/` tree into a repo) as the three `true` scaffold skills, but has no `disable-model-invocation` set — pre-existing (was already unset as `kol-docs-lib`), looks like an oversight. User wants to decide next session, not now.
+
+## Working memory not yet in AGENT-CONTEXT
+- Removing `disable-model-invocation` from the 3 reinforcement skills means the model could theoretically auto-fire them outside `/init-agent`/`/log-work` too (harmless — they're reminders, not actions) — a minor behavior difference from the rest of the agent-context skill family, worth knowing if it ever seems to fire unexpectedly.
+- This session also produced several new memory entries (`feedback_terse_verdict_first`, `feedback_message_format_drift`, `feedback_no_git_in_plans`) plus an addendum to `feedback_sync_doc_on_source_edit` — all in `MEMORY.md`, loaded automatically, no action needed but useful context for why certain phrasing/behavior choices got made this session.

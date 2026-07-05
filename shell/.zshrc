@@ -170,6 +170,11 @@ bwenv() {
   export JACKETT_API_KEY="$(bw get password Jackett)"  # password field
 }
 
+# ── Remote work (acyr test box) ───────────────────────────────────────────────
+# mosh survives network drops/roaming; `Host acyr` in ssh/config auto-attaches
+# tmux, but mosh doesn't read RemoteCommand, so it's typed explicitly here.
+alias racyr='mosh acyr -- tmux new -A -s main'
+
 # ── Local secrets (not in git) ────────────────────────────────────────────────
 [ -f ~/.secrets ] && source ~/.secrets
 

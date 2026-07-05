@@ -58,8 +58,9 @@ The repo tracks **declarations and config**, not the heavy artifacts a tool down
 | `claude/` config + skills | `~/.claude` history / sessions / plugin cache |
 | package manifests (`brewfile-*`) | the installed Homebrew Cellar |
 | env-var *references* (`${GLIF_API_TOKEN}`) | the real secrets in `~/.secrets` (local, `chmod 600`) |
+| — | `_tmp/` (repo root, gitignored) — quarantined/superseded files kept for reference, never tracked |
 
-Rule of thumb: if it reproduces from a tracked declaration (a lock file, a `@plugin` line, a brewfile), it stays untracked. yazi plugins are the deliberate exception — vendored so they arrive with the whole-dir symlink, no fetch step.
+Rule of thumb: if it reproduces from a tracked declaration (a lock file, a `@plugin` line, a brewfile), it stays untracked. yazi plugins are the deliberate exception — vendored so they arrive with the whole-dir symlink, no fetch step. `_tmp/` is the other direction — things deliberately taken *out* of tracking (a quarantined skill, removed templates) instead of hard-deleted.
 
 **Secrets never land in a tracked file as literals** — only as `${VAR}` references sourced from Bitwarden / `~/.secrets`.
 
@@ -67,6 +68,20 @@ Rule of thumb: if it reproduces from a tracked declaration (a lock file, a `@plu
 
 - **Transport is git.** The `dot-sync` launchd agent (installed by `bootstrap.sh`) pulls/pushes committed work every 30 min — but only ever *transports*; it never commits. A dirty tree is left untouched. The user owns every commit.
 - **Adding a config links per machine.** The session that adds a new config hand-links it on the machine it was added on; `bootstrap.sh` covers only fresh setups. So a new symlink landing on the iMac still needs a hand-link (or a bootstrap run) on the MBP even after the commit syncs.
+
+## Foreign/disposable boxes: local drift on a tracked file
+
+`bootstrap-cli.sh` also targets **foreign/SSH boxes** that aren't one of the two fleet machines (see [provisioning](02-provisioning.md)'s Quickstart) — a one-off test or throwaway remote, not somewhere you `git commit` from.
+
+On a box like that, a tool can rewrite a tracked file as a normal side effect of doing its job — e.g. `nvim/lazy-lock.json` (see the table above): first launch resolves plugins against the pinned versions and can touch the lockfile even though nothing about the fleet's actual pins changed. Result: `git status` goes dirty on a box you never intended to commit from.
+
+**You still want the file itself synced** — a `git pull` on that box should keep picking up the fleet's real pin updates. You just don't want *that box's* incidental local rewrites tracked, shown as a diff, or ever accidentally pushed back over the real pins.
+
+```sh
+git update-index --skip-worktree nvim/lazy-lock.json
+```
+
+Run once, on that box, inside `~/.dotfiles`. It's a **local, per-clone flag** — git stops reporting worktree changes to the file *in that clone only*; the committed content, the other machines, and normal `pull`/`fetch` are untouched. Reverse it with `git update-index --no-skip-worktree nvim/lazy-lock.json` if that box is ever promoted to a real fleet member (at which point its lockfile changes become meaningful again and should be committed like on the iMac/MBP).
 
 ## See also
 

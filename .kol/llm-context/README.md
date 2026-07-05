@@ -22,7 +22,7 @@ Agent-context protocol for the `~/.dotfiles` repo. Read this directory before wo
 2. If a `session-bridge/handoff-*.md` is newer than the latest session log, read it too.
 3. Update `AGENT-CONTEXT.md` and add a `session-log/` entry when you finish significant work.
 
-The `init-agent-context` / `init-agent-context-sync` skills (in `claude/skills/`) scaffold and re-sync this structure. The kol-docs framework lives as the `kol-docs-{fm,md,lib}` packages in `claude/packages/`.
+The `scaffold-llm-context` skill (in `claude/skills/`) scaffolds this structure — no automated re-sync skill exists (`init-agent-context-sync` was quarantined 2026-07-05, unused). The kol-docs framework lives as the `kol-docs-{fm,md,lib}` packages in `claude/packages/`, scaffolded into a target repo by the separate `scaffold-docs-system` skill.
 
 ## The two rules that bite hardest (full list in AGENT-CONTEXT → Contracts)
 - **Never run git** — the user owns the repo. Read files; don't `git` anything.

@@ -66,8 +66,9 @@ Repo infrastructure with its own moving parts (scripts + services + data) — **
 | # | System | What it covers |
 |---|--------|----------------|
 | 18 | [CDN tree snapshots (r2b2)](18-cdn-r2b2/INDEX.md) | `bucket-tree.sh` snapshots each CDN bucket's file tree (B2 `website`/`vault-media`, R2 `kol-media`) into readable JSON in the dotfiles, refreshed on every write and mirrored to Obsidian + other consumers. |
-| 20 | [kol-docs system setup](20-kol-docs-system-setup/INDEX.md) | The `kol-docs-fm`/`-md`/`-lib` skill trio + packages, and the shared Obsidian vault-config source (`~/.dotfiles/obsidian/`) repos symlink into. |
+| 20 | [kol-docs system setup](20-kol-docs-system-setup/INDEX.md) | The `kol-docs-fm`/`-md`/`-lib` skill trio + packages, and the shared Obsidian vault-config source (`claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/`) repos symlink into. |
 | 21 | [How this repo works](21-dotfiles/INDEX.md) | The dotfiles repo itself — the two-machine symlink model, and how `bootstrap-cli.sh`/`bootstrap.sh` + `brewfile-cli`/`brewfile-gui` provision a machine (CLI-only for a foreign/SSH box, full for a daily driver). |
+| 22 | [Remote machine](22-remote-machine/INDEX.md) | Working over SSH once a box is provisioned — `~/.ssh/config` power features (auto-attach tmux, ControlMaster, ProxyJump, agent forwarding) and alternative tools (mosh/autossh/et/sshrc/sshfs), then the dev workflow on top (nvim clipboard, git/gh auth, secrets with no GUI, two-GitHub-account fork/PR practice). |
 
 ## Explorations
 Design surveys for something **not yet built** — logged so the option survey isn't lost, not scheduled work. Not counted among the installed tools.

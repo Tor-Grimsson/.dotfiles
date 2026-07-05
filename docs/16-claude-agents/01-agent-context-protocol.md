@@ -2,8 +2,8 @@
 title: Agent-context protocol
 type: reference
 status: active
-updated: 2026-07-03
-description: How an agent session loads a project's state and logs its work — the LLM_RULES.md boot file, the .kol/ layout (llm-context + docs-framework at repo root), and the init-agent-context / init-agent / log-work / kol-migrate-structure skills that drive it.
+updated: 2026-07-05
+description: How an agent session loads a project's state and logs its work — the LLM_RULES.md boot file, the .kol/ layout (llm-context + docs-framework at repo root), and the scaffold-llm-context / scaffold-docs-system / init-agent / log-work skills that drive it.
 aliases:
   - agent-context-protocol
 tags:
@@ -32,18 +32,20 @@ A repo on the protocol has all machinery **hidden at repo root**, keeping `docs/
 | `.kol/llm-context/{history,plan}.md` + `backlog/`, `migration/` | narrative/plans | the *why*, speculative work, working queues |
 | `.kol/docs-framework/` | spec | the kol-docs framework the repo's docs conform to |
 
-**Legacy layouts** (`docs/llm-context/` + `docs/_framework/`, or `.claude/llm-context/`, or `.llm-context/`) still boot — the skills check `.kol/` first, then fall back, and nag once: *"legacy layout — run `/kol-migrate-structure`."* Reference implementation of the new shape: `kol-design-system`. Note: wikilinks from `docs/` into `.kol/` can't resolve (outside the Obsidian vault) — use standard relative links across that boundary.
+**Legacy layouts** (`docs/llm-context/` + `docs/_framework/`, or `.claude/llm-context/`, or `.llm-context/`) still boot — the skills check `.kol/` first, then fall back, and nag once: *"legacy layout — no automated migration skill exists; converge by hand or re-run `/scaffold-llm-context` + `/scaffold-docs-system` over it."* (`kol-migrate-structure`, the former automated converger, was quarantined to `_tmp/` 2026-07-05 — no supporting evidence it was ever used.) Reference implementation of the new shape: `kol-design-system`. Note: wikilinks from `docs/` into `.kol/` can't resolve (outside the Obsidian vault) — use standard relative links across that boundary.
 
 ## The driving skills
 
 | Skill | Job |
 |---|---|
-| [init-agent-context](02-skills.md) | scaffold the protocol into a repo — `LLM_RULES.md` + `.kol/{llm-context, docs-framework}` |
-| `init-agent` | load the context (ARCHITECTURE → AGENT-CONTEXT → latest session log) and **stop** — wait for a task; detects the machine, checks session-bridge, nags on legacy layouts, and (guard: repo consumes `@kolkrabbi/*`) reports stale KOL packages via `pnpm/npm outdated`, asking before any bump — report-only, apply on explicit OK |
-| `log-work` | **only when asked** — write a session log + prepend the AGENT-CONTEXT "Last updated" chain |
-| `kol-migrate-structure` | converge a legacy repo onto `.kol/` — moves, `LLM_RULES.md` backfill, reference repoints; optionally proposes the `docs/documentation/` numbered-section system |
-| `init-scaffold` | scaffold a new app on the **published** `@kolkrabbi/kol-*` npm packages (4-point consumer contract wired) |
-| `init-agent-context-sync` | re-pull skills + the docs framework from kol-system (see §4) |
+| [scaffold-llm-context](02-skills.md) | scaffold the protocol into a repo — `LLM_RULES.md` + `.kol/llm-context/` only. Docs system is a separate skill (below) — neither depends on the other |
+| [scaffold-docs-system](02-skills.md) | stand up/normalise a repo's whole `docs/` tree *and* `.kol/docs-framework/` (absorbed from the old `init-agent-context` 2026-07-05) |
+| `init-agent` | load the context (ARCHITECTURE → AGENT-CONTEXT → latest session log) and **stop** — wait for a task; loads the three `agent-reinforce-*`/`agent-output-format` reinforcement skills first, detects the machine, checks session-bridge, nags on legacy layouts, and (guard: repo consumes `@kolkrabbi/*`) reports stale KOL packages via `pnpm/npm outdated`, asking before any bump — report-only, apply on explicit OK |
+| `log-work` | **only when asked** — loads the same three reinforcement skills first, then writes a session log + prepends the AGENT-CONTEXT "Last updated" chain |
+| `scaffold-dev-stack` | scaffold a new **headless** app (Vite + React + Tailwind 4, no design system) |
+| `scaffold-dev-stack-kol` | scaffold a new app on the **published** `@kolkrabbi/kol-*` npm packages (4-point consumer contract wired) |
+
+No automated re-sync/migration skills exist anymore (`init-agent-context-sync`, `kol-migrate-structure` — both quarantined 2026-07-05, no evidence of real use). Pulling framework updates into an already-scaffolded repo, or converging a legacy layout, is a manual/conversational step now.
 
 Boot a session with `/init-agent` (or just "read `LLM_RULES.md`").
 

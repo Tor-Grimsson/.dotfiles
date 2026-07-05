@@ -27,9 +27,9 @@ browsable without hitting the bucket. `~/.dotfiles` is the **source of truth**; 
 
 | Provider | Bucket | Location | Written by | Docs |
 |----------|--------|----------|-----------|------|
-| **B2** | `website` | `kolkrabbi:kolkrabbi/website` | [`bucket`](../../claude/packages/bucket) | [01-b2](01-b2.md) · [tree](02-b2-tree.md) |
+| **B2** | `website` | `kolkrabbi:kolkrabbi/website` | [`bucket`](../../claude/packages/kol-cdn/kol-bucket-b2/kol-bucket-b2) | [01-b2](01-b2.md) · [tree](02-b2-tree.md) |
 | **B2** | `vault-media` | `kolkrabbi:kol-vault-media` | `bucket` (env override) | [01-b2](01-b2.md) · [tree](02-b2-tree.md) |
-| **R2** | `kol-media` | `admin.kolkrabbi.io` / `media.kolkrabbi.io` | [`bucket-r2`](../../claude/packages/bucket-r2) | [03-r2](03-r2.md) · [tree](04-r2-tree.md) |
+| **R2** | `kol-media` | `admin.kolkrabbi.io` / `media.kolkrabbi.io` | [`bucket-r2`](../../claude/packages/kol-cdn/kol-bucket-r2/kol-bucket-r2) | [03-r2](03-r2.md) · [tree](04-r2-tree.md) |
 
 ## Docs
 
@@ -40,6 +40,7 @@ browsable without hitting the bucket. `~/.dotfiles` is the **source of truth**; 
 | 03 | [R2 bucket](03-r2.md) | Cloudflare — `kol-media`, locations, how to use, consumers, skill |
 | 04 | [R2 bucket tree](04-r2-tree.md) | **generated** — readable tree view for `kol-media` |
 | 05 | [Scripts & services](05-scripts.md) | `bucket-tree`, the post-write hook, `bucket-drift` |
+| 06 | [kol-cdn-overview skill](06-kol-cdn-overview.md) | the orientation-only skill — why it exists, what it covers |
 
 Raw per-bucket json/txt (for nvim / machine consumers) lives in [`_files/`](_files/); the
 `02`/`04` tree docs are the Obsidian-readable face of the same snapshot.
@@ -80,5 +81,6 @@ vault when the `docs/` change is committed (you own git; the agent never commits
 ## See also
 
 - [Cloudflare R2 guide](../15-cloudflare/INDEX.md) — R2 / Wrangler / the `admin.kolkrabbi.io` API the R2 lister reads.
-- [`kol-bucket-b2`](../../claude/skills/kol-bucket-b2/SKILL.md) / [`kol-bucket-r2`](../../claude/skills/kol-bucket-r2/SKILL.md) skills.
+- [`kol-bucket-b2`](../../claude/skills/kol-bucket-b2/SKILL.md) / [`kol-bucket-r2`](../../claude/skills/kol-bucket-r2/SKILL.md) skills — action (ls/tree/upload/sync/rm).
+- [`kol-cdn-overview`](../../claude/skills/kol-cdn-overview/SKILL.md) skill — orientation only, no commands.
 - [docs → vault mirror](../12-scripts/13-docs-mirror.md) — the post-commit rsync that carries these trees.

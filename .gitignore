@@ -1,6 +1,8 @@
 .DS_Store
 bin/tor-jackett
 brewfile-mirror.txt
+_tmp/
+**/node_modules/
 
 # Secrets — never track these, even by accident (secrets live in Bitwarden / ~/.secrets)
 .env

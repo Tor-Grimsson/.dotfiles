@@ -1,0 +1,22 @@
+{
+  "umamiUrl": "https://kol-umami.vercel.app",
+  "umamiWebsiteId": "fcd04534-5dcd-44a3-b7b1-256cbdf49ab9",
+  "umamiUsername": "admin",
+  "umamiPassword": "çƒ†§√©¥¶",
+  "refreshIntervalMin": 30,
+  "showMetrics": true,
+  "showProjects": true,
+  "trackLayout": "grid",
+  "weekLayout": "horizontal",
+  "activeTab": "inbox",
+  "weekEntries": {},
+  "inboxPath": "kol-inbox/inbox.md",
+  "inboxState": {
+    "- 2026-06-26 00:36 obsidian leg test — capture pipeline": "triage"
+  },
+  "calendarDays": 30,
+  "showDone": true,
+  "projectFolder": "kol-project",
+  "taskFolder": "",
+  "showTasks": true
+}

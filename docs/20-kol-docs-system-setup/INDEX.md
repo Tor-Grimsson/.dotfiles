@@ -12,7 +12,7 @@ related:
   - "[[INDEX|tooling catalog]]"
   - "[[../claude/skills/kol-docs-fm/SKILL|kol-docs-fm skill]]"
   - "[[../claude/skills/kol-docs-md/SKILL|kol-docs-md skill]]"
-  - "[[../claude/skills/kol-docs-lib/SKILL|kol-docs-lib skill]]"
+  - "[[../claude/skills/scaffold-docs-system/SKILL|scaffold-docs-system skill]]"
   - "[[../16-claude-agents/02-skills|Claude Code skills]]"
   - "[[../09-productivity-desktop/02-obsidian|Obsidian]]"
 ---
@@ -25,28 +25,29 @@ Repo infrastructure for **authoring and structuring docs** — a russian-doll tr
 
 | Tier | Skill | Package | Scope |
 |---|---|---|---|
-| Innermost | `kol-docs-fm` | `claude/packages/kol-docs-fm/` | Frontmatter contract only — required/recommended/optional fields, status enum, tag taxonomy. |
-| Middle | `kol-docs-md` | `claude/packages/kol-docs-md/` | One whole doc — the 9 archetypes, filename/folder law, `_assets`/`_files`, wikilink form, the maintenance pass. Contains fm. |
-| Outermost | `kol-docs-lib` | `claude/packages/kol-docs-lib/` | A whole repo's docs library — the `documentation/` (subject) vs sibling machinery split, `.kol/` agent state, contiguous numbering, render-target link rule, `.obsidian` picker. Contains md. |
+| Innermost | `kol-docs-fm` | `claude/packages/kol-docs/kol-docs-fm/` | Frontmatter contract only — required/recommended/optional fields, status enum, tag taxonomy. |
+| Middle | `kol-docs-md` | `claude/packages/kol-docs/kol-docs-md/` | One whole doc — the 9 archetypes, filename/folder law, `_assets`/`_files`, wikilink form, the maintenance pass. Contains fm. |
+| Outermost | `scaffold-docs-system` (was `kol-docs-lib`, renamed 2026-07-05) | `claude/packages/kol-docs/kol-docs-lib/` (package keeps the tier name) | A whole repo's docs system — the `documentation/` (subject) vs sibling machinery split, `.kol/docs-framework/` + agent state, contiguous numbering, render-target link rule, `.obsidian` picker. Contains md. |
 
-fm ⊂ md ⊂ lib. Reach for the smallest tier that covers the job — "fix this file's frontmatter" needs only `kol-docs-fm`; "stand up this repo's docs/" needs `kol-docs-lib`.
+fm ⊂ md ⊂ lib. Reach for the smallest tier that covers the job — "fix this file's frontmatter" needs only `kol-docs-fm`; "stand up this repo's docs/" needs `scaffold-docs-system`.
 
 Each skill is self-contained (reads only its own package) and **local-authored** — won't ride a kol-system re-sync. A future re-sync still ships a single upstream `kol-docs`; reconcile it into `kol-docs-md`, don't let it re-add the old name.
 
 ## The Obsidian vault-config source
 
-`~/.dotfiles/obsidian/` holds the `.obsidian/` config every repo's docs vault can symlink (or copy) from — edit the source, every symlinked repo inherits it.
+`claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/` holds the `.obsidian/` config every repo's docs vault can symlink (or copy) from — edit the source, every symlinked repo inherits it.
 
 | Shape | Seeded from | For |
 |---|---|---|
 | `01-vault-shape/` | kol-monorepo | Rich general vault — plugins, snippets, themes, hotkeys, folder-notes, dataview. |
-| `02-kol-ds-shape/` | kol-design-system | Minimal — core plugins only. |
+| `02-kol-vault-shape/` | kol-vault | The actual dedicated Obsidian vault — 40+ plugins. The richest shape. |
+| `03-kol-ds-shape/` | kol-design-system | Minimal — core plugins only. |
 
-Each shape is an openable mini-vault (a dummy note + `.obsidian/`) so you can test plugins directly at the source. `workspace.json`/`workspaces.json` (per-vault local UI state) are excluded and gitignored per repo. `kol-docs-lib` offers a 4-way picker on setup: symlink or copy, either shape.
+Each shape is an openable mini-vault (a dummy note + `.obsidian/`) so you can test plugins directly at the source. `workspace.json`/`workspaces.json` (per-vault local UI state) are excluded and gitignored per repo. `scaffold-docs-system` offers a 6-way picker on setup: symlink or copy, any of the 3 shapes.
 
 ## Scaffold wiring
 
-`init-agent-context` copies the three packages into a new repo's `.kol/docs-framework/{kol-docs-fm,kol-docs-md,kol-docs-lib}/` + writes a routing `INDEX.md`. `init-agent-context-sync` diffs an already-scaffolded repo's copy against these sources per-file (`_template.version`) and pulls in updates — same replace/notify-only/skip policies as the rest of the scaffold.
+`scaffold-docs-system` copies the three packages into a new repo's `.kol/docs-framework/{kol-docs-fm,kol-docs-md,kol-docs-lib}/` + writes a routing `INDEX.md` (this step was absorbed from the old `init-agent-context` 2026-07-05 — `scaffold-llm-context`, its successor, no longer touches docs-framework at all). **No automated sync exists** — `init-agent-context-sync`, which used to diff an already-scaffolded repo's copy against these sources and pull in updates, was quarantined 2026-07-05 (no evidence it was ever used across 6+ repos). Pulling a framework update into an already-scaffolded repo is a manual/conversational step now: re-run the copy step above, or hand-edit.
 
 ## Retired
 
@@ -54,5 +55,5 @@ Each shape is an openable mini-vault (a dummy note + `.obsidian/`) so you can te
 
 ## See also
 
-- [Skills](../16-claude-agents/02-skills.md) — where the trio sits in the full skill catalog (Docs (3) row).
+- [Skills](../16-claude-agents/02-skills.md) — `kol-docs-fm`/`kol-docs-md` sit in the **Docs (3)** row there; `scaffold-docs-system` (the former `kol-docs-lib`) moved to **Agent-context & reinforcement (10)** since it also owns `.kol/docs-framework/` scaffolding now.
 - [Obsidian](../09-productivity-desktop/02-obsidian.md) — the app itself; this doc covers the shared config source it reads.

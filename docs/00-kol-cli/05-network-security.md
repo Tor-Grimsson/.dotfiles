@@ -2,7 +2,7 @@
 title: Network, remote & secrets
 type: guide
 status: active
-updated: 2026-06-26
+updated: 2026-07-05
 description: The practical layer over the network toolset — SSH into boxes (incl. over the Tailscale VPN and exactly what that depends on), tail remote logs, share a Jellyfin server with another person, measure a link with iperf3, find what's on the LAN, and get secrets from the vault into a process. Workflows and examples, not a tool dump.
 aliases:
   - network-security
@@ -32,6 +32,8 @@ related:
   - "[[08-vault-to-env-pattern|Vault → env pattern]]"
   - "[[06-tailscale-jellyfin|Tailscale + Jellyfin setup]]"
   - "[[01-cli-cheatsheet|CLI cheatsheet]]"
+  - "[[01-shell-terminal/09-tmux-tips|tmux tips & tricks]]"
+  - "[[22-remote-machine/INDEX|Remote machine]]"
 ---
 
 # Network, remote & secrets
@@ -57,7 +59,16 @@ Host github.com          # git push uses this — keychain'd key, no token
   IdentityFile ~/.ssh/id_ed25519
 
 Include ~/.orbstack/ssh/config   # 'orb' host for OrbStack Linux VMs
+
+Host acyr                # ssh acyr → drops straight into a tmux session, auto-created/reattached
+  HostName 192.168.1.23
+  User acyr
+  RemoteCommand tmux new -A -s main
+  RequestTTY yes
+  ForwardAgent yes        # git/gh on that box use this machine's keys — none copied over
 ```
+
+Full depth on the `acyr`-style pattern (why each line, the mosh pairing, other tools) is in [Remote machine → SSH toolkit](../22-remote-machine/01-ssh-toolkit.md).
 
 So `ssh ubuntu-vm` works with no IP, user, or key to remember. Add a host the same way:
 
@@ -85,9 +96,12 @@ Host media
 | Local port-forward (reach a remote service as if local) | `ssh -L 8096:localhost:8096 media` → open `localhost:8096` |
 | Jump through a bastion to an inner box | `ssh -J bastion inner-host` |
 | SOCKS proxy through the box | `ssh -D 1080 media` → point a browser at SOCKS `localhost:1080` |
-| Keep a long job alive across drops | SSH in → run **`tmux`** on the box → detach (`Ctrl-a d`); reconnect + `tmux a` |
+| Keep a long job alive across drops / "list my SSH sessions" | SSH in → `tmux new -s work` → detach (`Ctrl-a d`); reconnect + `tmux ls` / `tmux a -t work` |
+| Same, auto-attached, no typing | `ssh acyr` (config does it) — or `racyr` (mosh version, survives the connection dying entirely) |
 
 > **Remote logging, the honest version:** for a one-off, `ssh host 'journalctl -fu <service>'` streams it live and you `Ctrl-C` out. For something you babysit, SSH in and run the tail **inside tmux on the remote** so a dropped connection doesn't kill it — the session keeps running and you reattach. No agent or log-shipping stack needed for a homelab.
+
+Full walkthrough (the complete connect→detach→resume loop, auto-attaching tmux via `~/.ssh/config` instead of typing it every time, plus ControlMaster/ProxyJump/agent-forwarding) is in [Remote machine → SSH toolkit](../22-remote-machine/01-ssh-toolkit.md) — this card only covers the everyday one-liner.
 
 ---
 
@@ -234,7 +248,8 @@ The pattern in one sentence: a process inherits the env of the shell that launch
 | Copy a file up | `scp file host:~/` (big/repeated: `rsync -avz`) |
 | Tail a remote log | `ssh host 'journalctl -fu <service>'` |
 | Reach a remote port locally | `ssh -L 8096:localhost:8096 host` |
-| Keep a job alive | `tmux` on the remote → detach → `tmux a` |
+| Keep a job alive / list SSH "sessions" | `tmux new -s work` on the remote → `Ctrl-a d` → `tmux ls` / `tmux a -t work` |
+| Auto-attach + survive drops | `ssh acyr` · `racyr` (mosh) |
 | List tailnet devices | `tailscale status` |
 | Measure a link | `iperf3 -s` (one box) · `iperf3 -c <ip>` (other) |
 | Find LAN devices | `sudo arp-scan --localnet` |

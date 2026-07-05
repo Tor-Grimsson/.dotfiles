@@ -1,13 +1,13 @@
 ---
 name: kol-docs-fm
-description: Frontmatter-only slice of the kol-docs spec — the YAML contract (required/recommended/optional fields), the status enum, the closed tag taxonomy, link forms, and the date rule. Use when you only need to add or fix a single file's frontmatter. For a whole doc (archetypes, filenames, folder law) use kol-docs-md; for a whole repo's docs library use kol-docs-lib.
+description: Frontmatter-only slice of the kol-docs spec — the YAML contract (required/recommended/optional fields), the status enum, the closed tag taxonomy, link forms, and the date rule. Use when you only need to add or fix a single file's frontmatter. For a whole doc (archetypes, filenames, folder law) use kol-docs-md; for a whole repo's docs library use scaffold-docs-system.
 ---
 
 # kol-docs-fm
 
-The **innermost doll**: the frontmatter contract, nothing else. Reach for this when all you need is "give this file correct frontmatter." For the full doc (9 archetypes, filename/folder law, maintenance) → `kol-docs-md`. For a whole repo's docs layout → `kol-docs-lib`.
+The **innermost doll**: the frontmatter contract, nothing else. Reach for this when all you need is "give this file correct frontmatter." For the full doc (9 archetypes, filename/folder law, maintenance) → `kol-docs-md`. For a whole repo's docs layout → `scaffold-docs-system`.
 
-**Canon:** the `claude/packages/kol-docs-fm/` package — `01-frontmatter.md`, `02-tags.md`, `_example/samples.md`. The summary below is enough to act; open the package for edge cases.
+**Canon:** the `claude/packages/kol-docs/kol-docs-fm/` package — `01-frontmatter.md`, `02-tags.md`, `_example/samples.md`. The summary below is enough to act; open the package for edge cases.
 
 ## Frontmatter block
 
@@ -60,7 +60,7 @@ List-form, hierarchical, **2 levels typical / 3 max**, reuse existing leaves. A 
 
 ## Link form in frontmatter
 
-`related:` uses **explicit wikilinks** `[[01-colors|colors]]` (resolve by filename, immune to alias/index state). External links use `[text](url)`. Body link form (wikilink vs markdown) depends on render target — see `kol-docs-lib`.
+`related:` uses **explicit wikilinks** `[[01-colors|colors]]` (resolve by filename, immune to alias/index state). External links use `[text](url)`. Body link form (wikilink vs markdown) depends on render target — see `scaffold-docs-system`.
 
 ## Dates
 

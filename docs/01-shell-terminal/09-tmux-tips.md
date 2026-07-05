@@ -2,7 +2,7 @@
 title: tmux tips & tricks
 type: guide
 status: active
-updated: 2026-07-02
+updated: 2026-07-05
 audience: internal
 description: Day-to-day tmux beyond the basics — copy mode explained in full (scroll, search, select, copy to the macOS clipboard), plus pane, window, and session tricks tuned to this repo's ~/.tmux.conf.
 aliases:
@@ -14,6 +14,8 @@ tags:
 related:
   - "[[02-tmux|tmux]]"
   - "[[10-tmux-help|tmux help & cheat sheet]]"
+  - "[[00-kol-cli/05-network-security|Network, remote & secrets]]"
+  - "[[22-remote-machine/INDEX|Remote machine]]"
 ---
 
 # tmux tips & tricks
@@ -161,6 +163,8 @@ prefix $      rename the current session
 
 A clean loop: `tmux new -s <project>` to start, `prefix d` to step away, `tmux a -t <project>` to come back to it exactly as you left it.
 
+> **This is also the SSH-session-survival pattern.** tmux has no concept of "remote" — running it *on a box you SSH into* means the session lives on that box, not in your terminal. Drop the connection (network blip, close the laptop, whatever) and the session keeps running; `ssh host` then `tmux a` picks up exactly where you left it, with `tmux ls` as your list of everything still running there. [Remote machine → SSH toolkit](../22-remote-machine/01-ssh-toolkit.md) goes further — auto-attaching this via `~/.ssh/config` instead of typing it every time.
+
 ## Handy one-offs
 
 ```text
@@ -180,6 +184,7 @@ prefix :  setw synchronize-panes off    # turn it off
 ## Troubleshooting
 
 - **Colours look flat / wrong.** Your outer terminal must support true colour for the `RGB` override to bite — fine in iTerm2/WezTerm/Ghostty/Kitty/Alacritty, not in plain Terminal.app. Harmless either way.
+- **yazi image previews fail inside a remote tmux session** (`Terminal response timeout`, `failed to spawn chafa: No such file or directory`) — running yazi through SSH + tmux (the [session-survival pattern](#session-tricks) above) breaks yazi's usual iTerm2-inline-image detection, so it falls back to **chafa** (ASCII/unicode-block rendering) — a dependency the two daily-driver Macs never needed because they run yazi directly in local iTerm2. Fix: `brew install chafa` on the box running yazi (now in `brewfile-cli`, so a fresh `bootstrap-cli.sh`/`brew bundle` covers it going forward).
 - **`y` didn't reach the clipboard.** The copy binding pipes to `pbcopy`; confirm `echo hi | pbcopy && pbpaste` works in a plain shell. If it does, reload the config with `prefix r`.
 - **Edited the config but nothing changed.** tmux only reads `~/.tmux.conf` on server start — run `prefix r` (or `tmux kill-server` and reopen) to apply edits.
 - **Mouse drag selects the wrong thing.** That's tmux's selection winning over the terminal's; hold **Option** to fall back to the native selection.

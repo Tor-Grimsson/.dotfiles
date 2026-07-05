@@ -2,7 +2,7 @@
 name: init-agent
 description: Load the repo's agent context (ARCHITECTURE, AGENT-CONTEXT, latest session log) for a new session
 disable-model-invocation: true
-allowed-tools: Read, Glob, Bash
+allowed-tools: Read, Glob, Bash, Skill
 ---
 
 # Agent Initialization
@@ -22,13 +22,14 @@ If none exists, say "No agent context found here (looked for `.kol/llm-context/`
 
 ## Steps
 
-1. Run `uname -m` to name the machine — `arm64` = Apple-Silicon **MBP**, `x86_64` = Intel **iMac**. Detect it; never ask which machine.
-2. Read `<ctx>/ARCHITECTURE.md` — load-bearing decisions and constraints
-3. Read `<ctx>/AGENT-CONTEXT.md` — current project state
-4. Find the most recent session log in `<ctx>/session-log/` (sort by date) and read it
-5. Check `<ctx>/session-bridge/` for `handoff-*.md`. If the newest handoff's timestamp is newer than the newest session log, read it too — it carries in-flight state the log doesn't. Otherwise skip.
-6. **KOL-update check** (guard: only if `package.json` declares an `@kolkrabbi/*` dependency — otherwise skip silently). Check for newer published versions: `pnpm outdated "@kolkrabbi/*"` if `pnpm-lock.yaml` exists, else `npm outdated "@kolkrabbi/*"`. Registry unreachable (offline) → note it in one line, move on. **Report only — never bump or install in this step.**
-7. Say "Context loaded — on the **\<iMac|MBP\>**. What would you like me to work on?" — if context was found at a **legacy** location (2–4), append: "This repo uses the legacy context layout — `/kol-migrate-structure` converges it to `.kol/`." If step 6 found stale KOL packages, add a line listing them (`name current→latest`) and ask whether to update before starting — apply the bump + install **only on the user's explicit OK**.
-8. **STOP and WAIT** — do not start any work until the user specifies a task
+1. Load `/agent-output-format`, `/agent-reinforce-rules`, and `/agent-reinforce-memory` via the Skill tool — reinforcement, not action; re-grounds report shape and standing behavioral corrections before anything else happens this session.
+2. Run `uname -m` to name the machine — `arm64` = Apple-Silicon **MBP**, `x86_64` = Intel **iMac**. Detect it; never ask which machine.
+3. Read `<ctx>/ARCHITECTURE.md` — load-bearing decisions and constraints
+4. Read `<ctx>/AGENT-CONTEXT.md` — current project state
+5. Find the most recent session log in `<ctx>/session-log/` (sort by date) and read it
+6. Check `<ctx>/session-bridge/` for `handoff-*.md`. If the newest handoff's timestamp is newer than the newest session log, read it too — it carries in-flight state the log doesn't. Otherwise skip.
+7. **KOL-update check** (guard: only if `package.json` declares an `@kolkrabbi/*` dependency — otherwise skip silently). Check for newer published versions: `pnpm outdated "@kolkrabbi/*"` if `pnpm-lock.yaml` exists, else `npm outdated "@kolkrabbi/*"`. Registry unreachable (offline) → note it in one line, move on. **Report only — never bump or install in this step.**
+8. Say "Context loaded — on the **\<iMac|MBP\>**. What would you like me to work on?" — if context was found at a **legacy** location (2–4), append: "This repo uses the legacy context layout — no automated migration skill exists; converge it by hand, or re-run `/scaffold-llm-context` + `/scaffold-docs-system` over it (both stop and ask before overwriting anything)." If step 7 found stale KOL packages, add a line listing them (`name current→latest`) and ask whether to update before starting — apply the bump + install **only on the user's explicit OK**. **If step 6 read a handoff, print its summary here** (goal of the arc, open decision points, next intended action) — don't just silently fold it into context; the user needs to see what's outstanding without asking.
+9. **STOP and WAIT** — do not start any work until the user specifies a task
 
 If you find yourself proposing something that contradicts ARCHITECTURE.md, flag the contradiction to the user before acting. Those rules can be broken — but only deliberately.

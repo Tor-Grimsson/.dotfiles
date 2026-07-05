@@ -5,9 +5,9 @@ description: Author or normalise ONE markdown doc to the kol-docs framework — 
 
 # kol-docs-md
 
-The **middle doll**: one whole doc, to spec — how docs are typed, named, tagged, frontmattered, cross-linked, and foldered. Two jobs — **author a new doc** and **normalise an existing folder** to the spec. Just the frontmatter → `kol-docs-fm`. A whole repo's docs library (the `documentation/` vs machinery split, `.obsidian`, numbering) → `kol-docs-lib`.
+The **middle doll**: one whole doc, to spec — how docs are typed, named, tagged, frontmattered, cross-linked, and foldered. Two jobs — **author a new doc** and **normalise an existing folder** to the spec. Just the frontmatter → `kol-docs-fm`. A whole repo's docs system (the `documentation/` vs machinery split, `.obsidian`, numbering) → `scaffold-docs-system`.
 
-**This skill is self-contained.** The full rules are below (the "syntax"). Canon + copy-from shapes live in the `claude/packages/kol-docs-md/` package (`01-archetypes.md`, `02-doc-anatomy.md`, `_example/`); a one-of-every-type `_example/` vault + Obsidian Templater files in `_templates/` — reference, not required to act.
+**This skill is self-contained.** The full rules are below (the "syntax"). Canon + copy-from shapes live in the `claude/packages/kol-docs/kol-docs-md/` package (`01-archetypes.md`, `02-doc-anatomy.md`, `_example/`); a one-of-every-type `_example/` vault + Obsidian Templater files in `_templates/` — reference, not required to act.
 
 Sibling skills [[client-normalise]] and [[publication-mirror]] organise *media* then emit a kol-docs doc layer. This skill IS that doc layer's spec.
 
@@ -189,4 +189,4 @@ ISO `YYYY-MM-DD`. No timestamps, no timezones. One date field required (`updated
 2. **Subfolders XOR loose files** at every level.
 3. **INDEX is a position, not a default** — add only where a child listing isn't enough.
 4. **Explicit wikilinks always.** Run the maintenance pass after any bulk move.
-5. For exact starting shapes, copy the nearest type from `claude/packages/kol-docs-md/_example/` — but the rules above are sufficient to author/normalise without it.
+5. For exact starting shapes, copy the nearest type from `claude/packages/kol-docs/kol-docs-md/_example/` — but the rules above are sufficient to author/normalise without it.

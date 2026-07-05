@@ -1,0 +1,23 @@
+{
+  "attachmentFolderPath": "./_assets",
+  "newFileLocation": "folder",
+  "showInlineTitle": false,
+  "showIndentGuide": false,
+  "readableLineLength": false,
+  "spellcheck": false,
+  "alwaysUpdateLinks": true,
+  "promptDelete": false,
+  "showLineNumber": false,
+  "newFileFolderPath": "kol-quick/new-note/",
+  "showUnsupportedFiles": true,
+  "trashOption": "system",
+  "userIgnoreFilters": [
+    ".claude/"
+  ],
+  "uriCallbacks": false,
+  "livePreview": true,
+  "focusNewTab": false,
+  "openBehavior": "file:kol-quick/INDEX",
+  "strictLineBreaks": true,
+  "propertiesInDocument": "visible"
+}

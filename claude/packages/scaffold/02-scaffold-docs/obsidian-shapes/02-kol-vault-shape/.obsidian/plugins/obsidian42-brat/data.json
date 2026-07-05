@@ -1,0 +1,34 @@
+{
+  "pluginList": [
+    "edrickleong/obsidian-feed-bases",
+    "scambier/obsidian-text-extractor",
+    "Yaozhuwa/AttachFlow"
+  ],
+  "pluginSubListFrozenVersion": [
+    {
+      "repo": "edrickleong/obsidian-feed-bases",
+      "version": "latest"
+    },
+    {
+      "repo": "scambier/obsidian-text-extractor",
+      "version": "latest"
+    },
+    {
+      "repo": "Yaozhuwa/AttachFlow",
+      "version": "latest"
+    }
+  ],
+  "themesList": [],
+  "updateAtStartup": true,
+  "updateThemesAtStartup": true,
+  "enableAfterInstall": true,
+  "loggingEnabled": false,
+  "loggingPath": "BRAT-log",
+  "loggingVerboseEnabled": false,
+  "debuggingMode": false,
+  "notificationsEnabled": true,
+  "globalTokenName": "",
+  "personalAccessToken": "",
+  "selectLatestPluginVersionByDefault": false,
+  "allowIncompatiblePlugins": false
+}

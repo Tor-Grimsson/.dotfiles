@@ -73,7 +73,11 @@ exec zsh
 
 That gives you the full CLI environment — prompt, completions, tmux, nvim, yazi, the `bin/` scripts — with nothing touched that shouldn't be.
 
+> **✓ Verified 2026-07-05** — real end-to-end run on a foreign/SSH box, not just theory: `brew bundle` (63 formulas), the third-party-tap `workmux` formula, pipx/uv tools, and every shell/tmux/TPM/claude/nvim/yazi symlink all landed; a second run came back idempotent. Two bugs surfaced and got fixed along the way (tap-trust isolation, dead `pdf2image` line) — detail in `session-log/2026-07-05-bootstrap-cli-remote-verify-tap-trust-fix.md`. For what comes *after* provisioning — actually working on a box like this — see [Remote machine](../22-remote-machine/INDEX.md).
+
 > **Already `cd`'d into `~/.dotfiles`? Bare `bootstrap-cli.sh` will NOT run.** The shell never searches the current directory for commands — only `$PATH`. Typing just the filename gives `zsh: command not found`, every time, forever, until you prefix it. Run `./bootstrap-cli.sh` (leading `./` = "run the file right here"), or use the full path from the Quickstart above.
+
+> **A tool rewriting a tracked file as a side effect (e.g. `nvim` touching `lazy-lock.json` on first launch) will make `git status` go dirty on this box.** You still want `git pull` to sync the file normally — you just don't want that box's incidental drift tracked or pushed back. See [repo model](01-repo-model.md#foreign-disposable-boxes-local-drift-on-a-tracked-file) for the `git update-index --skip-worktree` fix.
 
 > **Do NOT run `bootstrap.sh` on a foreign box.** It rewrites the machine's macOS defaults, installs GUI cask apps, imports iTerm/Terminal prefs, and loads auto-sync launchd agents — none of which belong on a box you only log into. It also runs under `set -e`, so one GUI step failing aborts the rest. Use `bootstrap-cli.sh`.
 

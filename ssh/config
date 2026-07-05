@@ -8,6 +8,14 @@ Host ubuntu-vm
   HostName 192.168.1.40
   User kolkrabbi
 
+# Foreign/test box — auto-attach tmux on connect, use local keys (no key copied there)
+Host acyr
+  HostName 192.168.1.23
+  User acyr
+  RemoteCommand tmux new -A -s main
+  RequestTTY yes
+  ForwardAgent yes
+
 # Non-interactive GitHub auth (dot-sync launchd daemon pushes/pulls headless).
 # Keychain holds the passphrase; the agent loads the key on demand.
 Host github.com

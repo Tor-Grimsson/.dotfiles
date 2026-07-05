@@ -20,6 +20,7 @@ brew "tree"        # Print directory trees
 brew "yazi"        # TUI file manager (Rust, async I/O)
 brew "sevenzip"    # 7-Zip — yazi preview backend: browse/extract inside archives
 brew "resvg"       # SVG renderer — yazi preview backend for .svg
+brew "chafa"       # ASCII/unicode-block image renderer — yazi's fallback when it can't detect a native image protocol (e.g. over SSH+tmux); iTerm2 direct never needed it
 brew "broot"       # Tree navigation + fuzzy jump
 brew "glow"        # Render markdown in the terminal (used by scripts + Quick Actions)
 brew "mdcat"       # Markdown renderer — yazi .md previewer + `M` full-screen viewer (clean headings, inline iTerm2 images)
@@ -27,6 +28,7 @@ brew "watch"       # Run a command on an interval, fullscreen output (procps-ng)
 brew "chawan"      # TUI web browser (text-mode, renders in terminal)
 brew "w3m"         # Classic text-mode browser — instant, no JS; -dump renders HTML to stdout
 brew "gcalcli"     # Google Calendar from the terminal — agenda/week/month, natural-language quick-add (needs a one-time OAuth client; token is machine-local, not in the repo)
+brew "mosh"        # SSH replacement that survives IP roaming / laptop sleep / wifi drops — pairs with tmux auto-attach for remote-box work
 
 # ── Modern CLI core ───────────────────────────────────────────────────────────
 brew "fzf"         # Fuzzy finder — interactive filter for files, history, any list

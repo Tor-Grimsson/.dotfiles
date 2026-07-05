@@ -211,11 +211,11 @@ Rule going forward: use the command name (rely on PATH) or `$(brew --prefix)/bin
 ~/.dotfiles/claude/
   CLAUDE.md         # global personality / rules
   settings.json     # portable (bare `node`); no hooks — caveman fully removed
-  skills/           # kol-bucket, kol-docs, init-agent-context(+sync), init-scaffold,
-                    #   gsap-* (8), algorithmic-art, glif-art
+  skills/           # kol-bucket, kol-docs-{fm,md}, scaffold-{llm-context,docs-system,dev-stack(-kol)},
+                    #   agent-{output-format,reinforce-rules,reinforce-memory}, gsap-* (8), algorithmic-art, glif-art
   agents/           # kol-{color,div,docs,type}-agent — KOL design-system subagents
   packages/         # shared skill deps: bucket (rclone wrapper → ~/.local/bin),
-                    #   kol-docs-framework, init-agent-context-templates, algorithmic-art-templates
+                    #   kol-docs-{fm,md,lib}, init-agent-context-templates, algorithmic-art-templates
   hooks/            # empty (.gitkeep) — caveman hooks removed
   commands/         # placeholder (.gitkeep)
   output-styles/    # placeholder (.gitkeep)
@@ -223,7 +223,7 @@ Rule going forward: use the command name (rely on PATH) or `$(brew --prefix)/bin
 
 **Not synced** (runtime / machine-local / derivable): `projects/` (memory + sessions), `history.jsonl`, `todos/`, `statsig/`, `shell-snapshots/`, `plugins/` (re-installed from the marketplace via `settings.json`), `cache/`, `backups/`, `file-history/`.
 
-> **Skill dependencies live in `claude/packages/`** — the kol-docs `_framework` (1.1 MB) and the init-agent-context templates are *dependencies*, not skill internals, so they sit in `packages/` and the skills reference them by path (copied from the canonical kol-system source; re-sync via `init-agent-context-sync`).
+> **Skill dependencies live in `claude/packages/`**, grouped by the skill family they serve — `kol-docs/` (the `kol-docs-{fm,md,lib}` packages), `kol-cdn/` (the `bucket`/`bucket-r2` CLIs), `kol-packages/` (single skills that don't need their own group), `scaffold/` (`scaffold-dev-stack`, `scaffold-docs-system`, `scaffold-llm-context` templates) — so the skills reference them by path (copied from the canonical kol-system source; no automated re-sync exists — the `init-agent-context-sync` skill that used to do this was quarantined 2026-07-05, unused).
 
 ---
 

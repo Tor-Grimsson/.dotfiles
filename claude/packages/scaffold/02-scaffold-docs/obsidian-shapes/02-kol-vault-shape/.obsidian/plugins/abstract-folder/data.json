@@ -1,0 +1,347 @@
+{
+  "propertyName": "gallery-family",
+  "parentPropertyNames": [
+    "gallery-family"
+  ],
+  "childrenPropertyName": "children",
+  "childrenPropertyNames": [
+    "children"
+  ],
+  "showAliases": false,
+  "autoExpandParents": false,
+  "autoScrollToActiveFile": false,
+  "autoExpandChildren": false,
+  "startupOpen": false,
+  "openSide": "right",
+  "showRibbonIcon": true,
+  "enableRainbowIndents": true,
+  "rainbowPalette": "pastel",
+  "enablePerItemRainbowColors": false,
+  "viewStyle": "tree",
+  "rememberExpanded": false,
+  "expandedFolders": [],
+  "excludedPaths": [
+    ".obsidian",
+    ".claude",
+    ".claudian",
+    ".llm-context",
+    "_kol-raw"
+  ],
+  "groups": [
+    {
+      "id": "2lbj04y2uha24ougzgja03",
+      "name": "client-kolkrabbi",
+      "parentFolders": [
+        "kol-media/kol-image-gallery",
+        "kol-media/kol-video-gallery",
+        "kol-studio/kolkrabbi-info",
+        "kol-portfolio/work/clients/kolkrabbi",
+        "kol-media/kol-image-gallery/03-clients/kol-kolkrabbi"
+      ]
+    },
+    {
+      "id": "hrhm8jf10xqmgj8n702ie",
+      "name": "bingo",
+      "parentFolders": [
+        "kol-quick"
+      ]
+    }
+  ],
+  "activeGroupId": null,
+  "expandTargetFolderOnDrop": false,
+  "metrics": {
+    "_kol-raw/fonts/img/contact/thg-03.jpg": {
+      "thermal": 0.9438418007640583,
+      "lastInteraction": 1780577147869
+    },
+    "_kol-raw/fonts/img/contact/thg-06.jpg": {
+      "thermal": 0.9438649562031285,
+      "lastInteraction": 1780577147869
+    },
+    "_kol-raw/fonts/img/contact/thg-04.jpg": {
+      "thermal": 0.9439913033957446,
+      "lastInteraction": 1780577147869
+    },
+    "kol-dashboard/_system/_kol-config/socials/facebook.md": {
+      "thermal": 0.9443938563368546,
+      "lastInteraction": 1780577147869
+    },
+    "kol-dashboard/_system/_kol-config/socials/youtube.md": {
+      "thermal": 1.898694353954,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-archive-2025-2026/_recon/06-noter.md": {
+      "thermal": 0.9444398680197839,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-archive-2025-2026/_recon/10-video-system-lights-batch.md": {
+      "thermal": 0.9444558033560362,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-archive-2025-2026/_recon/01-monorepo.md": {
+      "thermal": 1.8968638503744264,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-archive-2025-2026/_recon/02-monitor.md": {
+      "thermal": 0.9444628795803822,
+      "lastInteraction": 1780577147869
+    },
+    "_kol-raw/fonts/img/contact/thg-02.jpg": {
+      "thermal": 0.9444786713870081,
+      "lastInteraction": 1780577147869
+    },
+    "_kol-raw/fonts/img/open-graph-foundry/open-graph-dylgjur.jpg": {
+      "thermal": 4.727413736008964,
+      "lastInteraction": 1780577147869
+    },
+    "kol-portfolio/work/clients/kolkrabbi/kolkrabbi.md": {
+      "thermal": 1.9121637469210764,
+      "lastInteraction": 1780577147869
+    },
+    "kol-media/kol-mirror-gallery/INDEX.md": {
+      "thermal": 6.736727060655135,
+      "lastInteraction": 1780577147869
+    },
+    "kol-media/kol-video-gallery/INDEX.md": {
+      "thermal": 1.9127417219118943,
+      "lastInteraction": 1780577147869
+    },
+    "kol-media/kol-image-gallery/INDEX.md": {
+      "thermal": 11.454479006135612,
+      "lastInteraction": 1780577147869
+    },
+    "kol-media/kol-image-gallery/99-archive/kol-portfolio-2026-05-20/tool/radial/INDEX.md": {
+      "thermal": 0.9510571180885289,
+      "lastInteraction": 1780577147869
+    },
+    "kol-media/kol-image-gallery/02-tools/tool-vcap/INDEX.md": {
+      "thermal": 0.9481435560630729,
+      "lastInteraction": 1780577147869
+    },
+    "kol-media/kol-image-gallery/02-tools/INDEX.md": {
+      "thermal": 1.8979255673550983,
+      "lastInteraction": 1780577147869
+    },
+    "kol-media/kol-image-gallery/00-misc/_assets/kolkrabbi-radial.png": {
+      "thermal": 0.9559449136044773,
+      "lastInteraction": 1780577147869
+    },
+    "kol-media/kol-image-gallery/00-misc/INDEX.md": {
+      "thermal": 1.9008396922096586,
+      "lastInteraction": 1780577147869
+    },
+    "kol-media/INDEX.md": {
+      "thermal": 3.8302343668687677,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/_framework/_templates/folder-note.md": {
+      "thermal": 0.9532636363612464,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/_framework/_example/INDEX.md": {
+      "thermal": 1.9031254039048273,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/_framework/_example/04-guides/02-css-architecture.md": {
+      "thermal": 1.9026384404607464,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/_framework/_example/01-architecture/INDEX.md": {
+      "thermal": 0.9517733528580374,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/_framework/_example/02-audit/INDEX.md": {
+      "thermal": 0.9519575973996425,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/_framework/_example/03-setup/INDEX.md": {
+      "thermal": 0.9520181448539775,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/_framework/_example/03-setup/03-deploy.md": {
+      "thermal": 0.9513578678748399,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-client-acyr/01-website/04-metadata/02-operations.md": {
+      "thermal": 0.9540611695864081,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-archive-2025-2026/_recon/04-kolkrabbi.md": {
+      "thermal": 0.9529299150020538,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-archive-2025-2026/_recon/05-radial.md": {
+      "thermal": 0.9523934228451667,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/INDEX.md": {
+      "thermal": 1.9497914053003327,
+      "lastInteraction": 1780577147869
+    },
+    "kol-dashboard/kol-track-04/INDEX.md": {
+      "thermal": 1.9090839251782064,
+      "lastInteraction": 1780577147869
+    },
+    "Untitled.md": {
+      "thermal": 0.9455301031213756,
+      "lastInteraction": 1780577147869
+    },
+    "2026-06-04.md": {
+      "thermal": 0.9538808119044527,
+      "lastInteraction": 1780577147869
+    },
+    "kol-quick/vault-media-audit/INDEX.md": {
+      "thermal": 2.9429078317261825,
+      "lastInteraction": 1780577147869
+    },
+    "kol-quick/INDEX.md": {
+      "thermal": 1.950201187014363,
+      "lastInteraction": 1780577147869
+    },
+    "kol-media/kol-photo-gallery-lean/08-wet/_assets/JPG/_92A0771.jpg": {
+      "thermal": 2.9584375999896713,
+      "lastInteraction": 1780577147869
+    },
+    "kol-library/10-editor-tools/INDEX.md": {
+      "thermal": 3.8871785543999033,
+      "lastInteraction": 1780577147869
+    },
+    "kol-library/10-editor-tools/01-vs-code-search.md": {
+      "thermal": 2.8970285757587964,
+      "lastInteraction": 1780577147869
+    },
+    "kol-library/00-cheat-sheets/INDEX.md": {
+      "thermal": 1.9502280834983854,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-terminal/INDEX.md": {
+      "thermal": 4.876016241553192,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-terminal/35-regex/06-regex.md": {
+      "thermal": 4.850604967216152,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-terminal/30-glob-loop/05-search-tools.md": {
+      "thermal": 1.9304682799362456,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-obsidian/INDEX.md": {
+      "thermal": 1.9223709876299928,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-obsidian/02-tables.md": {
+      "thermal": 1.9227023619784878,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-obsidian/01-frontmatter.md": {
+      "thermal": 2.9154640382701507,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-obsidian/Untitled.md": {
+      "thermal": 0.960217658676593,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-obsidian/16-uri/INDEX.md": {
+      "thermal": 1.9232536039013983,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-terminal/35-regex/Untitled.md": {
+      "thermal": 0.9663384658326022,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-terminal/35-regex/07-target-files.md": {
+      "thermal": 0.9685258934905481,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-terminal/35-regex/07-target-files 1.md": {
+      "thermal": 0.9681946282183052,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-terminal/35-regex/08-regex-syntax-standards.md": {
+      "thermal": 2.931104708977948,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-client-kol/01-editor/reference/tools.md": {
+      "thermal": 0.9826085019698287,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-client-kol/01-editor/INDEX.md": {
+      "thermal": 0.9830316864336851,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/_framework/INDEX.md": {
+      "thermal": 9.85884830057786,
+      "lastInteraction": 1780577147869
+    },
+    "Untitled Kanban.md": {
+      "thermal": 1.9707716537261923,
+      "lastInteraction": 1780577147869
+    },
+    "202606041042.md": {
+      "thermal": 0.9810419852688792,
+      "lastInteraction": 1780577147869
+    },
+    "kol-knowledge/kol-terminal/60-deploy-git-commands/08-git-stash-rebase.md": {
+      "thermal": 0.9904221798106556,
+      "lastInteraction": 1780577147869
+    },
+    "202606041203.md": {
+      "thermal": 4.97836913053299,
+      "lastInteraction": 1780577147869
+    },
+    "Untitled 1.md": {
+      "thermal": 10.94841003698326,
+      "lastInteraction": 1780577147869
+    },
+    "kol-media/kol-photo-gallery-lean/08-wet/_assets/JPG/_92A0779.jpg": {
+      "thermal": 0.9984394181487503,
+      "lastInteraction": 1780577147869
+    },
+    "kol-media/kol-photo-gallery-lean/08-wet/_assets/JPG/_92A0770.jpg": {
+      "thermal": 0.9984962789894565,
+      "lastInteraction": 1780577147869
+    },
+    "kol-dashboard/INDEX.md": {
+      "thermal": 1.9962194134921882,
+      "lastInteraction": 1780577147869
+    },
+    "Untitled.base": {
+      "thermal": 3.9939906719148754,
+      "lastInteraction": 1780577147869
+    }
+  },
+  "defaultSort": {
+    "sortBy": "name",
+    "sortOrder": "asc"
+  },
+  "defaultFilter": {
+    "excludeExtensions": []
+  },
+  "customCreatedDateProperties": "",
+  "customModifiedDateProperties": "",
+  "displayNameOrder": [
+    "title",
+    "aliases",
+    "basename"
+  ],
+  "searchShowChildren": true,
+  "searchShowParents": true,
+  "lastInteractionContextId": "root > kol-media/INDEX.md",
+  "showViewStyleToggle": true,
+  "showFocusActiveFileButton": false,
+  "showConversionButton": false,
+  "showCollapseAllButton": false,
+  "showExpandAllButton": false,
+  "showSortButton": false,
+  "showFilterButton": true,
+  "showGroupButton": true,
+  "showCreateNoteButton": true,
+  "showSearchHeader": true,
+  "maxMenuNameLength": 10,
+  "namingConflictStrategy": "parent",
+  "namingConflictSeparator": "-",
+  "namingConflictOrder": "parent-first",
+  "defaultNewNotePath": "kol-quick/new",
+  "anonymizeDebugExport": false
+}

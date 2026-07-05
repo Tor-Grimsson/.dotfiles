@@ -25,6 +25,7 @@ The catalog documents 85 *tools*; this section documents the **repo itself** —
 
 ## See also
 
+- [Remote machine](../22-remote-machine/INDEX.md) — what comes after provisioning: actually working on a box like this over SSH.
 - [Tooling catalog](../INDEX.md) — the per-tool reference this sits beside.
 - [ARCHITECTURE.md](../../.kol/llm-context/ARCHITECTURE.md) — the same load-bearing decisions in agent-terse form.
 - [TOOLING.md](../../TOOLING.md) — the drift audit, cross-arch notes, and open items.

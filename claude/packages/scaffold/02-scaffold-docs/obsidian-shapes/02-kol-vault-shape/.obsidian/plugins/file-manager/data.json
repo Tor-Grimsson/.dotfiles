@@ -1,0 +1,26 @@
+{
+  "conflictResolutionMethod": "PROMPT",
+  "showSelectionStatusBar": false,
+  "showCopyMoveStats": false,
+  "showClipboardStatusBar": false,
+  "newFolderName": "new-folder",
+  "newNoteName": "new-note.md",
+  "duplicateSuffix": "-copy",
+  "apps": [
+    {
+      "name": "vs-code",
+      "cmd": "code",
+      "args": "~/Applications/Visual Studio Code.app",
+      "showInMenu": true,
+      "icon": "circle-dashed"
+    }
+  ],
+  "patterns": [
+    {
+      "regex": "\\d",
+      "applyTo": "files and folders",
+      "appName": "vs-code",
+      "icon": "circle-dashed"
+    }
+  ]
+}

@@ -106,7 +106,7 @@ With the philosophy AND conceptual framework established, express it through cod
 
 **CRITICAL: BEFORE writing any HTML:**
 
-1. **Read** `~/.dotfiles/claude/packages/algorithmic-art-templates/viewer.html` using the Read tool
+1. **Read** `~/.dotfiles/claude/packages/kol-packages/alga-tmpl/viewer.html` using the Read tool
 2. **Study** the exact structure, styling, and Anthropic branding
 3. **Use that file as the LITERAL STARTING POINT** - not just inspiration
 4. **Keep all FIXED sections exactly as shown** (header, sidebar structure, Anthropic colors/fonts, seed controls, action buttons)
@@ -212,7 +212,7 @@ function draw() {
 
 Output:
 1. **Algorithmic Philosophy** - As markdown or text explaining the generative aesthetic
-2. **Single HTML Artifact** - Self-contained interactive generative art built from `~/.dotfiles/claude/packages/algorithmic-art-templates/viewer.html` (see STEP 0 and next section)
+2. **Single HTML Artifact** - Self-contained interactive generative art built from `~/.dotfiles/claude/packages/kol-packages/alga-tmpl/viewer.html` (see STEP 0 and next section)
 
 The HTML artifact contains everything: p5.js (from CDN), the algorithm, parameter controls, and UI - all in one file that works immediately in claude.ai artifacts or any browser. Start from the template file, not from scratch.
 
@@ -220,13 +220,13 @@ The HTML artifact contains everything: p5.js (from CDN), the algorithm, paramete
 
 ## INTERACTIVE ARTIFACT CREATION
 
-**REMINDER: `~/.dotfiles/claude/packages/algorithmic-art-templates/viewer.html` should have already been read (see STEP 0). Use that file as the starting point.**
+**REMINDER: `~/.dotfiles/claude/packages/kol-packages/alga-tmpl/viewer.html` should have already been read (see STEP 0). Use that file as the starting point.**
 
 To allow exploration of the generative art, create a single, self-contained HTML artifact. Ensure this artifact works immediately in claude.ai or any browser - no setup required. Embed everything inline.
 
 ### CRITICAL: WHAT'S FIXED VS VARIABLE
 
-The `~/.dotfiles/claude/packages/algorithmic-art-templates/viewer.html` file is the foundation. It contains the exact structure and styling needed.
+The `~/.dotfiles/claude/packages/kol-packages/alga-tmpl/viewer.html` file is the foundation. It contains the exact structure and styling needed.
 
 **FIXED (always include exactly as shown):**
 - Layout structure (header, sidebar, main canvas area)
@@ -387,13 +387,13 @@ To achieve the best results, trust creativity and let the philosophy guide the i
 
 This skill includes helpful templates and documentation:
 
-- **~/.dotfiles/claude/packages/algorithmic-art-templates/viewer.html**: REQUIRED STARTING POINT for all HTML artifacts.
+- **~/.dotfiles/claude/packages/kol-packages/alga-tmpl/viewer.html**: REQUIRED STARTING POINT for all HTML artifacts.
   - This is the foundation - contains the exact structure and Anthropic branding
   - **Keep unchanged**: Layout structure, sidebar organization, Anthropic colors/fonts, seed controls, action buttons
   - **Replace**: The p5.js algorithm, parameter definitions, and UI controls in Parameters section
   - The extensive comments in the file mark exactly what to keep vs replace
 
-- **~/.dotfiles/claude/packages/algorithmic-art-templates/generator_template.js**: Reference for p5.js best practices and code structure principles.
+- **~/.dotfiles/claude/packages/kol-packages/alga-tmpl/generator_template.js**: Reference for p5.js best practices and code structure principles.
   - Shows how to organize parameters, use seeded randomness, structure classes
   - NOT a pattern menu - use these principles to build unique algorithms
   - Embed algorithms inline in the HTML artifact (don't create separate .js files)

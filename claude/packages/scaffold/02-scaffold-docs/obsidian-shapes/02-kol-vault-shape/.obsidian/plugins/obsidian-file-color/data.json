@@ -1,0 +1,76 @@
+{
+  "cascadeColors": true,
+  "colorBackground": true,
+  "palette": [
+    {
+      "id": "gA66A_MKqnmORjp56vZdG",
+      "name": "red",
+      "value": "#ce4646"
+    },
+    {
+      "id": "s63-zrg_VuoNqbuGGLO_t",
+      "name": "warm",
+      "value": "#e2e88c"
+    },
+    {
+      "id": "zcNF8dnqGRpNfbCrQXIrf",
+      "name": "dark",
+      "value": "#121215"
+    },
+    {
+      "id": "nllFdiJxD7BlGdsWQ6HLz",
+      "name": "blue",
+      "value": "#49a0a2"
+    },
+    {
+      "id": "a0qqdtHFTKBkGtxyWyTy9",
+      "name": "green",
+      "value": "#66a44c"
+    },
+    {
+      "id": "eGTOEYyaJzz4HwYA6S1Tq",
+      "name": "light",
+      "value": "#c1c3bb"
+    },
+    {
+      "id": "mFdTHa1L3XOGT6LdtNxNb",
+      "name": "yellow",
+      "value": "#ffe32e"
+    },
+    {
+      "id": "v5p0kF-y5cZCrev54kPP5",
+      "name": "orange",
+      "value": "#db8000"
+    }
+  ],
+  "fileColors": [
+    {
+      "path": "kol-knowledge/kol-learn-js",
+      "color": "gA66A_MKqnmORjp56vZdG"
+    },
+    {
+      "path": "kol-knowledge/kol-terminal",
+      "color": "a0qqdtHFTKBkGtxyWyTy9"
+    },
+    {
+      "path": "kol-knowledge/kol-client-kol",
+      "color": "mFdTHa1L3XOGT6LdtNxNb"
+    },
+    {
+      "path": "kol-knowledge/kol-monorepo",
+      "color": "mFdTHa1L3XOGT6LdtNxNb"
+    },
+    {
+      "path": "kol-knowledge/kol-client-acyr",
+      "color": "nllFdiJxD7BlGdsWQ6HLz"
+    },
+    {
+      "path": "kol-knowledge/_framework",
+      "color": "v5p0kF-y5cZCrev54kPP5"
+    },
+    {
+      "path": "kol-project/kol-kitchen",
+      "color": "nllFdiJxD7BlGdsWQ6HLz"
+    }
+  ]
+}
