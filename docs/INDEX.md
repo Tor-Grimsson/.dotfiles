@@ -39,3 +39,6 @@ Boundary sets that are neither pure content nor pure machinery — kept at the t
 - The catalog intentionally runs ahead of the Brewfiles: `pbcopy`/`pbpaste` are macOS built-ins, a few CLIs (`edge-tts` via pipx, `llm` + `kanban-tui` via uv) are not Brewfile lines, some tmux plugins are TPM-managed, and `ponytail` is a Claude Code plugin — don't "fix" the count against the Brewfiles.
 - Removed 2026-07-05: **tmux-agent-sidebar** (TPM plugin). Removed 2026-06-04: **tmate** + **qlstephen**.
 - **2026-07-08 restructure:** `docs/` converged onto the kol-docs content/operations split — flat `NN-` sections moved under `documentation/` and `operations/`, with `kol-cli`/`scripts`/`explorations` as named siblings. `.obsidian` seeding + the kol-vault sync-script repoint are follow-on work, not done here.
+
+<!-- mirror-automation smoke-test 2026-07-08 — safe to delete once the post-commit → rsync chain is proven -->
+
