@@ -2,7 +2,7 @@
 title: fastfetch
 type: reference
 status: active
-updated: 2026-06-04
+updated: 2026-07-08
 description: Fast system-information tool that prints OS, hardware, and config alongside an ASCII/image logo.
 aliases:
   - fastfetch
@@ -21,6 +21,8 @@ covers:
 related:
   - "[[01-iterm2|iTerm2]]"
   - "[[11-htop|htop]]"
+  - "[[21-chafa|chafa]]"
+  - "[[01-fastfetch-home|Fastfetch shell home]]"
 ---
 
 ## Summary
@@ -47,5 +49,5 @@ fastfetch -c paleofetch           # use a built-in preset config
 fastfetch --gen-config
 ```
 
-## Future use
-A hand-tuned `config.jsonc` selecting exactly which modules to show, a custom logo (image or your own ASCII), and adding it to the shell startup so every new terminal opens with a tailored system banner.
+## Shell home (configured)
+This machine runs a hand-tuned `config.jsonc` with a **[[21-chafa|chafa]]-rendered portrait logo** in place of an OS logo. The full setup — config, the image→chafa→ANSI logo pipeline, how to regen/tune it, and the symlink wiring — is documented in [[01-fastfetch-home|Fastfetch shell home]]. Config lives at `~/.dotfiles/fastfetch/` (symlinked to `~/.config/fastfetch`, via `bootstrap.sh`). Add `fastfetch` to `.zshrc` to greet on every new shell.

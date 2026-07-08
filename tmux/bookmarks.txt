@@ -1,0 +1,10 @@
+~/.dotfiles
+~/.dotfiles/docs
+~/.dotfiles/shell/.zshrc
+~/.dotfiles/tmux/.tmux.conf
+~/.dotfiles/tmux/bookmarks.txt
+~/.dotfiles/brewfile-cli
+~/.dotfiles/fastfetch/config.jsonc
+~/.dotfiles/.kol/llm-context/AGENT-CONTEXT.md
+~/.dotfiles/.kol/llm-context/plan.md
+https://github.com/tmux/tmux/wiki

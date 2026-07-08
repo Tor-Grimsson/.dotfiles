@@ -18,7 +18,7 @@ _template:
 3. **READ** `.kol/llm-context/AGENT-CONTEXT.md` — current project state
 4. **READ** the latest session log from `.kol/llm-context/session-log/` (sort by date, most recent first)
 5. **CHECK** `.kol/llm-context/session-bridge/` for `handoff-*.md` files. If the newest handoff has a timestamp newer than the newest session log, **also READ that handoff** — it carries in-flight state the session log doesn't. Otherwise skip. See `.kol/llm-context/session-bridge/README.md` for the full protocol.
-6. **LOAD** `/agent-reinforce` via the Skill tool — bundles the report-shape + standing-rules + no-git-permission reinforcement in one call, last step before reporting status.
+6. **Reinforcement is automatic** — the global `agent-reinforce` UserPromptSubmit hook injects report-shape + standing-rules + no-git + ports reinforcement on a cadence (full on turn 1, compact every ~5 turns). Nothing to load; it re-grounds mid-session, which the old skill bundle couldn't.
 7. **STOP** and say "Context loaded — on the **\<iMac|MBP\>**. What would you like me to work on?" (name the machine from step 1)
 8. **WAIT** for the user to specify their task
 
@@ -124,6 +124,7 @@ Or use the `/log-work` skill to automate this.
 ### Non-goals
 
 - **Never run provisioning** — no `brew bundle`/`install`/`upgrade`, no `bootstrap.sh`. Prepare changes, the user runs them.
+- **Never open ports/servers for the user** — task-scoped ports only (playwright, test harnesses), closed surgically (own PID only) when the task ends. The user runs his own servers; hand him the command.
 - **No hardcoded brew prefixes** — Intel = `/usr/local`, Apple-Silicon = `/opt/homebrew`.
 - **Secrets never as literals in tracked files** — env-var refs only, sourced from Bitwarden.
 

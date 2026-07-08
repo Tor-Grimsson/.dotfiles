@@ -1,0 +1,17 @@
+# Torrent dashboard — Jackett search + live Transmission progress.
+# Launch:  tmuxinator start torrent   (or `mux torrent`)
+# The search shell (top) runs `tor-search <query>` → picks a result → sends the
+# magnet to Transmission; the bottom panes show live progress and the Jackett server.
+name: torrent
+root: ~/
+
+windows:
+  - torrent:
+      layout: main-horizontal
+      panes:
+        # main pane (top) — a ready shell; type e.g. `tor-search dune part two`
+        - echo 'tor-search <query> — search Jackett, pick a result, magnet → Transmission'
+        # bottom-left — live download progress, refreshed every 2s
+        - watch -n 2 -t transmission-remote -l
+        # bottom-right — the Jackett indexer server tor-search queries (Ctrl-C to stop)
+        - tor-jackett

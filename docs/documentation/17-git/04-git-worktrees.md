@@ -19,7 +19,7 @@ covers:
   - The cheap alternative when a full worktree is overkill
 related:
   - "[[05-pnpm|pnpm]]"
-  - "[[12-gh|gh (GitHub CLI)]]"
+  - "[[02-gh|gh (GitHub CLI)]]"
   - "[[04-git-github|Git & GitHub card]]"
 ---
 

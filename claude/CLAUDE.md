@@ -82,6 +82,7 @@ Inside the fence, in order: the date (`DD/MM/YY`) · two blank lines · two `___
 - Don't run `yarn build` after routine code changes. Vite HMR catches errors in the browser. Build only for dependency changes, vite/build config edits, or explicit deploy prep.
 - Don't reflexively spin up `yarn dev` + HTTP-probe after every edit. The user validates live. For architecturally risky changes (new public API, cross-module contract, many files), ask before smoke-testing. For small localized edits, skip it.
 - **Never run git commands unless explicitly asked.** No `git diff`, `git status`, `git log`, `git show`, `git stash` — nothing. The user manages their own repo. If you need to know what changed, read files directly or ask.
+- **Ports are task-scoped only.** A port/server a task genuinely needs (playwright, a test harness) is fine to open — note the PID at spawn, and when the task ends kill exactly that PID. Never sweep a port range, never kill listeners you didn't start, never leave your server running past the task. Never start a server or bind a port *for the user* — he runs his own; hand him the exact command instead. An orphaned Claude-opened server is breaking the task, not finishing it.
 
 ## Session logs
 

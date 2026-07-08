@@ -2,7 +2,7 @@
 title: tmuxinator
 type: reference
 status: active
-updated: 2026-07-04
+updated: 2026-07-08
 description: Define a project's full tmux window/pane layout in a YAML file and launch it with one command — the classic Ruby project-layout tool.
 aliases:
   - tmuxinator
@@ -19,6 +19,7 @@ covers:
 related:
   - "[[02-tmux|tmux]]"
   - "[[19-tmuxp|tmuxp]]"
+  - "[[02-tmux-dashboards|tmux dashboards (home / torrent)]]"
 ---
 
 ## Summary
@@ -82,5 +83,5 @@ windows:
 | `tmuxinator delete <name>` | Remove a project config |
 | `tmuxinator debug <name>` | Print the shell commands it would run |
 
-## Future use
-No per-project YAML files tracked yet — add one under `~/.config/tmuxinator/` per project once a layout is worth defining upfront. For a layout you've already built by hand instead, see [[19-tmuxp|tmuxp]]'s `freeze` command — tmuxinator has no equivalent.
+## Tracked layouts
+Two dashboard configs are tracked at `~/.dotfiles/tmuxinator/` (symlinked to `~/.config/tmuxinator/` by `bootstrap.sh`): **`home`** (system monitor + fastfetch + yazi) and **`torrent`** (Jackett search + Transmission progress). Full write-up: [[02-tmux-dashboards|tmux dashboards]]. Add more by dropping a `<name>.yml` there. For a layout you've already built by hand instead, see [[19-tmuxp|tmuxp]]'s `freeze` command — tmuxinator has no equivalent.

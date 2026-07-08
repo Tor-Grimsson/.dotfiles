@@ -246,9 +246,12 @@ Shell-only, no tmux binding: [[17-sesh|sesh]] (`sesh picker` or `sesh connect <n
 | Key | Does | Key | Does |
 |---|---|---|---|
 | `pfx C-t` | scratch shell (cwd) | `pfx C-y` | [[02-yazi\|yazi]] file manager (cwd) |
-| `pfx C-s` | [[17-sesh\|sesh]] picker — running sessions only, switches in | `pfx C-n` | new session — prompts for a name, switches in |
+| `pfx C-g` | [[03-lazygit\|lazygit]] git TUI (cwd) | `pfx C-s` | [[17-sesh\|sesh]] picker — running sessions only, switches in |
+| `pfx C-n` | new session — prompts for a name, switches in | `pfx C-d` | [[02-tmux-dashboards\|layout]] picker (fzf → tmuxinator start) |
+| `pfx C-b` | [[03-bookmarks\|bookmark]] picker (URL→browser, path→nvim) | `pfx B` | bookmark the current dir |
+| `pfx A` | add bookmark (typed path/URL prompt) | | |
 
-No popup from inside a popup — nested popups misbehave. `C-s`/`C-n` both use `switch-client`, never a raw attach from a bound key (crashed all sessions once — fixed 2026-07-08).
+No popup from inside a popup — nested popups misbehave. `C-s`/`C-n`/`C-d` all use `switch-client`, never a raw attach from a bound key (crashed all sessions once — fixed 2026-07-08).
 
 ### Windows (tabs) & Panes (splits)
 

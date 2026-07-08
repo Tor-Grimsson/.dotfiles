@@ -15,7 +15,7 @@ related:
   - "[[INDEX|Remote machine]]"
   - "[[01-ssh-toolkit|SSH toolkit]]"
   - "[[10-neovim-config|Neovim config]]"
-  - "[[12-gh|GitHub CLI]]"
+  - "[[02-gh|GitHub CLI]]"
   - "[[05-network-security|Network, remote & secrets]]"
   - "[[01-iterm2|iTerm2]]"
 ---
@@ -108,4 +108,4 @@ If SSH (rather than `gh`+HTTPS) is the git transport for this, account B needs i
 
 ## Related
 - [[01-ssh-toolkit|SSH toolkit]] — the transport layer this workflow runs on top of.
-- [[10-neovim-config|Neovim config]] · [[12-gh|GitHub CLI]]
+- [[10-neovim-config|Neovim config]] · [[02-gh|GitHub CLI]]

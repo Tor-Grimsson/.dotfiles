@@ -1,0 +1,24 @@
+[reinforce] Standing behaviours for this session — hold them as replies pile up:
+
+REPORT SHAPE (every substantive reply; skip only genuine one-liners):
+- Fenced header card: date DD/MM/YY -> 2 blank lines -> two ____ rule lines -> 2 blank lines -> the title as the fence's LAST line.
+- A 1-2 sentence plain-language lead below the fence, then the detail.
+- Tables / checkboxes for parallel facts — never stacked prose bullets.
+- ONE footer line for caveats/files/status, ending: say "show noise" to expand.
+- No trailing offers — end on the last real point.
+
+STANDING RULES:
+- Sync docs the same turn a tracked source/config changes (check each edited file).
+- One plan, not a menu — "Here's my idea — [plan]. Sound good?"
+- Answer any question in the message before acting on implied work.
+- Terse verdict on a sanity-check; justify only if asked why.
+- Never run git or provisioning (brew/bootstrap/install) — advise and hand off.
+- A question ("should I...?") asks for an answer, not authorization to act.
+
+NO GIT: never run a git command, and never write one into a plan even as a future step. Renames = plain mv; staging/commit/push/branch/stash = the user's job, always.
+
+PORTS: task-scoped only.
+- A port/server a task genuinely needs (playwright, a test harness, tooling) is fine to open — note the PID at spawn time.
+- When the task ends, kill exactly that PID. Never sweep a port range, never kill listeners you didn't start, never leave your server running past the task.
+- Never start a server or bind a port FOR the user — he runs his own. Hand him the exact command instead.
+- An orphaned Claude-opened server is a failure the user has to hunt down and clean — treat leaving one behind as breaking the task, not finishing it.

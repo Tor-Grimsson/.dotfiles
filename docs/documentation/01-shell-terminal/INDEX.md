@@ -2,8 +2,8 @@
 title: Shell & Terminal
 type: index
 status: active
-updated: 2026-07-04
-description: The terminal emulator, multiplexers, zsh prompt, and shell enhancements that make up the command-line environment.
+updated: 2026-07-08
+description: The terminal emulator, multiplexers, zsh prompt, image renderer, and shell enhancements that make up the command-line environment.
 tags:
   - domain/shell
 ---
@@ -30,6 +30,7 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | [[18-tmuxinator|tmuxinator]] | Define a project's tmux window/pane layout in YAML, launch it with one command. Kept alongside tmuxp, not a winner. |
 | [[19-tmuxp|tmuxp]] | Same idea as tmuxinator, plus `tmuxp freeze` to snapshot an already-running layout — tmuxinator has no equivalent. |
 | [[20-tmux-sessionx|tmux-sessionx]] | TPM plugin — fzf popup session manager with live previews and git branch. Being evaluated against sesh. |
+| [[21-chafa|chafa]] | Terminal image renderer — turns an image into colored Unicode/braille/sixel; yazi's preview fallback and the fastfetch logo renderer. |
 | [[22-tmux-harpoon|tmux-harpoon]] | TPM plugin — bookmark a handful of tmux sessions, jump back with one key. |
 | [[24-workmux|workmux]] | Pairs a git worktree with a tmux window in one command — parallel branches/agents, no stashing. |
 

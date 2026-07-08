@@ -24,7 +24,7 @@ cdn_url() {
   echo "${CDN%/}/${p#/}"
 }
 
-# Refresh the kol-media CDN tree snapshot after a write (see docs/18-cdn-r2b2). Debounced +
+# Refresh the kol-media CDN tree snapshot after a write (see docs/operations/05-cdn-r2b2). Debounced +
 # backgrounded, non-fatal: a missing bucket-tree.sh or a snapshot error never breaks the write.
 snapshot_after_write() {
   command -v bucket-tree.sh >/dev/null 2>&1 || return 0

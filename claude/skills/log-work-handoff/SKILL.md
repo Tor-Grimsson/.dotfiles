@@ -48,7 +48,7 @@ If none exists, say "No agent context found here (looked for `.kol/llm-context/`
 - [Observations, half-formed ideas that matter now but don't earn a place in the long-lived doc]
 ```
 
-3. **Load `/agent-reinforce`** via the Skill tool — reinforcement, last thing before reporting, not first.
+3. **Reinforcement is automatic** — the global `agent-reinforce` UserPromptSubmit hook handles report-shape + standing-rules + no-git reinforcement; nothing to load.
 4. Say "Handoff created at [path]."
 
 ## Notes

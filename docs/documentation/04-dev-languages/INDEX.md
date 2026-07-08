@@ -2,13 +2,13 @@
 title: Dev Languages & Tooling
 type: index
 status: active
-updated: 2026-06-23
-description: Language runtimes, package managers, editors, the container engine, the terminal LLM client, and the GitHub CLI that make up the local development environment.
+updated: 2026-07-08
+description: Language runtimes, package managers, editors, the container engine, and the terminal LLM client that make up the local development environment. Git tooling now lives in its own category.
 tags:
   - domain/dev
 ---
 
-The runtimes, package managers, editors, and container tooling this machine develops against — JavaScript (Node, pnpm), Python (uv, pipx), the editors (VS Code, Neovim), the JSON Swiss-army knife (jq), the Docker/Linux engine (OrbStack), the terminal LLM client (llm), and the GitHub CLI (gh).
+The runtimes, package managers, editors, and container tooling this machine develops against — JavaScript (Node, pnpm), Python (uv, pipx), the editors (VS Code, Neovim), the JSON Swiss-army knife (jq), the Docker/Linux engine (OrbStack), and the terminal LLM client (llm). Git and its tooling moved to [[documentation/17-git/INDEX|Git]].
 
 | Tool | Description |
 | --- | --- |
@@ -21,10 +21,8 @@ The runtimes, package managers, editors, and container tooling this machine deve
 | [[07-jq|jq]] | Command-line JSON processor for filtering and transforming JSON. |
 | [[08-orbstack|OrbStack]] | Lightweight Docker Desktop replacement that also runs Linux VMs. |
 | [[09-llm|llm]] | Simon Willison's terminal LLM client; wired to Claude via the llm-anthropic plugin (uv-installed). |
-| [[12-gh|gh (GitHub CLI)]] | GitHub from the terminal — PRs, issues, releases, CI runs, and the full GitHub API (`gh api`). |
-| [[13-ponytail|ponytail]] | Claude Code plugin that forces the laziest working solution — an over-engineering reviewer with six /ponytail-* skills. |
+| [[12-ponytail|ponytail]] | Claude Code plugin that forces the laziest working solution — an over-engineering reviewer with six /ponytail-* skills. |
 
 ## Guides
 - [[11-neovim-cheatsheet|Neovim cheatsheet (beginner)]] — zero-assumptions reference for writing and navigating text in [[03-neovim|Neovim]]: modes, movement, editing, search/replace, panic button.
 - [[10-neovim-config|Neovim config (IDE setup)]] — the lazy.nvim plugin system, structure, and keybindings for the [[03-neovim|Neovim]] setup.
-- [[14-git-worktrees|Git worktrees (parallel-agent workflow)]] — run two coding agents on one repo without clashing: a worktree per agent, own branch + directory, with the install/port frictions and merge-back steps.

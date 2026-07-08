@@ -212,10 +212,10 @@ Rule going forward: use the command name (rely on PATH) or `$(brew --prefix)/bin
 ```
 ~/.dotfiles/claude/
   CLAUDE.md         # global personality / rules
-  settings.json     # portable (bare `node`); no hooks — caveman fully removed
+  settings.json     # portable; global hooks wired here (see hooks/)
+  hooks/            # doc-sync-reminder (PostToolUse), agent-reinforce (UserPromptSubmit), statusline
   skills/           # kol-bucket-{b2,r2}, kol-docs-{fm,md}, scaffold-{llm-context,docs-system,dev-stack(-kol)},
-                    #   agent-init, agent-reinforce, agent-{output-format,reinforce-rules,reinforce-memory},
-                    #   gsap-* (8), algorithmic-art, glif-art
+                    #   agent-init, kol-lobby(-icon), gsap-* (8), algorithmic-art, glif-art
   agents/           # kol-{color,div,docs,type}-agent — KOL design-system subagents
   packages/         # shared skill deps: bucket (rclone wrapper → ~/.local/bin),
                     #   kol-docs-{fm,md,lib}, scaffold/{01-scaffold-dev-stack,02-scaffold-docs,03-scaffold-llm-context},

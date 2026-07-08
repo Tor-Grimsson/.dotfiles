@@ -14,7 +14,7 @@ tags:
 related:
   - "[[04-api-keys-and-environment|api keys & env]]"
   - "[[05-schema-tables-and-migrations|schema & migrations]]"
-  - "[[12-gh|gh (GitHub CLI)]]"
+  - "[[02-gh|gh (GitHub CLI)]]"
 ---
 
 # Git, GitHub & syncing

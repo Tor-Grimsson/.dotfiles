@@ -1,0 +1,17 @@
+# Shell-home dashboard — system monitor + fastfetch banner + file cockpit.
+# Launch:  tmuxinator start home   (or `mux home`)
+# Mirrors the reference layout: monitor on the left, banner + files stacked right.
+name: home
+root: ~/
+
+windows:
+  - dash:
+      layout: main-vertical
+      panes:
+        # main pane (large, left) — system monitor.
+        # On the Apple-Silicon MBP swap `htop` for `mactop` (per-core P/E + GPU + power).
+        - htop
+        # right-top — the fastfetch shell-home banner (prints once, leaves a shell)
+        - fastfetch
+        # right-bottom — yazi file cockpit
+        - yazi

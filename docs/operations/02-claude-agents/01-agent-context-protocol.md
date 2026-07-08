@@ -42,16 +42,16 @@ A repo on the protocol has all machinery **hidden at repo root**, keeping `docs/
 | [[02-skills|scaffold-docs-system]] | stand up/normalise a repo's whole `docs/` tree *and* `.kol/docs-framework/` (absorbed from the old `init-agent-context` 2026-07-05) |
 | [[02-skills|kol-migrate-structure]] | convert a **legacy** repo → `.kol/` — relocate old content, then **delegate** the boot symlink + framework/docs to the two scaffolders above (orchestrator, not a reimplementation) |
 | [[02-skills|kol-docs-overview]] | orientation front door — one read of the whole `.kol/` + `docs/` structure and who-owns-what, before reaching for a doer |
-| `agent-init` (renamed from `init-agent` 2026-07-05) | load the context (ARCHITECTURE → AGENT-CONTEXT → latest session log) and **stop** — wait for a task; detects the machine, checks session-bridge, nags on legacy layouts, (guard: repo consumes `@kolkrabbi/*`) reports stale KOL packages via `pnpm/npm outdated` asking before any bump, then loads `/agent-reinforce` **last** — right before reporting "Context loaded" |
-| `log-work` | **only when asked** — writes a session log + prepends the AGENT-CONTEXT "Last updated" chain, then loads `/agent-reinforce` last, right before the "Session log created" report |
-| `log-work-handoff` | **only when asked** — writes a forward-looking session-bridge handoff, then loads `/agent-reinforce` last, right before the "Handoff created" report |
-| `agent-reinforce` | bundles the three reinforcement skills (`agent-output-format`, `agent-reinforce-rules`, `agent-reinforce-memory`) into one call — used as the **last** step, right before reporting status, by `agent-init`, `log-work`, `log-work-handoff`, and the plain `LLM_RULES.md` boot path |
+| `agent-init` (renamed from `init-agent` 2026-07-05) | load the context (ARCHITECTURE → AGENT-CONTEXT → latest session log) and **stop** — wait for a task; detects the machine, checks session-bridge, nags on legacy layouts, (guard: repo consumes `@kolkrabbi/*`) reports stale KOL packages via `pnpm/npm outdated` asking before any bump, then reports "Context loaded" (reinforcement is now the automatic `agent-reinforce` hook, not a load step) |
+| `log-work` | **only when asked** — writes a session log + prepends the AGENT-CONTEXT "Last updated" chain, then reports "Session log created" (reinforcement is the automatic `agent-reinforce` hook now) |
+| `log-work-handoff` | **only when asked** — writes a forward-looking session-bridge handoff, then reports "Handoff created" (reinforcement is the automatic `agent-reinforce` hook now) |
+| `agent-reinforce` (now a **hook**, not a skill) | report-shape + standing-rules + no-git reinforcement, injected by the global `agent-reinforce` UserPromptSubmit hook (`claude/hooks/agent-reinforce.sh`) on a cadence — full on turn 1, compact every ~5 turns. Replaced the old 4-skill bundle (`agent-output-format` + `-rules` + `-memory` + the bundler) on 2026-07-08; it re-grounds mid-session, which the skills couldn't |
 | `scaffold-dev-stack` | scaffold a new **headless** app (Vite + React + Tailwind 4, no design system) |
 | `scaffold-dev-stack-kol` | scaffold a new app on the **published** `@kolkrabbi/kol-*` npm packages (4-point consumer contract wired) |
 
 No automated re-sync skill exists anymore (`init-agent-context-sync` — quarantined 2026-07-05, no evidence of real use). Pulling framework updates into an already-scaffolded repo is a manual/conversational step now. Converging a legacy layout is still automated — `kol-migrate-structure` (briefly quarantined, then restored same day 2026-07-05).
 
-Boot a session with `/agent-init` (or just "read `LLM_RULES.md`") — both now load `/agent-reinforce` as their last step, right before reporting status.
+Boot a session with `/agent-init` (or just "read `LLM_RULES.md`"). Reinforcement is no longer a load step — the global `agent-reinforce` UserPromptSubmit hook injects it on a cadence in every session.
 
 ## Conventions that matter
 
@@ -61,4 +61,4 @@ Boot a session with `/agent-init` (or just "read `LLM_RULES.md`") — both now l
 - **Dates are absolute.** Convert "today"/"yesterday" to ISO before writing.
 
 ## Related
-- The docs *inside* `.kol/llm-context/` and the catalog docs both follow the [[13-ponytail|ponytail]]-adjacent [[02-skills|kol-docs]] framework, but the agent-context protocol (this doc) is a **separate** convention — it governs the `llm-context/` state files, not the published-doc spec.
+- The docs *inside* `.kol/llm-context/` and the catalog docs both follow the [[12-ponytail|ponytail]]-adjacent [[02-skills|kol-docs]] framework, but the agent-context protocol (this doc) is a **separate** convention — it governs the `llm-context/` state files, not the published-doc spec.

@@ -20,8 +20,9 @@ covers:
   - worktrees for parallel agents (links to the full guide)
   - the commands that destroy work, and the safe form of each
 related:
-  - "[[12-gh|gh (full reference)]]"
-  - "[[14-git-worktrees|Git worktrees (parallel agents)]]"
+  - "[[02-gh|gh (full reference)]]"
+  - "[[03-lazygit|lazygit (git TUI)]]"
+  - "[[04-git-worktrees|Git worktrees (parallel agents)]]"
   - "[[01-cli-cheatsheet|CLI cheatsheet]]"
   - "[[11-dot-sync|Dotfiles sync (dot-sync)]]"
   - "[[01-repo-model|Repo model (foreign-box drift, skip-worktree)]]"
@@ -29,7 +30,7 @@ related:
 
 # Git & GitHub
 
-`git` is the version-control engine — it talks to **any** remote. **`gh` is GitHub-specific** — pull requests, issues, CI runs, releases, the API: the half git doesn't cover. This card is the practical layer; for the full `gh` flag reference see [[12-gh|gh]], for parallel-agent setups see [[14-git-worktrees|worktrees]].
+`git` is the version-control engine — it talks to **any** remote. **`gh` is GitHub-specific** — pull requests, issues, CI runs, releases, the API: the half git doesn't cover. This card is the practical layer; for the full `gh` flag reference see [[02-gh|gh]], for parallel-agent setups see [[04-git-worktrees|worktrees]].
 
 > **Auth, once:** `git push` here goes over **SSH with a keychain'd key** (`ssh/config` → `Host github.com`, `id_ed25519`), so git needs no token. `gh` is a **separate** login — `gh auth login` → GitHub.com → HTTPS → web browser. One unlocks pushes, the other unlocks PRs/issues/API.
 
@@ -41,6 +42,7 @@ related:
 |---|---|---|
 | Save / branch / merge / rewind history | **git** | `git commit`, `git switch`, `git rebase` |
 | Push or pull from a remote | **git** | `git push`, `git pull` |
+| Stage hunks, rebase, resolve conflicts *interactively* | **[[03-lazygit\|lazygit]]** | `prefix C-g` popup, or `lazygit` |
 | Open / review / merge a pull request | **gh** | `gh pr create`, `gh pr checkout`, `gh pr merge` |
 | File or browse issues | **gh** | `gh issue create`, `gh issue list` |
 | Watch CI, read a failing run's log | **gh** | `gh run watch`, `gh run view --log-failed` |
@@ -144,7 +146,7 @@ Start each from inside the repo. `<branch>` / `<file>` / `<sha>` are placeholder
 
 ## 3. gh — the GitHub layer
 
-Authed via `gh auth login` (token in the system keychain, never the repo). Full reference: [[12-gh|gh]].
+Authed via `gh auth login` (token in the system keychain, never the repo). Full reference: [[02-gh|gh]].
 
 ```sh
 # Pull requests
@@ -235,7 +237,7 @@ git worktree list
 git worktree remove ../proj-agent-b           # after merging
 ```
 
-Two frictions: each worktree needs its own `pnpm install` (fast — hardlinked store) and its own dev port (`pnpm dev --port 5174`). **Full guide:** [[14-git-worktrees|Git worktrees]].
+Two frictions: each worktree needs its own `pnpm install` (fast — hardlinked store) and its own dev port (`pnpm dev --port 5174`). **Full guide:** [[04-git-worktrees|Git worktrees]].
 
 ---
 
@@ -278,4 +280,4 @@ Two frictions: each worktree needs its own `pnpm install` (fast — hardlinked s
 
 ---
 
-*Living doc — the daily-driver layer. Depth: [[12-gh|gh full reference]] · [[14-git-worktrees|worktrees]]. This repo's own git is sync-only ([[11-dot-sync|dot-sync]]) — the agent never commits; you do. Symlinked into the kol-vault for print.*
+*Living doc — the daily-driver layer. Depth: [[02-gh|gh full reference]] · [[04-git-worktrees|worktrees]]. This repo's own git is sync-only ([[11-dot-sync|dot-sync]]) — the agent never commits; you do. Symlinked into the kol-vault for print.*

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# keys — print your own keybinds, filtered by tag, via bat.
+#
+#   keys                  everything
+#   keys tmux             every #tmux section
+#   keys tmux popover     sections tagged BOTH #tmux and #popover
+#   keys bookmark         the #bookmark section
+#   keys aerospace focus  aerospace focus keys
+#
+# Data: ~/.dotfiles/keys/keybinds.md — a hand-kept list. Edit it when you rebind.
+set -euo pipefail
+
+data="$HOME/.dotfiles/keys/keybinds.md"
+[ -f "$data" ] || { printf 'keys: no data at %s\n' "$data" >&2; exit 1; }
+
+show() { bat --language md --style plain --paging=never; }
+
+if [ $# -eq 0 ]; then
+  show < "$data"
+  exit
+fi
+
+# Keep only sections whose "## " header contains ALL requested tags (case-insensitive).
+out=$(awk -v tags="$*" '
+  BEGIN { nt = split(tolower(tags), want, " ") }
+  /^## / { hdr = tolower($0); shw = 1; for (i = 1; i <= nt; i++) if (index(hdr, want[i]) == 0) shw = 0 }
+  shw
+' "$data")
+
+if [ -n "$out" ]; then
+  printf '%s\n' "$out" | show
+else
+  printf 'keys: nothing tagged: %s\n' "$*" >&2
+  exit 1
+fi

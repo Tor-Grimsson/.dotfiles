@@ -21,7 +21,7 @@ This section explains that layer. It is **not** part of the tool catalog (the ot
 |---|---|
 | `CLAUDE.md` | global personality + working rules ("Grim") |
 | `settings.json` | permissions, statusline, plugins, voice/effort/tui |
-| `skills/` | 35 Claude Code skills (whole-dir symlink) |
+| `skills/` | 36 Claude Code skills (whole-dir symlink) |
 | `agents/` | 4 `kol-*` subagents |
 | `hooks/` | `statusline.sh` (the only hook) |
 | `commands/`, `output-styles/` | present but empty |
@@ -40,4 +40,4 @@ This section explains that layer. It is **not** part of the tool catalog (the ot
 | 07 | [[07-output-formats|Output formats]] | the reply skeleton + a gallery of named worked layouts (one-liner / build report / findings / recommendation / staged) — the visual reference for the Report-shape rules |
 
 ## Related
-- [[13-ponytail|ponytail]] — the Claude Code plugin catalogued under Dev & Languages (the laziness layer, always-on via a SessionStart hook).
+- [[12-ponytail|ponytail]] — the Claude Code plugin catalogued under Dev & Languages (the laziness layer, always-on via a SessionStart hook).

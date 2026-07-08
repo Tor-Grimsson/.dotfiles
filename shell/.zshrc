@@ -32,7 +32,7 @@ export PATH="$HOME/tools:$PATH"
 export PATH="$HOME/bin:$PATH"
 [ -d "/Applications/WebStorm.app/Contents/MacOS" ] && export PATH="/Applications/WebStorm.app/Contents/MacOS:$PATH"
 
-# ── fnm — per-project Node version, auto-switch on cd (reads .nvmrc/.node-version); docs/23-version-management
+# ── fnm — per-project Node version, auto-switch on cd (reads .nvmrc/.node-version); docs/documentation/16-version-management
 command -v fnm >/dev/null && eval "$(fnm env --use-on-cd)"
 
 # ── conda (MBP-only, /opt/miniconda3 — pending consolidation, TOOLING.md § Python)

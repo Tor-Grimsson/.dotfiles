@@ -118,4 +118,22 @@ Low priority — cosmetic/metadata accuracy, no functional impact. Do it if a st
 
 ---
 
+## Terminal music — mpd + rmpc for the local library
+
+**Premise:** want a terminal music player for the personal library that lives on a harddrive. **mpd** (Music Player Daemon) indexes a music folder and handles playback; **rmpc** is the TUI client that drives it (queue/playlists/library/search, album art). They go together — daemon + client.
+
+### shape
+- `brew install mpd rmpc`; mpd config (`~/.config/mpd/mpd.conf`) with `music_directory` → the harddrive path, plus a `db_file`/`state_file`. Run mpd as a launchd user-agent (always-on) so rmpc always has something to connect to.
+- rmpc config for theme/keys. Track both configs in the repo (symlinked) + catalog docs.
+- **Jellyfin note:** mpd can't read Jellyfin's API — but if the drive mpd indexes is the *same* library Jellyfin serves, it plays those files directly. For Jellyfin-API playback specifically, `jellyfin-tui` is the alternative.
+
+### open questions
+- Is the harddrive always mounted (else mpd's db goes stale / launchd agent errors on a missing path)?
+- One library path, or does Jellyfin's layout need pointing at a subfolder?
+
+### kill criteria
+If the harddrive isn't reliably mounted or terminal music goes unused, drop it and stream via `mpv <url>` ad hoc.
+
+---
+
 Nothing here is committed. This is a thought exercise until items move to `llm-context/AGENT-CONTEXT.md`.

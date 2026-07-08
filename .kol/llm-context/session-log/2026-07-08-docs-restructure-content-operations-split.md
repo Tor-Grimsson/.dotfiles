@@ -42,5 +42,15 @@
 
 ## Next Steps
 1. Open `docs/` in Obsidian once to visually confirm the graph (the check the scan can't do).
-2. Re-run the mirror (commit a docs change, or `sync-dotfiles-docs-rs.sh`) to rewrite the vault copy to the new tree.
+2. ~~Re-run the mirror~~ — done, see addendum.
 3. Optional: an `active`→`canonical` status pass on stable reference docs.
+
+## Addendum — mirror automation proven end-to-end
+
+The open "mirror shows the old tree until the sync re-runs" item is **closed**. Verified the full `dotfiles commit → post-commit hook → rsync → kol-vault` chain:
+
+- **First check after the user's push showed the `-rs` mirror still on the old flat tree** — a stale read that led to a wrong "you need to commit kol-vault" call; the committed state was actually already correct. Ran `sync-dotfiles-docs-rs.sh` manually → mirror regenerated to the new tree (202 md, `documentation/`/`operations/`/`scripts/`/`explorations/`, old flat folders `--delete`'d, kol-cli promoted). Confirmed the `-rs` mirror is **tracked** (only `-sm` is gitignored) and `.obsidian/`/`kol-cli/` are correctly excluded.
+- **Smoke test:** created `docs/test.md` + an INDEX marker, user committed/pushed dotfiles → the `post-commit` hook fired the sync → the change materialised in `kol-dotfiles-docs-rs/` → user committed/pushed kol-vault. Chain confirmed working (hook config was clean all along).
+- **Cleanup:** removed the test artifacts (`docs/test.md`, INDEX smoke-test comment) and a keyboard-mash the user left in `documentation/04-dev-languages/06-pipx.md` while testing carry-through.
+
+Net: the dotfiles→vault docs pipeline is live and proven on the new structure.

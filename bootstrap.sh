@@ -78,6 +78,18 @@ if [ -d "$DOT/aerospace" ]; then
   ln -sf "$DOT/aerospace/aerospace.toml" "$HOME/.config/aerospace/aerospace.toml"
 fi
 
+# fastfetch (shell-home — whole dir: config.jsonc + chafa logo.txt + source image)
+if [ -d "$DOT/fastfetch" ]; then
+  mkdir -p "$HOME/.config"
+  ln -sfn "$DOT/fastfetch" "$HOME/.config/fastfetch"
+fi
+
+# tmuxinator (shell-layout dashboards — whole dir of *.yml project configs)
+if [ -d "$DOT/tmuxinator" ]; then
+  mkdir -p "$HOME/.config"
+  ln -sfn "$DOT/tmuxinator" "$HOME/.config/tmuxinator"
+fi
+
 # gcalcli (single config file — the OAuth token lives beside it in this dir and
 # is machine-local, so only config.toml is symlinked, not the whole dir)
 if [ -d "$DOT/gcalcli" ]; then

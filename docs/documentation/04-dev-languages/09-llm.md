@@ -26,7 +26,7 @@ covers:
 related:
   - "[[04-uv|uv]]"
   - "[[06-pipx|pipx]]"
-  - "[[13-ponytail|ponytail]]"
+  - "[[12-ponytail|ponytail]]"
 ---
 
 ## Summary

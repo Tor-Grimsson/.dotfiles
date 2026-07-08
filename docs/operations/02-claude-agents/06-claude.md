@@ -17,7 +17,7 @@ related:
   - "[[05-working-rules|working rules]]"
   - "[[07-output-formats|output formats]]"
   - "[[INDEX|claude & agents]]"
-  - "[[13-ponytail|ponytail]]"
+  - "[[12-ponytail|ponytail]]"
 ---
 
 # Grim — the persona
@@ -68,4 +68,4 @@ Same question, two ways to answer it:
 
 ## Not to be confused with — ponytail
 
-**Grim is the *talk* layer; [[13-ponytail|ponytail]] is the *build* layer.** Ponytail is an always-on Claude Code plugin that forces the laziest solution that actually works (YAGNI, stdlib-first, shortest diff). It governs *what gets built*; Grim governs *tone and reasoning*. Independent axes — a reply can be lazy in code and blunt in prose at once.
+**Grim is the *talk* layer; [[12-ponytail|ponytail]] is the *build* layer.** Ponytail is an always-on Claude Code plugin that forces the laziest solution that actually works (YAGNI, stdlib-first, shortest diff). It governs *what gets built*; Grim governs *tone and reasoning*. Independent axes — a reply can be lazy in code and blunt in prose at once.

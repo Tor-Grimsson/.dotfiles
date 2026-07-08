@@ -42,9 +42,9 @@ brew "dust"        # Modern `du` — tree view of what's eating disk, biggest-fi
 brew "tealdeer"    # `tldr` — community cheat-sheets of real examples per command (fast Rust client)
 
 # ── tmux session/project managers ────────────────────────────────────────────
-brew "sesh"        # Smart tmux session picker — fuzzy-finds running sessions, config, and zoxide dirs; being run against tmux-sessionx (TPM); docs/01-shell-terminal/17-sesh.md
-brew "tmuxinator"  # Define a project's full window/pane layout in YAML, `tmuxinator start` to launch it — hand-typed templates; docs/01-shell-terminal/18-tmuxinator.md
-brew "tmuxp"       # Same idea as tmuxinator, but `tmuxp freeze` snapshots an already-running session's layout into a config — tmuxinator has no equivalent; docs/01-shell-terminal/19-tmuxp.md
+brew "sesh"        # Smart tmux session picker — fuzzy-finds running sessions, config, and zoxide dirs; being run against tmux-sessionx (TPM); docs/documentation/01-shell-terminal/17-sesh.md
+brew "tmuxinator"  # Define a project's full window/pane layout in YAML, `tmuxinator start` to launch it — hand-typed templates; docs/documentation/01-shell-terminal/18-tmuxinator.md
+brew "tmuxp"       # Same idea as tmuxinator, but `tmuxp freeze` snapshots an already-running session's layout into a config — tmuxinator has no equivalent; docs/documentation/01-shell-terminal/19-tmuxp.md
 # workmux (raine/workmux tap) is installed separately by bootstrap*.sh, not
 # bundled here — see the note in bootstrap-cli.sh for why.
 # NOTE: tmux-sessionx and tmux-harpoon are TPM plugins
@@ -63,15 +63,16 @@ brew "czkawka"     # czkawka_cli — exact AND fuzzy (similar images / video / m
 brew "neovim"      # Vim fork, extensible
 brew "node"        # JavaScript runtime (global fallback; per-project versions come from fnm)
 brew "pnpm"        # Fast, disk-efficient JS package manager (can self-manage node)
-brew "fnm"         # Fast Node version manager — per-project Node via .nvmrc, auto-switch on cd; docs/23-version-management
+brew "fnm"         # Fast Node version manager — per-project Node via .nvmrc, auto-switch on cd; docs/documentation/16-version-management
 brew "pipx"        # Install Python CLI apps in isolated venvs (one app per env)
-                   #   pipx-managed (run per machine): edge-tts — clipboard TTS, docs/06-media-av/06-edge-tts.md
+                   #   pipx-managed (run per machine): edge-tts — clipboard TTS, docs/documentation/06-media-av/06-edge-tts.md
 brew "uv"          # Fast Python project/dep/version manager (+ uvx tool runner)
-                   #   uv-tool-managed (run per machine): llm — terminal LLM client, docs/04-dev-languages/09-llm.md
+                   #   uv-tool-managed (run per machine): llm — terminal LLM client, docs/documentation/04-dev-languages/09-llm.md
                    #   uv-tool-managed (run per machine): pdf2image — PDF→raster; avoids the poppler-symlink clash the brew formula has
 brew "jq"          # Command-line JSON processor
 brew "yq"          # Command-line YAML/JSON processor (jq for YAML; reads .md frontmatter — au-tag.sh)
-brew "gh"          # GitHub CLI — PRs/issues/releases/CI + `gh api`; docs/04-dev-languages/12-gh.md
+brew "gh"          # GitHub CLI — PRs/issues/releases/CI + `gh api`; docs/documentation/04-dev-languages/12-gh.md
+brew "lazygit"     # Git TUI — stage hunks, commit, branch, rebase, stash, resolve conflicts from a keyboard UI; tmux popup on prefix C-g; docs/documentation/04-dev-languages/15-lazygit.md
 
 # ── Network & security ──────────────────────────────────────────────────────
 brew "nmap"          # Port scanner
@@ -98,7 +99,7 @@ brew "pngpaste"    # Paste clipboard PNG to a file
 #       the formula ships poppler-duplicate binaries that clash with poppler's symlinks.
 
 # ── Documents & publishing ────────────────────────────────────────────────────
-brew "pandoc"      # Universal document converter (md→PDF/HTML/…); drives a PDF engine — docs/17-documents/
+brew "pandoc"      # Universal document converter (md→PDF/HTML/…); drives a PDF engine — docs/documentation/13-documents/
 brew "typst"       # Modern typesetting engine — Pandoc's fast default PDF engine (--pdf-engine=typst)
 brew "weasyprint"  # HTML+CSS→PDF (CSS Paged Media, no browser) — Pandoc's CSS engine (--pdf-engine=weasyprint)
 brew "entr"        # Re-run a command when files change (watch mode) — pdf-from-md.sh -w

@@ -35,6 +35,7 @@ CLI helpers in `~/.dotfiles/bin` (symlinked to `~/bin`, on PATH). Renamed 2026-0
 | `kol-` | [[17-kol-dashboard-cli|Dashboard CLI]] | 2 | terminal twins of the Obsidian kol-dashboard — kanban (`kol-kb`, prints+moves) + surfaces (`kol-dash` links/growth/pinned/tracks/week) |
 | `os-` / `theme-` | [[18-appearance|Appearance & wake automation]] | 2 | ⇧⌥⌘T toggle theme, ⇧⌥⌘A run wake-alarm test (Raycast) |
 | _(none)_ | [[15-calendar|Calendar]] | 1 | `cplan` — hides recurring noise over a date window ([[14-gcalcli|gcalcli]] companion) |
+| _(none)_ | [[19-keys|Keybind reference]] | 1 | `keys <tag>` — bat-print your own keybinds by tag (tmux/nvim/aerospace/git/…) |
 
 `cplan` is **non-prefixed** (callable as `cplan`, matching the `c*` gcalcli aliases)
 rather than `cal-…`. The other non-prefixed script is `tor-search`, under

@@ -2,8 +2,8 @@
 title: kol-tui-plugin — bookmark sidebar exploration
 type: index
 status: active
-updated: 2026-07-04
-description: Design exploration for an always-visible (or toggle-visible) sidebar pane showing bookmarked files, URLs, and git worktrees as clickable links. Not built — this is the option survey before picking an approach.
+updated: 2026-07-08
+description: Design exploration for an always-visible (or toggle-visible) sidebar pane showing bookmarked files, URLs, and git worktrees as clickable links. A first popup-based cut of the "files" third now exists (prefix C-b); the persistent sidebar + URLs + worktrees remain unbuilt.
 tags:
   - project/dotfiles
   - domain/shell
@@ -61,5 +61,8 @@ Same pattern as `tmux-sidebar`/`treemux` (both passed on) but purpose-built for 
 - Does the bookmark list need to be one unified view, or is sessions (harpoon) / worktrees (workmux) / files+URLs (new) staying as three separate things fine?
 - Static (re-run the script by hand) or live-refreshing (`watch`-style auto-update)?
 
+## First cut built (2026-07-08)
+A working first cut now exists — **not** the persistent sidebar, but **three tmux popups over a plain-text list** (full write-up: [[03-bookmarks|Bookmarks]]): `prefix C-b` picks and opens (**URL → browser, path → nvim**), `prefix B` quick-adds the current dir, `prefix A` adds a typed path/URL. That delivers Option A's "plain-text file" content source for **both files and URLs**, as on-demand popups rather than a docked pane. **Still unbuilt:** the persistent/always-visible sidebar (layer question #1), clickable OSC-8/command-URL links *in place*, and git-worktree entries.
+
 ## Verdict
-Visually inspiring, not a game-changer by your own read — logged as an explored option, not scheduled work. Revisit if/when it comes up again.
+Visually inspiring, not a game-changer by your own read — logged as an explored option, not scheduled work. The `prefix C-b` popup covers the everyday "jump to a favorite file" need cheaply; the full sidebar can wait until it comes up again.

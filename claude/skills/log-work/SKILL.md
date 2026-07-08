@@ -62,5 +62,5 @@ If none exists, say "No agent context found here (looked for `.kol/llm-context/`
    - Prepend the new entry to the "Last updated" chain, then **trim the chain to the 5 most recent entries**. Cut the older tail outright — each entry already links its own `session-log/…md`, so nothing is lost.
    - AGENT-CONTEXT is *current state*, not an archive. `session-log/` is the archive. If any rolling/append-only section (a status list, a chain) is past ~5 entries or the file is past ~30 KB, trim the oldest.
    - Keep each new entry tight (a few sentences) — verbosity is the other half of the bloat.
-5. **Load `/agent-reinforce`** via the Skill tool — reinforcement, last thing before reporting, not first.
+5. **Reinforcement is automatic** — the global `agent-reinforce` UserPromptSubmit hook handles report-shape + standing-rules + no-git reinforcement; nothing to load.
 6. Say "Session log created at [path]. AGENT-CONTEXT.md updated."
