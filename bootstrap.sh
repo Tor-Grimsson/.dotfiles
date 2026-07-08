@@ -97,6 +97,17 @@ if [ -d "$DOT/gcalcli" ]; then
   ln -sf "$DOT/gcalcli/config.toml" "$HOME/Library/Application Support/gcalcli/config.toml"
 fi
 
+# mpd + rmpc (terminal music). Single-file symlinks — mpd's db/state/log/playlists
+# live locally in ~/.config/mpd/ (untracked), so only the config file is linked.
+if [ -d "$DOT/mpd" ]; then
+  mkdir -p "$HOME/.config/mpd/playlists"
+  ln -sf "$DOT/mpd/mpd.conf" "$HOME/.config/mpd/mpd.conf"
+fi
+if [ -d "$DOT/rmpc" ]; then
+  mkdir -p "$HOME/.config/rmpc"
+  ln -sf "$DOT/rmpc/config.ron" "$HOME/.config/rmpc/config.ron"
+fi
+
 # Finder Quick Actions (macos/services/*.workflow) — includes "Open in glow"
 if [ -d "$DOT/macos/services" ]; then
   mkdir -p "$HOME/Library/Services"
@@ -123,6 +134,15 @@ if [ -f "$DOT/macos/launchd/com.kolkrabbi.tg-inbox.plist" ]; then
   cp "$DOT/macos/launchd/com.kolkrabbi.tg-inbox.plist" "$HOME/Library/LaunchAgents/"
   launchctl bootout "gui/$(id -u)/com.kolkrabbi.tg-inbox" 2>/dev/null || true
   launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.kolkrabbi.tg-inbox.plist"
+fi
+
+# mpd launchd agent — mount-guarded (only runs while the external library drive is
+# mounted; KeepAlive→PathState). Copied, not symlinked (launchd dislikes symlinked plists).
+if [ -f "$DOT/macos/launchd/com.kolkrabbi.mpd.plist" ]; then
+  mkdir -p "$HOME/Library/LaunchAgents"
+  cp "$DOT/macos/launchd/com.kolkrabbi.mpd.plist" "$HOME/Library/LaunchAgents/"
+  launchctl bootout "gui/$(id -u)/com.kolkrabbi.mpd" 2>/dev/null || true
+  launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.kolkrabbi.mpd.plist"
 fi
 
 # Terminal.app prefs — import (not symlink; Terminal is cfprefsd-cached). Close Terminal first.

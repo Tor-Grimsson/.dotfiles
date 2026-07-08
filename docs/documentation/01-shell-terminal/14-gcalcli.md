@@ -25,6 +25,7 @@ related:
   - "[[16-kanban-tui|kanban-tui]]"
   - "[[16-capture|Capture pipeline]]"
   - "[[15-calendar|Calendar scripts (cplan)]]"
+  - "[[01-console-map|Google console map]]"
 ---
 
 ## Summary

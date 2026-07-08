@@ -29,6 +29,7 @@
       "Bash(git:*)"
     ]
   },
+  "model": "sonnet",
   "hooks": {
     "UserPromptSubmit": [
       {

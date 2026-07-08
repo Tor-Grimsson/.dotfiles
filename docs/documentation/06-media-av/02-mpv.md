@@ -24,6 +24,7 @@ related:
   - "[[01-ffmpeg|FFmpeg]]"
   - "[[06-edge-tts|edge-tts]]"
   - "[[10-quick-actions|Open in mpv Quick Action]]"
+  - "[[08-terminal-music|Terminal music (mpd + rmpc)]]"
 ---
 
 ## Summary

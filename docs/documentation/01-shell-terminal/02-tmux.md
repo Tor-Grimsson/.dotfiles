@@ -60,7 +60,8 @@ tmux attach -t work       # reattach to "work"
 #   Ctrl-a [   copy/scroll mode (q to exit)   Ctrl-a r   reload config
 #   Ctrl-a C-t   scratch shell popup      Ctrl-a C-y   yazi popup (float)
 #   Ctrl-a C-g   lazygit popup (git TUI)  Ctrl-a C-s   sesh session picker popup
-#   Ctrl-a C-d   layout picker (fzf)      Ctrl-a C-b   bookmark picker (fzf)
+#   Ctrl-a C-p   clipboard image → yazi   Ctrl-a C-d   layout → window (fzf)
+#   Ctrl-a C-o   layout → new session     Ctrl-a C-b   bookmark picker (fzf)
 #   Ctrl-a B     bookmark this dir        Ctrl-a A     add bookmark (prompt)
 # (tmux's stock " and % splits still work — see Configuration below.)
 ```
@@ -71,8 +72,8 @@ tmux attach -t work       # reattach to "work"
 - **Intuitive splits** — `prefix |` / `prefix -`, opening in the current folder; `h/j/k/l` to move, `H/J/K/L` to resize. tmux's stock `"`/`%` still work.
 - **vi copy mode → system clipboard** — `v` select, `y` copy (OSC 52 relay, works locally and over SSH+remote-tmux); mouse-drag copies too.
 - **Mark a pane** — `prefix m` tints the current pane so it stands out (e.g. the one LOCAL pane among SSH panes); `prefix M` clears it.
-- **Popups** — floating windows over your panes (`display-popup`, tmux 3.2+), each opening in the current folder and vanishing on exit: `prefix C-t` scratch shell, `prefix C-y` [[02-yazi|yazi]] file manager, `prefix C-g` [[03-lazygit|lazygit]] git TUI, `prefix C-s` [[17-sesh|sesh]] session picker. Don't launch a popup from inside a popup — nested popups misbehave.
-- **fzf pickers** — `prefix C-d` pops an fzf list of [[02-tmux-dashboards|tmuxinator layouts]] and starts/switches to the pick (popup-safe — `switch-client`, not a raw attach).
+- **Popups** — floating windows over your panes (`display-popup`, tmux 3.2+), each opening in the current folder and vanishing on exit: `prefix C-t` scratch shell, `prefix C-y` [[02-yazi|yazi]] file manager, `prefix C-g` [[03-lazygit|lazygit]] git TUI, `prefix C-s` [[17-sesh|sesh]] session picker, `prefix C-p` [[08-system|clip-drop]] (clipboard image → `~/_inbox` → yazi to file it). Don't launch a popup from inside a popup — nested popups misbehave.
+- **Layout pickers** — `prefix C-d` grafts a picked [[02-tmux-dashboards|tmuxinator layout]] as a **window in the current session** (`pane-layout.sh`, no `switch-client`); `prefix C-o` spawns it as its **own session** (`layout-picker.sh`, `switch-client -c` the pressing client, not tmux's MRU guess). Same yml, both keys, plus `mux <name>` for a whole session.
 - **[[03-bookmarks|Bookmarks]]** (`tmux/bookmarks.txt`, paths + URLs) — `prefix C-b` opens the picker (URL → browser, path → nvim), `prefix B` bookmarks the current dir, `prefix A` adds a typed path/URL.
 - **New session** — `prefix C-n` asks for a name at the bottom prompt (`command-prompt`, not a popup) then creates it detached and switches you in (`switch-client`, never a raw attach from a bound key — same crash class as the sesh popup fix above).
 - **Quiet top status bar** — faint window list flush top-left (`#I:#W#F`), with a blank second row for breathing space above the p10k prompt.

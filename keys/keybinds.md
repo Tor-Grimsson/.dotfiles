@@ -7,8 +7,10 @@ Edit this file when you rebind — it's a hand-kept list, not generated.
 prefix C-t    scratch shell popup (cwd)
 prefix C-y    yazi file-manager popup (cwd)
 prefix C-g    lazygit popup — git TUI (cwd)
+prefix C-p    clipboard image → ~/_inbox → yazi (clip-drop.sh)
 prefix C-s    sesh session picker popup
-prefix C-d    tmuxinator layout picker (fzf)
+prefix C-d    layout → WINDOW in current session (pane-layout.sh)
+prefix C-o    layout → its OWN session (layout-picker.sh)
 prefix C-b    bookmark picker (URL→browser, path→nvim)
 
 ## #tmux #bookmark
@@ -17,9 +19,9 @@ prefix B      quick-add the current directory
 prefix A      add a bookmark (typed path/URL popup)
 
 ## #tmux #layout
-prefix C-d               layout picker → tmuxinator start
-tmuxinator start home    system dashboard (htop + fastfetch + yazi)
-tmuxinator start torrent Jackett search + Transmission progress
+prefix C-d               pick a layout → grafted as a WINDOW in the current session
+prefix C-o               pick a layout → spawned as its OWN session
+mux home/stats/torrent   dashboards: home=fastfetch+rmpc, stats=monitors, torrent
 prefix space             cycle the built-in pane layouts
 prefix M-1..M-5          even-h / even-v / main-h / main-v / tiled
 
@@ -65,6 +67,31 @@ A             amend: fold staged changes into the last commit (keep msg)
 r             reword last commit's message  (in the Commits panel)
 P             push   ·   p = pull
 q             quit the popup
+
+## #tmux #clipdrop
+prefix C-p    capture: clipboard image → ~/_inbox → yazi opens on it
+r             rename the file        (in yazi)
+x             cut it                 (in yazi)
+h/l j/k       navigate to the destination folder
+p             paste → moves it there
+q             quit (skip r/x/p to just leave it in ~/_inbox)
+
+## #rmpc #transport
+p             play / pause toggle
+s             stop
+<CR>          play the selected track
+> / <         next / previous track
+f / b         seek forward / back
+. / ,         volume up / down
+z x c v       toggle repeat / random / consume / single
+C-u / C-U     update library / full rescan
+q             quit rmpc
+
+## #rmpc #nav
+1..7          tab: Queue·Dirs·Artists·AlbumArtists·Albums·Playlists·Search
+Tab / S-Tab   next / previous tab
+j / k         down / up (arrows work too)
+? / :         help / command mode
 
 ## #nvim #modes
 i a o         insert: before / after cursor · new line below

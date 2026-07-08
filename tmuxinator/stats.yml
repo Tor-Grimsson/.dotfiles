@@ -1,0 +1,21 @@
+# Stats page — the system cockpit. Monitor on the left, greeting + files stacked right.
+# Launch:  mux stats   ·   prefix C-d stats (window)   ·   prefix C-o stats (session)
+# (This is what `home` used to be, before home became the music page.)
+name: stats
+root: ~/
+
+# pane-layout.sh directive (comment; ignored by tmuxinator + yq): give the monitor
+# the majority of the width.
+# main-pane-width: 60%
+
+windows:
+  - stats:
+      layout: main-vertical
+      panes:
+        # main (large, left) — system monitor. mactop on Apple-Silicon (per-core P/E,
+        # GPU, power draw), htop everywhere else. Auto-picks per machine.
+        - "command -v mactop >/dev/null && mactop || htop"
+        # right-top — the fastfetch shell-home banner (prints once, leaves a shell)
+        - fastfetch
+        # right-bottom — yazi file cockpit
+        - yazi

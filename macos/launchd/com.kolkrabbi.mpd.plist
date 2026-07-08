@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.kolkrabbi.mpd</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/zsh</string>
+		<string>-lc</string>
+		<string>exec mpd --no-daemon "$HOME/.config/mpd/mpd.conf"</string>
+	</array>
+	<!-- Mount-guard: only run while the external drive is mounted. launchd starts mpd
+	     when this path appears and stops it when the drive unmounts. On a machine where
+	     the drive never mounts (e.g. the MBP) this agent simply never runs — harmless. -->
+	<key>KeepAlive</key>
+	<dict>
+		<key>PathState</key>
+		<dict>
+			<key>/Volumes/kol-ssd-4000/Music</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>RunAtLoad</key>
+	<true/>
+</dict>
+</plist>

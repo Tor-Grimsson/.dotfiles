@@ -28,7 +28,7 @@ Two cross-cutting axes live in **tags**, not folders:
 | 03 | [[documentation/03-dedup-cleanup/INDEX|Dedup & Cleanup]] | 6 | duplicate finders, app uninstallers, file recovery |
 | 04 | [[documentation/04-dev-languages/INDEX|Dev & Languages]] | 10 | editors, JS/Python runtimes & managers, jq, containers, LLM client, Claude Code plugin (ponytail) |
 | 05 | [[documentation/05-network-security/INDEX|Network & Security]] | 8 | scanners, throughput, antivirus, password vault, SSH |
-| 06 | [[documentation/06-media-av/INDEX|Media & A/V]] | 7 | player, transcoders, downloader, torrents, speech-to-text, text-to-speech |
+| 06 | [[documentation/06-media-av/INDEX|Media & A/V]] | 8 | player, transcoders, downloader, torrents, speech-to-text, text-to-speech, terminal music (mpd + rmpc) |
 | 07 | [[documentation/07-pdf-images/INDEX|PDF & Images]] | 4 | image toolkit, PDF↔image/SVG, clipboard PNG |
 | 08 | [[documentation/08-screen-capture/INDEX|Screen Capture]] | 3 | screen recorders, keystroke overlay |
 | 09 | [[documentation/09-productivity-desktop/INDEX|Productivity & Desktop]] | 5 | launcher, system monitor, notes, dev browser, tiling window manager |
@@ -47,6 +47,7 @@ Standalone multi-chapter guides (not per-tool reference docs, so they don't add 
 | 15 | [[documentation/15-cloudflare/INDEX|Cloudflare, from zero]] | 5 | Beginner guide to Cloudflare R2 (object storage), Pages (static hosting + Functions), and Wrangler (CLI). |
 | 16 | [[documentation/16-version-management/INDEX|Version management]] | 4 | Why a globally-installed runtime drifts and breaks projects (the kol-monorepo Node-26 case), per-project pinning, the managers, shell-rc mechanics, and the **fnm** setup. |
 | 18 | [[documentation/18-tui-shell-layout/INDEX|TUI shell layout]] | 3 | Terminal-cockpit customization — the fastfetch shell-home greeting (chafa portrait logo), tmuxinator dashboard layouts, and a tmux bookmark system (paths + URLs). |
+| 19 | [[documentation/19-google-cloud/INDEX|Google console, from the trenches]] | 1 | Navigating Google's consoles — the two separate billing systems (Workspace vs Cloud), the org-vs-personal billing-account gotcha, the `authuser` trap, direct links, and the kolkrabbi.io footprint. |
 
 ## Related
 - [[INDEX|docs root]] — top-level router (documentation · operations · siblings)

@@ -1,17 +1,19 @@
-# Shell-home dashboard — system monitor + fastfetch banner + file cockpit.
-# Launch:  tmuxinator start home   (or `mux home`)
-# Mirrors the reference layout: monitor on the left, banner + files stacked right.
+# Shell home — fastfetch greeting + the rmpc music player.
+# Launch:  mux home   ·   prefix C-d home (window)   ·   prefix C-o home (session)
+# fastfetch is a thin top banner; rmpc fills the rest (needs mpd running — see the
+# terminal-music doc).
 name: home
 root: ~/
 
+# pane-layout.sh directive (a comment — tmuxinator + yq both ignore it): keep the
+# fastfetch banner to a thin top strip so rmpc gets the room. Lower = more rmpc.
+# main-pane-height: 8
+
 windows:
-  - dash:
-      layout: main-vertical
+  - home:
+      layout: main-horizontal
       panes:
-        # main pane (large, left) — system monitor.
-        # On the Apple-Silicon MBP swap `htop` for `mactop` (per-core P/E + GPU + power).
-        - htop
-        # right-top — the fastfetch shell-home banner (prints once, leaves a shell)
+        # main (top strip) — fastfetch greeting (prints once, leaves a shell)
         - fastfetch
-        # right-bottom — yazi file cockpit
-        - yazi
+        # bottom (fills the rest) — the rmpc music TUI (connects to mpd on :6600)
+        - rmpc

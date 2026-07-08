@@ -17,7 +17,7 @@ related:
 
 # Fastfetch shell home
 
-The first thing a new terminal shows: a **portrait logo** rendered to ANSI on the left, a **fastfetch** system report on the right, a color palette bar underneath. This category (`18-tui-shell-layout`) is the home for terminal-cockpit customization — the fastfetch home now, the fuller tmux dashboard later ([§7](#7-next)).
+The first thing a new terminal shows: a **portrait logo** rendered to ANSI on the left, a **fastfetch** system report on the right, a color palette bar underneath. This category (`18-tui-shell-layout`) is the home for terminal-cockpit customization — this greeting, plus the [[02-tmux-dashboards|tmux dashboard layouts]] it's a panel in ([§7](#7-where-fastfetch-shows-up)).
 
 ## 0. What this is
 
@@ -115,6 +115,6 @@ Once `config.jsonc` + `logo.*` are committed, both machines get the identical ho
 - Change `--size` and rerun the chafa command → the portrait visibly resizes on the next `fastfetch`.
 - If a shell greeting was wired: open a new terminal → the home prints on its own.
 
-## 7. Next
+## 7. Where fastfetch shows up
 
-The fastfetch home is phase one. The fuller ambition for this category is a **tmux dashboard layout** — mactop, this fastfetch panel, and a music-player panel tiled into one cockpit. That layout is future work and will land as its own doc here alongside this one.
+This greeting is a panel in the **tmux dashboard layouts** ([[02-tmux-dashboards|tmux dashboards]]): the top banner of the music `home` (fastfetch + rmpc), and the right-column banner of the `stats` cockpit (mactop/htop + fastfetch + yazi). Summon either as a window (`prefix C-d`) or a session (`prefix C-o`).

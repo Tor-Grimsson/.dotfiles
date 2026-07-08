@@ -118,21 +118,41 @@ Low priority — cosmetic/metadata accuracy, no functional impact. Do it if a st
 
 ---
 
-## Terminal music — mpd + rmpc for the local library
+## Torrent space — consolidated guide (+ Prowlarr on OrbStack)
 
-**Premise:** want a terminal music player for the personal library that lives on a harddrive. **mpd** (Music Player Daemon) indexes a music folder and handles playback; **rmpc** is the TUI client that drives it (queue/playlists/library/search, album art). They go together — daemon + client.
+**Agreed 2026-07-08.** The torrent stack is scattered across five docs/scripts; consolidate it into one guide, and capture the Prowlarr-on-OrbStack upgrade. (mpd+rmpc terminal music — the item that used to live here — shipped this session; see AGENT-CONTEXT (17).)
+
+### what exists (to link, not duplicate)
+- `06-media-av/05-transmission-cli.md` — Transmission daemon + `transmission-remote`.
+- `scripts/07-torrent.md` — `tor-search` / `tor-jackett` (search → magnet → Transmission).
+- `18-tui-shell-layout/02-tmux-dashboards.md` §3 — the `torrent` tmuxinator dashboard (the "localised home").
+- Jackett — run via the `tor-jackett` symlink; key in the vault.
 
 ### shape
-- `brew install mpd rmpc`; mpd config (`~/.config/mpd/mpd.conf`) with `music_directory` → the harddrive path, plus a `db_file`/`state_file`. Run mpd as a launchd user-agent (always-on) so rmpc always has something to connect to.
-- rmpc config for theme/keys. Track both configs in the repo (symlinked) + catalog docs.
-- **Jellyfin note:** mpd can't read Jellyfin's API — but if the drive mpd indexes is the *same* library Jellyfin serves, it plays those files directly. For Jellyfin-API playback specifically, `jellyfin-tui` is the alternative.
+- New **guide** (its own category, like Supabase/Cloudflare/Google) — the pipeline in one place: search (Jackett/tor-search) → magnet → download (Transmission daemon) → the `torrent` cockpit.
+- Add the **missing operational glue**: the daemon must be running for `transmission-remote`/the dashboard; it's not auto-started → document a launchd-agent option (same mount/agent pattern as mpd).
+- **Prowlarr-on-OrbStack chapter** — OrbStack is installed + running; Prowlarr is not. Prowlarr (the modern Jackett successor) in a Docker container via OrbStack, feeding Transmission. Document the container setup; optionally stand it up.
 
-### open questions
-- Is the harddrive always mounted (else mpd's db goes stale / launchd agent errors on a missing path)?
-- One library path, or does Jellyfin's layout need pointing at a subfolder?
+### open question
+- Does `tor-search` stay on Jackett, or get repointed at Prowlarr once it's up?
 
-### kill criteria
-If the harddrive isn't reliably mounted or terminal music goes unused, drop it and stream via `mpv <url>` ad hoc.
+---
+
+## gcalcli OAuth token dead — `invalid_grant` (re-auth needed)
+
+**Symptom (2026-07-08):** every gcalcli command (`cbrief`/`cplan`/agenda) dies with `google.auth.exceptions.RefreshError: invalid_grant: Token has been expired or revoked.`
+
+**Root cause (most likely):** gcalcli's **OAuth consent screen is in "Testing" mode** → Google **expires the refresh token after 7 days**. Recurring by design until the app is published. (Not billing-related — Calendar API is free, unaffected by the suspended billing account. See [[01-console-map|Google console map]].)
+
+### quick fix (try first — no console needed)
+- Delete the stale token: `rm ~/Library/Application\ Support/gcalcli/oauth`
+- Re-run: `gcalcli agenda` (or `gcalcli init`) → approve in the browser → fresh token cached. Re-auth reuses the client ID/secret already in gcalcli's config, so this shouldn't need the console **unless the OAuth client itself was deleted**.
+
+### permanent fix (stops the 7-day death)
+- `console.cloud.google.com` → the project holding gcalcli's OAuth client (one of the kolkrabbi projects) → **APIs & Services → OAuth consent screen → Publish app** (Testing → In production). The "unverified app" warning is fine for personal use.
+
+### when un-salted
+- Add this re-auth troubleshooting to `docs/documentation/01-shell-terminal/14-gcalcli.md` (Known issues / re-auth section).
 
 ---
 

@@ -19,3 +19,4 @@ Command-line media stack — the FFmpeg engine plus a player, a preset transcode
 | [[05-transmission-cli|Transmission (CLI)]] | Lightweight headless BitTorrent client — daemon plus remote control utilities. |
 | [[06-edge-tts|edge-tts]] | Neural text-to-speech via Microsoft Edge's free voices — `speak` reads the clipboard aloud through mpv. |
 | [[07-yt-dlp|yt-dlp]] | Download video/audio from YouTube, TikTok + ~1800 sites; `-x` rips audio for whisper transcription. |
+| [[08-terminal-music|mpd + rmpc]] | Terminal music for the local library — mpd daemon + rmpc TUI client, mount-guarded to the external drive. |

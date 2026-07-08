@@ -25,7 +25,7 @@ CLI helpers in `~/.dotfiles/bin` (symlinked to `~/bin`, on PATH). Renamed 2026-0
 | `art-` | [[05-artwork|Artwork pipeline]] | 2 | — |
 | `batch-` | [[06-batch-folder|Folder batch]] | 2 | — |
 | `tor-` | [[07-torrent|Torrent]] | 2 | — |
-| `fs-` / `ss-` | [[08-system|System & clipboard]] | 4 | — |
+| `fs-` / `ss-` / `clip-` | [[08-system|System & clipboard]] | 5 | — |
 | `finder-` | [[09-finder|Finder selection]] | 1 | ⇧⌥⌃A, ⇧⌥⌃S (Quick Actions) |
 | `qa-` | [[10-quick-actions|Quick Actions]] | 1 | generator — stamps new Quick Actions |
 | `dl-` | [[12-download|Download]] | 1 | yt-dlp wrapper — highest-quality fetch (MKV default) |
