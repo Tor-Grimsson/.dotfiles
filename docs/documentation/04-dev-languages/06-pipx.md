@@ -54,3 +54,13 @@ pipx ensurepath
 
 ## Future use
 Consolidate toward `uv tool` / `uvx`, which covers the same isolated-CLI use case from the same binary already managing Python versions and projects — worth migrating to so there's one tool instead of two for Python CLIs.
+
+
+
+
+
+
+
+
+
+;lmkdfs.jnsd.n,sdfmn,fsd.mndsf
