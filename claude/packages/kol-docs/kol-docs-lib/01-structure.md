@@ -46,6 +46,8 @@ Contiguous `00-…NN`, no gaps. Remove or move a section → **renumber the rest
 
 `related:` frontmatter stays wikilinks regardless (metadata, never rendered outside Obsidian).
 
+**Heading anchors are where this matters most.** GitHub/VS Code auto-slug headings to kebab-case (`#some-heading`) — Obsidian doesn't understand that form at all and fails silently (`"Unable to find selection"`). Obsidian only resolves anchors against the **literal heading text** (`#Some Heading`, case and spacing preserved). No core Obsidian setting fixes this — it's a long-standing open feature request, not a toggle. So any in-vault link that jumps to a section **must** be a wikilink with the literal heading text (`[[file#Some Heading|display]]`) — a markdown link with a GFM-slug anchor (`[display](file.md#some-heading)`) will silently fail to jump inside Obsidian even though the file-level link itself resolves fine.
+
 ## Out of scope
 
 `LLM_RULES.md` is owned by the `scaffold-llm-context` skill, not this one — don't author it here.

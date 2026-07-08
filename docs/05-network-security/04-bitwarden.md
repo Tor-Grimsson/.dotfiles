@@ -27,7 +27,7 @@ related:
 Bitwarden is the desktop app for the Bitwarden password manager — a native vault for logins, secure notes, cards, and identities, all end-to-end encrypted behind a master password. It syncs across devices and integrates with the browser extension for autofill.
 
 ## Why installed
-It is the primary credential store for the machine. Every password lives here rather than in a browser's built-in store or a plaintext file, and it is the daily-driver counterpart to the [Bitwarden CLI](03-bitwarden-cli.md) — the GUI for browsing and editing, the CLI for scripting.
+It is the primary credential store for the machine. Every password lives here rather than in a browser's built-in store or a plaintext file, and it is the daily-driver counterpart to the [[03-bitwarden-cli|Bitwarden CLI]] — the GUI for browsing and editing, the CLI for scripting.
 
 ## Most common use case
 Unlocking the vault and copying a credential (or letting the browser extension autofill it) when logging into a site or app.

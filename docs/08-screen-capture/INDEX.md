@@ -12,6 +12,6 @@ macOS screen-recording apps plus a keystroke visualizer for producing clear scre
 
 | Tool | Description |
 | --- | --- |
-| [Kap](01-kap.md) | Open-source screen recorder exporting to GIF, MP4, WebM, and APNG with a lightweight overlay UI. |
-| [KeyCastr](02-keycastr.md) | Keystroke visualizer that shows pressed keys on screen for recordings and demos. |
-| [Openscreen](03-openscreen.md) | Screen recorder with a built-in lightweight editor, installed from the third-party `siddharthvaddem/openscreen` tap. |
+| [[01-kap|Kap]] | Open-source screen recorder exporting to GIF, MP4, WebM, and APNG with a lightweight overlay UI. |
+| [[02-keycastr|KeyCastr]] | Keystroke visualizer that shows pressed keys on screen for recordings and demos. |
+| [[03-openscreen|Openscreen]] | Screen recorder with a built-in lightweight editor, installed from the third-party `siddharthvaddem/openscreen` tap. |

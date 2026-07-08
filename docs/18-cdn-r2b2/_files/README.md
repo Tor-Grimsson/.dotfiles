@@ -14,12 +14,12 @@ related:
 # `_files` — raw snapshots
 
 **Generated** by `bucket-tree.sh` — do not edit by hand. The machine-readable half of each
-CDN snapshot; the Obsidian-readable view is [`02-b2-tree.md`](../02-b2-tree.md) /
-[`04-r2-tree.md`](../04-r2-tree.md).
+CDN snapshot; the Obsidian-readable view is [[02-b2-tree|`02-b2-tree.md`]] /
+[[04-r2-tree|`04-r2-tree.md`]].
 
 | Path | What |
 |------|------|
-| `website/`, `vault-media/` | B2 buckets ([01-b2](../01-b2.md)) |
-| `kol-media/` | R2 bucket ([03-r2](../03-r2.md)) |
+| `website/`, `vault-media/` | B2 buckets ([[01-b2|01-b2]]) |
+| `kol-media/` | R2 bucket ([[03-r2|03-r2]]) |
 | `<bucket>/tree.json` | nested tree, `segment_*.ts` collapsed — grep/`jq` in nvim |
 | `<bucket>/tree.full.txt` | 1:1 sorted path list — exact record + `bucket-drift` baseline |

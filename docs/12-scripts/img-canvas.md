@@ -53,7 +53,7 @@ magick "input.jpg[0]" -auto-orient -background white \
 
 ## 2. The script
 
-`bin/img-canvas.sh` wraps that with the preset table, 1x/2x scaling, mode/gravity/format flags, and batch input. Run `img-canvas.sh --help` for the full contract; catalog entry in [Image scripts](03-image.md).
+`bin/img-canvas.sh` wraps that with the preset table, 1x/2x scaling, mode/gravity/format flags, and batch input. Run `img-canvas.sh --help` for the full contract; catalog entry in [[03-image|Image scripts]].
 
 ```sh
 img-canvas.sh -a 4:5 photo.jpg              # → photo_1080x1350.jpg, cover
@@ -103,7 +103,7 @@ Or pass raw pixels: `-a 1080x1350`.
 
 ## 4. PNG palette quantization (`-c`)
 
-Same mechanism as [img-convert.sh](img-convert.md)'s `-c` — no dithering, exact
+Same mechanism as [[img-convert|img-convert.sh]]'s `-c` — no dithering, exact
 requested color count, ignored for jpg. See that doc's §4 for the full why
 (dithering silently defeats palette conversion above ~85 colors). Here it
 quantizes the **finished canvas**, after the crop/pad, so the count applies to
@@ -138,7 +138,7 @@ of source.
 
 ## 5. Wire it into a Finder Quick Action — ratio + scale prompt
 
-The prompt logic lives in the script's **`-P` (pick) mode**, so the Quick Action stays a clean **one-liner** — no inline `osascript`, no multi-line nested quoting. (You *can* inline the `osascript` dialogs, but pasting that multi-line form into a shell with bracketed-paste off makes the shell evaluate the dialog mid-paste and drop you in a subshell — avoid it.) Generic recipe + the `qa-make.sh` stamper are in [Quick Actions](10-quick-actions.md). Stamp it:
+The prompt logic lives in the script's **`-P` (pick) mode**, so the Quick Action stays a clean **one-liner** — no inline `osascript`, no multi-line nested quoting. (You *can* inline the `osascript` dialogs, but pasting that multi-line form into a shell with bracketed-paste off makes the shell evaluate the dialog mid-paste and drop you in a subshell — avoid it.) Generic recipe + the `qa-make.sh` stamper are in [[10-quick-actions|Quick Actions]]. Stamp it:
 
 ```sh
 qa-make.sh -t public.image "Canvas (pick aspect)" \

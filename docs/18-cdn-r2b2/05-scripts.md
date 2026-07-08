@@ -20,8 +20,8 @@ related:
 |-------|------|
 | `bucket-tree.sh` | list a bucket → write raw `_files/` + the readable provider `.md` |
 | post-write hook | in each wrapper — refresh the snapshot after a write |
-| [`bucket-drift.sh`](../12-scripts/14-bucket-drift.md) | read-only alarm for out-of-band changes |
-| [docs → vault mirror](../12-scripts/13-docs-mirror.md) | carries the trees to Obsidian + consumers |
+| [[14-bucket-drift|`bucket-drift.sh`]] | read-only alarm for out-of-band changes |
+| [[13-docs-mirror|docs → vault mirror]] | carries the trees to Obsidian + consumers |
 
 ## `bucket-tree.sh`
 
@@ -64,14 +64,14 @@ use the same wrapper, so they're covered.)
 
 The hook only fires for writes through *your* CLI; a write from another machine or the
 B2/R2 web console bypasses it. A periodic `bucket-tree.sh all` (launchd, like
-[dot-sync](../12-scripts/11-dot-sync.md)) reconciles those, and
-[`bucket-drift`](../12-scripts/14-bucket-drift.md) is the read-only alarm that a reconcile is
+[[11-dot-sync|dot-sync]]) reconciles those, and
+[[14-bucket-drift|`bucket-drift`]] is the read-only alarm that a reconcile is
 overdue. *(Timer plist: future — the hook covers day-to-day.)*
 
 ## Distribution
 
 The outputs are plain files under `docs/`, so the existing
-[docs → vault mirror](../12-scripts/13-docs-mirror.md) carries them: a `post-commit` hook
+[[13-docs-mirror|docs → vault mirror]] carries them: a `post-commit` hook
 rsyncs `docs/` into the kol-vault on any commit that touches it. Propagation is **commit-gated**
 — commit the change and the snapshot reaches Obsidian and every other consumer. The agent never
 commits (you own git).

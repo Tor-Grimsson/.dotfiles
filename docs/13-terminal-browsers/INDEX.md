@@ -12,6 +12,6 @@ Browsers that run in the terminal instead of a window: Carbonyl renders the real
 
 | Tool | What it is |
 | --- | --- |
-| [Carbonyl](01-carbonyl.md) | Chromium fork rendering the full web in the terminal, run via Docker/OrbStack. |
-| [w3m](02-w3m.md) | Classic text-mode browser — instant, no JS, dumps rendered pages to stdout. |
-| [Chawan](03-chawan.md) | Modern TUI browser (`cha`) — CSS layout standalone, JS/images/cookies as runtime toggles. |
+| [[01-carbonyl|Carbonyl]] | Chromium fork rendering the full web in the terminal, run via Docker/OrbStack. |
+| [[02-w3m|w3m]] | Classic text-mode browser — instant, no JS, dumps rendered pages to stdout. |
+| [[03-chawan|Chawan]] | Modern TUI browser (`cha`) — CSS layout standalone, JS/images/cookies as runtime toggles. |

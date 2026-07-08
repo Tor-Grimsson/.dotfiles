@@ -12,21 +12,21 @@ Browsing, navigating, organizing, archiving, and renaming files — across the t
 
 | Tool | Description |
 | --- | --- |
-| [tree](01-tree.md) | Recursive directory lister that prints the filesystem hierarchy as an indented tree. |
-| [Yazi](02-yazi.md) | Blazing-fast terminal file manager written in Rust with async I/O and image previews. |
-| [broot](03-broot.md) | Tree-based terminal navigator that fuzzy-filters directory trees and runs commands on matches. |
-| [Marta](04-marta.md) | Extensible two-pane (orthodox) file manager for macOS with full keyboard control. |
-| [Keka](06-keka.md) | macOS file archiver that creates and extracts a wide range of compression formats. |
-| [NameChanger](07-namechanger.md) | macOS app for batch-renaming lists of files with live preview before applying. |
-| [eza](08-eza.md) | Modern `ls` — colors, icons, tree view, git-status column (maintained exa fork). |
-| [bat](09-bat.md) | `cat` with syntax highlighting + line numbers; also the fzf file preview. |
-| [fd](10-fd.md) | Friendly, fast `find` replacement; respects .gitignore; feeds the fzf file list. |
-| [ripgrep](11-ripgrep.md) | Fast recursive in-file search (`rg`); the modern grep. |
-| [fzf](12-fzf.md) | Interactive fuzzy finder; powers Ctrl-R / Ctrl-T / Alt-C and Tab completion. |
-| [zoxide](13-zoxide.md) | Smarter `cd` — `z` jumps to frecency-ranked visited dirs, `zi` picks via fzf. |
-| [dust](14-dust.md) | Modern `du` — biggest-first tree of disk usage with inline bar graphs. |
-| [7-Zip (sevenzip)](15-sevenzip.md) | High-ratio archiver (`7zz`); yazi's archive preview/extract backend. |
-| [resvg](16-resvg.md) | Fast, correct SVG → PNG rasterizer; yazi's SVG preview backend. |
+| [[01-tree|tree]] | Recursive directory lister that prints the filesystem hierarchy as an indented tree. |
+| [[02-yazi|Yazi]] | Blazing-fast terminal file manager written in Rust with async I/O and image previews. |
+| [[03-broot|broot]] | Tree-based terminal navigator that fuzzy-filters directory trees and runs commands on matches. |
+| [[04-marta|Marta]] | Extensible two-pane (orthodox) file manager for macOS with full keyboard control. |
+| [[06-keka|Keka]] | macOS file archiver that creates and extracts a wide range of compression formats. |
+| [[07-namechanger|NameChanger]] | macOS app for batch-renaming lists of files with live preview before applying. |
+| [[08-eza|eza]] | Modern `ls` — colors, icons, tree view, git-status column (maintained exa fork). |
+| [[09-bat|bat]] | `cat` with syntax highlighting + line numbers; also the fzf file preview. |
+| [[10-fd|fd]] | Friendly, fast `find` replacement; respects .gitignore; feeds the fzf file list. |
+| [[11-ripgrep|ripgrep]] | Fast recursive in-file search (`rg`); the modern grep. |
+| [[12-fzf|fzf]] | Interactive fuzzy finder; powers Ctrl-R / Ctrl-T / Alt-C and Tab completion. |
+| [[13-zoxide|zoxide]] | Smarter `cd` — `z` jumps to frecency-ranked visited dirs, `zi` picks via fzf. |
+| [[14-dust|dust]] | Modern `du` — biggest-first tree of disk usage with inline bar graphs. |
+| [[15-sevenzip|7-Zip (sevenzip)]] | High-ratio archiver (`7zz`); yazi's archive preview/extract backend. |
+| [[16-resvg|resvg]] | Fast, correct SVG → PNG rasterizer; yazi's SVG preview backend. |
 
 ## Guides
-- [Yazi cheatsheet (beginner)](17-yazi-cheatsheet.md) — zero-assumptions, workflow-first guide to using [Yazi](02-yazi.md): navigating, previewing, opening/sending files to apps, copy/move, fuzzy-find, and feeding files to Claude (llm), plus one big everything-table.
+- [[17-yazi-cheatsheet|Yazi cheatsheet (beginner)]] — zero-assumptions, workflow-first guide to using [[02-yazi|Yazi]]: navigating, previewing, opening/sending files to apps, copy/move, fuzzy-find, and feeding files to Claude (llm), plus one big everything-table.

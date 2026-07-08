@@ -24,14 +24,14 @@ Every one of these actually happened while building this project. They're the fa
 
 | Symptom | Jump to |
 |---|---|
-| "Access token not provided" | [#1](#1-access-token-not-provided) |
-| Dashboard says no "anon" key | [#2](#2-the-dashboard-has-no-anon-key) |
-| Library: "Failed to load" | [#3](#3-library-shows-failed-to-load) |
-| Cards show but thumbnails are blank/404 | [#4](#4-thumbnails-are-blank-or-404) |
-| Images blocked by COEP / cross-origin | [#5](#5-images-blocked-by-cross-origin-isolation) |
-| `supabase start` crashes (exit 134) | [#6](#6-supabase-start-crashes-exit-134) |
-| Insert says "row-level security" | [#7](#7-insert-blocked-by-row-level-security) |
-| Changed `.env.local`, app didn't notice | [#8](#8-env-changes-not-picked-up) |
+| "Access token not provided" | [[08-pitfalls-and-troubleshooting#1. "Access token not provided"|#1]] |
+| Dashboard says no "anon" key | [[08-pitfalls-and-troubleshooting#2. The dashboard has no "anon" key|#2]] |
+| Library: "Failed to load" | [[08-pitfalls-and-troubleshooting#3. Library shows "Failed to load"|#3]] |
+| Cards show but thumbnails are blank/404 | [[08-pitfalls-and-troubleshooting#4. Thumbnails are blank or 404|#4]] |
+| Images blocked by COEP / cross-origin | [[08-pitfalls-and-troubleshooting#5. Images blocked by cross-origin isolation|#5]] |
+| `supabase start` crashes (exit 134) | [[08-pitfalls-and-troubleshooting#6. `supabase start` crashes (exit 134)|#6]] |
+| Insert says "row-level security" | [[08-pitfalls-and-troubleshooting#7. Insert blocked by Row Level Security|#7]] |
+| Changed `.env.local`, app didn't notice | [[08-pitfalls-and-troubleshooting#8. `.env` changes not picked up|#8]] |
 
 ---
 
@@ -43,7 +43,7 @@ Every one of these actually happened while building this project. They're the fa
 ## 2. The dashboard has no "anon" key
 
 **Cause:** Supabase **renamed** the keys. The old **anon key** is now the **Publishable key** (`sb_publishable_…`); the old **service_role** is the **Secret key** (`sb_secret_…`). Old tutorials still say "anon."
-**Fix:** use the **Publishable key** wherever a guide says "anon key." See [chapter 04](04-api-keys-and-environment.md). (Legacy-format keys still exist under a separate dashboard tab if something truly needs them.)
+**Fix:** use the **Publishable key** wherever a guide says "anon key." See [[04-api-keys-and-environment|chapter 04]]. (Legacy-format keys still exist under a separate dashboard tab if something truly needs them.)
 
 ## 3. Library shows "Failed to load"
 

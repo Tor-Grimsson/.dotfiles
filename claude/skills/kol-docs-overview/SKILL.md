@@ -15,9 +15,11 @@ The **front door**. One read to understand *why* a `docs/` tree looks the way it
 | **Machinery** | `docs/<sibling>/` (e.g. `operations/`) | Repo/CI/tooling process — a sibling, never a numbered section inside `documentation/`. |
 | **Agent state** | `.kol/llm-context/` | Architecture, context, session logs — outside the Obsidian vault entirely. |
 
-**The Obsidian layer:** `docs/.obsidian/` is vault *config*, not doc content — symlinked (or copied) from `~/.dotfiles/claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/` so the render/graph/backlinks experience is consistent across repos without hand-configuring each one. It's part of the system a newcomer needs to know exists, even though `scaffold-docs-system` owns the actual wiring (source picker, symlink-vs-copy trade-off).
+**The Obsidian layer:** `docs/.obsidian/` is vault *config*, not doc content — a real local directory whose files are symlinked (or copied) **per-file, not as a whole directory**, from `~/.dotfiles/claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/` so the render/graph/backlinks experience is consistent across repos without hand-configuring each one. Per-file matters: a handful of files (`workspace.json` and other per-vault runtime state) are never seeded at all, so each repo's vault stays independent even while the rest of the config is shared. It's part of the system a newcomer needs to know exists, even though `scaffold-docs-system` owns the actual wiring (source picker, symlink-vs-copy trade-off).
 
 The dividing question for any doc: *"is this the repo's subject, or the machinery around the repo?"* Subject → `documentation/`. Machinery → its own sibling folder. Agent-only → `.kol/`.
+
+**Link form follows the same split:** inside the vault, wikilinks; outside it (root `README.md`, GitHub-facing files), markdown links — and inside the vault, heading-anchor links must use the literal heading text, never a GitHub kebab-slug (Obsidian doesn't resolve those). Full rule + why: `scaffold-docs-system`'s render-target section.
 
 **Known gap:** the canon only names these three. Content that's neither — dead/superseded subject matter (an `archive/` sibling), or a content registry carrying PII that shouldn't sit in the numbered vault sections (e.g. a founder/business-data registry) — has no officially blessed slot. Treat these as pragmatic per-repo exceptions, not license to invent siblings freely; if a repo needs one, name the real reason (history vs access-boundary vs something else), don't default to "it felt right."
 

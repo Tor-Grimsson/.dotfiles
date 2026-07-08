@@ -41,7 +41,7 @@ Two design choices make it the archive tool rather than just another encoder:
   bitrate to hold it. A clean motion graphic comes out tiny; grainy live footage
   comes out bigger — both look the same. The `vid-h265-*` family targets a fixed
   Mbps instead, which either wastes bytes on simple content or starves complex
-  content. (See [the family overview](02-video.md).)
+  content. (See [[02-video|the family overview]].)
 - **10-bit colour**, even from an 8-bit source. The signature artifact when you
   compress gradients is *banding* (visible stair-steps in a fade). Encoding 10-bit
   removes it — the single most important flag for motion graphics.
@@ -148,7 +148,7 @@ whenever a job needs one. Downscaling a clean 4K to 1080p even *supersamples* �
 
 > `-s` limits **height**. For landscape footage that's the intuitive "1080p / 720p".
 > To *reframe* to a different aspect (crop a 16:9 master to 9:16, etc.), that's a
-> different job — use [vid-convert.sh](02-video.md).
+> different job — use [[02-video|vid-convert.sh]].
 
 ## 5. Grain: animation vs. live footage (`-g`)
 

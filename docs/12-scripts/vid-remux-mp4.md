@@ -35,7 +35,7 @@ It only re-encodes when it has to: an audio codec MP4 can't carry (PCM, Opus,
 Vorbis, FLAC) is dropped to **AAC 256k** — the video still copies. A *video*
 codec that can't sit in MP4 (ProRes, VP9, MPEG-2, DNxHD) is **skipped with a
 reason**, not silently mangled — that case wants a real transcode
-([vid-h265-small-web.sh / vid-convert.sh](02-video.md)).
+([[02-video|vid-h265-small-web.sh / vid-convert.sh]]).
 
 The script is the source of truth (`~/.dotfiles/bin/vid-remux-mp4.sh`, symlinked
 onto `PATH`); this doc is the reference.

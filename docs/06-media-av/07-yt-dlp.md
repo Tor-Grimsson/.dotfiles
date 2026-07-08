@@ -33,8 +33,8 @@ One dependency worth stating head-on:
 | For | Needs |
 |---|---|
 | download a single stream | yt-dlp alone |
-| merge best video + best audio, or `-x` extract audio | [FFmpeg](01-ffmpeg.md) (brew, already installed) |
-| spoken-word transcript | `-x` audio → [whisper.cpp](04-whisper-cpp.md) (`whisper-cli`) |
+| merge best video + best audio, or `-x` extract audio | [[01-ffmpeg|FFmpeg]] (brew, already installed) |
+| spoken-word transcript | `-x` audio → [[04-whisper-cpp|whisper.cpp]] (`whisper-cli`) |
 
 The posted **caption/metadata** (description, uploader, URL, date) comes straight from yt-dlp — no whisper needed. Only the *spoken* transcript needs the whisper hop.
 
@@ -69,9 +69,9 @@ yt-dlp -o "%(title)s.%(ext)s" <url>            # name the output by title
 Needed a reliable downloader for media work, and the seed of a **TikTok → markdown** pipeline. yt-dlp is the readymade answer — TikTok-specific tools are abandoned because sites change markup constantly and only yt-dlp keeps pace.
 
 ## Biggest win
-One command, one tool, ~1800 sites — and `-x` drops straight into the [whisper.cpp](04-whisper-cpp.md) pipeline, the inverse of [edge-tts](06-edge-tts.md) (text→speech).
+One command, one tool, ~1800 sites — and `-x` drops straight into the [[04-whisper-cpp|whisper.cpp]] pipeline, the inverse of [[06-edge-tts|edge-tts]] (text→speech).
 
 ## Future use
-Built: [au-transcribe.sh](../12-scripts/au-transcribe.md) — `yt-dlp` grabs the caption + metadata (frontmatter) and the audio, `whisper-cli` transcribes it → a single `.md` note. This is the script that finally wired up [whisper.cpp](04-whisper-cpp.md).
+Built: [[au-transcribe|au-transcribe.sh]] — `yt-dlp` grabs the caption + metadata (frontmatter) and the audio, `whisper-cli` transcribes it → a single `.md` note. This is the script that finally wired up [[04-whisper-cpp|whisper.cpp]].
 
-Built: [dl-yt.sh](../12-scripts/12-download.md) — a thin **keep-the-file** wrapper. Defaults to best video + best audio merged to **MKV**, because forcing `.mp4` caps audio to AAC and drops the Opus stream; `-a` rips best audio in its native codec, `-m` falls back to MP4 for portability.
+Built: [[12-download|dl-yt.sh]] — a thin **keep-the-file** wrapper. Defaults to best video + best audio merged to **MKV**, because forcing `.mp4` caps audio to AAC and drops the Opus stream; `-a` rips best audio in its native codec, `-m` falls back to MP4 for portability.

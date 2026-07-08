@@ -90,4 +90,4 @@ But this uses a **local simulation** of R2 — an empty fake bucket on your mach
 
 ---
 
-**Next:** [Wrangler — the CLI and every command that matters](04-wrangler.md)
+**Next:** [[04-wrangler|Wrangler — the CLI and every command that matters]]

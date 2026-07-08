@@ -127,4 +127,4 @@ Prints your account name and account ID. If this fails you're not authenticated 
 
 ---
 
-**Next:** [kol-media — the actual setup, bucket, and deploy process](05-kol-media-setup.md)
+**Next:** [[05-kol-media-setup|kol-media — the actual setup, bucket, and deploy process]]

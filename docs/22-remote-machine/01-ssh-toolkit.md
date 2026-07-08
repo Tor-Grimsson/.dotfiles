@@ -45,7 +45,7 @@ Host acyr
   ForwardAgent yes
 ```
 
-`ssh acyr` now drops you straight into a tmux session named `main` — created if it doesn't exist, reattached if it does (`new -A` = new-or-attach). Disconnect however you want (close the laptop, network drops), `ssh acyr` again picks up exactly where you left off. This is the real answer to "list/resume my SSH sessions" — see [tmux tips → Session tricks](../01-shell-terminal/09-tmux-tips.md#session-tricks) for the full session-command reference (`tmux ls`, `tmux a -t <name>`, etc.), this just automates the "get into one" step.
+`ssh acyr` now drops you straight into a tmux session named `main` — created if it doesn't exist, reattached if it does (`new -A` = new-or-attach). Disconnect however you want (close the laptop, network drops), `ssh acyr` again picks up exactly where you left off. This is the real answer to "list/resume my SSH sessions" — see [[09-tmux-tips#Session tricks|tmux tips → Session tricks]] for the full session-command reference (`tmux ls`, `tmux a -t <name>`, etc.), this just automates the "get into one" step.
 
 One gotcha: `RemoteCommand` replaces the default shell — if you ever need a plain shell on that host (no tmux), `ssh -o RemoteCommand=none acyr` overrides it for one connection.
 
@@ -102,7 +102,7 @@ Host inner-host
 
 ### 4. IdentitiesOnly + per-identity keys — multiple accounts, one machine
 
-If more than one SSH key is loaded in the agent (e.g. two GitHub accounts — see [remote dev workflow](02-remote-dev-workflow.md)), SSH will offer them **in load order** until the server accepts one — noisy, and sometimes the wrong key gets offered first and the server counts the failed attempt. Pin it explicitly:
+If more than one SSH key is loaded in the agent (e.g. two GitHub accounts — see [[02-remote-dev-workflow|remote dev workflow]]), SSH will offer them **in load order** until the server accepts one — noisy, and sometimes the wrong key gets offered first and the server counts the failed attempt. Pin it explicitly:
 
 ```sshconfig
 Host github.com-work

@@ -185,3 +185,12 @@ Two forms render identically in preview but behave differently in resolution.
 **Pure alias is acceptable when:** you're inside Obsidian and the index is current, the alias is reliably unique vault-wide, and you value brevity over reliability.
 
 The framework's own cross-references all use the explicit form. External links use standard markdown `[text](url)`. Body link form by render target (wikilinks in-vault, markdown for GitHub-rendered files) is a whole-library concern — see the `kol-docs-lib` package.
+
+### Heading anchors — GitHub slug vs Obsidian literal text
+
+| Anchor form | Resolves in |
+|---|---|
+| `#kebab-case-slug` (GitHub/VS Code auto-slug from the heading) | GitHub, VS Code preview — **not** Obsidian |
+| `#Literal Heading Text` (heading exactly as written) | Obsidian only |
+
+The two render targets don't share an anchor format — there's no setting that reconciles them, it's a genuine incompatibility (open Obsidian feature request, unresolved). Since in-vault body links are already wikilinks by the render-target rule, this rarely bites: just always anchor with the **literal heading text**, never a slug — `[[file#Heading Text|display]]`. A stray markdown-style anchor link (`[display](file.md#heading-text)`) will still open the right file in Obsidian but silently fail to jump to the section.

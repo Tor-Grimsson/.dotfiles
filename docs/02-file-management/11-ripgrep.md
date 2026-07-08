@@ -52,7 +52,7 @@ rg --hidden -uu secret   # include hidden + ignored + binary files
 
 ## Why installed
 
-Searching code or notes for a string with BSD `grep -r` is slow and noisy. `rg` is faster and ignores junk by default. It also pairs with fzf for "search-as-you-type across files" (the `rg … | fzf` live-grep). See [fzf](12-fzf.md).
+Searching code or notes for a string with BSD `grep -r` is slow and noisy. `rg` is faster and ignores junk by default. It also pairs with fzf for "search-as-you-type across files" (the `rg … | fzf` live-grep). See [[12-fzf|fzf]].
 
 ## Biggest win
 

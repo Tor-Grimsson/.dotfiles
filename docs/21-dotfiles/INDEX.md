@@ -20,12 +20,12 @@ The catalog documents 85 *tools*; this section documents the **repo itself** —
 
 | # | Doc | What it covers |
 |---|-----|----------------|
-| 01 | [Repo model](01-repo-model.md) | Two machines, one repo: the symlink source-of-truth model, cross-arch (Intel iMac `/usr/local` / Apple-Silicon MBP `/opt/homebrew`), and what's tracked vs. left as runtime state. |
-| 02 | [Provisioning](02-provisioning.md) | `bootstrap-cli.sh` vs `bootstrap.sh`, `brewfile-cli` vs `brewfile-gui` — the CLI-vs-GUI split, the foreign-box / SSH quickstart, and what each script installs. |
+| 01 | [[01-repo-model|Repo model]] | Two machines, one repo: the symlink source-of-truth model, cross-arch (Intel iMac `/usr/local` / Apple-Silicon MBP `/opt/homebrew`), and what's tracked vs. left as runtime state. |
+| 02 | [[02-provisioning|Provisioning]] | `bootstrap-cli.sh` vs `bootstrap.sh`, `brewfile-cli` vs `brewfile-gui` — the CLI-vs-GUI split, the foreign-box / SSH quickstart, and what each script installs. |
 
 ## See also
 
-- [Remote machine](../22-remote-machine/INDEX.md) — what comes after provisioning: actually working on a box like this over SSH.
-- [Tooling catalog](../INDEX.md) — the per-tool reference this sits beside.
+- [[22-remote-machine/INDEX|Remote machine]] — what comes after provisioning: actually working on a box like this over SSH.
+- [[INDEX|Tooling catalog]] — the per-tool reference this sits beside.
 - [ARCHITECTURE.md](../../.kol/llm-context/ARCHITECTURE.md) — the same load-bearing decisions in agent-terse form.
 - [TOOLING.md](../../TOOLING.md) — the drift audit, cross-arch notes, and open items.

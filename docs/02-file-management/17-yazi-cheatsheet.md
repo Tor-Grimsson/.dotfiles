@@ -23,7 +23,7 @@ related:
 
 # Yazi cheatsheet (beginner)
 
-Assumes you've never used a terminal file manager. Read it top to bottom once, do the workflows, then keep the [big table](#everything-table) open while you work. For the dry config/reference, see [Yazi](02-yazi.md).
+Assumes you've never used a terminal file manager. Read it top to bottom once, do the workflows, then keep the [[17-yazi-cheatsheet#Everything table|big table]] open while you work. For the dry config/reference, see [[02-yazi|Yazi]].
 
 ## What Yazi is (the mental model)
 
@@ -163,7 +163,7 @@ First pick files, then act. Selection is how you operate on many at once.
 | `Z` | **fzf** — fuzzy-pick any file/folder from a live list |
 | `t` | open a **new tab** · `1`…`9` switch tabs · `<Tab>` cycles |
 
-`z` and `Z` are the big ones — see [integrations](#how-it-connects-to-your-other-tools) below.
+`z` and `Z` are the big ones — see [[17-yazi-cheatsheet#How it connects to your other tools|integrations]] below.
 
 ## Worked workflows
 
@@ -216,7 +216,7 @@ Press **`:`** instead of `;` so Yazi waits and you see the answer.
 llm "what's wrong with this config?" < broken.toml
 ```
 
-(`llm` is Simon Willison's CLI, default model `claude-haiku-4.5` — see [llm](../04-dev-languages/09-llm.md).)
+(`llm` is Simon Willison's CLI, default model `claude-haiku-4.5` — see [[09-llm|llm]].)
 
 ### 8. Open one file in a specific app, reveal another in Finder
 
@@ -228,11 +228,11 @@ You asked specifically about fzf, zoxide (`z`), bat, eza, and llm. Here's the ho
 
 | Tool | Relationship to Yazi | How you feel it |
 |---|---|---|
-| **zoxide** ([13-zoxide](13-zoxide.md)) | **Built in** — `z` inside Yazi uses the *same* frecency database as `z` in your shell. | Press `z`, type a fragment, teleport. Visiting folders in Yazi *and* in the shell both train it. |
-| **fzf** ([12-fzf](12-fzf.md)) | **Built in** — `Z` inside Yazi fuzzy-finds files/folders via fzf. | Press `Z`, fuzzy-type, jump. Same engine as your shell's `Ctrl-T` / `Ctrl-R`. |
-| **bat** ([09-bat](09-bat.md)) | **Not** called by Yazi — Yazi has its *own* syntax-highlighted text preview. bat is your **shell's** `cat` (`alias cat='bat'`). | They're cousins, not connected: gorgeous text preview in Yazi, gorgeous `cat` in the shell. |
-| **eza** ([08-eza](08-eza.md)) | **Not** called by Yazi — Yazi *is* the visual file lister. eza is the **inline** `ls` for when you don't want a full TUI (`ls`/`ll`/`lt`). | Use eza for a quick listing in place; use `y` when you want to browse and preview. |
-| **llm** ([llm](../04-dev-languages/09-llm.md)) | **Not** built in — but Yazi's shell command (`;`) pipes the hovered/selected file straight to it. | See [workflow 7](#7-ask-claude-about-a-file-llm). |
+| **zoxide** ([[13-zoxide|13-zoxide]]) | **Built in** — `z` inside Yazi uses the *same* frecency database as `z` in your shell. | Press `z`, type a fragment, teleport. Visiting folders in Yazi *and* in the shell both train it. |
+| **fzf** ([[12-fzf|12-fzf]]) | **Built in** — `Z` inside Yazi fuzzy-finds files/folders via fzf. | Press `Z`, fuzzy-type, jump. Same engine as your shell's `Ctrl-T` / `Ctrl-R`. |
+| **bat** ([[09-bat|09-bat]]) | **Not** called by Yazi — Yazi has its *own* syntax-highlighted text preview. bat is your **shell's** `cat` (`alias cat='bat'`). | They're cousins, not connected: gorgeous text preview in Yazi, gorgeous `cat` in the shell. |
+| **eza** ([[08-eza|08-eza]]) | **Not** called by Yazi — Yazi *is* the visual file lister. eza is the **inline** `ls` for when you don't want a full TUI (`ls`/`ll`/`lt`). | Use eza for a quick listing in place; use `y` when you want to browse and preview. |
+| **llm** ([[09-llm|llm]]) | **Not** built in — but Yazi's shell command (`;`) pipes the hovered/selected file straight to it. | See [[17-yazi-cheatsheet#7. Ask Claude about a file (llm)|workflow 7]]. |
 | **nvim** | Yazi's editor (`$EDITOR`) — opens text files and powers **bulk rename**. | `<Enter>` on a `.md`, or `r` on a selection. |
 | **Quick Look / Finder** | macOS native, via `<C-y>` and `open -R`. | Peek without launching; reveal when you need the GUI. |
 
@@ -312,7 +312,7 @@ The full keymap for your install — stock Yazi keys plus your customizations. (
 
 - **Highlight won't move / weird behavior?** → `<Esc>`. You're probably in a filter or selection.
 - **Deleted something by accident?** → if you used `d` it's in the **Trash** (recover from Finder). `D` is permanent — that's why it's separate.
-- **Preview is blank?** → that filetype may need a backend; check the deps table in [Yazi](02-yazi.md) (`brew install sevenzip resvg` covers the last gaps).
+- **Preview is blank?** → that filetype may need a backend; check the deps table in [[02-yazi|Yazi]] (`brew install sevenzip resvg` covers the last gaps).
 - **Quit but the shell didn't move?** → you pressed `Q` (no-cd). Use lowercase `q`.
 - **Forgot a key?** → press **`~`** for the full help, right inside Yazi.
 
@@ -320,4 +320,4 @@ The full keymap for your install — stock Yazi keys plus your customizations. (
 
 - **`~`** — Yazi's built-in keymap help (the source of truth for your version).
 - **Manual** — <https://yazi-rs.github.io/> (config, plugins, every command).
-- The terse reference (config files, plugins, deps): [Yazi](02-yazi.md).
+- The terse reference (config files, plugins, deps): [[02-yazi|Yazi]].

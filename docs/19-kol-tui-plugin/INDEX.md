@@ -21,7 +21,7 @@ related:
 **Status: exploration only, nothing built.** Logged so the option survey isn't lost, not because this is scheduled work.
 
 ## Problem
-Want a pane — always visible, or toggled on demand — listing bookmarked **files, URLs, and git worktrees** as clickable links: click a file, it opens; click a worktree, it jumps there; click a URL, it opens in the browser. Not a file browser (already have [yazi](../02-file-management/02-yazi.md) for that, and it's better at it than the tmux sidebar plugins that were considered and passed on for being "just an explorer").
+Want a pane — always visible, or toggled on demand — listing bookmarked **files, URLs, and git worktrees** as clickable links: click a file, it opens; click a worktree, it jumps there; click a URL, it opens in the browser. Not a file browser (already have [[02-yazi|yazi]] for that, and it's better at it than the tmux sidebar plugins that were considered and passed on for being "just an explorer").
 
 **Inspiration, visual only:** [supacode.sh](https://supacode.sh) and [herdr.dev](https://herdr.dev) both ship a sidebar wrapping a terminal multiplexer. Neither's actual feature set is what's wanted here — supacode is a full terminal-emulator replacement, herdr's sidebar shows AI-agent status, not bookmarks. The only thing borrowed from them is "a sidebar pane next to your work is a proven, comfortable layout" — not their implementation.
 
@@ -41,15 +41,15 @@ The original ask was "always visible like windows are visible in a session" — 
 - **OSC-8** is a real, standard escape sequence, not something invented for this: `printf '\e]8;;URL\e\\visible text\e]8;;\e\\'` — natively supported by iTerm2 (Cmd+click to open).
 - Not limited to web URLs — iTerm2 also has **command URLs** (`iterm2:/command?c=...`): a clickable link that *runs a shell command*. This is the piece that makes "click to open a file in nvim" or "click to jump into a worktree" actually work, not just http links.
 - iTerm2 also already ships **Named Marks** (Edit → Named Marks, or the Toolbelt) — a built-in bookmark-a-point-and-jump-back feature. Zero code. Might cover part of this need without building anything at all — worth testing before building.
-- Content sources: [tmux-harpoon](../01-shell-terminal/22-tmux-harpoon.md)'s bookmark file (sessions), a new plain-text file maintained for files/URLs, and `workmux list` (worktrees) — one script formats all three as links.
+- Content sources: [[22-tmux-harpoon|tmux-harpoon]]'s bookmark file (sessions), a new plain-text file maintained for files/URLs, and `workmux list` (worktrees) — one script formats all three as links.
 
 ### B. A yazi bookmark plugin (didn't know these existed going in — genuinely worth reconsidering)
-Yazi already has a mature bookmark-plugin ecosystem: **yamb.yazi**, **whoosh.yazi**, **bookmarks.yazi**, **bunny.yazi** — all persistent, fuzzy-searchable, jump-by-key, already built and maintained by other people. Since [yazi](../02-file-management/02-yazi.md) is already installed and already rated above the tmux file-tree sidebars for browsing, running one of these plugins inside a fixed yazi pane reuses a solved problem instead of rebuilding it.
+Yazi already has a mature bookmark-plugin ecosystem: **yamb.yazi**, **whoosh.yazi**, **bookmarks.yazi**, **bunny.yazi** — all persistent, fuzzy-searchable, jump-by-key, already built and maintained by other people. Since [[02-yazi|yazi]] is already installed and already rated above the tmux file-tree sidebars for browsing, running one of these plugins inside a fixed yazi pane reuses a solved problem instead of rebuilding it.
 - Doesn't natively cover **URLs** or **git worktrees** — yazi bookmarks are files/directories. Would still need pairing with something else for those two.
 - Fixed-pane placement is a tmux/AeroSpace question (see question #1), not a yazi one — yazi itself doesn't "dock" anywhere on its own.
 
 ### C. Custom tmux plugin (the literal "container tmux lives inside" framing)
-Same pattern as `tmux-sidebar`/`treemux` (both passed on) but purpose-built for bookmarks+worktrees+URLs instead of a file tree — a `bind` + `run-shell` pair, the same mechanism already used for [tmux-harpoon](../01-shell-terminal/22-tmux-harpoon.md), rendering into a small fixed-size pane. Most control, also the most to build and maintain long-term.
+Same pattern as `tmux-sidebar`/`treemux` (both passed on) but purpose-built for bookmarks+worktrees+URLs instead of a file tree — a `bind` + `run-shell` pair, the same mechanism already used for [[22-tmux-harpoon|tmux-harpoon]], rendering into a small fixed-size pane. Most control, also the most to build and maintain long-term.
 
 ## Cheapest way to actually test the concept
 1. Hand-`printf` a fake OSC-8 link in a spare pane — confirm Cmd+click actually opens it on this iTerm2 version. Five minutes, zero build, and rules out a whole class of "does the terminal even support this" risk before writing anything.

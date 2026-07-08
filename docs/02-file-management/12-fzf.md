@@ -30,7 +30,7 @@ related:
 
 ## Summary
 
-Pipe any list in, type to fuzzy-filter, pick one. The spine of the shell setup here: wired to **Ctrl-R** (history), **Ctrl-T** (insert a file path), **Alt-C** (cd), and Tab completion (via the `fzf-tab` plugin). Fed by [fd](10-fd.md), previewed by [bat](09-bat.md) / [eza](08-eza.md).
+Pipe any list in, type to fuzzy-filter, pick one. The spine of the shell setup here: wired to **Ctrl-R** (history), **Ctrl-T** (insert a file path), **Alt-C** (cd), and Tab completion (via the `fzf-tab` plugin). Fed by [[10-fd|fd]], previewed by [[09-bat|bat]] / [[08-eza|eza]].
 
 > Once open, **typing IS the search** — there's no search command. Arrow to move, Enter to pick, Esc to cancel.
 

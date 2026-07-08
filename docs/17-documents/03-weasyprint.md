@@ -49,4 +49,4 @@ The **CSS-controlled** lane of the Markdown→print pipeline — the natural fit
 Print layout in **standard CSS**, no new language, no browser, tiny output files. Swap `print.css` and the same Markdown prints branded.
 
 ## Future use
-The `-e weasyprint` lane of [pdf-from-md.sh](../12-scripts/04-pdf.md), with a starter `bin/print.css`. Full workflow: [Markdown → A4](05-markdown-to-a4.md).
+The `-e weasyprint` lane of [[04-pdf|pdf-from-md.sh]], with a starter `bin/print.css`. Full workflow: [[05-markdown-to-a4|Markdown → A4]].

@@ -53,7 +53,7 @@ In `shell/.zshrc`: `export BAT_THEME="ansi"` and `alias cat='bat --paging=never'
 
 ## Why installed
 
-Reading config/code in the terminal with no color or line numbers is painful. bat fixes that and doubles as the fzf preview pane — hover a file in any picker and see it highlighted. See [fzf](12-fzf.md).
+Reading config/code in the terminal with no color or line numbers is painful. bat fixes that and doubles as the fzf preview pane — hover a file in any picker and see it highlighted. See [[12-fzf|fzf]].
 
 ## Biggest win
 

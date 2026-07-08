@@ -13,10 +13,10 @@ Command-line tooling for **Markdown → print-ready A4 PDFs**. Pandoc is the con
 
 | Tool | Description |
 | --- | --- |
-| [Pandoc](01-pandoc.md) | Universal document converter (Markdown→PDF/HTML/Word/…). Drives a separate PDF engine. |
-| [Typst](02-typst.md) | Modern typesetting engine — Pandoc's fast, small PDF engine (`--pdf-engine=typst`). |
-| [WeasyPrint](03-weasyprint.md) | HTML+CSS→PDF (CSS Paged Media, no browser) — Pandoc's CSS engine (`--pdf-engine=weasyprint`). |
-| [entr](04-entr.md) | Re-run a command when files change — watch mode for the convert loop. |
+| [[01-pandoc|Pandoc]] | Universal document converter (Markdown→PDF/HTML/Word/…). Drives a separate PDF engine. |
+| [[02-typst|Typst]] | Modern typesetting engine — Pandoc's fast, small PDF engine (`--pdf-engine=typst`). |
+| [[03-weasyprint|WeasyPrint]] | HTML+CSS→PDF (CSS Paged Media, no browser) — Pandoc's CSS engine (`--pdf-engine=weasyprint`). |
+| [[04-entr|entr]] | Re-run a command when files change — watch mode for the convert loop. |
 
 ## Workflow
-- [Markdown → A4 print](05-markdown-to-a4.md) — the two lanes, the `pdf-from-md.sh` script, A4 knobs, batch + watch, Quick Action.
+- [[05-markdown-to-a4|Markdown → A4 print]] — the two lanes, the `pdf-from-md.sh` script, A4 knobs, batch + watch, Quick Action.

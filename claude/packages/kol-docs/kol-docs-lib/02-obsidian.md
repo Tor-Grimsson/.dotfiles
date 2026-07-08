@@ -2,8 +2,8 @@
 title: Obsidian vault-config source
 type: reference
 status: active
-updated: 2026-07-05 (2)
-description: The single .obsidian config source repos symlink or copy into docs/.obsidian, its two shapes, and the four-choice picker.
+updated: 2026-07-05 (3)
+description: The single .obsidian config source repos symlink (per-file) or copy into docs/.obsidian, its three shapes, and the six-choice picker.
 tags:
   - framework/conventions
   - provider/obsidian
@@ -31,15 +31,29 @@ Each shape is an openable mini-vault (a `.obsidian/` + a dummy note) — open it
 
 Present six options (AskUserQuestion — symlink or copy, times 3 shapes):
 
-1. **Symlink `01-vault-shape`** — `ln -s ~/.dotfiles/claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/01-vault-shape/.obsidian docs/.obsidian`. Shared, no drift.
+1. **Symlink `01-vault-shape`** — per-file (see below). Shared, no drift.
 2. **Symlink `02-kol-vault-shape`** — same, the rich kol-vault set.
 3. **Symlink `03-kol-ds-shape`** — same, minimal.
 4. **Copy `01-vault-shape`** — `cp -R`, repo owns it, drifts independently.
 5. **Copy `02-kol-vault-shape`** — `cp -R`, the rich kol-vault set.
 6. **Copy `03-kol-ds-shape`** — `cp -R`, minimal.
 
-Symlink = one source of truth (but the repo shares `workspace.json` churn). Copy = independent, per-repo editable, drifts from source.
+Symlink = one source of truth. Copy = independent, per-repo editable, drifts from source.
+
+## Symlink mode is per-file, not whole-directory
+
+`docs/.obsidian/` is a **real local directory** in the target repo. Symlink each file/folder inside it individually to the matching path in the chosen shape — never `ln -s .../.obsidian docs/.obsidian` as one directory symlink:
+
+```sh
+mkdir docs/.obsidian
+SRC=~/.dotfiles/claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/<shape>/.obsidian
+for item in "$SRC"/*; do ln -s "$item" "docs/.obsidian/$(basename "$item")"; done
+```
+
+**Why:** a whole-directory symlink makes `workspace.json` — per-vault runtime state — the literal same file across every repo pointed at that shape, which breaks "per-vault local" outright (there's only one physical file to gitignore or diverge). Per-file symlinking lets the shared plugin config and the independent per-vault state coexist. Copy mode isn't affected — `cp -R` already produces an independent directory.
 
 ## Always excluded
 
-`workspace.json`, `workspaces.json`, `workspace-mobile.json` — per-vault local UI state. Never seeded; **gitignore them in every target repo.**
+Never seeded in any shape — per-vault local UI state / runtime caches, left absent so Obsidian creates them fresh per repo; **gitignore `docs/.obsidian/` wholesale in every target repo either way**:
+
+`workspace.json`, `workspaces.json`, `workspace-mobile.json`, `plugin-data/`, `bookmarks.json`, `switcher.json`, `backlink.json`, `webviewer.json`, `note-composer.json`.

@@ -24,12 +24,12 @@ related:
 
 ## Purpose
 
-`bootstrap-cli.sh` gets a foreign/SSH box provisioned (see [How this repo works](../21-dotfiles/INDEX.md)). This is the next layer: actually working on it — nvim as the editor, `git`/`gh` for push/pull/PRs, secrets with no GUI available, and a two-GitHub-account setup for practicing the real collaboration flow.
+`bootstrap-cli.sh` gets a foreign/SSH box provisioned (see [[21-dotfiles/INDEX|How this repo works]]). This is the next layer: actually working on it — nvim as the editor, `git`/`gh` for push/pull/PRs, secrets with no GUI available, and a two-GitHub-account setup for practicing the real collaboration flow.
 
 ## Prerequisites
 
 - `bootstrap-cli.sh` already run on the box (nvim, tmux, gh, bw all installed + configured).
-- [SSH toolkit](01-ssh-toolkit.md) for the transport side (auto-attach tmux, agent forwarding) — this doc assumes you're already inside a session.
+- [[01-ssh-toolkit|SSH toolkit]] for the transport side (auto-attach tmux, agent forwarding) — this doc assumes you're already inside a session.
 
 ## Walkthrough
 
@@ -82,7 +82,7 @@ No new SSH key to generate and register just for a box you might throw away. `gh
 
 **tmux's own copy mode (`prefix [` → `y`) is fixed and verified working** (2026-07-05): `tmux/.tmux.conf` now sets `set -g set-clipboard on` + `set -g allow-passthrough on`, and the `y`/mouse-drag bindings use `copy-selection-and-cancel` instead of piping to `pbcopy`. tmux relays the copy via **OSC 52** to the outer terminal, so a yank from a remote tmux session lands on *this* Mac's clipboard, not the remote box's. Works identically whether tmux is local or remote — nothing to think about, just `y`.
 
-**The other half of this lives in iTerm2, not tmux.** Even with the tmux side correct, iTerm2 silently drops the OSC 52 write unless "Applications in terminal may access clipboard" is checked and "Allow sending of clipboard contents?" is set to **Always Allow** (Settings -> General -> Selection). "Ask Each Time" can get stuck permanently denying with no dialog and no error once a deny has been recorded once — the failure looks identical to a tmux-side bug but isn't one. See [iTerm2 → How to use](../01-shell-terminal/01-iterm2.md) for the exact toggle.
+**The other half of this lives in iTerm2, not tmux.** Even with the tmux side correct, iTerm2 silently drops the OSC 52 write unless "Applications in terminal may access clipboard" is checked and "Allow sending of clipboard contents?" is set to **Always Allow** (Settings -> General -> Selection). "Ask Each Time" can get stuck permanently denying with no dialog and no error once a deny has been recorded once — the failure looks identical to a tmux-side bug but isn't one. See [[01-iterm2|iTerm2 → How to use]] for the exact toggle.
 
 **nvim's own yank (`"+y`, `unnamedplus`) is still the open gap.** `nvim/lua/grim/core/options.lua:32` sets `opt.clipboard:append("unnamedplus")` — nvim shells out to `pbcopy`/`pbpaste` directly, bypassing tmux's relay entirely. On a remote box that still lands in *that box's* clipboard, invisible to you. Fix (not yet applied): give nvim 0.10+'s built-in OSC52 clipboard provider via `vim.g.clipboard`, or the `ojroques/vim-oscyank` plugin. Until then, `"+y` inside nvim only moves text within nvim's own registers — copy through **tmux's** copy mode instead (`prefix [`, select, `y`) when you need something out of a remote nvim session onto your local clipboard.
 
@@ -99,7 +99,7 @@ Don't try to run two identities through one shared clone — fighting `git`/`gh`
    ```
 4. Push a branch to the fork, then `gh pr create` — this opens a real PR from B's fork branch against A's original repo. Exactly the external-contributor flow, not a simulation of it.
 
-If SSH (rather than `gh`+HTTPS) is the git transport for this, account B needs its own key + an `IdentitiesOnly yes` host alias — see [SSH toolkit § 4](01-ssh-toolkit.md#4-identitiesonly--per-identity-keys--multiple-accounts-one-machine).
+If SSH (rather than `gh`+HTTPS) is the git transport for this, account B needs its own key + an `IdentitiesOnly yes` host alias — see [[01-ssh-toolkit#4. IdentitiesOnly + per-identity keys — multiple accounts, one machine|SSH toolkit § 4]].
 
 ## Troubleshooting
 
@@ -107,5 +107,5 @@ If SSH (rather than `gh`+HTTPS) is the git transport for this, account B needs i
 - **Everything feels laggy over the connection.** Interactive UI (telescope live-grep, nvim-tree toggling) round-trips every keystroke — a genuinely high-latency link (satellite, poor wifi) will feel it no matter what's configured. Not fixable from this side; a lower-latency network path is the only lever.
 
 ## Related
-- [SSH toolkit](01-ssh-toolkit.md) — the transport layer this workflow runs on top of.
-- [Neovim config](../04-dev-languages/10-neovim-config.md) · [GitHub CLI](../04-dev-languages/12-gh.md)
+- [[01-ssh-toolkit|SSH toolkit]] — the transport layer this workflow runs on top of.
+- [[10-neovim-config|Neovim config]] · [[12-gh|GitHub CLI]]

@@ -29,7 +29,7 @@ related:
 ## Summary
 `htop` is an interactive, colour-coded **process and resource monitor** that runs in the terminal. It shows live CPU/memory bars and a sortable list of every running program, and lets you **find the thing eating your machine and kill it** — all by arrow keys and function keys. Think Activity Monitor, but in the terminal, faster, and usable over SSH.
 
-It's the live counterpart to [fastfetch](07-fastfetch.md) (which prints a one-shot specs banner) and the terminal counterpart to [Stats](../09-productivity-desktop/04-stats.md) (the always-on menu-bar gauge).
+It's the live counterpart to [[07-fastfetch|fastfetch]] (which prints a one-shot specs banner) and the terminal counterpart to [[04-stats|Stats]] (the always-on menu-bar gauge).
 
 ## Setup
 
@@ -212,4 +212,4 @@ The terminal-native "what's eating my machine" tool. Opening Activity Monitor is
 **Find-and-kill in seconds, anywhere.** Sort by CPU or memory, see the offender at the top with a readable command line, and end it with two keys — no mouse, no app launch, and identically over SSH. The colour meters also make memory *pressure* (swap filling) obvious in a glance, which Activity Monitor buries.
 
 ## Future use
-A tuned `htoprc` (preferred meters, tree-by-default, decluttered columns) committed to the dotfiles so both machines open the same layout; a `htop -u` or filtered alias for common checks; pairing it with [fastfetch](07-fastfetch.md) for static specs and [Stats](../09-productivity-desktop/04-stats.md) for the always-on menu-bar glance.
+A tuned `htoprc` (preferred meters, tree-by-default, decluttered columns) committed to the dotfiles so both machines open the same layout; a `htop -u` or filtered alias for common checks; pairing it with [[07-fastfetch|fastfetch]] for static specs and [[04-stats|Stats]] for the always-on menu-bar glance.

@@ -26,14 +26,14 @@ related:
 
 | Lane | Engine | For | Command |
 |---|---|---|---|
-| **Generic** | [Typst](02-typst.md) | fast, unbranded, many files — typeset-and-forget | `--pdf-engine=typst -V papersize=a4` |
-| **CSS** | [WeasyPrint](03-weasyprint.md) | branded/controlled — fonts, headers, page numbers | `--pdf-engine=weasyprint --css=print.css` |
+| **Generic** | [[02-typst|Typst]] | fast, unbranded, many files — typeset-and-forget | `--pdf-engine=typst -V papersize=a4` |
+| **CSS** | [[03-weasyprint|WeasyPrint]] | branded/controlled — fonts, headers, page numbers | `--pdf-engine=weasyprint --css=print.css` |
 
 Same Markdown, same converter — swap the flag. Typst = zero design work; WeasyPrint = full CSS control.
 
 ## The script
 
-[pdf-from-md.sh](../12-scripts/04-pdf.md) wraps both lanes:
+[[04-pdf|pdf-from-md.sh]] wraps both lanes:
 
 ```sh
 pdf-from-md.sh notes.md                    # → notes.pdf, A4, typst (default)
@@ -63,7 +63,7 @@ find . -name '*.md' -exec pdf-from-md.sh {} \;       # recurse a tree
 pdf-from-md.sh -w notes.md                            # watch one file while writing
 ```
 
-A **Quick Action** ("Convert to A4 PDF") wraps `pdf-from-md.sh "$f"` in Automator — the same recipe as [Quick Actions](../12-scripts/10-quick-actions.md). Select `.md` in Finder → right-click → convert.
+A **Quick Action** ("Convert to A4 PDF") wraps `pdf-from-md.sh "$f"` in Automator — the same recipe as [[10-quick-actions|Quick Actions]]. Select `.md` in Finder → right-click → convert.
 
 ## Gotcha — wikilinks print literally
 

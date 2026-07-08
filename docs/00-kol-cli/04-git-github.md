@@ -29,7 +29,7 @@ related:
 
 # Git & GitHub
 
-`git` is the version-control engine — it talks to **any** remote. **`gh` is GitHub-specific** — pull requests, issues, CI runs, releases, the API: the half git doesn't cover. This card is the practical layer; for the full `gh` flag reference see [gh](../04-dev-languages/12-gh.md), for parallel-agent setups see [worktrees](../04-dev-languages/14-git-worktrees.md).
+`git` is the version-control engine — it talks to **any** remote. **`gh` is GitHub-specific** — pull requests, issues, CI runs, releases, the API: the half git doesn't cover. This card is the practical layer; for the full `gh` flag reference see [[12-gh|gh]], for parallel-agent setups see [[14-git-worktrees|worktrees]].
 
 > **Auth, once:** `git push` here goes over **SSH with a keychain'd key** (`ssh/config` → `Host github.com`, `id_ed25519`), so git needs no token. `gh` is a **separate** login — `gh auth login` → GitHub.com → HTTPS → web browser. One unlocks pushes, the other unlocks PRs/issues/API.
 
@@ -106,7 +106,7 @@ Start each from inside the repo. `<branch>` / `<file>` / `<sha>` are placeholder
 > git update-index --no-skip-worktree <file>    # reverse it
 > git ls-files -v | grep '^S'                   # list every file currently skip-worktree'd
 > ```
-> **What it actually does to a pull/rebase (tested, not guessed):** it does *not* let git silently overwrite your drifted file (unlike `--assume-unchanged`, which has zero protection) — but it also doesn't silently preserve it and continue. If the file has real local drift when a pull/rebase/checkout needs to touch it, git **aborts the whole operation**: `"Your local changes to <file> would be overwritten by merge/checkout... Aborting."` Verified live: a fast-forward pull and a `rebase` both refused outright with drift present, even on an unrelated commit. So skip-worktree only silences `status`/`diff` reporting — it is **not** a "let pulls flow through untouched" mechanism. If a pull/rebase is refusing and one of your skip-worktree'd files is why, temporarily `git update-index --no-skip-worktree <file>`, reset or stash just that file, do the pull, restore your content, then `--skip-worktree` it again. Local-only, per-clone either way — doesn't touch the committed blob or other machines' clones. Full context: [repo model — foreign/disposable boxes](../21-dotfiles/01-repo-model.md#foreign-disposable-boxes-local-drift-on-a-tracked-file).
+> **What it actually does to a pull/rebase (tested, not guessed):** it does *not* let git silently overwrite your drifted file (unlike `--assume-unchanged`, which has zero protection) — but it also doesn't silently preserve it and continue. If the file has real local drift when a pull/rebase/checkout needs to touch it, git **aborts the whole operation**: `"Your local changes to <file> would be overwritten by merge/checkout... Aborting."` Verified live: a fast-forward pull and a `rebase` both refused outright with drift present, even on an unrelated commit. So skip-worktree only silences `status`/`diff` reporting — it is **not** a "let pulls flow through untouched" mechanism. If a pull/rebase is refusing and one of your skip-worktree'd files is why, temporarily `git update-index --no-skip-worktree <file>`, reset or stash just that file, do the pull, restore your content, then `--skip-worktree` it again. Local-only, per-clone either way — doesn't touch the committed blob or other machines' clones. Full context: [[01-repo-model#Foreign/disposable boxes: local drift on a tracked file|repo model — foreign/disposable boxes]].
 
 ### Undo — the part worth knowing cold
 
@@ -144,7 +144,7 @@ Start each from inside the repo. `<branch>` / `<file>` / `<sha>` are placeholder
 
 ## 3. gh — the GitHub layer
 
-Authed via `gh auth login` (token in the system keychain, never the repo). Full reference: [gh](../04-dev-languages/12-gh.md).
+Authed via `gh auth login` (token in the system keychain, never the repo). Full reference: [[12-gh|gh]].
 
 ```sh
 # Pull requests
@@ -235,7 +235,7 @@ git worktree list
 git worktree remove ../proj-agent-b           # after merging
 ```
 
-Two frictions: each worktree needs its own `pnpm install` (fast — hardlinked store) and its own dev port (`pnpm dev --port 5174`). **Full guide:** [Git worktrees](../04-dev-languages/14-git-worktrees.md).
+Two frictions: each worktree needs its own `pnpm install` (fast — hardlinked store) and its own dev port (`pnpm dev --port 5174`). **Full guide:** [[14-git-worktrees|Git worktrees]].
 
 ---
 
@@ -278,4 +278,4 @@ Two frictions: each worktree needs its own `pnpm install` (fast — hardlinked s
 
 ---
 
-*Living doc — the daily-driver layer. Depth: [gh full reference](../04-dev-languages/12-gh.md) · [worktrees](../04-dev-languages/14-git-worktrees.md). This repo's own git is sync-only ([dot-sync](../12-scripts/11-dot-sync.md)) — the agent never commits; you do. Symlinked into the kol-vault for print.*
+*Living doc — the daily-driver layer. Depth: [[12-gh|gh full reference]] · [[14-git-worktrees|worktrees]]. This repo's own git is sync-only ([[11-dot-sync|dot-sync]]) — the agent never commits; you do. Symlinked into the kol-vault for print.*

@@ -45,7 +45,7 @@ Native split panes plus instant scrollback search (Cmd+F) and the hotkey window 
 - Split panes: Cmd+D (vertical), Cmd+Shift+D (horizontal); navigate with Cmd+Opt+Arrow.
 - Search scrollback: Cmd+F.
 - Hotkey window: Settings -> Keys -> Hotkey, "Create a Dedicated Hotkey Window".
-- **Clipboard access (needed for tmux/OSC 52 copy from a remote box):** Settings -> General -> Selection tab -> check "Applications in terminal may access clipboard", set "Allow sending of clipboard contents?" to **Always Allow** (not "Ask Each Time" — iTerm can get stuck silently denying instead of prompting once a deny has been recorded). Without this, remote `y` yanks never reach the local clipboard, no error shown. Verified 2026-07-05, see [remote dev workflow §3](../22-remote-machine/02-remote-dev-workflow.md#3-clipboard-over-ssh--tmux).
+- **Clipboard access (needed for tmux/OSC 52 copy from a remote box):** Settings -> General -> Selection tab -> check "Applications in terminal may access clipboard", set "Allow sending of clipboard contents?" to **Always Allow** (not "Ask Each Time" — iTerm can get stuck silently denying instead of prompting once a deny has been recorded). Without this, remote `y` yanks never reach the local clipboard, no error shown. Verified 2026-07-05, see [[02-remote-dev-workflow#3. Clipboard over SSH + tmux|remote dev workflow §3]].
 
 ## Future use
 Triggers (regex-driven actions on output), the Python API for scripting window layouts, and tmux integration mode (`tmux -CC`) which turns tmux windows into native iTerm2 tabs — all unexplored here and worth adopting for session automation.

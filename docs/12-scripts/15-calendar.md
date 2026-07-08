@@ -13,12 +13,12 @@ related:
 
 # Calendar (`cplan`)
 
-`bin/cplan` is a [gcalcli](../01-shell-terminal/14-gcalcli.md) companion — a planning
+`bin/cplan` is a [[14-gcalcli|gcalcli]] companion — a planning
 view that lists a window of events with the **daily / weekly / biweekly recurring
 noise hidden**, so a month-ahead glance shows only the one-offs and rare events you'd
 actually forget. It's **non-prefixed** (callable as `cplan`, matching the `c*` gcalcli
 aliases) rather than `cal-…` — a deliberate exception to the `domain-` bin scheme, like
-[`tor-search`](07-torrent.md). Written in **Python** because the grouping needs associative
+[[07-torrent|`tor-search`]]. Written in **Python** because the grouping needs associative
 arrays, which macOS's bash 3.2 lacks.
 
 ## Usage
@@ -53,7 +53,7 @@ be mistaken for a series.
 
 ## `cbrief` (morning briefing)
 A shell **function** (in `shell/.zshrc`, not a `bin/` script — documented with the
-[gcalcli aliases](../01-shell-terminal/14-gcalcli.md#aliases) since that's where its code
+[[14-gcalcli#Aliases|gcalcli aliases]] since that's where its code
 lives) that stacks two views: today's full agenda (recurring **included** — you want your
 standup) followed by `cplan --30d-p` (recurring hidden). One command for "what's my day,
 and what's coming that I'd forget".

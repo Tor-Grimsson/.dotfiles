@@ -19,7 +19,7 @@ related:
 
 `kol-bucket-b2` and `kol-bucket-r2` both trigger on **action** language (ls/tree/upload/sync/rm). A plain orientation question — "where's X stored", "what's the CDN layout", "which bucket holds Y" — doesn't match that framing, and the only place the answer lived was this folder's `INDEX.md`, which nothing surfaces unless the reader already knows to look here.
 
-`kol-cdn-overview` (`claude/skills/kol-cdn-overview/SKILL.md`) closes that gap: a third, read-only skill that answers the orientation question directly — two providers, three buckets, what each holds, who consumes it, where the live tree snapshots are — without running anything. It sources its facts from [01-b2](01-b2.md) and [03-r2](03-r2.md) rather than duplicating them; when those docs change, update the skill to match.
+`kol-cdn-overview` (`claude/skills/kol-cdn-overview/SKILL.md`) closes that gap: a third, read-only skill that answers the orientation question directly — two providers, three buckets, what each holds, who consumes it, where the live tree snapshots are — without running anything. It sources its facts from [[01-b2|01-b2]] and [[03-r2|03-r2]] rather than duplicating them; when those docs change, update the skill to match.
 
 ## Why a separate skill, not just pointing people at `INDEX.md`
 

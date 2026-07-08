@@ -55,7 +55,7 @@ The aliases (in `shell/.zshrc`): `ls`/`ll`/`la`/`lt` → eza. Icons need a Nerd 
 
 ## Why installed
 
-macOS ships BSD `ls` — no git column, weak color, no tree. eza covers all three and is the daily file-lister. It also renders the **directory** side of the fzf preview (a file → bat, a folder → eza tree). See [fzf](12-fzf.md).
+macOS ships BSD `ls` — no git column, weak color, no tree. eza covers all three and is the daily file-lister. It also renders the **directory** side of the fzf preview (a file → bat, a folder → eza tree). See [[12-fzf|fzf]].
 
 ## Biggest win
 

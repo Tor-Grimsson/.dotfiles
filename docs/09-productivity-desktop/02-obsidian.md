@@ -42,7 +42,7 @@ Local plain-text storage with no lock-in. The vault is a normal directory that v
 - Add community plugins via Settings → Community plugins only if a real need arises (keep the vault portable).
 
 ## Vault-config source
-Repos symlink their `docs/.obsidian/` from a shared config source at `claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/` — full setup, shapes, and the picker documented in [kol-docs system setup](../20-kol-docs-system-setup/INDEX.md).
+Repos symlink their `docs/.obsidian/` from a shared config source at `claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/` — full setup, shapes, and the picker documented in [[20-kol-docs-system-setup/INDEX|kol-docs system setup]].
 
 ## Future use
 Templates and the Dataview plugin could query the doc frontmatter (`type`, `status`, `tags`) to auto-generate the per-category INDEX tables instead of maintaining them by hand.

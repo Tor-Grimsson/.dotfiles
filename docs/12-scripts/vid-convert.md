@@ -35,8 +35,8 @@ landscape master has to become a 9:16 reel.
 It's the `vid-` family's one **arg-taker**: a single input via `-i`, not a cwd glob.
 
 The script is the source of truth (`~/.dotfiles/bin/vid-convert.sh`, symlinked onto
-`PATH`); this doc is the reference. For the whole family see [the vid- overview](02-video.md);
-the image-side twin (fit a still into a social aspect) is [img-canvas.sh](img-canvas.md).
+`PATH`); this doc is the reference. For the whole family see [[02-video|the vid- overview]];
+the image-side twin (fit a still into a social aspect) is [[img-canvas|img-canvas.sh]].
 
 ## 0. Prerequisites
 
@@ -100,7 +100,7 @@ even. So for a landscape aspect `-r` is the width, for a portrait aspect it's th
 
 ## 5. Export-specs / @Nx — what lines up, what doesn't
 
-[export-specs](img-canvas.md) sizes by the **short** side: `@1x` = 1080, `@Nx` = 1080×N.
+[[img-canvas|export-specs]] sizes by the **short** side: `@1x` = 1080, `@Nx` = 1080×N.
 `vid-convert.sh` sizes by the **longest** side. They coincide only when long = 16/9 × short
 — i.e. for **16:9 and 9:16** at `-r 1k` / `-r 4k`:
 

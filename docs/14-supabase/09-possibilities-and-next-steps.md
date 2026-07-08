@@ -57,13 +57,13 @@ You've used the database half of Supabase. That's the core, but the platform doe
 
 - **Official docs:** [supabase.com/docs](https://supabase.com/docs) — genuinely good, and they use the *current* key names.
 - **In-dashboard AI / Docs links** — context-aware help on the page you're on.
-- **This project's docs:** the [guide index](INDEX.md), the session logs under `.kol/llm-context/session-log/`, and `supabase/LOCAL-DEV.md` for the env/setup specifics.
-- **Pitfalls first:** when stuck, [chapter 08](08-pitfalls-and-troubleshooting.md) before anything else.
+- **This project's docs:** the [[14-supabase/INDEX|guide index]], the session logs under `.kol/llm-context/session-log/`, and `supabase/LOCAL-DEV.md` for the env/setup specifics.
+- **Pitfalls first:** when stuck, [[08-pitfalls-and-troubleshooting|chapter 08]] before anything else.
 
 ## 7. A sensible learning path from here
 
 1. **Get comfortable reading data** — open the SQL Editor and run `select`s until queries feel normal.
-2. **Make a schema change** — add a column via a migration ([chapter 05](05-schema-tables-and-migrations.md)). Feel the push workflow.
+2. **Make a schema change** — add a column via a migration ([[05-schema-tables-and-migrations|chapter 05]]). Feel the push workflow.
 3. **Add Auth** when you want logins / per-user data.
 4. **Add an Edge Function** when you want the browser to publish without secrets.
 5. **Put the repo on GitHub** and turn on the Supabase GitHub integration for preview branches.
@@ -72,4 +72,4 @@ None of these are required. The database you have already works. Add capabilitie
 
 ---
 
-**Back to:** [the guide index](INDEX.md)
+**Back to:** [[14-supabase/INDEX|the guide index]]

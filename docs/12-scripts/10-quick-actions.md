@@ -56,7 +56,7 @@ appears under Finder right-click → **Quick Actions** / **Services**. No Automa
 
 *Open in mpv* hands each selected video to `bin/mpv-open.sh` (the mpv twin of
 `glow-open.sh`), which opens a new iTerm/Terminal window and plays it. Engine +
-behaviour are documented with the player — [mpv § Finder Quick Action](../06-media-av/02-mpv.md).
+behaviour are documented with the player — [[02-mpv|mpv § Finder Quick Action]].
 One thing worth noting *here*: it needs **no** `export PATH` shim — `mpv-open.sh`
 opens a **login shell** (mpv already on PATH), unlike the bare-PATH `magick`/`ffmpeg`
 recipes below.
@@ -106,7 +106,7 @@ qa-make.sh -t public.image "Canvas (pick aspect)" \
   'export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; "$HOME/.dotfiles/bin/img-canvas.sh" -P "$@"'
 ```
 
-Moves go through [fs-shoot.sh](08-system.md) — clash-safe, creates the destination,
+Moves go through [[08-system|fs-shoot.sh]] — clash-safe, creates the destination,
 never overwrites.
 
 ## Hotkeys

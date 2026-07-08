@@ -31,7 +31,7 @@ smaller but still only plays on Apple/Safari on the web. `vid-h264-web.sh`
 batch-re-encodes the cwd's clips to H.264 (`libx264`) in an `.mp4` with the moov
 atom up front, ready to stream.
 
-It is the **H.264 twin of [vid-h265-small-web.sh](02-video.md)**: same goal (a small,
+It is the **H.264 twin of [[02-video|vid-h265-small-web.sh]]**: same goal (a small,
 web-ready `.mp4`), different reach/size trade. Pick H.264 here when "plays
 everywhere" matters; pick the HEVC script when the audience is Apple and you want
 the smallest file.
@@ -39,7 +39,7 @@ the smallest file.
 Quality is **CRF-targeted, not a fixed bitrate** — so a source that's needlessly
 fat (a 720p clip carrying a 16 Mbps stream is a real example) is shrunk to a sane
 delivery size automatically, while a lean source isn't bloated. It does **not**
-rescale; native resolution is kept (reach for [vid-convert.sh](02-video.md) to change
+rescale; native resolution is kept (reach for [[02-video|vid-convert.sh]] to change
 dimensions).
 
 The script is the source of truth (`~/.dotfiles/bin/vid-h264-web.sh`, symlinked
@@ -60,7 +60,7 @@ or Firefox user and they get a blank player. H.264:
 - costs ~20–30% more bytes than HEVC at the same quality — the price of reach.
 
 So the rule of thumb: **public/unknown audience → H.264** (`vid-h264-web.sh`);
-**Apple-only audience, bytes tight → HEVC** ([vid-h265-small-web.sh](02-video.md)).
+**Apple-only audience, bytes tight → HEVC** ([[02-video|vid-h265-small-web.sh]]).
 
 ## 2. Why CRF, not a target bitrate
 

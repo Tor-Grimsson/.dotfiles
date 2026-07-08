@@ -1,7 +1,10 @@
 # Obsidian vault-config source
 
 The single source of `.obsidian/` config that repos across the machine symlink (or copy) into
-their `docs/.obsidian/`. Edit a shape here → every symlinked repo inherits it.
+their `docs/.obsidian/`. Symlink mode is per-file — `docs/.obsidian/` stays a real local directory
+and each file inside it is individually symlinked back here, so the excluded per-vault files below
+can stay local instead of becoming one shared file across every repo. Edit a shape here → every
+symlinked repo inherits the change.
 
 ## Shapes
 
@@ -17,7 +20,7 @@ in Obsidian to preview/test plugins; changes flow to every repo linked to that s
 
 ## How repos consume a shape
 
-The `scaffold-docs-system` skill offers a picker on setup — symlink or copy, any of the 3 shapes above.
+The `scaffold-docs-system` skill offers a picker on setup — symlink (per-file, see above) or copy (whole-directory `cp -R`), any of the 3 shapes above.
 
 ## Excluded from every shape
 

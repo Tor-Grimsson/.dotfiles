@@ -21,7 +21,7 @@ This section explains that layer. It is **not** part of the tool catalog (the ot
 |---|---|
 | `CLAUDE.md` | global personality + working rules ("Grim") |
 | `settings.json` | permissions, statusline, plugins, voice/effort/tui |
-| `skills/` | 34 Claude Code skills (whole-dir symlink) |
+| `skills/` | 35 Claude Code skills (whole-dir symlink) |
 | `agents/` | 4 `kol-*` subagents |
 | `hooks/` | `statusline.sh` (the only hook) |
 | `commands/`, `output-styles/` | present but empty |
@@ -31,13 +31,13 @@ This section explains that layer. It is **not** part of the tool catalog (the ot
 
 | # | Doc | Covers |
 |---|-----|--------|
-| 01 | [Agent-context protocol](01-agent-context-protocol.md) | how a session loads project state + logs work — `LLM_RULES.md`, `.kol/llm-context/`, the `scaffold-*`/`agent-init`/`log-work` skills, the AGENT-CONTEXT chain |
-| 02 | [Skills](02-skills.md) | what skills are, kol-system sourcing (§4) vs local-authored, the symlink mechanism, the installed set |
-| 03 | [Subagents](03-agents.md) | the 4 `kol-*` design-system subagents + how they're defined and invoked |
-| 04 | [Hooks & tools](04-hooks-and-tools.md) | the statusline hook, `settings.json` config, plugins (ponytail/rust-analyzer), and MCP tools (playwright/glif) |
-| 05 | [Working rules](05-working-rules.md) | the `CLAUDE.md` "Grim" rule-sections (Tone / Answering / Report shape / …) — section map + change log |
-| 06 | [Grim — the persona](06-claude.md) | the character `CLAUDE.md` casts — name, personality, how he works, how his output reads |
-| 07 | [Output formats](07-output-formats.md) | the reply skeleton + a gallery of named worked layouts (one-liner / build report / findings / recommendation / staged) — the visual reference for the Report-shape rules |
+| 01 | [[01-agent-context-protocol|Agent-context protocol]] | how a session loads project state + logs work — `LLM_RULES.md`, `.kol/llm-context/`, the `scaffold-*`/`agent-init`/`log-work` skills, the AGENT-CONTEXT chain |
+| 02 | [[02-skills|Skills]] | what skills are, kol-system sourcing (§4) vs local-authored, the symlink mechanism, the installed set |
+| 03 | [[03-agents|Subagents]] | the 4 `kol-*` design-system subagents + how they're defined and invoked |
+| 04 | [[04-hooks-and-tools|Hooks & tools]] | the statusline hook, `settings.json` config, plugins (ponytail/rust-analyzer), and MCP tools (playwright/glif) |
+| 05 | [[05-working-rules|Working rules]] | the `CLAUDE.md` "Grim" rule-sections (Tone / Answering / Report shape / …) — section map + change log |
+| 06 | [[06-claude|Grim — the persona]] | the character `CLAUDE.md` casts — name, personality, how he works, how his output reads |
+| 07 | [[07-output-formats|Output formats]] | the reply skeleton + a gallery of named worked layouts (one-liner / build report / findings / recommendation / staged) — the visual reference for the Report-shape rules |
 
 ## Related
-- [ponytail](../04-dev-languages/13-ponytail.md) — the Claude Code plugin catalogued under Dev & Languages (the laziness layer, always-on via a SessionStart hook).
+- [[13-ponytail|ponytail]] — the Claude Code plugin catalogued under Dev & Languages (the laziness layer, always-on via a SessionStart hook).

@@ -117,6 +117,10 @@ Or use the `/log-work` skill to automate this.
 - **Protocol files UPPERCASE:** `LLM_RULES.md`, `ARCHITECTURE.md`, `AGENT-CONTEXT.md`, `README.md`, `SKILL.md`.
 - **Content files kebab-case:** `history.md`, `plan.md`, session logs.
 
+### Link Form
+
+- **This file and `TOOLING.md` are root, GitHub-facing — standard markdown links (`[text](path.md)`), never wikilinks.** `docs/**` is the Obsidian vault — wikilinks there, including heading anchors (literal heading text, never a GitHub kebab-slug — Obsidian doesn't resolve those). Full rule: `claude/packages/kol-docs/kol-docs-lib/01-structure.md`.
+
 ### Non-goals
 
 - **Never run provisioning** — no `brew bundle`/`install`/`upgrade`, no `bootstrap.sh`. Prepare changes, the user runs them.

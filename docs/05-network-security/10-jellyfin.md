@@ -21,7 +21,7 @@ related:
 Jellyfin is a free, open-source media server — the self-hosted alternative to Plex/Emby. It indexes a movie/TV/music library, transcodes on the fly for whatever device is watching, and serves a web UI plus native apps (Roku, Android/iOS, Android TV, Kodi, etc.).
 
 ## Why installed
-Runs as the home media server. Local network access is automatic; the remote-access question (watching away from home, or from a phone on cellular) is solved by [Tailscale](09-tailscale.md) rather than opening ports on the router.
+Runs as the home media server. Local network access is automatic; the remote-access question (watching away from home, or from a phone on cellular) is solved by [[09-tailscale|Tailscale]] rather than opening ports on the router.
 
 ## Most common use case
 Browse the library and stream a file from a client app or browser, on the LAN or — via Tailscale — from anywhere.
@@ -43,7 +43,7 @@ No subscription, no licensing on hardware-transcode features (the Plex paywall),
 5. Native apps: most Jellyfin clients (Android/iOS/Android TV) accept any reachable host/IP in their server-address field, so the Tailscale hostname works the same as a LAN address — just enter it as the server URL.
 
 ### Sharing access (e.g. a household member or a friend, not just your own devices)
-- Their device needs to be on the tailnet (full member) or have your Jellyfin node shared to them via Tailscale's "share a node" (see [tailscale](09-tailscale.md)) if they shouldn't see your other devices.
+- Their device needs to be on the tailnet (full member) or have your Jellyfin node shared to them via Tailscale's "share a node" (see [[09-tailscale|tailscale]]) if they shouldn't see your other devices.
 - Separately, Jellyfin has its own per-user accounts/permissions — Tailscale governs *network* reachability, Jellyfin governs *library* access. Both layers apply.
 
 ## User management

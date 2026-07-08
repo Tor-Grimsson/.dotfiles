@@ -36,7 +36,7 @@ Text-to-speech from the command line. Microsoft's online neural voices — free,
 | Command | Does | Needs |
 |---|---|---|
 | `edge-tts` | text → audio file | network only |
-| `edge-playback` | text → speakers, immediately | network + [mpv](02-mpv.md) (brew, already installed) |
+| `edge-playback` | text → speakers, immediately | network + [[02-mpv|mpv]] (brew, already installed) |
 | `speak` (function) | clipboard → sanitizer → speakers | `edge-playback` + `pbpaste` + `perl` (both built into macOS) |
 
 The sanitizer makes markdown listenable: emoji and markdown markers (`*` `` ` `` `#` bullets) stripped, links reduced to their label, `§` → "section", em-dashes/brackets/dangling slashes → comma pauses. Raw text would otherwise have the voice reading symbol names aloud ("white heavy check mark", "left parenthesis").
@@ -78,7 +78,7 @@ edge-tts --list-voices | grep ^is-                     # Icelandic: is-IS-Gudrun
 Same flags work on both commands except `--write-media`/`--write-subtitles` (`edge-tts` only).
 
 ## Why installed
-Agent replies in Claude Code got too long to read on screen. Copy the wall of text → `speak` → listen while doing something else. Deliberately not Apple's `say`/Siri stack. The inverse of [whisper.cpp](04-whisper-cpp.md): that turns speech into text, this turns text back into speech.
+Agent replies in Claude Code got too long to read on screen. Copy the wall of text → `speak` → listen while doing something else. Deliberately not Apple's `say`/Siri stack. The inverse of [[04-whisper-cpp|whisper.cpp]]: that turns speech into text, this turns text back into speech.
 
 ## Biggest win
 The clipboard is the universal hand-off — text from Claude Code, a browser, or a man page all reads aloud the same way, with zero per-use ceremony and voices that don't sound like 1998.

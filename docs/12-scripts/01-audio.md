@@ -62,7 +62,7 @@ Recursively transcodes WAV/AIF/AIFF to MP3 via ffmpeg + libmp3lame at a constant
 
 ## `au-tag.sh`
 
-Writes album metadata + an embedded front cover into every `*.mp3` / `*.flac` in a folder, read from a sidecar `.md`'s YAML frontmatter (via `yq`) and applied with ffmpeg (`-c copy`, no re-encode). Per-track titles come from a `tracklist:` array, else the filename. **Full frontmatter contract + workflow: [the deep-dive](au-tag.md).**
+Writes album metadata + an embedded front cover into every `*.mp3` / `*.flac` in a folder, read from a sidecar `.md`'s YAML frontmatter (via `yq`) and applied with ffmpeg (`-c copy`, no re-encode). Per-track titles come from a `tracklist:` array, else the filename. **Full frontmatter contract + workflow: [[au-tag|the deep-dive]].**
 
 **Usage** — `au-tag.sh [-m FILE.md] [-c COVER] [-T] [dir]`; default `.md` is the first in the folder, default `dir` is `.`.
 
@@ -77,7 +77,7 @@ Writes album metadata + an embedded front cover into every `*.mp3` / `*.flac` in
 
 ## `au-transcribe.sh`
 
-Fetches a video/audio **URL** with [yt-dlp](../06-media-av/07-yt-dlp.md) (YouTube, TikTok + ~1800 sites) or reads a **local media file**, extracts 16 kHz mono audio with ffmpeg, transcribes it with [whisper.cpp](../06-media-av/04-whisper-cpp.md) (`whisper-cli`), and writes one `<slug>.md` per input — YAML frontmatter (title, source, uploader, published, duration, model) + the posted caption + the spoken transcript. The unusual member of the family: it takes a URL or single file, not a folder, and emits markdown rather than audio. **Full write-up: [the deep-dive](au-transcribe.md).**
+Fetches a video/audio **URL** with [[07-yt-dlp|yt-dlp]] (YouTube, TikTok + ~1800 sites) or reads a **local media file**, extracts 16 kHz mono audio with ffmpeg, transcribes it with [[04-whisper-cpp|whisper.cpp]] (`whisper-cli`), and writes one `<slug>.md` per input — YAML frontmatter (title, source, uploader, published, duration, model) + the posted caption + the spoken transcript. The unusual member of the family: it takes a URL or single file, not a folder, and emits markdown rather than audio. **Full write-up: [[au-transcribe|the deep-dive]].**
 
 **Usage** — `au-transcribe.sh [-m MODEL] [-l LANG] [-o OUTDIR] [-k] <url|file>…`.
 

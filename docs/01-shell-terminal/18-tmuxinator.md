@@ -25,7 +25,7 @@ related:
 `tmuxinator` reads a per-project YAML file describing windows, panes, layout, and startup commands, then builds that exact tmux session with one command: `tmuxinator start <project>`. It's the standalone-CLI counterpart to hand-building the same layout every time a project is opened.
 
 ## Why installed
-For a project that always needs the same 3-pane layout (editor / server / logs), typing it out — or even scripting it in `.tmux.conf` — is more to maintain than one YAML file. Kept alongside [tmuxp](19-tmuxp.md) rather than picked as a "winner" — see that doc for why.
+For a project that always needs the same 3-pane layout (editor / server / logs), typing it out — or even scripting it in `.tmux.conf` — is more to maintain than one YAML file. Kept alongside [[19-tmuxp|tmuxp]] rather than picked as a "winner" — see that doc for why.
 
 ## Setup
 1. Install (in `brewfile-cli`): `brew install tmuxinator`
@@ -83,4 +83,4 @@ windows:
 | `tmuxinator debug <name>` | Print the shell commands it would run |
 
 ## Future use
-No per-project YAML files tracked yet — add one under `~/.config/tmuxinator/` per project once a layout is worth defining upfront. For a layout you've already built by hand instead, see [tmuxp](19-tmuxp.md)'s `freeze` command — tmuxinator has no equivalent.
+No per-project YAML files tracked yet — add one under `~/.config/tmuxinator/` per project once a layout is worth defining upfront. For a layout you've already built by hand instead, see [[19-tmuxp|tmuxp]]'s `freeze` command — tmuxinator has no equivalent.

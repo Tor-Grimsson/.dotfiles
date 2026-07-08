@@ -19,7 +19,7 @@ Not this skill's job: `.kol/llm-context/` + `LLM_RULES.md` — that's `/scaffold
 
 ```
 docs/
-├── .obsidian/            ← vault config, symlinked from ~/.dotfiles/obsidian (see below)
+├── .obsidian/            ← real local dir; contents symlinked per-file from obsidian-shapes (see below)
 ├── INDEX.md              ← docs home; routes to documentation/ + siblings
 ├── documentation/        ← THE REPO'S SUBJECT (numbered sections: 00-overview … NN)
 │   ├── INDEX.md
@@ -39,7 +39,7 @@ docs/
 
 1. **Every section folder gets an `INDEX.md`.** The md-tier rule is "INDEX is a position, not a default" — at the library level, any folder something *navigates into* is a routing position, so it gets one. Folders left without an INDEX is the most common drift; reinforce it.
 2. **Contiguous numbering.** `00-…NN` with no gaps. Remove a section → renumber the rest and repoint refs (a gap is a rule you set but didn't keep).
-3. **Render-target decides link form.** Wikilinks `[[path|display]]` for files read *inside the Obsidian vault* (backlinks, graph, move-resilience). **Markdown links** `[text](path.md)` for anything rendered *outside* it — root `README.md`, `LLM_RULES.md`, GitHub-facing files — where wikilinks render as dead `[[…]]`. Links pointing *out of* the vault (to `.kol/…`) are markdown links.
+3. **Render-target decides link form.** Wikilinks `[[path|display]]` for files read *inside the Obsidian vault* (backlinks, graph, move-resilience). **Markdown links** `[text](path.md)` for anything rendered *outside* it — root `README.md`, `LLM_RULES.md`, GitHub-facing files — where wikilinks render as dead `[[…]]`. Links pointing *out of* the vault (to `.kol/…`) are markdown links. **Heading anchors always use the literal heading text** (`[[file#Heading Text|display]]`), never a GitHub kebab-slug — Obsidian doesn't resolve GFM-style `#kebab-case` anchors at all (open upstream feature request, no setting fixes it); a markdown-style anchor link still opens the file but silently fails to jump to the section.
 4. **`LLM_RULES.md` is not this skill's job** — it's owned by `/scaffold-llm-context`. Don't write it here.
 
 ---
@@ -67,7 +67,7 @@ docs/
 
 2. **Scaffold the split:** `docs/documentation/` (numbered sections) + sibling machinery folders.
 3. **INDEX every section** — docs home `docs/INDEX.md`, `documentation/INDEX.md`, and one per section folder.
-4. **Wire `.obsidian/`** — ask which source shape (picker below), then symlink or copy.
+4. **Wire `.obsidian/`** — ask which source shape (picker below), then symlink (per-file) or copy.
 5. **Apply link form** per Non-negotiables §3; numbering per §2.
 6. Per-doc authoring/normalising → hand each file to `kol-docs-md`.
 
@@ -80,11 +80,19 @@ The vault config source lives at **`~/.dotfiles/claude/packages/scaffold/02-scaf
 
 On setup, **ask which to use** (AskUserQuestion, 6 options):
 
-1. **Symlink 01-vault-shape** — `ln -s ~/.dotfiles/claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/01-vault-shape/.obsidian docs/.obsidian`. Repo inherits the rich vault; edits at the source propagate everywhere.
+1. **Symlink 01-vault-shape** — per-file (see below). Repo inherits the rich vault; edits at the source propagate everywhere.
 2. **Symlink 02-kol-vault-shape** — same, the full kol-vault set.
 3. **Symlink 03-kol-ds-shape** — same, minimal shape.
 4. **Copy 01-vault-shape** — `cp -R` the rich `.obsidian`, no symlink. Repo owns its config; drifts independently.
 5. **Copy 02-kol-vault-shape** — `cp -R` the kol-vault set, no symlink.
 6. **Copy 03-kol-ds-shape** — `cp -R` the minimal `.obsidian`, no symlink.
 
-Symlink = one source of truth, no drift, but the repo shares `workspace.json` churn. Copy = independent, editable per-repo, but drifts from the source. `workspace.json`/`workspaces.json` are per-vault local UI state — gitignore them in the target repo either way.
+**Symlink mode is per-file, not whole-directory.** `docs/.obsidian/` is a real local directory; symlink each file/folder inside it individually to the matching path in the chosen shape:
+```sh
+mkdir docs/.obsidian
+SRC=~/.dotfiles/claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/<shape>/.obsidian
+for item in "$SRC"/*; do ln -s "$item" "docs/.obsidian/$(basename "$item")"; done
+```
+Whole-directory symlink (`ln -s .../.obsidian docs/.obsidian`) is wrong — it makes `workspace.json` and other per-vault runtime state one shared file across every repo using that shape, defeating "per-vault local." Per-file symlinking lets shared plugin config coexist with independent per-vault state. Copy mode is unaffected — `cp -R` the whole directory is already an independent copy.
+
+Never seeded in any shape (per-vault local UI state / runtime caches — leave absent, Obsidian creates them fresh): `workspace.json`, `workspaces.json`, `workspace-mobile.json`, `plugin-data/`, `bookmarks.json`, `switcher.json`, `backlink.json`, `webviewer.json`, `note-composer.json`. Gitignore `docs/.obsidian/` wholesale in the target repo either way — none of it is meant to be tracked.

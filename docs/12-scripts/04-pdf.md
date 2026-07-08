@@ -72,7 +72,7 @@ Climb this ladder only when the previous rung fails.
   Markdown → **A4 PDF** via Pandoc, engine-selectable: `typst` (default, fast/generic) or
   `weasyprint` (CSS via the sibling `bin/print.css`). Converts the files you pass or every
   `*.md` in the cwd; `-w` watches (entr). The flexible successor to the hard-coded
-  `pdf-notes.sh`. Dep: pandoc + typst/weasyprint. Workflow: [Markdown → A4](../17-documents/05-markdown-to-a4.md).
+  `pdf-notes.sh`. Dep: pandoc + typst/weasyprint. Workflow: [[05-markdown-to-a4|Markdown → A4]].
 - **`pdf-expand.sh`** — `pdf-expand.sh <in.pdf>`. Splits into single-page PDFs
   with poppler's `pdfseparate` (content stays vector). Writes `page-NNN.pdf` into
   the first unused `frames-NN/` dir, so reruns never clobber. Dep: poppler.

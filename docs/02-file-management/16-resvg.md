@@ -35,4 +35,4 @@ resvg --zoom 2 in.svg out.png        # 2× the intrinsic size
 ```
 
 ## Why installed
-yazi's backend for **SVG previews** — without it, `.svg` files show no preview in [Yazi](02-yazi.md). A pure preview dependency; reach for it directly only when you want a clean SVG→PNG without firing up ImageMagick.
+yazi's backend for **SVG previews** — without it, `.svg` files show no preview in [[02-yazi|Yazi]]. A pure preview dependency; reach for it directly only when you want a clean SVG→PNG without firing up ImageMagick.

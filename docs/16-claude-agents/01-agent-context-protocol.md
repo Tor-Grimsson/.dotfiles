@@ -32,14 +32,14 @@ A repo on the protocol has all machinery **hidden at repo root**, keeping `docs/
 | `.kol/llm-context/{history,plan}.md` + `backlog/`, `migration/` | narrative/plans | the *why*, speculative work, working queues |
 | `.kol/docs-framework/` | spec | the kol-docs framework the repo's docs conform to |
 
-**Legacy layouts** (`docs/llm-context/` + `docs/_framework/`, or `.claude/llm-context/`, or `.llm-context/`) still boot — the skills check `.kol/` first, then fall back, and nag once: *"legacy layout — no automated migration skill exists; converge by hand or re-run `/scaffold-llm-context` + `/scaffold-docs-system` over it."* (`kol-migrate-structure`, the former automated converger, was quarantined to `_tmp/` 2026-07-05 — no supporting evidence it was ever used.) Reference implementation of the new shape: `kol-design-system`. Note: wikilinks from `docs/` into `.kol/` can't resolve (outside the Obsidian vault) — use standard relative links across that boundary.
+**Legacy layouts** (`docs/llm-context/` + `docs/_framework/`, or `.claude/llm-context/`, or `.llm-context/`) still boot — the skills check `.kol/` first, then fall back, and nag once: *"legacy layout — run `/kol-migrate-structure` to converge it onto `.kol/`."* (`kol-migrate-structure` was quarantined to `_tmp/` 2026-07-05 for lack of evidence it was ever used, then restored the same day.) Reference implementation of the new shape: `kol-design-system`. Note: wikilinks from `docs/` into `.kol/` can't resolve (outside the Obsidian vault) — use standard relative links across that boundary.
 
 ## The driving skills
 
 | Skill | Job |
 |---|---|
-| [scaffold-llm-context](02-skills.md) | scaffold the protocol into a repo — `LLM_RULES.md` + `.kol/llm-context/` only. Docs system is a separate skill (below) — neither depends on the other |
-| [scaffold-docs-system](02-skills.md) | stand up/normalise a repo's whole `docs/` tree *and* `.kol/docs-framework/` (absorbed from the old `init-agent-context` 2026-07-05) |
+| [[02-skills|scaffold-llm-context]] | scaffold the protocol into a repo — `LLM_RULES.md` + `.kol/llm-context/` only. Docs system is a separate skill (below) — neither depends on the other |
+| [[02-skills|scaffold-docs-system]] | stand up/normalise a repo's whole `docs/` tree *and* `.kol/docs-framework/` (absorbed from the old `init-agent-context` 2026-07-05) |
 | `agent-init` (renamed from `init-agent` 2026-07-05) | load the context (ARCHITECTURE → AGENT-CONTEXT → latest session log) and **stop** — wait for a task; detects the machine, checks session-bridge, nags on legacy layouts, (guard: repo consumes `@kolkrabbi/*`) reports stale KOL packages via `pnpm/npm outdated` asking before any bump, then loads `/agent-reinforce` **last** — right before reporting "Context loaded" |
 | `log-work` | **only when asked** — writes a session log + prepends the AGENT-CONTEXT "Last updated" chain, then loads `/agent-reinforce` last, right before the "Session log created" report |
 | `log-work-handoff` | **only when asked** — writes a forward-looking session-bridge handoff, then loads `/agent-reinforce` last, right before the "Handoff created" report |
@@ -47,7 +47,7 @@ A repo on the protocol has all machinery **hidden at repo root**, keeping `docs/
 | `scaffold-dev-stack` | scaffold a new **headless** app (Vite + React + Tailwind 4, no design system) |
 | `scaffold-dev-stack-kol` | scaffold a new app on the **published** `@kolkrabbi/kol-*` npm packages (4-point consumer contract wired) |
 
-No automated re-sync/migration skills exist anymore (`init-agent-context-sync`, `kol-migrate-structure` — both quarantined 2026-07-05, no evidence of real use). Pulling framework updates into an already-scaffolded repo, or converging a legacy layout, is a manual/conversational step now.
+No automated re-sync skill exists anymore (`init-agent-context-sync` — quarantined 2026-07-05, no evidence of real use). Pulling framework updates into an already-scaffolded repo is a manual/conversational step now. Converging a legacy layout is still automated — `kol-migrate-structure` (briefly quarantined, then restored same day 2026-07-05).
 
 Boot a session with `/agent-init` (or just "read `LLM_RULES.md`") — both now load `/agent-reinforce` as their last step, right before reporting status.
 
@@ -59,4 +59,4 @@ Boot a session with `/agent-init` (or just "read `LLM_RULES.md`") — both now l
 - **Dates are absolute.** Convert "today"/"yesterday" to ISO before writing.
 
 ## Related
-- The docs *inside* `.kol/llm-context/` and the catalog docs both follow the [ponytail](../04-dev-languages/13-ponytail.md)-adjacent [kol-docs](02-skills.md) framework, but the agent-context protocol (this doc) is a **separate** convention — it governs the `llm-context/` state files, not the published-doc spec.
+- The docs *inside* `.kol/llm-context/` and the catalog docs both follow the [[13-ponytail|ponytail]]-adjacent [[02-skills|kol-docs]] framework, but the agent-context protocol (this doc) is a **separate** convention — it governs the `llm-context/` state files, not the published-doc spec.

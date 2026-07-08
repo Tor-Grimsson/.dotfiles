@@ -26,7 +26,7 @@ related:
 `tmux-harpoon` tags up to a handful of tmux sessions and jumps back to any of them with one key — the tmux equivalent of ThePrimeagen's Neovim `harpoon` plugin. Installed as a TPM plugin (its `harpoon` script ships plain, uncompiled, right in the repo — no separate build/install step needed).
 
 ## Why it has its own key table
-The plugin's own default binds bare **`Ctrl-h`** for "jump" — but this config's `.tmux.conf` section 6 already binds `Ctrl-h`/`j`/`k`/`l` for seamless pane↔Neovim-split navigation (see [tmux](02-tmux.md)). Two bare-modifier overrides were tried and ruled out before landing on a dedicated key table:
+The plugin's own default binds bare **`Ctrl-h`** for "jump" — but this config's `.tmux.conf` section 6 already binds `Ctrl-h`/`j`/`k`/`l` for seamless pane↔Neovim-split navigation (see [[02-tmux|tmux]]). Two bare-modifier overrides were tried and ruled out before landing on a dedicated key table:
 
 1. **`Alt` (`M-1`…`M-4`, `M-a`, `M-e`)** — ruled out: AeroSpace claims every Alt+letter/digit globally for workspace switching and intercepts it before tmux ever sees it.
 2. **`Ctrl+Shift` (`C-S-1`…`C-S-4`, `C-S-a`, `C-S-e`)** — ruled out: confirmed live that iTerm2 doesn't report Shift on Ctrl-letter combos, so `Ctrl+Shift+A` arrives at tmux as plain `Ctrl+A` — the prefix key itself. It silently opened prefix-wait instead of bookmarking anything.

@@ -68,7 +68,7 @@ Host acyr                # ssh acyr → drops straight into a tmux session, auto
   ForwardAgent yes        # git/gh on that box use this machine's keys — none copied over
 ```
 
-Full depth on the `acyr`-style pattern (why each line, the mosh pairing, other tools) is in [Remote machine → SSH toolkit](../22-remote-machine/01-ssh-toolkit.md).
+Full depth on the `acyr`-style pattern (why each line, the mosh pairing, other tools) is in [[01-ssh-toolkit|Remote machine → SSH toolkit]].
 
 So `ssh ubuntu-vm` works with no IP, user, or key to remember. Add a host the same way:
 
@@ -101,13 +101,13 @@ Host media
 
 > **Remote logging, the honest version:** for a one-off, `ssh host 'journalctl -fu <service>'` streams it live and you `Ctrl-C` out. For something you babysit, SSH in and run the tail **inside tmux on the remote** so a dropped connection doesn't kill it — the session keeps running and you reattach. No agent or log-shipping stack needed for a homelab.
 
-Full walkthrough (the complete connect→detach→resume loop, auto-attaching tmux via `~/.ssh/config` instead of typing it every time, plus ControlMaster/ProxyJump/agent-forwarding) is in [Remote machine → SSH toolkit](../22-remote-machine/01-ssh-toolkit.md) — this card only covers the everyday one-liner.
+Full walkthrough (the complete connect→detach→resume loop, auto-attaching tmux via `~/.ssh/config` instead of typing it every time, plus ControlMaster/ProxyJump/agent-forwarding) is in [[01-ssh-toolkit|Remote machine → SSH toolkit]] — this card only covers the everyday one-liner.
 
 ---
 
 ## 3. SSH over the VPN (Tailscale) — and what it depends on
 
-The point of [Tailscale](../05-network-security/09-tailscale.md) is reaching your boxes **from anywhere** without port-forwarding, a static IP, or exposing port 22 to the public internet. It's a WireGuard mesh; NAT traversal is handled for you.
+The point of [[09-tailscale|Tailscale]] is reaching your boxes **from anywhere** without port-forwarding, a static IP, or exposing port 22 to the public internet. It's a WireGuard mesh; NAT traversal is handled for you.
 
 **The dependency chain — exactly what "SSH over VPN" needs:**
 
@@ -124,13 +124,13 @@ ssh kolkrabbi@ubuntu-vm.<tailnet>.ts.net           # SSH over the mesh, no port-
 
 **Reaching someone else's machine** (a client): don't merge tailnets. They install Tailscale, sign into *their* account, then **share that one node** to your identity. It appears in your device list scoped to just that box — no router config, no public RDP/VNC, no third-party remote-desktop tool. (Status: the share-a-node path is the plan, not yet drilled — confirm the primitive when you first do it.)
 
-> Default tailnet ACL = every device can reach every device. Fine for a solo tailnet; **tighten it** (device tags + scoped grants — `tag:server` opening only `tcp:22`/`tcp:8096`) before a client's node or a second person joins. Template in [tailscale](../05-network-security/09-tailscale.md).
+> Default tailnet ACL = every device can reach every device. Fine for a solo tailnet; **tighten it** (device tags + scoped grants — `tag:server` opening only `tcp:22`/`tcp:8096`) before a client's node or a second person joins. Template in [[09-tailscale|tailscale]].
 
 ---
 
 ## 4. Termius — when the GUI earns it
 
-[Termius](../05-network-security/05-termius.md) is the graphical SSH client (a desktop+mobile app), not a replacement for `ssh`. Reach for it when:
+[[05-termius|Termius]] is the graphical SSH client (a desktop+mobile app), not a replacement for `ssh`. Reach for it when:
 
 - You're on the **phone/iPad** and want a saved host list with keys attached — two taps to a shell, no typing host strings.
 - You want **SFTP in the same window** as the terminal, or saved **port-forward profiles**, or a synced host list across devices.
@@ -148,7 +148,7 @@ The thing to know up front: **Jellyfin has no Plex-style email invite.** Every v
 1. **Create the account.** Dashboard → **Users** → Add User (admin only). They get a username + password, their own watch history, watchlist, resume state.
 2. **Scope what they see.** Per-user **library access** — give them "Movies", hide a private library. Set **permissions** (downloads, deletion, remote access, live TV), a **parental rating** cap, and **stream/bitrate limits** so one viewer can't eat all your transcode capacity.
 3. **Get their device to the server** — the network layer:
-   - **Their own devices, remotely:** their device joins the tailnet (full member) or you **share the Jellyfin node** to them (so they reach *only* that box — see [tailscale](../05-network-security/09-tailscale.md)). Then they point the Jellyfin app at `http://<jellyfin>.<tailnet>.ts.net:8096`.
+   - **Their own devices, remotely:** their device joins the tailnet (full member) or you **share the Jellyfin node** to them (so they reach *only* that box — see [[09-tailscale|tailscale]]). Then they point the Jellyfin app at `http://<jellyfin>.<tailnet>.ts.net:8096`.
    - **On your LAN:** just the server's local `http://<ip>:8096` — no VPN needed.
 4. **Easy sign-in on a TV/console:** **Quick Connect** — Jellyfin shows a 6-digit code, they approve it from an already-signed-in session, no password typing on an awkward keyboard.
 
@@ -158,7 +158,7 @@ The thing to know up front: **Jellyfin has no Plex-style email invite.** Every v
 
 ## 6. iperf3 — measure the link (the 9/10 case)
 
-When a transfer feels slow, [iperf3](../05-network-security/07-iperf3.md) tells you whether it's the **network** or the app/disk. It generates pure synthetic traffic, so the number is the link's real ceiling. Nine times out of ten it's literally two commands:
+When a transfer feels slow, [[07-iperf3|iperf3]] tells you whether it's the **network** or the app/disk. It generates pure synthetic traffic, so the number is the link's real ceiling. Nine times out of ten it's literally two commands:
 
 ```sh
 # On the box you're testing TO (the receiver): start the server
@@ -197,7 +197,7 @@ nmap -sn 192.168.1.0/24        # ping sweep — who's alive, no port scan
 nmap -p- 192.168.1.50          # all 65535 TCP ports on one host
 ```
 
-Typical use: "what's this unknown device / where did the headless box land" → `arp-scan --localnet` reads the vendor off the MAC (Apple, Espressif, Ubiquiti…) and gives you the IP; `nmap -sV` then says what's listening. See [arp-scan](../05-network-security/02-arp-scan.md) · [Nmap](../05-network-security/01-nmap.md). (Only scan networks you own or are authorized on; both want `sudo`.)
+Typical use: "what's this unknown device / where did the headless box land" → `arp-scan --localnet` reads the vendor off the MAC (Apple, Espressif, Ubiquiti…) and gives you the IP; `nmap -sV` then says what's listening. See [[02-arp-scan|arp-scan]] · [[01-nmap|Nmap]]. (Only scan networks you own or are authorized on; both want `sudo`.)
 
 ---
 
@@ -207,7 +207,7 @@ Two models, same principle: **secrets are never literals in tracked files** — 
 
 **`~/.secrets`** — the simple machine-local model. A `chmod 600` file of `export VAR=…`, sourced by `.zshrc`. Untracked; recreate on a new machine by pasting from the vault. Good for a couple of keys.
 
-**Bitwarden vault chain** — the canonical, multi-machine model ([Bitwarden CLI](../05-network-security/03-bitwarden-cli.md) · [vault → env](../05-network-security/08-vault-to-env-pattern.md)):
+**Bitwarden vault chain** — the canonical, multi-machine model ([[03-bitwarden-cli|Bitwarden CLI]] · [[08-vault-to-env-pattern|vault → env]]):
 
 ```sh
 bwu                                       # unlock once per shell (master pw from Keychain)

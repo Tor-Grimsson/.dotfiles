@@ -81,7 +81,7 @@ ACLs are a JSON policy file edited in the admin console (`Access Controls` tab a
 
 ## Tailscale + Jellyfin
 
-Already covered in depth in [jellyfin](10-jellyfin.md) — the short version: install Tailscale on the Jellyfin box, then point any client at `http://<tailscale-hostname>:8096` instead of the LAN IP or a port-forward. If ACLs are in place, the device running Jellyfin needs `tag:server` (or equivalent) and a grant opening `tcp:8096` to whichever tags/devices should be able to stream.
+Already covered in depth in [[10-jellyfin|jellyfin]] — the short version: install Tailscale on the Jellyfin box, then point any client at `http://<tailscale-hostname>:8096` instead of the LAN IP or a port-forward. If ACLs are in place, the device running Jellyfin needs `tag:server` (or equivalent) and a grant opening `tcp:8096` to whichever tags/devices should be able to stream.
 
 ## Tailscale on mobile
 

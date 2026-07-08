@@ -20,7 +20,7 @@ related:
 
 # tmux help & cheat sheet
 
-Quick-reference card for this repo's [tmux](02-tmux.md) config. **The prefix is `Ctrl-a`** — every binding below is `Ctrl-a` then a key, written `prefix`. Press `Ctrl-a`, release, then the key.
+Quick-reference card for this repo's [[02-tmux|tmux]] config. **The prefix is `Ctrl-a`** — every binding below is `Ctrl-a` then a key, written `prefix`. Press `Ctrl-a`, release, then the key.
 
 ## Built-in help — find anything without leaving tmux
 
@@ -77,7 +77,7 @@ When you forget a key or a command, ask tmux directly. You never need to memoris
 
 ### Copy / scroll mode (grab text from the scrollback)
 
-`prefix [` enters it (or just scroll up with the mouse). Moves like vim because the config sets `mode-keys vi`. Full walk-through in [tmux tips & tricks](09-tmux-tips.md).
+`prefix [[09-tmux-tips|` enters it (or just scroll up with the mouse). Moves like vim because the config sets `mode-keys vi`. Full walk-through in [tmux tips & tricks]].
 
 | Key | Does |
 |---|---|
@@ -136,5 +136,5 @@ prefix r    # flashes "tmux.conf reloaded" — tmux only re-reads on demand
 
 ## See also
 
-- [tmux](02-tmux.md) — what it is, why it's installed, the config rundown.
-- [tmux tips & tricks](09-tmux-tips.md) — copy mode explained in full, plus deeper pane/window/session tricks.
+- [[02-tmux|tmux]] — what it is, why it's installed, the config rundown.
+- [[09-tmux-tips|tmux tips & tricks]] — copy mode explained in full, plus deeper pane/window/session tricks.

@@ -17,7 +17,7 @@ related:
 # dot-sync, explained slowly
 
 One idea lives in this doc. It gets said six times, six ways, on purpose.
-Technical detail lives in [the reference doc](11-dot-sync.md). This one is for
+Technical detail lives in [[11-dot-sync|the reference doc]]. This one is for
 a tired brain at midnight wondering why a change is not on the other machine.
 
 ## 1. The one sentence

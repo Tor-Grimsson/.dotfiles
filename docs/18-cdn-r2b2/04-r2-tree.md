@@ -14,7 +14,7 @@ related:
 
 # R2 bucket tree
 
-> **Generated** by `bucket-tree.sh` — do not edit by hand. Readable view for Obsidian; raw json/txt for nvim in [`_files/`](_files/). See [R2](03-r2.md) for what these buckets are.
+> **Generated** by `bucket-tree.sh` — do not edit by hand. Readable view for Obsidian; raw json/txt for nvim in [`_files/`](_files/). See [[03-r2|R2]] for what these buckets are.
 
 ## kol-media
 

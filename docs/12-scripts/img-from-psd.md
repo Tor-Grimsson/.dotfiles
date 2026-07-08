@@ -57,7 +57,7 @@ magick "input.psd[0]" -resize 1920x1080 -background white -flatten output.jpg
 
 ## 2. The script
 
-The reusable form lives at `bin/img-from-psd.sh` — batch input, format/resize/quality/dpi/outdir flags, and `--help`. Run `img-from-psd.sh --help` for the full contract; catalog entry in [Image scripts](03-image.md).
+The reusable form lives at `bin/img-from-psd.sh` — batch input, format/resize/quality/dpi/outdir flags, and `--help`. Run `img-from-psd.sh --help` for the full contract; catalog entry in [[03-image|Image scripts]].
 
 ```sh
 img-from-psd.sh art.psd                   # → art.jpg, full size
@@ -85,7 +85,7 @@ img-from-psd.sh -o out -q 92 *.psd        # batch into ./out at quality 92
 
 ## 4. Wire it into a Finder Quick Action
 
-The generic recipe (and `qa-make.sh` to stamp one from a single line) is in [Quick Actions](10-quick-actions.md). By hand:
+The generic recipe (and `qa-make.sh` to stamp one from a single line) is in [[10-quick-actions|Quick Actions]]. By hand:
 
 1. **Automator → New Document → "Quick Action."**
 2. At the top of the canvas: **"Workflow receives current"** → **files or folders** in **Finder**.

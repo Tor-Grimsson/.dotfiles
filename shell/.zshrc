@@ -27,11 +27,13 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ── PATH ──────────────────────────────────────────────────────────────────────
-export PATH="$(npm config get prefix)/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/tools:$PATH"
 export PATH="$HOME/bin:$PATH"
 [ -d "/Applications/WebStorm.app/Contents/MacOS" ] && export PATH="/Applications/WebStorm.app/Contents/MacOS:$PATH"
+
+# ── fnm — per-project Node version, auto-switch on cd (reads .nvmrc/.node-version); docs/23-version-management
+command -v fnm >/dev/null && eval "$(fnm env --use-on-cd)"
 
 # ── conda (MBP-only, /opt/miniconda3 — pending consolidation, TOOLING.md § Python)
 if [ -d /opt/miniconda3 ]; then

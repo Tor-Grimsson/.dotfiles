@@ -113,7 +113,7 @@ related:
   - "[[02-typography|typography]]"
 ```
 
-Body link form (wikilink vs markdown by render target) lives in the `kol-docs-md` doc-anatomy doc.
+Body link form (wikilink vs markdown by render target) lives in the `kol-docs-md` doc-anatomy doc — including the heading-anchor gotcha (Obsidian needs the literal heading text, not a GitHub kebab-slug).
 
 ## Dates
 

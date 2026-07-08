@@ -22,11 +22,11 @@ related:
 
 ## Purpose
 
-The moves that make tmux fast once the basics click — copy mode (scrolling and grabbing text), and the pane / window / session tricks worth muscle memory. Tuned to this repo's [tmux](02-tmux.md) config, so the keys below assume `~/.tmux.conf` is in place.
+The moves that make tmux fast once the basics click — copy mode (scrolling and grabbing text), and the pane / window / session tricks worth muscle memory. Tuned to this repo's [[02-tmux|tmux]] config, so the keys below assume `~/.tmux.conf` is in place.
 
 ## Prerequisites
 
-- tmux installed and `~/.dotfiles/tmux/.tmux.conf` symlinked to `~/.tmux.conf` — see [tmux](02-tmux.md).
+- tmux installed and `~/.dotfiles/tmux/.tmux.conf` symlinked to `~/.tmux.conf` — see [[02-tmux|tmux]].
 - **The prefix is `Ctrl-a`.** Every command is `Ctrl-a` then a key; written `prefix` below. Press `Ctrl-a`, let go, then the key.
 - The config sets `mode-keys vi`, so copy mode moves like vim.
 
@@ -167,7 +167,7 @@ prefix $      rename the current session
 
 A clean loop: `tmux new -s <project>` to start, `prefix d` to step away, `tmux a -t <project>` to come back to it exactly as you left it.
 
-> **This is also the SSH-session-survival pattern.** tmux has no concept of "remote" — running it *on a box you SSH into* means the session lives on that box, not in your terminal. Drop the connection (network blip, close the laptop, whatever) and the session keeps running; `ssh host` then `tmux a` picks up exactly where you left it, with `tmux ls` as your list of everything still running there. [Remote machine → SSH toolkit](../22-remote-machine/01-ssh-toolkit.md) goes further — auto-attaching this via `~/.ssh/config` instead of typing it every time.
+> **This is also the SSH-session-survival pattern.** tmux has no concept of "remote" — running it *on a box you SSH into* means the session lives on that box, not in your terminal. Drop the connection (network blip, close the laptop, whatever) and the session keeps running; `ssh host` then `tmux a` picks up exactly where you left it, with `tmux ls` as your list of everything still running there. [[01-ssh-toolkit|Remote machine → SSH toolkit]] goes further — auto-attaching this via `~/.ssh/config` instead of typing it every time.
 
 ## Handy one-offs
 
@@ -188,7 +188,7 @@ prefix :  setw synchronize-panes off    # turn it off
 ## Troubleshooting
 
 - **Colours look flat / wrong.** Your outer terminal must support true colour for the `RGB` override to bite — fine in iTerm2/WezTerm/Ghostty/Kitty/Alacritty, not in plain Terminal.app. Harmless either way.
-- **yazi image previews fail inside a remote tmux session** (`Terminal response timeout`, `failed to spawn chafa: No such file or directory`) — running yazi through SSH + tmux (the [session-survival pattern](#session-tricks) above) breaks yazi's usual iTerm2-inline-image detection, so it falls back to **chafa** (ASCII/unicode-block rendering) — a dependency the two daily-driver Macs never needed because they run yazi directly in local iTerm2. Fix: `brew install chafa` on the box running yazi (now in `brewfile-cli`, so a fresh `bootstrap-cli.sh`/`brew bundle` covers it going forward).
+- **yazi image previews fail inside a remote tmux session** (`Terminal response timeout`, `failed to spawn chafa: No such file or directory`) — running yazi through SSH + tmux (the [[09-tmux-tips#Session tricks|session-survival pattern]] above) breaks yazi's usual iTerm2-inline-image detection, so it falls back to **chafa** (ASCII/unicode-block rendering) — a dependency the two daily-driver Macs never needed because they run yazi directly in local iTerm2. Fix: `brew install chafa` on the box running yazi (now in `brewfile-cli`, so a fresh `bootstrap-cli.sh`/`brew bundle` covers it going forward).
 - **`y` didn't reach the clipboard.** The copy binding uses tmux's OSC 52 relay (`set-clipboard on`), not a direct `pbcopy` pipe. Confirm the outer terminal supports OSC 52 (iTerm2 does) and `allow-passthrough on` is set. If tmux is nested (tmux-in-tmux), the inner session also needs passthrough. Reload with `prefix r` after any config change.
 - **Edited the config but nothing changed.** tmux only reads `~/.tmux.conf` on server start — run `prefix r` (or `tmux kill-server` and reopen) to apply edits.
 - **Mouse drag selects the wrong thing.** That's tmux's selection winning over the terminal's; hold **Option** to fall back to the native selection.

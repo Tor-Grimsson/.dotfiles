@@ -138,7 +138,7 @@ bw get item <id> | jq '.folderId="<new-folder-id>"' | bw encode | bw edit item <
 ### Conventions in this repo
 
 - Tokens/API keys live in folder **`kol-tokens`**, one Login item per secret, key in the **password** field, username empty.
-- Scripts consume them as env vars (e.g. `JACKETT_API_KEY`) or fetch at runtime via `bw get password <item>` — see [Torrent scripts](../12-scripts/07-torrent.md) for a live example.
+- Scripts consume them as env vars (e.g. `JACKETT_API_KEY`) or fetch at runtime via `bw get password <item>` — see [[07-torrent|Torrent scripts]] for a live example.
 - Secrets never appear as literals in tracked files (AGENT-CONTEXT contract).
 
 ## Syntax reference

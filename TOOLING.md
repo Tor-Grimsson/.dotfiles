@@ -32,6 +32,8 @@ related:
 
 Snapshot taken **2026-06-04**. This repo is shared by two Macs that have drifted; this doc is the single source of truth for what's installed, why, and what still needs to converge.
 
+*Root, GitHub-facing doc — standard markdown links (`[text](path.md)`), not wikilinks (`docs/**` is the Obsidian vault; that's where wikilinks apply).*
+
 > **Per-tool catalog:** every tool now has its own reference doc under [[docs/INDEX|docs/]] — 54 docs across 11 categories, each with verified links (website/repo/manual/brew) and a why/use/win/how/future write-up. This file is the **audit**; `docs/` is the **catalog**.
 
 ## The two machines

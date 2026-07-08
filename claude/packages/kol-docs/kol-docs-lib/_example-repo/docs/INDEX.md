@@ -18,4 +18,4 @@ Worked reference tree showing the three-layer split.
 - **[[operations/INDEX|operations/]]** — repo machinery (release, CI, workbench) — a sibling, not a numbered section.
 - `.kol/llm-context/` — agent state, outside this vault, at the repo root.
 
-`.obsidian/` here is symlinked from `~/.dotfiles/claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/<shape>` — see the `kol-docs-lib` package's obsidian doc.
+`.obsidian/` here is a real local dir, its files symlinked per-file from `~/.dotfiles/claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/<shape>` — see the `kol-docs-lib` package's obsidian doc.

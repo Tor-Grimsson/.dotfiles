@@ -17,10 +17,8 @@ links:
 covers:
   - Creating and cleaning up a worktree + tmux window pair
   - Listing/dashboarding all active worktrees
-  - How it complements tmux-agent-sidebar instead of overlapping it
 related:
   - "[[02-tmux|tmux]]"
-  - "[[25-tmux-agent-sidebar|tmux-agent-sidebar]]"
 ---
 
 ## Summary
@@ -60,4 +58,4 @@ workmux sidebar                # toggle a compact agent-status sidebar in tmux
 `workmux config edit` opens the global config (base branch, default agent, file-copy/symlink rules, named pane layouts via `--layout`). `workmux init` generates a starter one.
 
 ## Future use
-Not configured yet — worth setting up `post_create` hooks (`.env` copy, `node_modules` symlink) for whichever project sees the most parallel-branch churn first. `workmux sidebar` and `tmux-agent-sidebar` both show agent status — worth comparing which one earns a permanent keybinding once both are in daily use.
+Not configured yet — worth setting up `post_create` hooks (`.env` copy, `node_modules` symlink) for whichever project sees the most parallel-branch churn first.

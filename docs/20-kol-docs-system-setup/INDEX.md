@@ -43,7 +43,7 @@ Each skill is self-contained (reads only its own package) and **local-authored**
 | `02-kol-vault-shape/` | kol-vault | The actual dedicated Obsidian vault — 30 enabled plugins. The richest shape. |
 | `03-kol-ds-shape/` | kol-design-system | Minimal — core plugins only. |
 
-Each shape is an openable mini-vault (a dummy note + `.obsidian/`) so you can test plugins directly at the source. `workspace.json`/`workspaces.json` (per-vault local UI state) are excluded and gitignored per repo. `scaffold-docs-system` offers a 6-way picker on setup: symlink or copy, any of the 3 shapes.
+Each shape is an openable mini-vault (a dummy note + `.obsidian/`) so you can test plugins directly at the source. Symlink mode is per-file, not whole-directory — `docs/.obsidian/` stays a real local dir with each file inside individually symlinked back to the shape, which is what lets `workspace.json` and the rest of the excluded list stay per-vault local and gitignored per repo instead of becoming one shared file (full exclusion list: [obsidian canon](../../claude/packages/kol-docs/kol-docs-lib/02-obsidian.md)). `scaffold-docs-system` offers a 6-way picker on setup: symlink (per-file) or copy (whole-dir), any of the 3 shapes.
 
 ## Scaffold wiring
 
@@ -55,5 +55,5 @@ Each shape is an openable mini-vault (a dummy note + `.obsidian/`) so you can te
 
 ## See also
 
-- [Skills](../16-claude-agents/02-skills.md) — `kol-docs-fm`/`kol-docs-md` sit in the **Docs (3)** row there; `scaffold-docs-system` (the former `kol-docs-lib`) moved to **Agent-context & reinforcement (10)** since it also owns `.kol/docs-framework/` scaffolding now.
-- [Obsidian](../09-productivity-desktop/02-obsidian.md) — the app itself; this doc covers the shared config source it reads.
+- [[02-skills|Skills]] — `kol-docs-fm`/`kol-docs-md` sit in the **Docs (3)** row there; `scaffold-docs-system` (the former `kol-docs-lib`) moved to **Agent-context & reinforcement (10)** since it also owns `.kol/docs-framework/` scaffolding now.
+- [[02-obsidian|Obsidian]] — the app itself; this doc covers the shared config source it reads.

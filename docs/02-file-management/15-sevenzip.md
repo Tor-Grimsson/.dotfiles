@@ -39,4 +39,4 @@ The 7-Zip CLI — strong compression across many formats (7z, zip, tar, gz, xz, 
 ```
 
 ## Why installed
-yazi's backend for **previewing and extracting inside archives** — hover a `.7z`/`.zip` in [Yazi](02-yazi.md) and it lists the contents in the preview pane; the `extract` opener uses it too. Not part of daily CLI use, but yazi expects a `7z`/`7zz` on PATH. The GUI counterpart for interactive archiving is [Keka](06-keka.md).
+yazi's backend for **previewing and extracting inside archives** — hover a `.7z`/`.zip` in [[02-yazi|Yazi]] and it lists the contents in the preview pane; the `extract` opener uses it too. Not part of daily CLI use, but yazi expects a `7z`/`7zz` on PATH. The GUI counterpart for interactive archiving is [[06-keka|Keka]].

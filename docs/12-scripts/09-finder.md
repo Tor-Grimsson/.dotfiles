@@ -28,7 +28,7 @@ script fills both gaps. Wired as Finder **Quick Actions** (`macos/services/`), t
 
 `odd`/`even` act on the **current selection** (or the whole window if fewer than 2 are selected).
 Hotkeys registered via `pbs` in `macos/defaults.sh`; the `.workflow` bundles are symlinked into
-`~/Library/Services` by `bootstrap.sh`. See [productivity](../09-productivity-desktop/INDEX.md) siblings
+`~/Library/Services` by `bootstrap.sh`. See [[09-productivity-desktop/INDEX|productivity]] siblings
 and the shortcut table in `macos/defaults.md` §8.
 
 ## Use cases

@@ -18,7 +18,7 @@ related:
 
 # Hooks & tools
 
-The harness-executed wiring around the [skills](02-skills.md) and [subagents](03-agents.md): hooks, plugins, MCP tools, and the `settings.json` config that binds them.
+The harness-executed wiring around the [[02-skills|skills]] and [[03-agents|subagents]]: hooks, plugins, MCP tools, and the `settings.json` config that binds them.
 
 ## Hooks
 
@@ -46,7 +46,7 @@ Hooks are shell commands the **harness** runs on lifecycle events (not the agent
 
 Claude Code plugins are enabled in `settings.json` + declared marketplaces:
 
-- **`ponytail`** — the laziness layer; always-on via a SessionStart hook (default mode `full`). Full write-up: [ponytail](../04-dev-languages/13-ponytail.md).
+- **`ponytail`** — the laziness layer; always-on via a SessionStart hook (default mode `full`). Full write-up: [[13-ponytail|ponytail]].
 - **`rust-analyzer-lsp`** — official LSP plugin for Rust.
 
 Plugin runtime state (cloned marketplace repos under `~/.claude/plugins/`) is **not** tracked; `bootstrap.sh` reproduces the *intent* (enabled list + marketplace) the same way it does for MCP.
@@ -63,4 +63,4 @@ MCP servers give the agent extra tools. Registration lives in `~/.claude.json` (
 Account-level **claude.ai-connected** MCPs (Gmail, Calendar, Drive, figma-dev-mode) may appear in a session but are **not** repo-tracked and can be absent in headless/cron runs.
 
 ## Related
-- [Agent-context protocol](01-agent-context-protocol.md) · [Skills](02-skills.md) · [Subagents](03-agents.md)
+- [[01-agent-context-protocol|Agent-context protocol]] · [[02-skills|Skills]] · [[03-agents|Subagents]]

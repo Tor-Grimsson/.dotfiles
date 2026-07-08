@@ -33,8 +33,8 @@ A **kanban board in the terminal** (Textual TUI) — columns (default Ready / Do
 Launch the TUI with `kanban-tui` or the short alias **`ktui`**.
 
 ## Setup
-A **uv tool**, not a Brewfile line (like [llm](../04-dev-languages/09-llm.md)).
-1. Install: `uv tool install kanban-tui` (see [uv](../04-dev-languages/04-uv.md)).
+A **uv tool**, not a Brewfile line (like [[09-llm|llm]]).
+1. Install: `uv tool install kanban-tui` (see [[04-uv|uv]]).
 2. Run: `ktui` — first launch creates the config + SQLite db (paths below).
 3. (Optional) try it risk-free: `kanban-tui demo` — temporary db + config, nothing touched.
 
@@ -66,7 +66,7 @@ A lightweight, keyboard-driven todo/kanban that lives in the terminal next to ev
 One tool, three surfaces: the **TUI** for daily use, the **CLI** for scripting, and the **MCP server** so Claude Code can read and update the same board. The kanban state is a plain local SQLite file you own.
 
 ## Reproduce on the other machine
-`brew bundle` already installs [uv](../04-dev-languages/04-uv.md). Then:
+`brew bundle` already installs [[04-uv|uv]]. Then:
 ```sh
 uv tool install kanban-tui
 ```

@@ -26,11 +26,11 @@ It covers **R2** (file storage), **Pages** (static site hosting), and **Wrangler
 
 | # | Chapter | Read it when |
 |---|---|---|
-| 01 | [What is Cloudflare](01-what-is-cloudflare.md) | You want to know what Cloudflare actually is and why we use it. |
-| 02 | [R2 & buckets — object storage explained](02-r2-and-buckets.md) | You want to understand what a "bucket" is and why files live there. |
-| 03 | [Cloudflare Pages — static hosting explained](03-pages.md) | You want to understand how a website gets deployed and what "Pages" means. |
-| 04 | [Wrangler — the CLI](04-wrangler.md) | You want to know what `wrangler` does and which commands matter. |
-| 05 | [kol-media — our actual setup](05-kol-media-setup.md) | You want the specific bucket, admin tool, deploy commands, and gotchas for kol-labs. |
+| 01 | [[01-what-is-cloudflare|What is Cloudflare]] | You want to know what Cloudflare actually is and why we use it. |
+| 02 | [[02-r2-and-buckets|R2 & buckets — object storage explained]] | You want to understand what a "bucket" is and why files live there. |
+| 03 | [[03-pages|Cloudflare Pages — static hosting explained]] | You want to understand how a website gets deployed and what "Pages" means. |
+| 04 | [[04-wrangler|Wrangler — the CLI]] | You want to know what `wrangler` does and which commands matter. |
+| 05 | [[05-kol-media-setup|kol-media — our actual setup]] | You want the specific bucket, admin tool, deploy commands, and gotchas for kol-labs. |
 
 ## The one-paragraph version
 

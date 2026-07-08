@@ -47,4 +47,4 @@ The generic / unbranded lane of the Markdown→print pipeline. Excellent default
 **~27× faster than LaTeX**, a tiny install (one binary, no TeX distribution), and clean A4 output with zero design work — the right default when you just want the text on paper.
 
 ## Future use
-Default engine of [pdf-from-md.sh](../12-scripts/04-pdf.md). Learn the template language later if fine layout control is ever wanted; not needed for the automation.
+Default engine of [[04-pdf|pdf-from-md.sh]]. Learn the template language later if fine layout control is ever wanted; not needed for the automation.

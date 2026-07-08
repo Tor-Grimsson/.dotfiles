@@ -2,7 +2,7 @@
 title: tmux
 type: reference
 status: active
-updated: 2026-07-05
+updated: 2026-07-08
 description: Terminal multiplexer that keeps shell sessions alive and splits one terminal into many panes and windows.
 aliases:
   - tmux
@@ -28,7 +28,6 @@ related:
   - "[[20-tmux-sessionx|tmux-sessionx]]"
   - "[[22-tmux-harpoon|tmux-harpoon]]"
   - "[[24-workmux|workmux]]"
-  - "[[25-tmux-agent-sidebar|tmux-agent-sidebar]]"
 ---
 
 ## Summary
@@ -56,8 +55,11 @@ tmux attach -t work       # reattach to "work"
 #   Ctrl-a z   zoom a pane fullscreen (toggle)
 #   Ctrl-a c   new window               Ctrl-a 1..9   jump to window N
 #   Ctrl-a n / p   next / previous window
+#   Ctrl-a C-n   new SESSION (prompts for a name, switches you in)
 #   Ctrl-a d   detach (session keeps running)
 #   Ctrl-a [   copy/scroll mode (q to exit)   Ctrl-a r   reload config
+#   Ctrl-a C-t   scratch shell popup      Ctrl-a C-y   yazi popup (float)
+#   Ctrl-a C-s   sesh session picker popup
 # (tmux's stock " and % splits still work — see Configuration below.)
 ```
 
@@ -67,11 +69,13 @@ tmux attach -t work       # reattach to "work"
 - **Intuitive splits** — `prefix |` / `prefix -`, opening in the current folder; `h/j/k/l` to move, `H/J/K/L` to resize. tmux's stock `"`/`%` still work.
 - **vi copy mode → system clipboard** — `v` select, `y` copy (OSC 52 relay, works locally and over SSH+remote-tmux); mouse-drag copies too.
 - **Mark a pane** — `prefix m` tints the current pane so it stands out (e.g. the one LOCAL pane among SSH panes); `prefix M` clears it.
+- **Popups** — floating windows over your panes (`display-popup`, tmux 3.2+), each opening in the current folder and vanishing on exit: `prefix C-t` scratch shell, `prefix C-y` [[02-yazi|yazi]] file manager, `prefix C-s` [[17-sesh|sesh]] session picker. Don't launch a popup from inside a popup — nested popups misbehave.
+- **New session** — `prefix C-n` asks for a name at the bottom prompt (`command-prompt`, not a popup) then creates it detached and switches you in (`switch-client`, never a raw attach from a bound key — same crash class as the sesh popup fix above).
 - **Quiet top status bar** — faint window list flush top-left (`#I:#W#F`), with a blank second row for breathing space above the p10k prompt.
 - **base-index 1**, 50k scrollback, true-colour passthrough, `prefix r` to reload.
-- **TPM** (`tmux-plugins/tpm`, cloned + installed by `bootstrap.sh`) runs [tmux-sessionx](20-tmux-sessionx.md) (`prefix O`) — an fzf-based session picker being run head-to-head against the standalone [sesh](17-sesh.md) — and [tmux-harpoon](22-tmux-harpoon.md) (session bookmarking) — given its own key table, `prefix a` then `1`–`4`/`a`/`e`, after both `Alt` (collides with AeroSpace's global workspace keys) and `Ctrl+Shift` (this terminal doesn't report Shift on Ctrl-letter combos) were tried and ruled out. [tmuxinator](18-tmuxinator.md) and [tmuxp](19-tmuxp.md) (YAML project layouts) round out the set — no tmux binding needed, both are plain shell commands, kept side by side rather than picked as a winner (tmuxinator for upfront-designed layouts, tmuxp for freezing one already built by hand). (`tmux-tea` was evaluated alongside these and dropped 2026-07-04.) [tmux-agent-sidebar](25-tmux-agent-sidebar.md) (`prefix e`/`prefix E`) rounds out the plugin set — live AI-agent status across sessions/windows, paired with [workmux](24-workmux.md) (git worktree + tmux window pairing, not a TPM plugin, plain CLI) for parallel-branch/agent workflows. Note: workmux ships its own `workmux sidebar` command that overlaps somewhat with tmux-agent-sidebar's job — worth comparing before keeping both permanently.
+- **TPM** (`tmux-plugins/tpm`, cloned + installed by `bootstrap.sh`) runs [[20-tmux-sessionx|tmux-sessionx]] (`prefix O`) — an fzf-based session picker being run head-to-head against the standalone [[17-sesh|sesh]] — and [[22-tmux-harpoon|tmux-harpoon]] (session bookmarking) — given its own key table, `prefix a` then `1`–`4`/`a`/`e`, after both `Alt` (collides with AeroSpace's global workspace keys) and `Ctrl+Shift` (this terminal doesn't report Shift on Ctrl-letter combos) were tried and ruled out. [[18-tmuxinator|tmuxinator]] and [[19-tmuxp|tmuxp]] (YAML project layouts) round out the set — no tmux binding needed, both are plain shell commands, kept side by side rather than picked as a winner (tmuxinator for upfront-designed layouts, tmuxp for freezing one already built by hand). (`tmux-tea` was evaluated alongside these and dropped 2026-07-04.) [[24-workmux|workmux]] (git worktree + tmux window pairing, not a TPM plugin, plain CLI) rounds out the set for parallel-branch/agent workflows. (`tmux-agent-sidebar` was tried and removed 2026-07-05 — auto-popped a pane into every new window, unwanted.)
 
-Day-to-day keys, copy mode in full, and pane/window/session tricks: see [tmux tips & tricks](09-tmux-tips.md).
+Day-to-day keys, copy mode in full, and pane/window/session tricks: see [[09-tmux-tips|tmux tips & tricks]].
 
 ## Future use
 `tmux-resurrect` / `tmux-continuum` to save and auto-restore full session layouts **across reboots** (native detach/reattach only survives while the machine stays on) — TPM is in place now, so these are just a `@plugin` line away whenever that's worth adding. Once `sesh` or `tmux-sessionx` "wins" the side-by-side evaluation, drop the other.

@@ -30,8 +30,8 @@ The universal document **translator**: reads Markdown (and dozens of other forma
 
 | Want | Engine flag | Install |
 |---|---|---|
-| fast, generic, no CSS | `--pdf-engine=typst` | [Typst](02-typst.md) |
-| CSS-controlled / branded | `--pdf-engine=weasyprint --css=print.css` | [WeasyPrint](03-weasyprint.md) |
+| fast, generic, no CSS | `--pdf-engine=typst` | [[02-typst|Typst]] |
+| CSS-controlled / branded | `--pdf-engine=weasyprint --css=print.css` | [[03-weasyprint|WeasyPrint]] |
 | LaTeX / academic | `--pdf-engine=xelatex` | BasicTeX (not installed) |
 
 ## Use
@@ -50,4 +50,4 @@ The hub of the Markdown→A4-print pipeline. Every doc in this repo is Markdown;
 One converter, **swappable engine** — `typst` for speed/batch, `weasyprint` for CSS control — with the same command shape. Reads the frontmatter you already write.
 
 ## Future use
-Built: [pdf-from-md.sh](../12-scripts/04-pdf.md) — batch md→A4 PDF with an engine flag; also drives the older `pdf-notes.sh`. Full workflow: [Markdown → A4](05-markdown-to-a4.md).
+Built: [[04-pdf|pdf-from-md.sh]] — batch md→A4 PDF with an engine flag; also drives the older `pdf-notes.sh`. Full workflow: [[05-markdown-to-a4|Markdown → A4]].

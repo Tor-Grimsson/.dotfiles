@@ -14,7 +14,7 @@ related:
 
 # B2 bucket tree
 
-> **Generated** by `bucket-tree.sh` — do not edit by hand. Readable view for Obsidian; raw json/txt for nvim in [`_files/`](_files/). See [B2](01-b2.md) for what these buckets are.
+> **Generated** by `bucket-tree.sh` — do not edit by hand. Readable view for Obsidian; raw json/txt for nvim in [`_files/`](_files/). See [[01-b2|B2]] for what these buckets are.
 
 ## website
 

@@ -17,10 +17,10 @@ related:
 # Download (`dl-`)
 
 These **fetch** media from a URL — the counterpart to the `au-`/`vid-` families,
-which *process* files you already have. The engine is [yt-dlp](../06-media-av/07-yt-dlp.md)
+which *process* files you already have. The engine is [[07-yt-dlp|yt-dlp]]
 (YouTube, TikTok + ~1800 sites); `ffmpeg` does the merge/extract.
 
-Not to be confused with [au-transcribe.sh](au-transcribe.md), which also pulls a URL
+Not to be confused with [[au-transcribe|au-transcribe.sh]], which also pulls a URL
 but only to throw audio at whisper — it keeps no media. `dl-` is for **keeping** the file.
 
 ## `dl-yt.sh` — download at highest quality

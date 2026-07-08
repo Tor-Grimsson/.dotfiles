@@ -55,10 +55,10 @@ dust -p              # full paths instead of the indented tree
 | `-c` | no color |
 
 ## Why installed
-The modern-CLI core had replacements for `ls`/`cat`/`find`/`grep`/`cd` ([eza](08-eza.md)/[bat](09-bat.md)/[fd](10-fd.md)/[ripgrep](11-ripgrep.md)/[zoxide](13-zoxide.md)) but nothing for `du`. `dust` fills the last common gap — finding the heavy directory before a cleanup.
+The modern-CLI core had replacements for `ls`/`cat`/`find`/`grep`/`cd` ([[08-eza|eza]]/[[09-bat|bat]]/[[10-fd|fd]]/[[11-ripgrep|ripgrep]]/[[13-zoxide|zoxide]]) but nothing for `du`. `dust` fills the last common gap — finding the heavy directory before a cleanup.
 
 ## Biggest win
 `dust ~/Library` or `dust ~/Downloads` names the offender instantly, ranked and graphed, with zero pipeline ceremony.
 
 ## Future use
-Front-end for the dedup pass: `dust` finds *where* the weight is, then the [Dedup & Cleanup](../03-dedup-cleanup/INDEX.md) tools (rmlint/czkawka) remove the *duplicates* within it.
+Front-end for the dedup pass: `dust` finds *where* the weight is, then the [[03-dedup-cleanup/INDEX|Dedup & Cleanup]] tools (rmlint/czkawka) remove the *duplicates* within it.

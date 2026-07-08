@@ -17,18 +17,18 @@ related:
 
 # Scripts at a glance
 
-Everything in `~/.dotfiles/bin` (symlinked to `~/bin`, on `PATH`). **Every script answers `-h` / `--help`** with purpose, args, and examples — so this is just the map; run `<script> -h` for the detail. Grouped by job below; the full per-family write-ups live in [docs/12-scripts](../12-scripts/INDEX.md).
+Everything in `~/.dotfiles/bin` (symlinked to `~/bin`, on `PATH`). **Every script answers `-h` / `--help`** with purpose, args, and examples — so this is just the map; run `<script> -h` for the detail. Grouped by job below; the full per-family write-ups live in [[12-scripts/INDEX|docs/12-scripts]].
 
 | Group | Prefix | Jump |
 |---|---|---|
-| [Image](#image) · [Video](#video) · [Audio](#audio) · [PDF](#pdf) | `img- vid- au- pdf-` | the media transcoders |
-| [Artwork](#artwork) · [Download](#download--torrents) · [Files & folders](#files--folders) | `art- dl- tor- fs- ss- batch-` | pipelines + plumbing |
-| [Capture & calendar](#capture--calendar) · [Sync & drift](#sync--drift) · [Helpers](#helpers) | `tg- dot- bucket- qa-` | automation + glue |
+| [[03-scripts#Image|Image]] · [[03-scripts#Video|Video]] · [[03-scripts#Audio|Audio]] · [[03-scripts#PDF|PDF]] | `img- vid- au- pdf-` | the media transcoders |
+| [[03-scripts#Artwork|Artwork]] · [[03-scripts#Download & torrents|Download]] · [[03-scripts#Files & folders|Files & folders]] | `art- dl- tor- fs- ss- batch-` | pipelines + plumbing |
+| [[03-scripts#Capture & calendar|Capture & calendar]] · [[03-scripts#Sync & drift|Sync & drift]] · [[03-scripts#Helpers|Helpers]] | `tg- dot- bucket- qa-` | automation + glue |
 
 ---
 
 ## Image
-Convert, resize, reframe, and web-export stills. Full doc: [Image / 2D](../12-scripts/03-image.md).
+Convert, resize, reframe, and web-export stills. Full doc: [[03-image|Image / 2D]].
 
 | Script | Does | Key usage |
 |---|---|---|
@@ -40,7 +40,7 @@ Convert, resize, reframe, and web-export stills. Full doc: [Image / 2D](../12-sc
 | `img-resize-1080.sh`, `img-crop-2000x2500*.sh` | fixed-size resize / crop presets | one-shot dimension recipes |
 
 ## Video
-A codec ladder plus three flagships. Full doc: [Video](../12-scripts/02-video.md).
+A codec ladder plus three flagships. Full doc: [[02-video|Video]].
 
 | Script | Does | Key usage |
 |---|---|---|
@@ -51,7 +51,7 @@ A codec ladder plus three flagships. Full doc: [Video](../12-scripts/02-video.md
 | `vid-h265-*.sh`, `vid-h264-web.sh`, `vid-prores.sh`, `vid-webm2mp4.sh` | the **codec ladder** — explicit H.265/H.264/ProRes presets | pick by target (8/10-bit, small, web, pad, DV-PAL) |
 
 ## Audio
-Transcode, tag, and transcribe. Full doc: [Audio](../12-scripts/01-audio.md).
+Transcode, tag, and transcribe. Full doc: [[01-audio|Audio]].
 
 | Script | Does | Key usage |
 |---|---|---|
@@ -63,7 +63,7 @@ Transcode, tag, and transcribe. Full doc: [Audio](../12-scripts/01-audio.md).
 | `au-transcribe-playlist.sh` | transcribe a **whole playlist** | batch wrapper over `au-transcribe` |
 
 ## PDF
-Build, expand, annotate, rasterize. Full doc: [PDF](../12-scripts/04-pdf.md).
+Build, expand, annotate, rasterize. Full doc: [[04-pdf|PDF]].
 
 | Script | Does |
 |---|---|
@@ -75,14 +75,14 @@ Build, expand, annotate, rasterize. Full doc: [PDF](../12-scripts/04-pdf.md).
 ---
 
 ## Artwork
-The print/export pipeline. Full doc: [Artwork pipeline](../12-scripts/05-artwork.md).
+The print/export pipeline. Full doc: [[05-artwork|Artwork pipeline]].
 
 | Script | Does | Key usage |
 |---|---|---|
 | `art-process.sh` | artwork **export pipeline** (flagship) | driven by `art-export.yml` (sizes/format manifest) |
 
 ## Download & torrents
-Fetch media and find torrents. Full docs: [Download](../12-scripts/12-download.md) · [Torrent](../12-scripts/07-torrent.md).
+Fetch media and find torrents. Full docs: [[12-download|Download]] · [[07-torrent|Torrent]].
 
 | Script | Does | Key usage |
 |---|---|---|
@@ -91,7 +91,7 @@ Fetch media and find torrents. Full docs: [Download](../12-scripts/12-download.m
 | `tor-jackett` | launches the local Jackett server | symlink to the Jackett binary |
 
 ## Files & folders
-Local plumbing — move, shoot, screenshot, select. Full docs: [Folder batch](../12-scripts/06-batch-folder.md) · [System & clipboard](../12-scripts/08-system.md) · [Finder selection](../12-scripts/09-finder.md).
+Local plumbing — move, shoot, screenshot, select. Full docs: [[06-batch-folder|Folder batch]] · [[08-system|System & clipboard]] · [[09-finder|Finder selection]].
 
 | Script | Does | Key usage |
 |---|---|---|
@@ -104,7 +104,7 @@ Local plumbing — move, shoot, screenshot, select. Full docs: [Folder batch](..
 ---
 
 ## Capture & calendar
-Frictionless inbox + calendar planning. Full docs: [Capture pipeline](../12-scripts/16-capture.md) · [Calendar](../12-scripts/15-calendar.md).
+Frictionless inbox + calendar planning. Full docs: [[16-capture|Capture pipeline]] · [[15-calendar|Calendar]].
 
 | Script | Does | Key usage |
 |---|---|---|
@@ -112,15 +112,23 @@ Frictionless inbox + calendar planning. Full docs: [Capture pipeline](../12-scri
 | `cplan` | calendar planning view that **hides recurring noise** | `--10d-n --30d-p` compose a date window; `-a` show all |
 
 ## Sync & drift
-Keep machines and buckets honest. Full docs: [Dotfiles sync](../12-scripts/11-dot-sync.md) · [Bucket drift](../12-scripts/14-bucket-drift.md).
+Keep machines and buckets honest. Full docs: [[11-dot-sync|Dotfiles sync]] · [[14-bucket-drift|Bucket drift]].
 
 | Script | Does | Key usage |
 |---|---|---|
 | `dot-sync.sh` | the **dotfiles sync ritual** as one command | `--auto` = launchd daemon (pulls/pushes only a clean tree) |
 | `bucket-drift.sh` | read-only **CDN drift** check vs a saved baseline | `bucket-drift.sh <remote> <baseline> [--update]` |
 
+## Appearance & wake
+Theme control + a real clock-time wake-up bundle. Full doc: [[../12-scripts/18-appearance|Appearance & wake automation]].
+
+| Script | Does | Key usage |
+|---|---|---|
+| `os-mode.sh` | toggle/set macOS Light/Dark, or flip after a **relative** delay | `-d`/`-n` set; `-t 3h30m` delayed flip; no flag = toggle |
+| `theme-alarm.sh` | a real **clock-time** alarm: theme + Focus + Spotify + Telegram, via `launchd` | `--time HH:MM …` writes the schedule; `--run`/`--test` fires it now |
+
 ## Helpers
-Small glue — mostly Quick Action backends. Full doc: [Quick Actions](../12-scripts/10-quick-actions.md).
+Small glue — mostly Quick Action backends. Full doc: [[10-quick-actions|Quick Actions]].
 
 | Script | Does |
 |---|---|
@@ -132,4 +140,4 @@ Small glue — mostly Quick Action backends. Full doc: [Quick Actions](../12-scr
 ## Notes
 - **Prefix = domain** (`img-`, `vid-`, …) so families sort together; non-prefixed by design: `cplan` (matches the `c*` calendar aliases) and `tor-search`.
 - Superseded scripts are moved **out of the repo** to `~/_temp/`, never carried in `bin/`.
-- This is the quick map — the authoritative, per-script detail (flags, gotchas, worked examples) is in [docs/12-scripts](../12-scripts/INDEX.md), one doc per family.
+- This is the quick map — the authoritative, per-script detail (flags, gotchas, worked examples) is in [[12-scripts/INDEX|docs/12-scripts]], one doc per family.

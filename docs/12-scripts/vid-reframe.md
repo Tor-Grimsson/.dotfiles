@@ -28,7 +28,7 @@ related:
 folder's export-spec aspect, kebab-named, and dropped in `../_export/<folder>/`.
 No flags. No arguments. No thinking required.
 
-This exists because [vid-convert.sh](vid-convert.md) requires explicit `-a`, `-r`,
+This exists because [[vid-convert|vid-convert.sh]] requires explicit `-a`, `-r`,
 `-o`, `-i`, `-p` flags on every call — correct for one-off reframes, wrong for
 "just process this whole folder." `vid-reframe.sh` is the batch wrapper that should
 have shipped with the library job from the start.
@@ -74,7 +74,7 @@ For each clip:
 
 1. **Square the pixels** (`scale=trunc(iw*sar/2)*2:ih,setsar=1`) — an anamorphic source
    (non-square SAR) is first rescaled to its true display size, so the cover step works
-   in display space. See [Anamorphic sources](#anamorphic-sources-the-sar-trap) below.
+   in display space. See [[vid-reframe#Anamorphic sources (the SAR trap)|Anamorphic sources]] below.
 2. Scale to **cover** the target box (`force_original_aspect_ratio=increase`, `lanczos`).
 3. Crop the overflow to the exact target dims, then `setsar=1` on the output.
 4. Encode: `libx265 -preset medium -crf 22 -pix_fmt yuv420p -tag:v hvc1 -movflags +faststart`.

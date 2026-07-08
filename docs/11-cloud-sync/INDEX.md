@@ -12,4 +12,4 @@ Command-line tooling for moving and mirroring files against cloud storage backen
 
 | Tool | Description |
 | --- | --- |
-| [rclone](01-rclone.md) | Command-line program to sync files and directories to and from cloud storage. |
+| [[01-rclone|rclone]] | Command-line program to sync files and directories to and from cloud storage. |

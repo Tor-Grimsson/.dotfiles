@@ -27,7 +27,7 @@ A database is that — but strict and fast:
 - It can hold **millions of rows** and still find one instantly, because of **indexes** (think: the index at the back of a book — a pre-sorted lookup so it doesn't read every page).
 - Many programs can read and write it **at the same time** without stepping on each other.
 
-In this project there's one table, `images`. One row = one published photo. Columns include `filename`, `camera`, `iso`, `tags`, and a link to the actual image file. (We'll see why the *file itself* isn't in the database in [chapter 02](02-this-stack.md).)
+In this project there's one table, `images`. One row = one published photo. Columns include `filename`, `camera`, `iso`, `tags`, and a link to the actual image file. (We'll see why the *file itself* isn't in the database in [[02-this-stack|chapter 02]].)
 
 ## 2. SQL is how you talk to it
 
@@ -69,7 +69,7 @@ Postgres on its own is just an engine. To use it you'd need a server to run it o
 | **An auto-generated API** | A web address your app can call to read/write the tables, without you writing a server. | Yes — the app reads `images` through it. |
 | **API keys** | Passwords-ish tokens that say "this request is allowed." | Yes — the publishable key in `.env.local`. |
 | **A dashboard** | The website at supabase.com where you click around: Table Editor, SQL Editor, Settings. | Yes. |
-| **Auth, Storage, Edge Functions, Realtime** | Optional extras (logins, file storage, server code, live updates). | Not yet — see [chapter 09](09-possibilities-and-next-steps.md). |
+| **Auth, Storage, Edge Functions, Realtime** | Optional extras (logins, file storage, server code, live updates). | Not yet — see [[09-possibilities-and-next-steps|chapter 09]]. |
 
 **Mental model:** *Supabase = your database, living on the internet, with a friendly front door and a control panel.*
 
@@ -78,7 +78,7 @@ Postgres on its own is just an engine. To use it you'd need a server to run it o
 Two ways to run all this:
 
 - **Cloud** — Supabase runs it on their servers. You manage it from the website. This is what you set up. Your project lives in the **North EU (Stockholm)** region. This is the real one.
-- **Local** — a copy of the whole stack running on your own machine via `supabase start` (it uses Docker). Handy for offline development. On this machine it didn't boot (a Docker quirk), so we used the cloud project directly. See [pitfalls](08-pitfalls-and-troubleshooting.md).
+- **Local** — a copy of the whole stack running on your own machine via `supabase start` (it uses Docker). Handy for offline development. On this machine it didn't boot (a Docker quirk), so we used the cloud project directly. See [[08-pitfalls-and-troubleshooting|pitfalls]].
 
 For a beginner: **just use the cloud project.** Local is an optimization you don't need yet.
 
@@ -90,4 +90,4 @@ Why this matters is the subject of the next chapter.
 
 ---
 
-**Next:** [How the pieces fit — app, Supabase, Backblaze, git](02-this-stack.md)
+**Next:** [[02-this-stack|How the pieces fit — app, Supabase, Backblaze, git]]

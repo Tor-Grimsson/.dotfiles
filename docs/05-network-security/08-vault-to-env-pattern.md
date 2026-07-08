@@ -150,7 +150,7 @@ Folder doesn't exist yet? One extra line before step 3:
 bw get template folder | jq '.name="kol-tokens"' | bw encode | bw create folder
 ```
 
-Full stage-by-stage anatomy of the jq pipeline: [Bitwarden CLI](03-bitwarden-cli.md) § Writing a password into the vault.
+Full stage-by-stage anatomy of the jq pipeline: [[03-bitwarden-cli|Bitwarden CLI]] § Writing a password into the vault.
 
 ## 7. Verification
 

@@ -38,23 +38,23 @@ related:
 
 | Tool | Help |
 |---|---|
-| [Neovim](#1-neovim-config-beginner) | `:help` / `:h` · `<leader>fk` (Telescope) |
-| [tmux](#2-tmux-help-tips) | `pfx ?` |
-| [yazi](#3-yazi-yazi) | `~` |
-| [fzf](#4-fzf-fzf) | `fzf --help` (shell) |
-| [AeroSpace](#5-aerospace-aerospace) | `aerospace --help` (shell) |
-| [Scripts](#6-scripts-all-scripts) | `<script> -h` / `--help` (shell) |
+| [[01-cli-cheatsheet#1. Neovim → config · beginner|Neovim]] | `:help` / `:h` · `<leader>fk` (Telescope) |
+| [[01-cli-cheatsheet#2. tmux → help · tips|tmux]] | `pfx ?` |
+| [[01-cli-cheatsheet#3. yazi → yazi|yazi]] | `~` |
+| [[01-cli-cheatsheet#4. fzf → fzf|fzf]] | `fzf --help` (shell) |
+| [[01-cli-cheatsheet#5. AeroSpace → aerospace|AeroSpace]] | `aerospace --help` (shell) |
+| [[01-cli-cheatsheet#6. Scripts → all scripts|Scripts]] | `<script> -h` / `--help` (shell) |
 
 The daily drivers on one page. **Keys only** — for the *why* and the full tables, follow the section's doc link. Built for print: read across the columns, not down. Trigger key (leader / prefix / modifier) is noted per tool. **Cross-tool shortcuts** — keys where one tool actually drives another — are called out separately, right below the summary table.
 
 | § | Tool | Role | Trigger | Full doc |
 |---|------|------|---------|----------|
-| **1** | **[Neovim](#1-neovim-config-beginner)** | text editor | leader = `Space` | [config](../04-dev-languages/10-neovim-config.md) · [beginner](../04-dev-languages/11-neovim-cheatsheet.md) |
-| **2** | **[tmux](#2-tmux-help-tips)** | terminal multiplexer | prefix = `Ctrl-a` | [help](../01-shell-terminal/10-tmux-help.md) · [tips](../01-shell-terminal/09-tmux-tips.md) |
-| **3** | **[yazi](#3-yazi-yazi)** | file manager | launch `y` | [yazi](../02-file-management/02-yazi.md) |
-| **4** | **[fzf](#4-fzf-fzf)** | fuzzy finder | `Ctrl-R` `Ctrl-T` `Alt-C` | [fzf](../02-file-management/12-fzf.md) |
-| **5** | **[AeroSpace](#5-aerospace-aerospace)** | window manager | mod = `Alt` | [aerospace](../09-productivity-desktop/05-aerospace.md) |
-| **6** | **[Scripts](#6-scripts-all-scripts)** | `bin/` CLI tools | invoke by name | [all scripts](03-scripts.md) |
+| **1** | **[[01-cli-cheatsheet#1. Neovim → config · beginner|Neovim]]** | text editor | leader = `Space` | [[10-neovim-config|config]] · [[11-neovim-cheatsheet|beginner]] |
+| **2** | **[[01-cli-cheatsheet#2. tmux → help · tips|tmux]]** | terminal multiplexer | prefix = `Ctrl-a` | [[10-tmux-help|help]] · [[09-tmux-tips|tips]] |
+| **3** | **[[01-cli-cheatsheet#3. yazi → yazi|yazi]]** | file manager | launch `y` | [[02-yazi|yazi]] |
+| **4** | **[[01-cli-cheatsheet#4. fzf → fzf|fzf]]** | fuzzy finder | `Ctrl-R` `Ctrl-T` `Alt-C` | [[12-fzf|fzf]] |
+| **5** | **[[01-cli-cheatsheet#5. AeroSpace → aerospace|AeroSpace]]** | window manager | mod = `Alt` | [[05-aerospace|aerospace]] |
+| **6** | **[[01-cli-cheatsheet#6. Scripts → all scripts|Scripts]]** | `bin/` CLI tools | invoke by name | [[03-scripts|all scripts]] |
 
 ---
 
@@ -64,17 +64,17 @@ Real integrations — one tool actually driving another, not just a similar key.
 
 | Tools | Key | Where | Does |
 |---|---|---|---|
-| [yazi](#3-yazi-yazi) → fzf | `z` | in yazi | jump to a file/dir via the real `fzf` binary (yazi's built-in `fzf` plugin) |
-| [yazi](#3-yazi-yazi) → zoxide | `Z` | in yazi | jump to a frecent dir via the real `zoxide` binary (yazi's built-in `zoxide` plugin) |
-| [Neovim](#1-neovim-config-beginner) → yazi | `<leader>fy` | in nvim | open yazi in a floating window at the current file (`yazi.nvim`) — pick a file, land back in that buffer |
-| [tmux](#2-tmux-help-tips) ↔ [Neovim](#1-neovim-config-beginner) | `Ctrl-h/j/k/l` | in either | one nav key crosses tmux panes *and* nvim splits (`vim-tmux-navigator`) |
-| [Neovim](#1-neovim-config-beginner) ↔ fzf | *(automatic)* | Telescope | Telescope's fuzzy sorter is `telescope-fzf-native` — fzf's matching **algorithm**, natively compiled — it does **not** shell out to the real `fzf` binary |
+| [[01-cli-cheatsheet#3. yazi → yazi|yazi]] → fzf | `z` | in yazi | jump to a file/dir via the real `fzf` binary (yazi's built-in `fzf` plugin) |
+| [[01-cli-cheatsheet#3. yazi → yazi|yazi]] → zoxide | `Z` | in yazi | jump to a frecent dir via the real `zoxide` binary (yazi's built-in `zoxide` plugin) |
+| [[01-cli-cheatsheet#1. Neovim → config · beginner|Neovim]] → yazi | `<leader>fy` | in nvim | open yazi in a floating window at the current file (`yazi.nvim`) — pick a file, land back in that buffer |
+| [[01-cli-cheatsheet#2. tmux → help · tips|tmux]] ↔ [[01-cli-cheatsheet#1. Neovim → config · beginner|Neovim]] | `Ctrl-h/j/k/l` | in either | one nav key crosses tmux panes *and* nvim splits (`vim-tmux-navigator`) |
+| [[01-cli-cheatsheet#1. Neovim → config · beginner|Neovim]] ↔ fzf | *(automatic)* | Telescope | Telescope's fuzzy sorter is `telescope-fzf-native` — fzf's matching **algorithm**, natively compiled — it does **not** shell out to the real `fzf` binary |
 
 **Not wired, on purpose:** a literal `fzf` binary inside Neovim would duplicate what Telescope + fzf-native already does natively (with previews and LSP awareness).
 
 ---
 
-## 1. Neovim → [config](../04-dev-languages/10-neovim-config.md) · [beginner](../04-dev-languages/11-neovim-cheatsheet.md)
+## 1. Neovim → [[10-neovim-config|config]] · [[11-neovim-cheatsheet|beginner]]
 
 **Help:** `:help` (`:h`) opens Vim's own docs · `:h <topic>` for something specific · `:helpgrep <pat>` searches all of them · `:Tutor` = 30-min interactive lesson · `<leader>fk` (Telescope) fuzzy-searches every active keymap in *this* config. (`which-key` is installed but fully commented out — no popup on leader-wait; `<leader>fk` is the real discovery key.)
 
@@ -164,7 +164,7 @@ Most edits = a **verb** then a **target**. `ciw` = change inner word. `dap` = de
 | `gqap` / `gqq` | reflow paragraph / line to `textwidth` | `:%!par 80` | reflow whole file, balanced |
 | `:` then `↑`/`Ctrl-p` | recall last `:` command (repeat, then edit) | **`q:`** | **command-line window** — full history, editable, `⏎` runs the line under cursor |
 
-> **Reflow / wrap:** `gq` wraps to `textwidth` (`:set tw=80`) but is greedy — it can leave a one-word last line (orphan). `:%!par 80` pipes the buffer through **par** for balanced lines with no orphans; `:%!fmt -w 80` is the system-builtin greedy alt. Full walkthrough → [Neovim workflows](02-nvim-workflows.md).
+> **Reflow / wrap:** `gq` wraps to `textwidth` (`:set tw=80`) but is greedy — it can leave a one-word last line (orphan). `:%!par 80` pipes the buffer through **par** for balanced lines with no orphans; `:%!fmt -w 80` is the system-builtin greedy alt. Full walkthrough → [[02-nvim-workflows|Neovim workflows]].
 
 ### Surround (`nvim-surround`)
 
@@ -206,23 +206,23 @@ Most edits = a **verb** then a **target**. `ciw` = change inner word. `dap` = de
 
 **In the picker:** `Ctrl-j`/`Ctrl-k` next/prev result · `Enter` open · `Esc`/`Ctrl-c` close · `Tab` multi-select · `Ctrl-x`/`Ctrl-v` open in split/vsplit · `Ctrl-q` send to quickfix (+ opens Trouble) · `Ctrl-t` open results in Trouble.
 
-> Powered by `telescope-fzf-native` (fzf's matching **algorithm**, compiled in) — not the `fzf` binary. See **Cross-tool shortcuts** above and [fzf](#4-fzf-fzf) below.
+> Powered by `telescope-fzf-native` (fzf's matching **algorithm**, compiled in) — not the `fzf` binary. See **Cross-tool shortcuts** above and [[01-cli-cheatsheet#4. fzf → fzf|fzf]] below.
 
 ### yazi — from inside Neovim
 
 | Key | Does |
 |---|---|
-| `<leader>fy` | open [yazi](../02-file-management/02-yazi.md) in a floating window at the current file (`yazi.nvim`) |
+| `<leader>fy` | open [[02-yazi|yazi]] in a floating window at the current file (`yazi.nvim`) |
 
 ---
 
-## 2. tmux → [help](../01-shell-terminal/10-tmux-help.md) · [tips](../01-shell-terminal/09-tmux-tips.md)
+## 2. tmux → [[10-tmux-help|help]] · [[09-tmux-tips|tips]]
 
 **Help:** `pfx ?` lists every binding, live and scrollable · `tmux lsk` from the shell (pipe to `grep <x>` to search one) · `man tmux` for the full manual.
 
 **Prefix = `Ctrl-a`** (press, release, then the key — written `pfx`). Double-tap `Ctrl-a Ctrl-a` sends a literal Ctrl-a.
 
-**Plugins:** tpm-managed — `tmux-sessionx` (`pfx O`), `tmux-harpoon` (bookmarks, own key table `pfx a` — not `Alt` or `Ctrl+Shift`, both ruled out, see [full docs](../01-shell-terminal/22-tmux-harpoon.md)), and `tmux-agent-sidebar` (`pfx e`/`pfx E`). Native detach/reattach still covers plain session persistence.
+**Plugins:** tpm-managed — `tmux-sessionx` (`pfx O`) and `tmux-harpoon` (bookmarks, own key table `pfx a` — not `Alt` or `Ctrl+Shift`, both ruled out, see [[22-tmux-harpoon|full docs]]). Native detach/reattach still covers plain session persistence.
 
 ### Sessions (outlive the terminal) — mostly from the shell
 
@@ -232,15 +232,23 @@ Most edits = a **verb** then a **target**. `ciw` = change inner word. `dap` = de
 | `tmux a -t work` | reattach (`tmux a` = last) | `pfx s` | session switcher |
 | `tmux ls` | list sessions | `pfx $` | rename session |
 
-### Session/project managers — [full docs](../01-shell-terminal/02-tmux.md)
+### Session/project managers — [[02-tmux|full docs]]
 
 | Key | Does | Key | Does |
 |---|---|---|---|
-| `pfx O` | [tmux-sessionx](../01-shell-terminal/20-tmux-sessionx.md) popup — vs. `sesh`, still deciding | `pfx a`, `a` | [tmux-harpoon](../01-shell-terminal/22-tmux-harpoon.md) — bookmark current session |
+| `pfx O` | [[20-tmux-sessionx|tmux-sessionx]] popup — vs. `sesh`, still deciding | `pfx a`, `a` | [[22-tmux-harpoon|tmux-harpoon]] — bookmark current session |
 | `pfx a`, `1`…`4` | harpoon — jump to bookmark 1–4 | `pfx a`, `e` | harpoon — edit bookmark list (popup) |
-| `pfx e` | [tmux-agent-sidebar](../01-shell-terminal/25-tmux-agent-sidebar.md) — toggle in this window | `pfx E` | agent-sidebar — toggle everywhere |
 
-Shell-only, no tmux binding: [sesh](../01-shell-terminal/17-sesh.md) (`sesh picker` or `sesh connect <name>` — vs. `tmux-sessionx`, still deciding), [tmuxinator](../01-shell-terminal/18-tmuxinator.md) (`tmuxinator start` — upfront-designed layouts) + [tmuxp](../01-shell-terminal/19-tmuxp.md) (`tmuxp freeze` — snapshot a layout you already built by hand), kept side by side, not a winner, and [workmux](../01-shell-terminal/24-workmux.md) (`workmux add <branch>` / `workmux merge` — git worktree + tmux window paired in one command).
+Shell-only, no tmux binding: [[17-sesh|sesh]] (`sesh picker` or `sesh connect <name>` — vs. `tmux-sessionx`, still deciding), [[18-tmuxinator|tmuxinator]] (`tmuxinator start` — upfront-designed layouts) + [[19-tmuxp|tmuxp]] (`tmuxp freeze` — snapshot a layout you already built by hand), kept side by side, not a winner, and [[24-workmux|workmux]] (`workmux add <branch>` / `workmux merge` — git worktree + tmux window paired in one command).
+
+### Popups (floating, vanish on exit)
+
+| Key | Does | Key | Does |
+|---|---|---|---|
+| `pfx C-t` | scratch shell (cwd) | `pfx C-y` | [[02-yazi\|yazi]] file manager (cwd) |
+| `pfx C-s` | [[17-sesh\|sesh]] picker — running sessions only, switches in | `pfx C-n` | new session — prompts for a name, switches in |
+
+No popup from inside a popup — nested popups misbehave. `C-s`/`C-n` both use `switch-client`, never a raw attach from a bound key (crashed all sessions once — fixed 2026-07-08).
 
 ### Windows (tabs) & Panes (splits)
 
@@ -279,11 +287,11 @@ Shell-only, no tmux binding: [sesh](../01-shell-terminal/17-sesh.md) (`sesh pick
 > 6. `y` — copies, exits copy mode.
 > 7. `⌘V` in any local app — paste.
 >
-> Needs the *remote* box's `tmux.conf` to have `set -g set-clipboard on` + `allow-passthrough on` (2026-07-05) — if it's an older pulled dotfiles copy, `git pull` + `pfx r` on that box first. **Also needs iTerm2 locally** set to Always Allow clipboard access (Settings -> General -> Selection) — "Ask Each Time" silently fails with no error. **Verified working end-to-end 2026-07-05.** Full explanation: [remote dev workflow §3](../22-remote-machine/02-remote-dev-workflow.md#3-clipboard-over-ssh--tmux), [iTerm2 setup](../01-shell-terminal/01-iterm2.md).
+> Needs the *remote* box's `tmux.conf` to have `set -g set-clipboard on` + `allow-passthrough on` (2026-07-05) — if it's an older pulled dotfiles copy, `git pull` + `pfx r` on that box first. **Also needs iTerm2 locally** set to Always Allow clipboard access (Settings -> General -> Selection) — "Ask Each Time" silently fails with no error. **Verified working end-to-end 2026-07-05.** Full explanation: [[02-remote-dev-workflow#3. Clipboard over SSH + tmux|remote dev workflow §3]], [[01-iterm2|iTerm2 setup]].
 
 ---
 
-## 3. yazi → [yazi](../02-file-management/02-yazi.md)
+## 3. yazi → [[02-yazi|yazi]]
 
 **Help:** `~` opens yazi's own in-app help (context-aware — shows the keymap for whatever mode/screen you're in) · `yazi --help` from the shell for CLI flags.
 
@@ -328,7 +336,7 @@ Launch with **`y`** (cd's the shell to wherever you quit). `q` quits.
 
 ---
 
-## 4. fzf → [fzf](../02-file-management/12-fzf.md)
+## 4. fzf → [[12-fzf|fzf]]
 
 **Help:** no in-picker help screen · `fzf --help` from the shell for the flag list · `man fzf` (or `fzf --man`) for the full manual.
 
@@ -350,11 +358,11 @@ fd -e md | fzf                          # fuzzy-filter any list
 rg --line-number . | fzf --ansi        # live-grep file contents
 ```
 
-**In Neovim:** Telescope (`<leader>ff`/`fs`/`fc`/`fr`/`ft`/`fk`, in the [Neovim](#1-neovim-config-beginner) section above) runs on `telescope-fzf-native` — fzf's matching **algorithm**, compiled in, not this `fzf` binary.
+**In Neovim:** Telescope (`<leader>ff`/`fs`/`fc`/`fr`/`ft`/`fk`, in the [[01-cli-cheatsheet#1. Neovim → config · beginner|Neovim]] section above) runs on `telescope-fzf-native` — fzf's matching **algorithm**, compiled in, not this `fzf` binary.
 
 ---
 
-## 5. AeroSpace → [aerospace](../09-productivity-desktop/05-aerospace.md)
+## 5. AeroSpace → [[05-aerospace|aerospace]]
 
 **Help:** no in-app overlay — it's a background WM, nothing shows on-screen · `aerospace --help` lists every subcommand · `man aerospace` for the full manual · the live keybindings only exist in `aerospace.toml`.
 
@@ -394,9 +402,9 @@ Modifier = **`Alt`**. Tiling WM with its own fast virtual workspaces.
 
 ---
 
-## 6. Scripts → [all scripts](03-scripts.md)
+## 6. Scripts → [[03-scripts|all scripts]]
 
-**Help:** every script answers `-h` / `--help` with purpose, args, and examples — that's always the authoritative source. This table is a **highlight**, not the full map: img-, ss- and pdf- so far, more families added as they come up. Full `bin/` catalog: [Scripts at a glance](03-scripts.md).
+**Help:** every script answers `-h` / `--help` with purpose, args, and examples — that's always the authoritative source. This table is a **highlight**, not the full map: img-, ss- and pdf- so far, more families added as they come up. Full `bin/` catalog: [[03-scripts|Scripts at a glance]].
 
 | Script | Does | Key flags |
 |---|---|---|
@@ -405,11 +413,12 @@ Modifier = **`Alt`**. Tiling WM with its own fast virtual workspaces.
 | `img-canvas.sh` | fit an image into a fixed-aspect canvas, exact pixels always | `-a` preset (`9:16`…`16:9`) or raw `WxH` · `-s 1\|2` scale · `-m cover\|fit\|stretch` · `-g` gravity · `-c` colors (PNG quantize) |
 | `ss-save.sh` | save the clipboard image → PNG file (via pngpaste) | arg1 `NAME` (default `clip_<ts>`, `.png` auto-added) · arg2 `DIR` (default cwd, `~` ok, `mkdir -p`) — two **separate** positional args, name then dir |
 | `pdf-from-md.sh` | Markdown → **A4 PDF** (Pandoc) | `-e typst\|weasyprint` engine (default typst) · `-w` watch · batch (`*.md` or args) |
+| `os-mode.sh` / `theme-alarm.sh` | theme toggle + clock-time wake-alarm bundle | `Cmd+Alt+Shift+T` toggle theme · `Cmd+Alt+Shift+A` run wake-alarm test (both Raycast hotkeys — see [[../12-scripts/18-appearance|Appearance & wake automation]]) |
 
 > `-t` on `img-from-video.sh` is two modes in one flag: a bare integer (`-t 23`) is always a **frame number**, never seconds — for a timestamp use `HH:MM:SS` or a decimal (`-t 5.5`).
 > `-e` on `img-convert.sh`/`img-from-video.sh` forces the literal `WxH` you asked for (crop/pad, no distortion) — plain `-r` is fit-inside and can land short on one axis from aspect-ratio rounding. `img-canvas.sh` does this by default (that's its whole job) plus aspect presets and a resolution multiplier — reach for it directly when you want presets, reach for `-e` when you already know the exact `WxH` and want to keep using `img-convert.sh`'s other flags (`-c`, `-d`, `-a`).
 
-**A clean, standardized export** — pair `-e` with an [export-specs](../12-scripts/img-canvas.md) size (short-side-1080 table: `4:5`→`1080x1350`, `1:1`→`1080x1080`, `9:16`→`1080x1920`, …) instead of an arbitrary number:
+**A clean, standardized export** — pair `-e` with an [[img-canvas|export-specs]] size (short-side-1080 table: `4:5`→`1080x1350`, `1:1`→`1080x1080`, `9:16`→`1080x1920`, …) instead of an arbitrary number:
 
 ```sh
 img-convert.sh -r 1080x1350 -e -f png -c 256 art.png   # 4:5 @1x, exact, quantized
@@ -439,13 +448,13 @@ Measured floor on a 1600×2000 flat illustration (~4 real colors + AA noise) —
 | `cl` | `claude` — launch Claude Code |
 | `cc` | `clear` — clear the terminal |
 | `llm "..."` | one-shot question to an LLM — see the **4-part `llm` family** below |
-| `cllm "..."` | `llm -c` — continue the previous [llm](../04-dev-languages/09-llm.md) conversation |
+| `cllm "..."` | `llm -c` — continue the previous [[09-llm|llm]] conversation |
 | `llmc` | `llm chat` — interactive llm REPL |
 | `cat file \| llm "..."` | pipe a file/command's output in as context (see below) |
 | `reveal [PATH]` | open Finder at PATH (default: current dir); a file is selected in its folder |
-| `reveal -f [PATH]` | new **floating** Finder window on the *current* AeroSpace workspace — bypasses the blanket Finder→W rule (`fs-reveal.sh`, see [Scripts](#6-scripts-all-scripts)) |
+| `reveal -f [PATH]` | new **floating** Finder window on the *current* AeroSpace workspace — bypasses the blanket Finder→W rule (`fs-reveal.sh`, see [[01-cli-cheatsheet#6. Scripts → all scripts|Scripts]]) |
 
-### llm → [full doc](../04-dev-languages/09-llm.md)
+### llm → [[09-llm|full doc]]
 
 **Help:** `llm --help` · `llm prompt --help` for every prompting flag.
 
@@ -491,8 +500,8 @@ Mirrors yazi's `g`-keybinds at the shell level. Zsh **functions** (not aliases �
 > git update-index --skip-worktree <file>     # this clone only, reverse: --no-skip-worktree
 > git ls-files -v | grep '^S'                  # list every file currently skip-worktree'd
 > ```
-> Only silences `status`/`diff` — a pull/rebase that needs to touch a drifted skip-worktree'd file **aborts outright** rather than overwriting it (tested live). If that's blocking your pull: `--no-skip-worktree` it, reset/stash just that file, pull, restore, re-flag. Full reference: [Git & GitHub](04-git-github.md#2-everyday-git--by-task).
+> Only silences `status`/`diff` — a pull/rebase that needs to touch a drifted skip-worktree'd file **aborts outright** rather than overwriting it (tested live). If that's blocking your pull: `--no-skip-worktree` it, reset/stash just that file, pull, restore, re-flag. Full reference: [[04-git-github#2. Everyday git — by task|Git & GitHub]].
 
 ---
 
-*Living doc — iterate here as the keymaps change. Companions: [Neovim workflows](02-nvim-workflows.md) (text handling) · [Scripts at a glance](03-scripts.md) (the `bin/` family map). Symlinked into the kol-vault for print.*
+*Living doc — iterate here as the keymaps change. Companions: [[02-nvim-workflows|Neovim workflows]] (text handling) · [[03-scripts|Scripts at a glance]] (the `bin/` family map). Symlinked into the kol-vault for print.*

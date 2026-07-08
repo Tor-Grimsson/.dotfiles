@@ -45,7 +45,7 @@ The repo (git) is the single source of truth for all portable config. **iCloud i
 ~/bin               → ~/.dotfiles/bin
 ```
 
-So `~/.claude` is repo-backed: editing `~/.claude/settings.json`, a skill, or `CLAUDE.md` edits the repo directly. See [provisioning](02-provisioning.md) for the full link map.
+So `~/.claude` is repo-backed: editing `~/.claude/settings.json`, a skill, or `CLAUDE.md` edits the repo directly. See [[02-provisioning|provisioning]] for the full link map.
 
 ## Tracked vs. runtime state
 
@@ -72,7 +72,7 @@ Rule of thumb: if it reproduces from a tracked declaration (a lock file, a `@plu
 
 ## Foreign/disposable boxes: local drift on a tracked file
 
-`bootstrap-cli.sh` also targets **foreign/SSH boxes** that aren't one of the two fleet machines (see [provisioning](02-provisioning.md)'s Quickstart) — a one-off test or throwaway remote, not somewhere you `git commit` from.
+`bootstrap-cli.sh` also targets **foreign/SSH boxes** that aren't one of the two fleet machines (see [[02-provisioning|provisioning]]'s Quickstart) — a one-off test or throwaway remote, not somewhere you `git commit` from.
 
 On a box like that, a tool can rewrite a tracked file as a normal side effect of doing its job — e.g. `nvim/lazy-lock.json`: first launch resolves plugins against the pinned versions and can touch the lockfile even though nothing about the fleet's actual pins changed. Result: `git status` goes dirty on a box you never intended to commit from.
 
@@ -90,5 +90,5 @@ Run once, on that box, inside `~/.dotfiles`. It's a **local, per-clone flag** �
 
 ## See also
 
-- [Provisioning](02-provisioning.md) — the scripts + brewfiles that build all of the above.
+- [[02-provisioning|Provisioning]] — the scripts + brewfiles that build all of the above.
 - [ARCHITECTURE.md](../../.kol/llm-context/ARCHITECTURE.md) — §1–§3 are the load-bearing form of this doc.

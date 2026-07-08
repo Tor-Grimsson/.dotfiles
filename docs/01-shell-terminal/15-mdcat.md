@@ -25,12 +25,12 @@ related:
 ---
 
 ## Summary
-A terminal **markdown renderer** (single Rust binary) that styles headings **without leaving the `##` markers**, renders tables/lists/quotes/code, and — unlike most — shows **inline images** in iTerm2 (and kitty) via the terminal image protocol. Chosen over [glow](08-glow.md) as the yazi preview renderer after an A/B: glow keeps the `##` and strips frontmatter; mdcat drops the markers and shows frontmatter as a rule + text.
+A terminal **markdown renderer** (single Rust binary) that styles headings **without leaving the `##` markers**, renders tables/lists/quotes/code, and — unlike most — shows **inline images** in iTerm2 (and kitty) via the terminal image protocol. Chosen over [[08-glow|glow]] as the yazi preview renderer after an A/B: glow keeps the `##` and strips frontmatter; mdcat drops the markers and shows frontmatter as a rule + text.
 
 It pairs with, doesn't replace, glow — glow stays for scripts + the "Open in glow" Quick Action; mdcat is the in-terminal reader and yazi previewer.
 
 ## Why installed
-The markdown renderer for [yazi](../02-file-management/02-yazi.md)'s `.md` preview pane, and a nicer full-screen reader than glow for docs with headings or images. The dotfiles are markdown-heavy; mdcat is the cleanest in-terminal view of them.
+The markdown renderer for [[02-yazi|yazi]]'s `.md` preview pane, and a nicer full-screen reader than glow for docs with headings or images. The dotfiles are markdown-heavy; mdcat is the cleanest in-terminal view of them.
 
 ## Most common use case
 You rarely call it directly — it renders automatically in the yazi preview pane, and on the `M` key for a full-screen read. Standalone: `mdcat -p file.md`.
@@ -62,7 +62,7 @@ mdcat -c file.md          # --no-colour: plain text
 ## yazi integration
 - **Previewer:** `yazi/plugins/mdcat.yazi/main.lua` (hand-written, not a `ya pkg` dep) runs `mdcat --ansi --local --columns <pane-width>` with a 2-col margin via `job.area:pad(ui.Pad.x(2))`. Wired in `yazi.toml` for `*.{md,markdown}` (by extension — yazi tags `.md` as `text/plain`, so mime won't match).
 - **Full-screen:** the `M` key in `keymap.toml` → `shell 'mdcat -p "$@"' --block` (pager + inline images), `q` returns to yazi.
-- See [yazi](../02-file-management/02-yazi.md) for the full preview-backend picture.
+- See [[02-yazi|yazi]] for the full preview-backend picture.
 
 ## Future use
 A `md() { mdcat -p "$@"; }` shell alias for a quick reader; swap the yazi `pad` local if the margin wants tuning. If a doc-with-images workflow grows, mdcat's inline-image rendering is the reason to reach for it over glow.

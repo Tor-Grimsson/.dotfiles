@@ -27,7 +27,7 @@ related:
 
 ## Overview
 
-Hand it a TikTok/YouTube URL (or any of yt-dlp's ~1800 sites), or a local media file, and it writes a single markdown note: the posted **caption + metadata as frontmatter**, the **spoken transcript as the body**. It is the wiring that finally puts [whisper.cpp](../06-media-av/04-whisper-cpp.md) to work.
+Hand it a TikTok/YouTube URL (or any of yt-dlp's ~1800 sites), or a local media file, and it writes a single markdown note: the posted **caption + metadata as frontmatter**, the **spoken transcript as the body**. It is the wiring that finally puts [[04-whisper-cpp|whisper.cpp]] to work.
 
 The pipeline is four hops, each a tool already in the `Brewfile`:
 
@@ -46,7 +46,7 @@ The **caption** comes straight from yt-dlp metadata — no speech recognition. O
 
 ## 1. What it produces
 
-One `<slug>.md` per input, named from a kebab-cased title (clobber-safe — a second run appends `-2`, `-3`). A real run on a 28-second TikTok — full file at [_files/au-transcribe-example.md](_files/au-transcribe-example.md):
+One `<slug>.md` per input, named from a kebab-cased title (clobber-safe — a second run appends `-2`, `-3`). A real run on a 28-second TikTok — full file at [[au-transcribe-example|_files/au-transcribe-example.md]]:
 
 ```md
 ---

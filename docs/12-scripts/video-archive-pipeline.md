@@ -53,8 +53,8 @@ copies on demand — you don't pre-store a "ladder".
 
 The scripts are the source of truth (`~/.dotfiles/bin/vid-*.sh`, symlinked onto
 `PATH`); this doc is the workflow that ties them together. For the encoder's own flag
-reference see [the vid-archive.sh deep-dive](vid-archive.md); for the whole family see
-[the vid- overview](02-video.md).
+reference see [[vid-archive|the vid-archive.sh deep-dive]]; for the whole family see
+[[02-video|the vid- overview]].
 
 ## 0. Prerequisites
 

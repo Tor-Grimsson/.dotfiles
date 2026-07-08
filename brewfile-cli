@@ -47,7 +47,7 @@ brew "tmuxinator"  # Define a project's full window/pane layout in YAML, `tmuxin
 brew "tmuxp"       # Same idea as tmuxinator, but `tmuxp freeze` snapshots an already-running session's layout into a config — tmuxinator has no equivalent; docs/01-shell-terminal/19-tmuxp.md
 # workmux (raine/workmux tap) is installed separately by bootstrap*.sh, not
 # bundled here — see the note in bootstrap-cli.sh for why.
-# NOTE: tmux-sessionx, tmux-harpoon, and tmux-agent-sidebar are TPM plugins
+# NOTE: tmux-sessionx and tmux-harpoon are TPM plugins
 #       (see tmux/.tmux.conf, section 5), not Homebrew packages. tmux-tea
 #       was dropped 2026-07-04 after evaluation (sesh vs tmux-sessionx is
 #       still being decided). tmuxinator + tmuxp both kept, on purpose — not
@@ -61,8 +61,9 @@ brew "czkawka"     # czkawka_cli — exact AND fuzzy (similar images / video / m
 
 # ── Dev & languages ─────────────────────────────────────────────────────────
 brew "neovim"      # Vim fork, extensible
-brew "node"        # JavaScript runtime
+brew "node"        # JavaScript runtime (global fallback; per-project versions come from fnm)
 brew "pnpm"        # Fast, disk-efficient JS package manager (can self-manage node)
+brew "fnm"         # Fast Node version manager — per-project Node via .nvmrc, auto-switch on cd; docs/23-version-management
 brew "pipx"        # Install Python CLI apps in isolated venvs (one app per env)
                    #   pipx-managed (run per machine): edge-tts — clipboard TTS, docs/06-media-av/06-edge-tts.md
 brew "uv"          # Fast Python project/dep/version manager (+ uvx tool runner)

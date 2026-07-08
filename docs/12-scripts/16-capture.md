@@ -50,7 +50,7 @@ The vault's **kol-dashboard** plugin surfaces `inbox.md` two ways: the **INBOX**
 | Tag (alias) | Goes to |
 |---|---|
 | `#kol-td` (`#t`) | **Todoist** task |
-| `#kol-cal` (`#e`) | **calendar** event ([gcalcli](../01-shell-terminal/14-gcalcli.md) `quick`, natural-language date) |
+| `#kol-cal` (`#e`) | **calendar** event ([[14-gcalcli|gcalcli]] `quick`, natural-language date) |
 | `#kol-ob` (`#n`) | **Obsidian** vault — appended to `kol-vault/kol-inbox/inbox.md` (folder note `INDEX.md` explains it), timestamped |
 | _(no tag)_ | vault note (catch-all — nothing is ever lost) |
 | _(photo / video / document / voice)_ | **media** — uploaded to the CDN, embedded in `inbox.md` (see below) |
@@ -100,4 +100,4 @@ State (the last-seen update id) lives at `~/.local/state/tg-inbox/offset` so mes
 - **Stop the timer:** `launchctl bootout gui/$(id -u)/com.kolkrabbi.tg-inbox`.
 
 ## Why it's the hub
-Telegram is the only capture layer that is *both* phone-native *and* scriptable — so it can fan out to anywhere a shell can reach. [kanban-tui](../01-shell-terminal/16-kanban-tui.md) can't be this (local-only, no mobile); a paid Raycast/Obsidian-sync can't either. This is the "send a fleeting thought to its optimal location" system, built from a 90-line script + a 2-minute timer.
+Telegram is the only capture layer that is *both* phone-native *and* scriptable — so it can fan out to anywhere a shell can reach. [[16-kanban-tui|kanban-tui]] can't be this (local-only, no mobile); a paid Raycast/Obsidian-sync can't either. This is the "send a fleeting thought to its optimal location" system, built from a 90-line script + a 2-minute timer.
