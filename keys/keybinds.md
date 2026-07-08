@@ -57,6 +57,15 @@ a             add current session to the list
 e            edit the harpoon list
 1..4          jump to bookmarked session N
 
+## #tmux #lazygit
+prefix C-g    open the lazygit popup (cwd)
+a             stage ALL changes  (the `git add .`)
+c             commit → type message → Enter to confirm
+A             amend: fold staged changes into the last commit (keep msg)
+r             reword last commit's message  (in the Commits panel)
+P             push   ·   p = pull
+q             quit the popup
+
 ## #nvim #modes
 i a o         insert: before / after cursor · new line below
 I A O         insert: line start / end · new line above
