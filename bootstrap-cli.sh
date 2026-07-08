@@ -18,7 +18,7 @@
 #
 # GUI apps, macOS defaults, iTerm/VS Code/Terminal prefs, launchd agents, and
 # Finder Quick Actions all live in bootstrap.sh. Rationale + the CLI-vs-GUI
-# split reasoning: docs/21-dotfiles/ and TOOLING.md.
+# split reasoning: docs/operations/01-dotfiles/ and TOOLING.md.
 # ════════════════════════════════════════════════════════════════════════════
 
 DOT="$HOME/.dotfiles"
@@ -78,10 +78,10 @@ fi
 # sit in the same tier — scripts call them by name (au-transcribe → llm, etc.),
 # so a CLI box needs them too. Idempotent; each failure is recorded, not fatal.
 if command -v pipx >/dev/null 2>&1; then
-  pipx install edge-tts || note_fail "pipx: edge-tts"          # clipboard TTS — docs/06-media-av/06-edge-tts.md
+  pipx install edge-tts || note_fail "pipx: edge-tts"          # clipboard TTS — docs/documentation/06-media-av/06-edge-tts.md
 fi
 if command -v uv >/dev/null 2>&1; then
-  uv tool install llm --with llm-anthropic || note_fail "uv: llm"        # terminal LLM client + Claude plugin — docs/04-dev-languages/09-llm.md
+  uv tool install llm --with llm-anthropic || note_fail "uv: llm"        # terminal LLM client + Claude plugin — docs/documentation/04-dev-languages/09-llm.md
 fi
 
 # ── Shell + git symlinks ──────────────────────────────────────────────────────

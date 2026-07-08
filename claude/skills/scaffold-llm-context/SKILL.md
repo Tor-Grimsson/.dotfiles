@@ -11,6 +11,8 @@ Scaffold the Kolkrabbi-style LLM agent context protocol into the current working
 
 Templates live in `~/.dotfiles/claude/packages/scaffold/03-scaffold-llm-context/`. The docs system (`.kol/docs-framework/`, the `docs/` tree) is **not** this skill's job — run `/scaffold-docs-system` separately, in either order. Neither depends on the other: each only ever `mkdir -p`s its own `.kol/` subpath.
 
+**Structure map + who-owns-what:** [[kol-docs-overview]]. For a **legacy** repo (existing `docs/llm-context`/`.claude/llm-context`, or a hand-authored `LLM_RULES.md`), use `/kol-migrate-structure` — it relocates the old content and delegates the boot symlink back to this skill. Never hand-author a per-repo `LLM_RULES.md`; it's always the symlink.
+
 ---
 
 ## Steps

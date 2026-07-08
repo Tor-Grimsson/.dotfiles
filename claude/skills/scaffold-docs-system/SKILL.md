@@ -11,6 +11,8 @@ The **outermost doll**: the whole docs *system* for a repo — both the `docs/` 
 
 **Canon:** the `claude/packages/kol-docs/kol-docs-lib/` package — `01-structure.md`, `02-obsidian.md`, `_example-repo/` (a worked docs/ tree). The single-doc rules live in the `kol-docs-md` package; don't restate them here — compose. (The package keeps the `kol-docs-*` tier naming — `fm ⊂ md ⊂ lib` — independent of this skill's own name.)
 
+**Structure map + who-owns-what:** [[kol-docs-overview]]. `.kol/llm-context/` + the `LLM_RULES.md` boot symlink are `scaffold-llm-context`'s, not this skill's. A **legacy** repo converts via `/kol-migrate-structure`, which relocates old content and delegates the framework install below back to this skill.
+
 Not this skill's job: `.kol/llm-context/` + `LLM_RULES.md` — that's `/scaffold-llm-context`. Neither depends on the other; run either first, each only ever `mkdir -p`s its own `.kol/` subpath.
 
 ---

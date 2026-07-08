@@ -32,7 +32,7 @@ NOTES
   - Dep: imagemagick (magick).
   - "[0]" reads the merged composite; without it every layer exports as a frame.
   - -r suffixes: ^ = fill/cover, ! = force-exact (distorts), > = shrink-only.
-  - Wired into a Finder Quick Action — see docs/12-scripts/img-from-psd.md.
+  - Wired into a Finder Quick Action — see docs/scripts/img-from-psd.md.
 EOF
 }
 

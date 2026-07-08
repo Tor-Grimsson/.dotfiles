@@ -62,7 +62,7 @@ NOTES
     resolution; both together = a plain re-encode. -m stretch needs a fixed -s.
   - -auto-orient is applied first, so phone EXIF rotation is honored.
   - Output → <base>_<W>x<H>.<fmt> beside the source (overwrites), or in -o.
-  - Wired into a Finder Quick Action — see docs/12-scripts/img-canvas.md.
+  - Wired into a Finder Quick Action — see docs/scripts/img-canvas.md.
 EOF
 }
 

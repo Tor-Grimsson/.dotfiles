@@ -56,4 +56,4 @@ Inverse — going from a known target back to a scale: `N = target_short_side / 
 ## 4. Pointers
 
 - **`bin/img-canvas.sh`** — renderer + canonical preset table. `img-canvas.sh --help` for the full flag contract (`-a` ratio, `-s` scale, `-m` cover/fit/stretch, `-g` gravity, `-f`, `-o`, `-P` pick-mode).
-- **`docs/12-scripts/img-canvas.md`** — full playbook: modes, gravity, `orig` ratio/resolution, and the Finder Quick Action wiring.
+- **`docs/scripts/img-canvas.md`** — full playbook: modes, gravity, `orig` ratio/resolution, and the Finder Quick Action wiring.

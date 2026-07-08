@@ -17,7 +17,7 @@
 set -euo pipefail
 
 DOT="${DOT:-$HOME/.dotfiles}"
-DOCS="$DOT/docs/18-cdn-r2b2"
+DOCS="$DOT/docs/operations/05-cdn-r2b2"
 OUT_ROOT="$DOCS/_files"
 TODAY="$(date +%F)"
 

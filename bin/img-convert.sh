@@ -78,7 +78,7 @@ NOTES
   - If the output would overwrite a same-name same-format source, a size suffix
     is added (e.g. photo.jpg -> photo-2000px.jpg) — the source is never clobbered.
   - -r suffixes: ^ = fill/cover, ! = force-exact (distorts), > = shrink-only.
-  - Wired into a Finder Quick Action — see docs/12-scripts/img-convert.md.
+  - Wired into a Finder Quick Action — see docs/scripts/img-convert.md.
 EOF
 }
 

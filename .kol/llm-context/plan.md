@@ -1,13 +1,15 @@
 ---
+title: dotfiles — future exploration & parked work
+description: Speculative, not-yet-committed ideas and deferred cleanups for ~/.dotfiles — each with premise, shape, tradeoffs, and kill criteria. The parking lot; graduate an item into AGENT-CONTEXT.md (Open items) when it becomes real work.
 _template:
   version: 1
   path: .kol/llm-context/plan.md
   sync: skip
 ---
 
-# dotfiles — future exploration
+# dotfiles — future exploration & parked work
 
-Not-yet-committed ideas. Graduate items into `llm-context/AGENT-CONTEXT.md` (Open items) when they become real work.
+The parking lot for ~/.dotfiles: speculative ideas and deferred cleanups, held here so they're recorded and off the working memory. Nothing here is committed. Graduate an item into `llm-context/AGENT-CONTEXT.md` (Open items) when it becomes real work.
 
 ---
 
@@ -35,7 +37,7 @@ If the MBP work turns out to be throwaway, just `bootstrap.sh` the MBP and overw
 
 ## Zero-friction torrent search
 
-**Premise:** anywhere in the UI → global hotkey → terminal drops down → `tor-search query` → pick → downloading. Full friction analysis in `docs/12-scripts/07-torrent.md` § Streamlining.
+**Premise:** anywhere in the UI → global hotkey → terminal drops down → `tor-search query` → pick → downloading. Full friction analysis in `docs/scripts/07-torrent.md` § Streamlining.
 
 ### shape
 1. launchd user agents (`KeepAlive`) for Jackett + `transmission-daemon` — no cold start, the big win.
@@ -71,6 +73,48 @@ If the hotkey window goes unused after a few weeks, drop the launchd agents and 
 
 ### kill criteria
 If terminal/GitHub reading never becomes a habit, keep wikilinks as-is and close this — converting + diverging from the kol-docs convention isn't worth it for cosmetic link rendering.
+
+---
+
+## AeroSpace keybind conflict — move off the Alt modifier
+
+**Premise:** AeroSpace's default modifier is Alt (Option), which collides with Figma/Affinity (Option-drag to duplicate, measurements, etc.). Currently worked around by manually toggling `aerospace enable` when moving between apps — high friction, wants automating.
+
+### shape
+Move AeroSpace's base modifier from `alt` → **`ctrl-alt`** across all binds in `aerospace/aerospace.toml`. Those apps live on Option + Cmd, not Ctrl+Alt, so the collision class disappears and AeroSpace stays always-on — no more enable/disable dance. Removes the conflict rather than managing it.
+
+### the tradeoff
+Move-window binds become 4-key chords (`ctrl-alt-shift-<letter>`). If that grates, the upgrade is a **Hyper key** (Caps Lock → Ctrl+Alt+Cmd+Shift via Karabiner-Elements) bound as the AeroSpace mod — clean single chords, but adds Karabiner as a dependency.
+
+### why not auto-toggle
+No native per-app disable in AeroSpace; `on-window-detected` only sets layout, not keybind suppression. A focus-watcher script calling `aerospace enable off/on` is fragile — fires on every focus change, and `enable off` unmanages/reflows windows.
+
+### kill criteria
+If Ctrl+Alt chords feel fine in practice, ship them and close. If they're awkward and Karabiner's unwanted, stay on the manual toggle.
+
+---
+
+## AGENT-CONTEXT status-list trim
+
+**Premise:** `AGENT-CONTEXT.md` is ~66 KB — the "Status at a glance" bullet list has grown append-only across every session since 2026-06-04. It loads every session, so the bloat is a real cost. `session-log/` is the archive; AGENT-CONTEXT should be *current state* only.
+
+### shape
+Trim the "Status at a glance" list to a bounded window (the same ~5-recent rule already applied to the "Last updated" chain). Each old bullet already links its own `session-log/…md`, so cutting the tail loses nothing — the detail is one hop away. Keep only enough recent state for a fresh session to orient.
+
+### kill criteria
+Once the file is back under ~30 KB and the list holds a sane window, done. Recurs as sessions pile up — re-trim when it drifts past ~30 KB again.
+
+---
+
+## active → canonical status pass
+
+**Premise:** all 207 docs carry `status: active`. The kol-docs spec distinguishes `active` (might shift under an agent) from `canonical` (an agent can act without verifying). Stable tool-reference docs are really `canonical`; blanket-`active` undersells them.
+
+### shape
+Reclassify the settled reference docs to `canonical`, leaving genuinely-in-flux ones `active`. Judgment per doc, not a blind sweep — which is why it wasn't folded into the 2026-07-08 frontmatter-conform pass.
+
+### kill criteria
+Low priority — cosmetic/metadata accuracy, no functional impact. Do it if a status-driven query ever needs the distinction; otherwise leave.
 
 ---
 

@@ -51,6 +51,5 @@
   "voice": {
     "enabled": true,
     "mode": "hold"
-  },
-  "model": "sonnet"
+  }
 }

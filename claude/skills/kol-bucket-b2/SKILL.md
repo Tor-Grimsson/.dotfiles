@@ -50,4 +50,4 @@ BUCKET_REMOTE=kolkrabbi:kolkrabbi BUCKET_CDN_BASE=https://f005.backblazeb2.com/f
 
 - rclone config (account + key): `~/.config/rclone/rclone.conf`, `[kolkrabbi]` remote
 - Setup doc: `/Users/kolkrabbi/dev/backblaze/05-backblaze-setup.md`
-- Tree snapshots: `bucket-tree.sh website` → readable JSON in the dotfiles, auto-refreshed on every write. System doc: `docs/18-cdn-r2b2/`.
+- Tree snapshots: `bucket-tree.sh website` → readable JSON in the dotfiles, auto-refreshed on every write. System doc: `docs/operations/05-cdn-r2b2/`.

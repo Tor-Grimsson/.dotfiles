@@ -3,6 +3,7 @@ bin/tor-jackett
 brewfile-mirror.txt
 _tmp/
 **/node_modules/
+docs/.obsidian/
 
 # Secrets — never track these, even by accident (secrets live in Bitwarden / ~/.secrets)
 .env

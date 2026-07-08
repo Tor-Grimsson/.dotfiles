@@ -5,7 +5,7 @@ description: Orientation reference for the Kolkrabbi CDN — which provider (B2 
 
 # kol-cdn-overview
 
-Pure orientation — answers *where is it, what's the shape*, not *run this command*. For commands: [[kol-bucket-b2]] (Backblaze) / [[kol-bucket-r2]] (Cloudflare). Canon + live tree snapshots: `~/.dotfiles/docs/18-cdn-r2b2/`.
+Pure orientation — answers *where is it, what's the shape*, not *run this command*. For commands: [[kol-bucket-b2]] (Backblaze) / [[kol-bucket-r2]] (Cloudflare). Canon + live tree snapshots: `~/.dotfiles/docs/operations/05-cdn-r2b2/`.
 
 ## Two providers, three buckets
 
@@ -25,12 +25,12 @@ Pure orientation — answers *where is it, what's the shape*, not *run this comm
 
 Live, auto-refreshed snapshots — never hand-paste a tree into a repo's own docs, link here instead:
 
-- `~/.dotfiles/docs/18-cdn-r2b2/02-b2-tree.md` / `04-r2-tree.md` — readable tree per provider (Obsidian)
-- `~/.dotfiles/docs/18-cdn-r2b2/_files/<bucket>/{tree.json, tree.full.txt}` — raw (scripts/nvim)
+- `~/.dotfiles/docs/operations/05-cdn-r2b2/02-b2-tree.md` / `04-r2-tree.md` — readable tree per provider (Obsidian)
+- `~/.dotfiles/docs/operations/05-cdn-r2b2/_files/<bucket>/{tree.json, tree.full.txt}` — raw (scripts/nvim)
 
 Refreshed automatically by a post-write hook on every `bucket`/`bucket-r2` write (see `05-scripts.md`) — nothing here goes stale by hand-editing.
 
 ## Related
 
 - [[kol-bucket-b2]] / [[kol-bucket-r2]] — the action skills (ls/tree/upload/sync/rm)
-- `~/.dotfiles/docs/18-cdn-r2b2/INDEX.md` — full canon: bucket-tree mechanics, drift detection, distribution to Obsidian/consumers
+- `~/.dotfiles/docs/operations/05-cdn-r2b2/INDEX.md` — full canon: bucket-tree mechanics, drift detection, distribution to Obsidian/consumers

@@ -47,4 +47,4 @@ Unlike the B2 wrapper (which needs an rclone remote + account key), this one nee
 - Project: `kol-media-admin` (`docs/llm-context/ARCHITECTURE.md`, `AGENT-CONTEXT.md`)
 - Bulk upload: `kol-media-admin/scripts/bulk-upload.sh`
 - Sibling skill: [[kol-bucket-b2]] — different bucket, different backend, don't conflate
-- Tree snapshots: `bucket-tree.sh kol-media` → readable JSON in the dotfiles, auto-refreshed on every write. System doc: `docs/18-cdn-r2b2/`.
+- Tree snapshots: `bucket-tree.sh kol-media` → readable JSON in the dotfiles, auto-refreshed on every write. System doc: `docs/operations/05-cdn-r2b2/`.

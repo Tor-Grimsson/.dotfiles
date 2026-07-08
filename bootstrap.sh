@@ -7,7 +7,7 @@
 #
 # On a foreign box you only SSH into, run bootstrap-cli.sh directly instead —
 # it does the CLI half and skips everything below that mutates macOS state.
-# See docs/21-dotfiles/ for the CLI-vs-GUI split and the symlink model.
+# See docs/operations/01-dotfiles/ for the CLI-vs-GUI split and the symlink model.
 #
 # RESILIENT (no `set -e`): failing steps are recorded and skipped, not fatal.
 # bootstrap-cli.sh (sourced below) provides FAILED/note_fail/summarize; the

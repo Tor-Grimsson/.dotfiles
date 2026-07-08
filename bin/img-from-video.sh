@@ -47,7 +47,7 @@ NOTES
   - PNG output from a real photo/video frame is typically NOT a good -c
     quantize candidate (see img-convert.sh) — that's for flat graphics, and
     a video frame has gradients/noise that'll band under quantization.
-  - Wired into a Finder Quick Action — see docs/12-scripts/img-from-video.md.
+  - Wired into a Finder Quick Action — see docs/scripts/img-from-video.md.
 EOF
 }
 
