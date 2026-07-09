@@ -29,7 +29,6 @@
       "Bash(git:*)"
     ]
   },
-  "model": "sonnet",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -75,5 +74,6 @@
   "voice": {
     "enabled": true,
     "mode": "hold"
-  }
+  },
+  "model": "Fable"
 }
