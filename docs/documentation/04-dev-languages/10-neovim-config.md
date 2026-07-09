@@ -86,7 +86,7 @@ Use `vim.opt_local` (not `vim.opt`) so the change stays scoped to that buffer.
 | Function | Plugin(s) |
 |---|---|
 | Plugin manager | `lazy.nvim` |
-| Colorscheme | `gruvbox-material` (sainnhe) — active; `tokyonight` (folke, `night` + josean's "coolnight" navy override), `catppuccin`, `dracula`, `shades-of-purple` kept as disabled specs to flip |
+| Colorscheme | `gruvbox-material` (sainnhe, `foreground = "original"` → classic Gruvbox palette, medium bg) — active; `catppuccin` (mocha, darkened), `tokyonight` (folke, `night` + josean's "coolnight" navy override), `dracula`, `shades-of-purple` kept as disabled specs to flip |
 | File explorer | `nvim-tree` |
 | Fuzzy finder | `telescope` + `telescope-fzf-native` + `plenary` |
 | LSP | `nvim-lspconfig`, `mason`, `mason-lspconfig`, `mason-tool-installer` |
@@ -165,9 +165,9 @@ Use `vim.opt_local` (not `vim.opt`) so the change stays scoped to that buffer.
 
 ## Theme
 
-tokyonight, configured in `plugins/colorscheme.lua`. It overrides the `night` palette with josean's "coolnight" navy (bg `#011628`) — matching the iTerm `coolnight` terminal theme. The statusline uses the matching `tokyonight` lualine theme (`plugins/lualine.lua`).
+**gruvbox-material** (sainnhe), configured in `plugins/colorscheme.lua` with `foreground = "original"` (the classic Gruvbox palette rather than the softer "material" one) and `background = "medium"` (`#282828`) — matching the Gruvbox Dark terminal theme across Ghostty/tmux/yazi/starship. The statusline (`plugins/lualine.lua`) uses `theme = "auto"`, so it follows whatever colorscheme is active — no per-theme edit needed.
 
-`colorscheme.lua` holds three specs; only the `enabled` one loads. To switch theme, flip `enabled` (tokyonight → catppuccin → gruvbox-material) — the other two are parked, not deleted. Flip `local transparent = false` to `true` for a transparent background.
+`colorscheme.lua` holds five specs; only the `enabled` one loads (all but the active carry `enabled = false`). To switch theme, move the `enabled = false` onto the current one and drop it from another — parked: `catppuccin` (mocha, darkened), `tokyonight` (`night` + josean's "coolnight" navy), `dracula`, `shades-of-purple`.
 
 ## Cross-machine
 

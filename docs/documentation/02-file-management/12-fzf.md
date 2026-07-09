@@ -2,8 +2,8 @@
 title: fzf
 type: reference
 status: active
-updated: 2026-07-08
-description: Interactive fuzzy finder — filter any list by typing. Powers Ctrl-T file-insert, Alt-C cd, and Tab completion (via fzf-tab); Ctrl-R history now hands off to atuin.
+updated: 2026-07-09
+description: Interactive fuzzy finder — filter any list by typing. Powers Ctrl-R history, Ctrl-T file-insert, Alt-C cd, and Tab completion (via fzf-tab). (atuin lives on Ctrl-P.)
 aliases:
   - fzf
 tags:
@@ -31,7 +31,7 @@ related:
 
 ## Summary
 
-Pipe any list in, type to fuzzy-filter, pick one. The spine of the shell setup here: wired to **Ctrl-T** (insert a file path), **Alt-C** (cd), and Tab completion (via the `fzf-tab` plugin). Fed by [[10-fd|fd]], previewed by [[09-bat|bat]] / [[08-eza|eza]]. **Ctrl-R** (history) is now owned by [[25-atuin|atuin]] — see that doc.
+Pipe any list in, type to fuzzy-filter, pick one. The spine of the shell setup here: wired to **Ctrl-R** (history), **Ctrl-T** (insert a file path), **Alt-C** (cd), and Tab completion (via the `fzf-tab` plugin). Fed by [[10-fd|fd]], previewed by [[09-bat|bat]] / [[08-eza|eza]]. [[25-atuin|atuin]]'s richer history search lives on **Ctrl-P** instead.
 
 > Once open, **typing IS the search** — there's no search command. Arrow to move, Enter to pick, Esc to cancel.
 
@@ -45,7 +45,7 @@ fzf --preview 'bat --color=always {}'  # picker with a file preview
 rg --line-number . | fzf --ansi        # fuzzy-filter content-search hits (live grep)
 ```
 
-Keybindings (from `source <(fzf --zsh)` in `shell/.zshrc`): **Ctrl-T** insert file path · **Alt-C** cd into a dir. (**Ctrl-R** is bound here too, but [[25-atuin|atuin]]'s init runs after fzf's and wins the key on any machine with atuin installed — `FZF_CTRL_R_OPTS` stays as a fallback for a machine that hasn't bundled atuin yet.) Config lives in the fzf block of `shell/.zshrc` (`FZF_DEFAULT_OPTS`, `FZF_DEFAULT_COMMAND='fd …'`, the dir-aware preview, and the Alt-C/Ctrl-R preview opts).
+Keybindings (from `source <(fzf --zsh)` in `shell/.zshrc`): **Ctrl-R** history search · **Ctrl-T** insert file path · **Alt-C** cd into a dir. atuin is initialised with `--disable-ctrl-r` so fzf keeps **Ctrl-R**; atuin's own search is bound to **Ctrl-P** ([[25-atuin|atuin]]). Config lives in the fzf block of `shell/.zshrc` (`FZF_DEFAULT_OPTS`, `FZF_DEFAULT_COMMAND='fd …'`, the dir-aware preview, and the Alt-C/Ctrl-R preview opts).
 
 **In-picker search syntax:**
 

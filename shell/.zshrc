@@ -1,11 +1,16 @@
-# ── Powerlevel10k instant prompt (must stay first) ───────────────────────────
+# Prompt: Powerlevel10k — instant prompt below, config sourced at the END of this file.
+# (starship is kept as a parked alternate: its config + init line live at the bottom, commented — flip to switch back.)
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # ── Oh My Zsh ─────────────────────────────────────────────────────────────────
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME=""   # p10k is sourced from Homebrew after oh-my-zsh (below), not as an omz theme
+ZSH_THEME=""   # no omz theme — Powerlevel10k is sourced from Homebrew at the end of file
 plugins=(git sudo brew macos extract copypath copyfile colored-man-pages dirhistory command-not-found gh web-search)
 # fzf-tab / zsh-autosuggestions / zsh-syntax-highlighting are sourced from Homebrew
 # at the end of this file (not oh-my-zsh custom plugins) — see TOOLING.md.
@@ -20,11 +25,6 @@ fpath=("${HOMEBREW_PREFIX:-/usr/local}/share/zsh-completions" "${HOMEBREW_PREFIX
 ZSH_DISABLE_COMPFIX=true
 
 source $ZSH/oh-my-zsh.sh
-
-# ── Prompt: Powerlevel10k — sourced directly from Homebrew (single source on both Macs).
-[[ -r "${HOMEBREW_PREFIX:-/usr/local}/share/powerlevel10k/powerlevel10k.zsh-theme" ]] && source "${HOMEBREW_PREFIX:-/usr/local}/share/powerlevel10k/powerlevel10k.zsh-theme"
-# To customize the p10k prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ── PATH ──────────────────────────────────────────────────────────────────────
 export PATH="$HOME/.local/bin:$PATH"
@@ -200,12 +200,36 @@ export FZF_DEFAULT_OPTS="
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND='fd --type d --hidden --strip-cwd-prefix --exclude .git'
   export FZF_ALT_C_OPTS="--preview 'eza -T --level=2 --color=always {}'"      # Alt-C: tree-preview the dir before cd
-  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:wrap"    # Ctrl-R fallback if atuin isn't installed
+  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:wrap"    # Ctrl-R: fzf history search
   source <(fzf --zsh)
 
-  # atuin — SQLite-backed shell history. Sourced after fzf so it wins the Ctrl-R bind
-  # (fzf keeps Ctrl-T/Alt-C). Guarded so a machine that hasn't run `brew bundle` yet won't error.
-  command -v atuin >/dev/null && eval "$(atuin init zsh)"
+  # atuin — SQLite-backed shell history. --disable-ctrl-r so fzf keeps Ctrl-R;
+  # --disable-up-arrow so plain Up stays zsh history (see the Up/Down block below).
+  # atuin still reachable on Ctrl-P and Shift+Up. fzf keeps Ctrl-T/Alt-C.
+  # Guarded so a machine that hasn't run `brew bundle` yet won't error.
+  if command -v atuin >/dev/null; then
+    eval "$(atuin init zsh --disable-ctrl-r --disable-up-arrow)"
+    bindkey '^P' atuin-search   # Ctrl-P → atuin full search
+  fi
+
+  # ── Up/Down history — three tiers ──────────────────────────────────────
+  #   Up         zsh prefix search — type `git`, Up cycles only git-* history (empty line = previous cmd)
+  #   Shift+Up   atuin picker, seeded with whatever you've typed
+  #   Opt+Up     plain chronological history, prefix ignored ("normal" up)
+  # Shift/Opt arrows arrive as CSI seqs (\e[1;2A / \e[1;3A) via Ghostty (macos-option-as-alt)
+  # through tmux (extended-keys on). If a tier does nothing, `cat -v` + press the key to see what it sends.
+  # This block must stay AFTER the atuin eval — it binds atuin's atuin-up-search widget.
+  autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+  zle -N up-line-or-beginning-search
+  zle -N down-line-or-beginning-search
+  bindkey '^[[A'    up-line-or-beginning-search    # Up
+  bindkey '^[[B'    down-line-or-beginning-search  # Down
+  bindkey '^[OA'    up-line-or-beginning-search    # Up   (application-cursor mode)
+  bindkey '^[OB'    down-line-or-beginning-search  # Down (application-cursor mode)
+  bindkey '^[[1;2A' atuin-up-search                # Shift+Up   → atuin
+  bindkey '^[[1;2B' atuin-up-search                # Shift+Down → atuin
+  bindkey '^[[1;3A' up-line-or-history             # Opt+Up   → plain history
+  bindkey '^[[1;3B' down-line-or-history           # Opt+Down → plain history
   alias cat='bat --paging=never'
   # eza — modern ls (icons need the Nerd Font, which is installed)
   alias ls='eza --group-directories-first --icons'
@@ -218,6 +242,16 @@ export FZF_DEFAULT_OPTS="
     local f
     f=$(fd --type f --hidden --exclude .git | fzf --query="$1" --select-1 --exit-0 \
           --preview 'bat --color=always --style=numbers {}') && nvim "$f"
+  }
+
+  # fzv — fzf that renders images (svg/png/jpg…) in the preview via chafa; text/dirs fall back to bat/eza.
+  # Plain `fzf` stays text-only; use `fzv` when you want to see the picture. chafa's symbol output
+  # is plain colored text, so it survives tmux + fzf redraws where the Kitty/Sixel protocols don't.
+  fzv() {
+    fzf --preview '[ -d {} ] && eza -T --level=2 --color=always {} ||
+      { [[ {} =~ \.(svg|png|jpe?g|gif|webp|bmp)$ ]] &&
+          chafa -f symbols -s "${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}" {} ||
+        bat --color=always --style=numbers {}; }'
   }
 
 # zoxide — smarter cd: `z <fragment>` jumps to the best-matching visited dir, `zi` picks via fzf.
@@ -239,8 +273,48 @@ HB="${HOMEBREW_PREFIX:-/usr/local}"
 
 # zsh-autosuggestions — grey ghost-text from history.
 [[ -r "$HB/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$HB/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# ── shell vi-mode (zsh-vi-mode) ────────────────────────────────────────────
+# THE OFF-SWITCH: set VI_MODE=false below + `exec zsh` → instantly back to emacs
+# mode, nothing else to touch. It's a toggle, not a one-way door.
+# Also inert until `brew install zsh-vi-mode` — the [[ -r ]] guard skips it, so
+# staging this changes nothing live until you both install AND leave VI_MODE=true.
+VI_MODE=true
+if [[ "$VI_MODE" == true ]] && [[ -r "$HB/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh" ]]; then
+  source "$HB/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+  # zsh-vi-mode re-initializes zle on first keypress, wiping custom binds — so
+  # every custom bindkey MUST be re-applied here, in its post-init hook.
+  function zvm_after_init() {
+    source <(fzf --zsh)                                    # Ctrl-R fzf · Ctrl-T · Alt-C
+    command -v atuin >/dev/null && bindkey '^P' atuin-search
+    # Up/Down history tiers (mirror of the block earlier in this file)
+    bindkey '^[[A'    up-line-or-beginning-search
+    bindkey '^[[B'    down-line-or-beginning-search
+    bindkey '^[OA'    up-line-or-beginning-search
+    bindkey '^[OB'    down-line-or-beginning-search
+    bindkey '^[[1;2A' atuin-up-search                      # Shift+Up  → atuin
+    bindkey '^[[1;2B' atuin-up-search
+    bindkey '^[[1;3A' up-line-or-history                   # Opt+Up    → plain history
+    bindkey '^[[1;3B' down-line-or-history
+    # emacs conveniences KEPT in insert mode so it won't fight you while learning
+    bindkey -M viins '^A'   beginning-of-line
+    bindkey -M viins '^E'   end-of-line
+    bindkey -M viins '^K'   kill-line
+    bindkey -M viins '^[b'  backward-word
+    bindkey -M viins '^[f'  forward-word
+    bindkey -M viins '^[^?' backward-kill-word
+  }
+fi
+
 # zsh-syntax-highlighting — MUST be the last thing SOURCED in this file.
 [[ -r "$HB/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$HB/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-# To customize prompt, run `p10k configure` or edit ~/.dotfiles/shell/.p10k.zsh.
-[[ ! -f ~/.dotfiles/shell/.p10k.zsh ]] || source ~/.dotfiles/shell/.p10k.zsh
+# ── Prompt: Powerlevel10k ───────────────────────────────────────────────────────
+# Theme sourced from Homebrew (not an omz custom theme); config from ~/.p10k.zsh
+# (symlinked from ~/.dotfiles/shell/.p10k.zsh). Instant prompt is at the top of this file.
+[[ -r "$HB/share/powerlevel10k/powerlevel10k.zsh-theme" ]] && source "$HB/share/powerlevel10k/powerlevel10k.zsh-theme"
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+# Parked alternate — starship. Config kept at ~/.dotfiles/starship/starship.toml (Gruvbox).
+# To switch back: comment out the two Powerlevel10k lines above and uncomment the line below.
+# command -v starship >/dev/null && eval "$(starship init zsh)"

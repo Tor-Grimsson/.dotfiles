@@ -7,6 +7,7 @@
 # ════════════════════════════════════════════════════════════════════════════
 
 tap "siddharthvaddem/openscreen"   # provides the openscreen cask
+tap "FelixKratz/formulae"          # provides the sketchybar formula
 
 # Browser / terminal / editor
 cask "firefox@developer-edition"   # Web browser
@@ -16,6 +17,7 @@ cask "visual-studio-code"          # Code editor
 
 # Window / launcher / menu bar
 cask "aerospace"                   # Tiling window manager (i3-like, keyboard-driven)
+brew "FelixKratz/formulae/sketchybar" # Scriptable menu-bar replacement (formula; pairs with aerospace)
 cask "raycast"                     # Launcher / command palette
 cask "hiddenbar"                   # Hide menu-bar items
 cask "stats"                       # Menu-bar system monitor

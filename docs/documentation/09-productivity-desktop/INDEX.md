@@ -2,8 +2,8 @@
 title: Productivity & Desktop
 type: index
 status: active
-updated: 2026-06-04
-description: macOS apps that run the desktop — launcher, notes, dev browser, system monitor, tiling window manager.
+updated: 2026-07-09
+description: macOS apps that run the desktop — launcher, notes, dev browser, system monitor, tiling window manager, menu bar.
 tags:
   - domain/productivity
 ---
@@ -17,3 +17,4 @@ Everyday desktop tools installed as Homebrew casks: the launcher, the docs edito
 | [[03-firefox-developer-edition|Firefox Developer Edition]] | Mozilla's developer-focused Firefox build with the latest devtools. |
 | [[04-stats|Stats]] | Open-source macOS menu-bar system monitor. |
 | [[05-aerospace|AeroSpace]] | i3-like tiling window manager driven from the keyboard. |
+| [[06-sketchybar|SketchyBar]] | Scriptable menu-bar replacement, wired to AeroSpace workspaces. |

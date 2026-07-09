@@ -22,7 +22,7 @@ Browsing, navigating, organizing, archiving, and renaming files — across the t
 | [[09-bat|bat]] | `cat` with syntax highlighting + line numbers; also the fzf file preview. |
 | [[10-fd|fd]] | Friendly, fast `find` replacement; respects .gitignore; feeds the fzf file list. |
 | [[11-ripgrep|ripgrep]] | Fast recursive in-file search (`rg`); the modern grep. |
-| [[12-fzf|fzf]] | Interactive fuzzy finder; powers Ctrl-T / Alt-C and Tab completion (Ctrl-R history now goes to atuin). |
+| [[12-fzf|fzf]] | Interactive fuzzy finder; powers Ctrl-R history, Ctrl-T / Alt-C and Tab completion (atuin's search on Ctrl-P). |
 | [[13-zoxide|zoxide]] | Smarter `cd` — `z` jumps to frecency-ranked visited dirs, `zi` picks via fzf. |
 | [[14-dust|dust]] | Modern `du` — biggest-first tree of disk usage with inline bar graphs. |
 | [[15-sevenzip|7-Zip (sevenzip)]] | High-ratio archiver (`7zz`); yazi's archive preview/extract backend. |

@@ -80,18 +80,26 @@ return {
     enabled = false,
     priority = 1000,
     config = function()
-      require("catppuccin").setup({ flavour = "mocha" })
+      -- Darker-than-stock Mocha: shift the neutral ramp down one step so the
+      -- editor bg (base) and floats/sidebars (mantle/crust) all darken but keep
+      -- their separation. Stock mocha is base #1e1e2e. Revert: drop color_overrides.
+      require("catppuccin").setup({
+        flavour = "mocha",
+        color_overrides = {
+          mocha = { base = "#181825", mantle = "#11111b", crust = "#0e0e16" },
+        },
+      })
       vim.cmd("colorscheme catppuccin-mocha")
     end,
   },
 
-  -- ACTIVE: Gruvbox Material. Switch: set enabled=false here, drop `enabled` on another.
+  -- ACTIVE: Gruvbox Material (warm). Switch: set enabled=false here, drop `enabled` on another.
   {
     "sainnhe/gruvbox-material",
     priority = 1000,
     config = function()
       vim.g.gruvbox_material_background = "medium"
-      vim.g.gruvbox_material_foreground = "material"
+      vim.g.gruvbox_material_foreground = "original"
       vim.g.gruvbox_material_enable_bold = 1
       vim.g.gruvbox_material_enable_italic = 1
       vim.g.gruvbox_material_better_performance = 1

@@ -34,7 +34,7 @@ related:
 ## Summary
 Full-screen terminal file manager: Miller-column layout (parent · current · preview), async previews that never block, Vim-style keys, first-class bulk rename and selection. The `y` shell function launches it and `cd`s the shell to wherever you quit — so yazi doubles as a visual `cd`.
 
-This install is tuned for media work: large high-quality image/video previews, terminal-inherited colors (no yazi flavor — the iTerm `coolnight` palette paints everything), and four plugins.
+This install is tuned for media work: large high-quality image/video previews, the **gruvbox-dark** flavor for colors, and four plugins.
 
 ## Preview dependencies
 Previews are handed off to external tools. Yazi degrades gracefully — a missing tool just means that filetype shows no preview.
@@ -60,7 +60,7 @@ All live in `~/.dotfiles/yazi/`, symlinked as a whole dir to `~/.config/yazi` (l
 |---|---|
 | `yazi.toml` | layout, sort, preview size/quality — the **full yazi default** inlined for reference; overrides marked `# ← custom` |
 | `keymap.toml` | keybindings — the **full default keymap** inlined for reference; customs marked `# ← custom` |
-| `theme.toml` | **no flavor** — yazi inherits the terminal palette (coolnight). catppuccin-mocha + gruvbox-dark stay vendored as commented `[flavor]` options |
+| `theme.toml` | **gruvbox-dark** flavor active. catppuccin-mocha stays vendored as a commented `[flavor]` option; comment the whole block out to inherit the terminal palette instead |
 | `init.lua` | Lua startup — sets up the `full-border` plugin |
 | `package.toml` | plugin/flavor manifest used by `ya pkg` (pins each to a revision) |
 | `plugins/` `flavors/` | the vendored plugin & flavor repos (tracked, so a fresh machine needs no re-fetch) |
@@ -146,7 +146,7 @@ Installed with `ya pkg add`, vendored under `plugins/` + `flavors/`, pinned in `
 | `mdcat` | renders `.md` as styled markdown in the preview (clean headings, no `##` markers; frontmatter shown) | automatic (previewer matched by `*.{md,markdown}` — yazi tags `.md` as `text/plain`, so it's wired by extension, not mime) |
 
 > **Maintenance:** `plugins/mdcat.yazi/main.lua` is **hand-written** (not a `ya pkg` dep — no `package.toml` entry, no upgrade churn). It runs `mdcat --ansi --local --columns <pane-width>`: `--ansi` forces formatting when stdout is a pipe (no TTY), `--local` skips remote image fetches so the preview never stalls. A 2-column left/right margin is added by insetting the render area (`job.area:pad(ui.Pad.x(2))`) — mdcat has no margin flag of its own; tune the `pad` local at the top of `peek`. It was picked over **glow** (which keeps the `##` heading markers and strips frontmatter) after an A/B. The `glow` **binary stays installed** — it's used by scripts + Quick Actions — but is no longer wired into yazi.
-| `catppuccin-mocha`, `gruvbox-dark` (flavors) | vendored but **inactive** — colors come from the terminal (coolnight). Activate one by uncommenting its `[flavor]` block | `theme.toml` |
+| `gruvbox-dark` (active), `catppuccin-mocha` (flavors) | **gruvbox-dark** paints the UI; catppuccin-mocha stays vendored + commented. Switch by swapping the `[flavor]` block | `theme.toml` |
 
 ## Workflows
 - **Move files between two dirs** — `<Space>` to mark several (or `y`/`x` to copy/cut), navigate to the target with `h`/`l`, `p` to drop. Tabs (`t` new tab, `1`–`9` switch) let you keep source and target open at once.

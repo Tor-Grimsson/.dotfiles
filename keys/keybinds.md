@@ -123,6 +123,84 @@ dd yy         delete / yank line   ·   D C = to end of line
 > <  =        indent / dedent · auto-indent
 .             repeat last change  ·  u = undo · C-r = redo
 
+## #yazi #ops
+o                 open selected (system default app)
+O  ·  S-Enter     open with… — pick app interactively
+Enter             smart-enter: enter dir / open file
+y                 yank = COPY (mark files to paste)
+x                 yank cut = MOVE (mark files to cut)
+p  ·  P           paste here  ·  P overwrites existing
+y then p          DUPLICATE — no native cmd: paste in same dir
+Y  ·  X           cancel the yank/cut mark
+d  ·  D           trash (Trash)  /  delete permanently
+a                 create file (end name with / for a folder)
+A                 bulk create (edit a list)
+r                 rename (cursor before extension)
+-  ·  _           symlink yanked: absolute / relative path
+C--               hardlink yanked files
+
+## #yazi #select
+Space             toggle selection of the current file
+C-a  ·  C-r       select all  /  invert selection
+v  ·  V           visual mode: add to / remove from selection
+Esc               clear selection / exit visual / cancel search
+
+## #yazi #nav
+h  ·  l           parent dir  /  enter dir
+H  ·  L           history back  /  forward
+gg  ·  G          jump to top  /  bottom
+C-u  ·  C-d       half-page up / down (C-b/C-f = full page)
+z  ·  Z           jump via fzf  /  via zoxide
+g Space           jump to a dir interactively
+gh gd gc          go: home / Downloads / .config
+gD g. gt gp       go: Desktop / dotfiles / _temp / dev-projects
+gf                follow the hovered symlink
+
+## #yazi #copy
+cc                copy full path
+cd                copy directory path
+cf                copy filename
+cn                copy filename without extension
+
+## #yazi #find
+f                 filter list (live, as you type)
+/  ·  ?           find next / previous by name
+n  ·  N           jump to next / previous match
+s  ·  S           search by name (fd) / by content (rg)
+C-s               cancel the running search
+
+## #yazi #sort
+,m  ·  ,M         sort mtime  /  reverse
+,s  ·  ,S         sort size  /  reverse
+,a  ·  ,A         sort alphabetical  /  reverse
+,n  ·  ,N         sort natural  /  reverse
+,e  ·  ,E         sort extension  /  reverse
+,d                reset sort + linemode to default
+
+## #yazi #view
+.                 toggle hidden files
+Tab               spot — metadata / preview popup
+C-y               Quick Look (macOS qlmanage)
+M                 render markdown fullscreen (mdcat)
+T                 maximize / restore the preview pane
+K  ·  J           scroll preview up / down
+m s/p/b/m/o/n     linemode: size perms btime mtime owner none
+
+## #yazi #tabs
+tt                new tab in current dir
+tr                rename current tab
+1 … 9             switch to tab N
+[  ·  ]           previous / next tab
+{  ·  }           swap tab with prev / next
+
+## #yazi #shell
+;                 run a shell command
+:                 run a shell command (block until done)
+w                 task manager (show running jobs)
+~  ·  F1          open help (full keymap)
+q  ·  Q           quit  /  quit without cwd-file
+C-c               close current tab (quit if last)
+
 ## #aerospace #focus
 alt-h j k l       focus window left / down / up / right
 alt-tab           previous workspace (back-and-forth)
@@ -169,14 +247,24 @@ ssh -t <host> tmux a  connect + attach tmux
 mosh <host>           roaming/latency-tolerant session
 
 ## #fzf
+C-r    fuzzy shell-history search (reverse-i-search)
 C-t    insert a file path into the command line (fd-fed picker)
 M-c    cd into a directory (fd-fed picker, tree preview)
 Tab    fzf-powered Tab completion (fzf-tab plugin)
 fe     fuzzy-pick a file (fd → fzf → bat preview) and open it in nvim
+fzv    fzf with image preview — renders svg/png/jpg… via chafa; plain fzf stays text
+
+## #history
+Up          type nothing → previous command; type a prefix (e.g. `git`) → Up walks only commands starting with it
+Down        same, forward through the matches
+S-Up        open atuin seeded with the typed prefix (full fuzzy history)
+S-Down      open atuin
+M-Up        plain chronological previous command — prefix ignored ("normal" up)
+M-Down      plain chronological history, forward
 
 ## #atuin
-C-r          open search — fuzzy shell history (global scope); press again to cycle scope (global/host/session/dir)
-Up           search history scoped to this directory
+C-p          open search — fuzzy shell history (global scope); press again to cycle scope (global/host/session/dir)
+S-Up         open atuin scoped to this directory, seeded with the typed prefix (plain Up is zsh prefix search now)
 C-s          cycle search mode (fuzzy/prefix/fulltext/skim)
 Enter        run the selected command
 Tab          paste it into the prompt instead of running

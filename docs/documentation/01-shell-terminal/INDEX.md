@@ -15,7 +15,8 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | [[01-iterm2|iTerm2]] | macOS terminal emulator with split panes, search, and deep customization. |
 | [[26-ghostty|Ghostty]] | GPU-accelerated, config-file-driven terminal emulator — trialing as a lighter-weight iTerm2 replacement. |
 | [[02-tmux|tmux]] | Terminal multiplexer for persistent sessions, windows, and panes. |
-| [[03-powerlevel10k|Powerlevel10k]] | Fast, configurable zsh prompt theme with instant-prompt startup. |
+| [[03-powerlevel10k|Powerlevel10k]] | zsh prompt theme — **the active prompt** (rainbow/powerline, config `~/.p10k.zsh`). |
+| [[27-starship|starship]] | Cross-shell prompt from one TOML file — **parked alternate** (lean two-line, Gruvbox); one-line flip in `.zshrc` to switch back. |
 | [[04-zsh-syntax-highlighting|zsh-syntax-highlighting]] | Fish-style live syntax highlighting for the zsh command line. |
 | [[05-zsh-completions|zsh-completions]] | Extra tab-completion definitions for tools zsh doesn't cover by default. |
 | [[06-pbcopy-pbpaste|pbcopy & pbpaste]] | macOS clipboard from the shell — pipe text in/out; recipes with fzf, jq, git, pngpaste. (built-in) |
@@ -34,7 +35,7 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | [[21-chafa|chafa]] | Terminal image renderer — turns an image into colored Unicode/braille/sixel; yazi's preview fallback and the fastfetch logo renderer. |
 | [[22-tmux-harpoon|tmux-harpoon]] | TPM plugin — bookmark a handful of tmux sessions, jump back with one key. |
 | [[24-workmux|workmux]] | Pairs a git worktree with a tmux window in one command — parallel branches/agents, no stashing. |
-| [[25-atuin|atuin]] | SQLite-backed shell history with scoped fuzzy search (global/host/session/directory) — takes over fzf's Ctrl-R. |
+| [[25-atuin|atuin]] | SQLite-backed shell history with scoped fuzzy search (global/host/session/directory) — bound to Ctrl-P (fzf keeps Ctrl-R). |
 
 ## Guides
 - [[10-tmux-help|tmux help & cheat sheet]] — built-in help commands first, then the keys, shell commands, and workflows you actually use with the [[02-tmux|tmux]] config.

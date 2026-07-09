@@ -2,7 +2,7 @@
 title: AeroSpace
 type: reference
 status: active
-updated: 2026-07-05
+updated: 2026-07-09
 description: i3-like tiling window manager for macOS, driven entirely from the keyboard.
 aliases:
   - aerospace
@@ -25,6 +25,7 @@ covers:
 related:
   - "[[01-cli-cheatsheet|CLI cheatsheet]]"
   - "[[01-raycast|Raycast]]"
+  - "[[06-sketchybar|SketchyBar]]"
 ---
 
 ## Summary
@@ -44,7 +45,7 @@ Zero-privilege install. Unlike yabai it needs no SIP changes — just an Accessi
 - **First run:** launch AeroSpace.app and grant **Accessibility** permission (System Settings → Privacy & Security → Accessibility).
 - **Reload after editing:** `aerospace reload-config`, or service mode → `Esc` (see table). Config errors surface in the menu-bar icon.
 - **Launch at login:** `start-at-login = false` in our config — flip to `true` (or use AeroSpace's menu) to autostart.
-- **Gaps:** 10px inner + outer.
+- **Gaps:** 10px inner + outer, except `outer.top = 42` to clear the [[06-sketchybar|SketchyBar]] strip (32px bar + 10px).
 
 ## Keymap
 `Alt` is the modifier throughout (qwerty preset).
@@ -85,6 +86,7 @@ Zero-privilege install. Unlike yabai it needs no SIP changes — just an Accessi
 | App | Workspace |
 | --- | --- |
 | iTerm2 | `T` |
+| Ghostty | `T` |
 | Google Chrome | `B` |
 | Firefox Developer Edition | `B` |
 | Affinity | `P` |
@@ -120,6 +122,13 @@ Alternative for *tiling-only* exemption (let an app float free but keep AeroSpac
 | Bitwarden | `com.bitwarden.desktop` |
 | Claude | `com.anthropic.claudefordesktop` |
 | Passwords | `com.apple.Passwords` |
+
+## SketchyBar integration
+[[06-sketchybar|SketchyBar]] draws the workspace indicator AeroSpace itself lacks. Two hooks connect them:
+- **`exec-on-workspace-change`** (top-level, by `persistent-workspaces`) fires on every workspace switch and runs `sketchybar --trigger aerospace_workspace_change`, telling SketchyBar to redraw its chips. Both brew bin dirs are forced onto `PATH` so `sketchybar` resolves under AeroSpace's minimal environment (§1 — no hardcoded prefix).
+- **`outer.top = 42`** reserves the top strip so tiled windows sit *below* the 32px bar instead of covering it.
+
+The bar draws one chip per occupied workspace plus the focused one (mauve), rebuilt on each change. See [[06-sketchybar|SketchyBar]] for the item/plugin side.
 
 ## Future use
 Add more `on-window-detected` rules to route apps to dedicated workspaces, `after-startup-command` to lay out a session on login, or per-monitor workspace assignment for the iMac's external display. Pairs with Raycast — Raycast launches, AeroSpace arranges.

@@ -9,11 +9,13 @@
 
 # ── Shell & prompt ──────────────────────────────────────────────────────────
 brew "tmux"                    # Terminal multiplexer
-brew "powerlevel10k"           # Zsh prompt theme — sourced from Homebrew in .zshrc
+brew "powerlevel10k"           # Active prompt — sourced from Homebrew in .zshrc, config ~/.p10k.zsh (rainbow/powerline)
+brew "starship"                # Parked alternate prompt — config ~/.config/starship.toml (Gruvbox); init line is commented in .zshrc, flip to switch back
 brew "zsh-completions"         # Extra zsh completion definitions
 brew "zsh-syntax-highlighting" # Fish-like zsh syntax highlighting (sourced last in .zshrc)
 brew "zsh-autosuggestions"     # Fish-like history autosuggestions (grey ghost-text)
 brew "fzf-tab"                 # Replace the zsh completion menu with an fzf picker
+brew "zsh-vi-mode"             # Modal (vi) command-line editing — gated by VI_MODE in .zshrc
 
 # ── File & navigation ───────────────────────────────────────────────────────
 brew "tree"        # Print directory trees

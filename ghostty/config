@@ -5,33 +5,95 @@
 # Reload a running Ghostty after editing:  Cmd+Shift+, (or quit + relaunch).
 # See every setting + its default:  ghostty +show-config --default --docs
 # List bundled themes:              ghostty +list-themes
+# NOTE: Ghostty has NO trailing inline comments — `#` only starts a comment at
+#       the START of a line. Put notes on their own line, never after a value.
 # ════════════════════════════════════════════════════════════════════════════
 
 # ── Font ─────────────────────────────────────────────────────────────────────
 # Same Nerd Font iTerm + powerlevel10k reference, so prompt glyphs render.
 font-family = "MesloLGS NF"
-# font-size  = 13            # uncomment to override Ghostty's default
+# Ghostty's default (13) felt small; bump here or resize live with Cmd +/-.
+font-size = 16
+# Disable ligatures / contextual + discretionary alternates (mostly a no-op on
+# Meslo, which has none — kept for parity if the font ever changes).
+font-feature = -liga,-calt,-dlig
+
+# Render the shade blocks ░▒▓ (U+2591-2593) from the font instead of Ghostty's
+# built-in block renderer. p10k's "blurred" prompt heads/tails are drawn with these;
+# Ghostty's built-in draws them as a smooth alpha gradient (looked "too high-res"),
+# while the font's glyphs are the pixel checkerboard = the dithered iTerm look.
+# Remove this line to go back to the smooth gradient.
+font-codepoint-map = U+2591-U+2593=MesloLGS NF
 
 # ── Colors ───────────────────────────────────────────────────────────────────
 # Bundled theme (sets background/foreground/palette/cursor/selection). The
 # prompt, tmux, yazi and nvim all inherit these 16 ANSI slots, so this drives
 # the whole terminal look. Swap for any name from `ghostty +list-themes`.
-theme = Catppuccin Macchiato
+theme = Gruvbox Dark
+
+# Classic Gruvbox Dark background, matching nvim's gruvbox bg so terminal + editor
+# are the same warm dark. Delete this line to use the theme's own bg. #282828
+background = #1d1f20
+
+# Frosted-glass window: slight translucency + blur behind. Bump opacity to 1.0
+# to make it fully solid.
+background-opacity = 1
+
+background-blur-radius = 0
+
+# Blend text over the translucent bg in linear (gamma-corrected) space instead of
+# macOS-native. Default `native` renders text very crisp with a dark edge-fringe
+# ("too high-res"); `linear` removes the fringe and thickens light-on-dark text for
+# a softer, fuller look closer to iTerm/Terminal. `linear-corrected` = native weight
+# minus the fringe (still crisp). Flip this if the text reads too thin/heavy.
+# alpha-blending = linear
+
+# ── Cursor ───────────────────────────────────────────────────────────────────
+# Solid non-blinking block; invert the cell colours under it for contrast.
+cursor-style = block
+cursor-style-blink = false
+cursor-color = cell-foreground
+cursor-text = cell-background
+
+# ── Splits ───────────────────────────────────────────────────────────────────
+# Dim the inactive split so the focused one stands out; subtle divider line.
+unfocused-split-opacity = 0.55
+# Gruvbox bg3 — subtle warm-grey divider.
+split-divider-color = #504945
 
 # ── macOS / input ────────────────────────────────────────────────────────────
+# Hide the native titlebar for a cleaner, frameless top edge.
+macos-titlebar-style = hidden
 # Option = Alt, so shell word-nav (Alt-B/F) and fzf Alt-C keep working.
 macos-option-as-alt = true
 
-# Shift+Enter inserts a newline in Claude Code. Ghostty speaks the Kitty
-# keyboard protocol so this usually works natively — the explicit bind
-# guarantees it (this was a three-fault saga to get working in iTerm).
-keybind = shift+enter=text:\n
+# Shift+Enter in Claude Code: Ghostty handles this NATIVELY via the Kitty
+# keyboard protocol — no keybind needed (per Claude Code's terminal-config docs).
+# A `shift+enter=text:\n` override actually BREAKS it under tmux: it sends a raw
+# newline byte instead of the extended-key sequence tmux forwards via `extkeys`,
+# so tmux can't tell it from Enter. Left unbound on purpose. Inside tmux you also
+# need `set -s extended-keys on` + `terminal-features '…:extkeys'` (see tmux.conf).
 
 # ── Clipboard ────────────────────────────────────────────────────────────────
 # Let terminal apps read the clipboard, so tmux/OSC-52 `y` yanks from a remote
 # box reach the local clipboard (mirrors the deliberate iTerm "Always Allow").
 clipboard-read = allow
 
+# ── Window ───────────────────────────────────────────────────────────────────
+# Don't prompt for confirmation when closing a surface/tab.
+confirm-close-surface = false
+window-decoration = auto
+# Breathing room between the terminal content and the window edge (points).
+# -balance evens out any leftover space so left/right + top/bottom match.
+window-padding-x = 10
+window-padding-y = 10
+window-padding-balance = true
+
 # ── Quality of life ──────────────────────────────────────────────────────────
 mouse-hide-while-typing = true
 window-save-state = always
+
+# ── Updates ──────────────────────────────────────────────────────────────────
+# Check for updates on the stable channel (check only — doesn't auto-install).
+auto-update = check
+auto-update-channel = stable

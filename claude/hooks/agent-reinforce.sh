@@ -5,7 +5,7 @@
 # which could only re-load at /agent-init and /log-work — never mid-session.
 #
 # Cadence per session (keyed by session_id): FULL text on turn 1, COMPACT re-ground
-# every 5th turn after. Text lives in reinforce-{full,compact}.txt beside this
+# every 3rd turn after. Text lives in reinforce-{full,compact}.txt beside this
 # script. Fail-open: any error exits 0 (never blocks a prompt).
 
 input=$(cat 2>/dev/null)
@@ -23,7 +23,7 @@ n=$(cat "$f" 2>/dev/null); n=$((n + 1)); printf '%s' "$n" > "$f" 2>/dev/null
 dir=$(dirname "$0")
 file=""
 if [ "$n" -eq 1 ]; then file="$dir/reinforce-full.txt"
-elif [ $((n % 5)) -eq 0 ]; then file="$dir/reinforce-compact.txt"
+elif [ $((n % 3)) -eq 0 ]; then file="$dir/reinforce-compact.txt"
 fi
 [ -n "$file" ] || exit 0
 

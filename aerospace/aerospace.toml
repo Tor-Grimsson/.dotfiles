@@ -49,6 +49,13 @@ persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B",
                          "C", "D", "E", "F", "G", "I", "M", "N", "O", "P", "Q",
                          "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
+# Redraw the SketchyBar workspace chips on every workspace switch. Both brew bin
+# dirs are put on PATH so `sketchybar` resolves on the Intel iMac (/usr/local) and
+# the Apple-Silicon MBP (/opt/homebrew) without hardcoding a single prefix (§1).
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'PATH=/opt/homebrew/bin:/usr/local/bin:$PATH sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
 # A callback that runs every time binding mode changes
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
@@ -72,7 +79,7 @@ on-mode-changed = []
     inner.vertical =   10
     outer.left =       10
     outer.bottom =     10
-    outer.top =        10
+    outer.top =        42
     outer.right =      10
 
 # 'main' binding mode declaration
@@ -274,6 +281,10 @@ on-mode-changed = []
 
 [[on-window-detected]]
 if.app-id = 'com.googlecode.iterm2'
+run = "move-node-to-workspace T"
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
 run = "move-node-to-workspace T"
 
 # B for Browsers 

@@ -122,6 +122,18 @@ if [ -d "$DOT/ghostty" ]; then
   ln -sf "$DOT/ghostty/config" "$HOME/.config/ghostty/config"
 fi
 
+# starship (prompt — single config file symlinked to the XDG path)
+if [ -d "$DOT/starship" ]; then
+  mkdir -p "$HOME/.config"
+  ln -sf "$DOT/starship/starship.toml" "$HOME/.config/starship.toml"
+fi
+
+# sketchybar (menu bar — whole config dir: sketchybarrc + plugins/)
+if [ -d "$DOT/sketchybar" ]; then
+  mkdir -p "$HOME/.config"
+  ln -sfn "$DOT/sketchybar" "$HOME/.config/sketchybar"
+fi
+
 # Finder Quick Actions (macos/services/*.workflow) — includes "Open in glow"
 if [ -d "$DOT/macos/services" ]; then
   mkdir -p "$HOME/Library/Services"

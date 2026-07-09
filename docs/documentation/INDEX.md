@@ -23,7 +23,7 @@ Two cross-cutting axes live in **tags**, not folders:
 
 | # | Category | Tools | What lives here |
 |---|----------|:-----:|-----------------|
-| 01 | [[documentation/01-shell-terminal/INDEX|Shell & Terminal]] | 23 | terminal emulators (iTerm2, Ghostty), multiplexers, prompt (p10k), zsh plugins, clipboard, sysinfo, process monitor, cheat-sheets (tldr), calendar (gcalcli), markdown renderers (glow/mdcat), image renderer (chafa), kanban (kanban-tui), tmux session/project managers, git worktree pairing (workmux), shell-history search (atuin) |
+| 01 | [[documentation/01-shell-terminal/INDEX|Shell & Terminal]] | 23 | terminal emulators (iTerm2, Ghostty), multiplexers, prompt (starship), zsh plugins, clipboard, sysinfo, process monitor, cheat-sheets (tldr), calendar (gcalcli), markdown renderers (glow/mdcat), image renderer (chafa), kanban (kanban-tui), tmux session/project managers, git worktree pairing (workmux), shell-history search (atuin) |
 | 02 | [[documentation/02-file-management/INDEX|File Management]] | 15 | tree view, TUI/GUI managers, renamers, archiver + modern CLI core (eza/bat/fd/rg/fzf/zoxide/dust) + yazi preview backends (7-Zip/resvg) |
 | 03 | [[documentation/03-dedup-cleanup/INDEX|Dedup & Cleanup]] | 6 | duplicate finders, app uninstallers, file recovery |
 | 04 | [[documentation/04-dev-languages/INDEX|Dev & Languages]] | 10 | editors, JS/Python runtimes & managers, jq, containers, LLM client, Claude Code plugin (ponytail) |
@@ -31,7 +31,7 @@ Two cross-cutting axes live in **tags**, not folders:
 | 06 | [[documentation/06-media-av/INDEX|Media & A/V]] | 8 | player, transcoders, downloader, torrents, speech-to-text, text-to-speech, terminal music (mpd + rmpc) |
 | 07 | [[documentation/07-pdf-images/INDEX|PDF & Images]] | 4 | image toolkit, PDF↔image/SVG, clipboard PNG |
 | 08 | [[documentation/08-screen-capture/INDEX|Screen Capture]] | 3 | screen recorders, keystroke overlay |
-| 09 | [[documentation/09-productivity-desktop/INDEX|Productivity & Desktop]] | 5 | launcher, system monitor, notes, dev browser, tiling window manager |
+| 09 | [[documentation/09-productivity-desktop/INDEX|Productivity & Desktop]] | 6 | launcher, system monitor, notes, dev browser, tiling window manager, menu bar (SketchyBar) |
 | 10 | [[documentation/10-fonts/INDEX|Fonts]] | 2 | Nerd Font, font viewer |
 | 11 | [[documentation/11-cloud-sync/INDEX|Cloud & Sync]] | 1 | rclone |
 | 12 | [[documentation/12-terminal-browsers/INDEX|Terminal Browsers]] | 3 | Carbonyl (full Chromium via Docker), Chawan (CSS TUI), w3m (text-mode) |

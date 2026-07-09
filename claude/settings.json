@@ -50,6 +50,16 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/footer-gate.sh\""
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
@@ -74,5 +84,6 @@
   "voice": {
     "enabled": true,
     "mode": "hold"
-  }
+  },
+  "model": "claude-fable-5[1m]"
 }
