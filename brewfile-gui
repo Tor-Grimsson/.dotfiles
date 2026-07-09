@@ -11,6 +11,7 @@ tap "siddharthvaddem/openscreen"   # provides the openscreen cask
 # Browser / terminal / editor
 cask "firefox@developer-edition"   # Web browser
 cask "iterm2"                      # Terminal emulator
+cask "ghostty"                     # Terminal emulator (GPU, Zig) — trialing vs iTerm2 for CPU
 cask "visual-studio-code"          # Code editor
 
 # Window / launcher / menu bar

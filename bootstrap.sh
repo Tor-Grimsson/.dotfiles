@@ -106,6 +106,7 @@ fi
 if [ -d "$DOT/rmpc" ]; then
   mkdir -p "$HOME/.config/rmpc"
   ln -sf "$DOT/rmpc/config.ron" "$HOME/.config/rmpc/config.ron"
+  ln -sfn "$DOT/rmpc/themes" "$HOME/.config/rmpc/themes"
 fi
 
 # atuin (shell-history search — single config file; history.db/key/session live in
@@ -113,6 +114,12 @@ fi
 if [ -d "$DOT/atuin" ]; then
   mkdir -p "$HOME/.config/atuin"
   ln -sf "$DOT/atuin/config.toml" "$HOME/.config/atuin/config.toml"
+fi
+
+# ghostty (terminal — single config file symlinked to the XDG path)
+if [ -d "$DOT/ghostty" ]; then
+  mkdir -p "$HOME/.config/ghostty"
+  ln -sf "$DOT/ghostty/config" "$HOME/.config/ghostty/config"
 fi
 
 # Finder Quick Actions (macos/services/*.workflow) — includes "Open in glow"

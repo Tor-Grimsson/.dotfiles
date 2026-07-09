@@ -2,7 +2,7 @@
 title: Shell & Terminal
 type: index
 status: active
-updated: 2026-07-08
+updated: 2026-07-09
 description: The terminal emulator, multiplexers, zsh prompt, image renderer, and shell enhancements that make up the command-line environment.
 tags:
   - domain/shell
@@ -13,6 +13,7 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | Tool | What it is |
 | --- | --- |
 | [[01-iterm2|iTerm2]] | macOS terminal emulator with split panes, search, and deep customization. |
+| [[26-ghostty|Ghostty]] | GPU-accelerated, config-file-driven terminal emulator — trialing as a lighter-weight iTerm2 replacement. |
 | [[02-tmux|tmux]] | Terminal multiplexer for persistent sessions, windows, and panes. |
 | [[03-powerlevel10k|Powerlevel10k]] | Fast, configurable zsh prompt theme with instant-prompt startup. |
 | [[04-zsh-syntax-highlighting|zsh-syntax-highlighting]] | Fish-style live syntax highlighting for the zsh command line. |

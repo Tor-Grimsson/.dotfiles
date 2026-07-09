@@ -2,7 +2,7 @@
 title: Documentation — tool catalog & guides
 type: index
 status: active
-updated: 2026-07-08
+updated: 2026-07-09
 description: The repo's subject matter — one reference doc per installed tool, plus multi-chapter guides. Content only; repo machinery lives in operations/.
 tags:
   - project/dotfiles
@@ -23,7 +23,7 @@ Two cross-cutting axes live in **tags**, not folders:
 
 | # | Category | Tools | What lives here |
 |---|----------|:-----:|-----------------|
-| 01 | [[documentation/01-shell-terminal/INDEX|Shell & Terminal]] | 22 | terminal emulator, multiplexers, prompt (p10k), zsh plugins, clipboard, sysinfo, process monitor, cheat-sheets (tldr), calendar (gcalcli), markdown renderers (glow/mdcat), image renderer (chafa), kanban (kanban-tui), tmux session/project managers, git worktree pairing (workmux), shell-history search (atuin) |
+| 01 | [[documentation/01-shell-terminal/INDEX|Shell & Terminal]] | 23 | terminal emulators (iTerm2, Ghostty), multiplexers, prompt (p10k), zsh plugins, clipboard, sysinfo, process monitor, cheat-sheets (tldr), calendar (gcalcli), markdown renderers (glow/mdcat), image renderer (chafa), kanban (kanban-tui), tmux session/project managers, git worktree pairing (workmux), shell-history search (atuin) |
 | 02 | [[documentation/02-file-management/INDEX|File Management]] | 15 | tree view, TUI/GUI managers, renamers, archiver + modern CLI core (eza/bat/fd/rg/fzf/zoxide/dust) + yazi preview backends (7-Zip/resvg) |
 | 03 | [[documentation/03-dedup-cleanup/INDEX|Dedup & Cleanup]] | 6 | duplicate finders, app uninstallers, file recovery |
 | 04 | [[documentation/04-dev-languages/INDEX|Dev & Languages]] | 10 | editors, JS/Python runtimes & managers, jq, containers, LLM client, Claude Code plugin (ponytail) |

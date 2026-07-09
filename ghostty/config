@@ -1,0 +1,37 @@
+# ════════════════════════════════════════════════════════════════════════════
+# Ghostty — terminal config.  Tracked in ~/.dotfiles/ghostty/config,
+# symlinked to ~/.config/ghostty/config by bootstrap.sh.
+# Docs: docs/documentation/01-shell-terminal/26-ghostty.md
+# Reload a running Ghostty after editing:  Cmd+Shift+, (or quit + relaunch).
+# See every setting + its default:  ghostty +show-config --default --docs
+# List bundled themes:              ghostty +list-themes
+# ════════════════════════════════════════════════════════════════════════════
+
+# ── Font ─────────────────────────────────────────────────────────────────────
+# Same Nerd Font iTerm + powerlevel10k reference, so prompt glyphs render.
+font-family = "MesloLGS NF"
+# font-size  = 13            # uncomment to override Ghostty's default
+
+# ── Colors ───────────────────────────────────────────────────────────────────
+# Bundled theme (sets background/foreground/palette/cursor/selection). The
+# prompt, tmux, yazi and nvim all inherit these 16 ANSI slots, so this drives
+# the whole terminal look. Swap for any name from `ghostty +list-themes`.
+theme = Catppuccin Macchiato
+
+# ── macOS / input ────────────────────────────────────────────────────────────
+# Option = Alt, so shell word-nav (Alt-B/F) and fzf Alt-C keep working.
+macos-option-as-alt = true
+
+# Shift+Enter inserts a newline in Claude Code. Ghostty speaks the Kitty
+# keyboard protocol so this usually works natively — the explicit bind
+# guarantees it (this was a three-fault saga to get working in iTerm).
+keybind = shift+enter=text:\n
+
+# ── Clipboard ────────────────────────────────────────────────────────────────
+# Let terminal apps read the clipboard, so tmux/OSC-52 `y` yanks from a remote
+# box reach the local clipboard (mirrors the deliberate iTerm "Always Allow").
+clipboard-read = allow
+
+# ── Quality of life ──────────────────────────────────────────────────────────
+mouse-hide-while-typing = true
+window-save-state = always

@@ -2,7 +2,7 @@
 title: Terminal music — mpd + rmpc
 type: reference
 status: active
-updated: 2026-07-08
+updated: 2026-07-09
 description: Play the local music library from the terminal — mpd (Music Player Daemon) indexes and plays, rmpc is the TUI client. Library on a dedicated SSD; mount-guarded launchd agent so mpd only runs while that drive is attached.
 aliases:
   - mpd
@@ -41,7 +41,8 @@ related:
 | File | Role |
 |---|---|
 | `mpd/mpd.conf` → `~/.config/mpd/mpd.conf` | mpd config (symlinked) — `music_directory`, output, port |
-| `rmpc/config.ron` → `~/.config/rmpc/config.ron` | rmpc config (symlinked; rmpc's own default, `address` = mpd) |
+| `rmpc/config.ron` → `~/.config/rmpc/config.ron` | rmpc config (symlinked; keybinds, tabs/layout inc. album-art pane, `theme: "catppuccin"`) |
+| `rmpc/themes/` → `~/.config/rmpc/themes/` | theme dir (whole-dir symlink) — holds `catppuccin.ron` |
 | `~/.config/mpd/{database,state,sticker.sql,log,playlists/}` | mpd state — **local, untracked** (survives the drive unmounting) |
 | `macos/launchd/com.kolkrabbi.mpd.plist` → `~/Library/LaunchAgents/` | the mount-guarded agent (copied, not symlinked) |
 
@@ -52,7 +53,8 @@ related:
 ```sh
 # 1. configs (symlinks) — bootstrap does these; already linked on the iMac
 ln -sf ~/.dotfiles/mpd/mpd.conf   ~/.config/mpd/mpd.conf
-ln -sf ~/.dotfiles/rmpc/config.ron ~/.config/rmpc/config.ron
+ln -sf  ~/.dotfiles/rmpc/config.ron ~/.config/rmpc/config.ron
+ln -sfn ~/.dotfiles/rmpc/themes    ~/.config/rmpc/themes
 mkdir -p ~/.config/mpd/playlists
 
 # 2. load the mount-guarded agent (starts mpd now, since the drive is mounted)
@@ -100,4 +102,5 @@ The library is on a removable SSD (`/Volumes/kol-ssd-4000/Music`). The agent's `
 - **`auto_update` is off — and can't be on.** macOS mpd (brew) is compiled without inotify/kqueue, so filesystem-watch doesn't work on any drive; it just logs `inotify: auto_update was disabled` and ignores the setting. Rescan after adding music with `Ctrl-u` in rmpc (or `mpc update`). The initial scan happens on first start / on demand regardless.
 - **State stays local.** `db_file`/`state_file`/`log`/`playlists` live in `~/.config/mpd/`, never on the library drive — so they persist across unmounts.
 - **Moved off Jellyfin's drive.** The library used to sit on the 8TB drive Jellyfin serves; mpd scanning it while Jellyfin read the same spinning disk caused heavy lag. It now lives on a dedicated SSD (`kol-ssd-4000`), so mpd and Jellyfin no longer contend for one head.
-- **Theming.** rmpc runs on its default theme. `rmpc theme > ~/.config/rmpc/themes/x.ron`, then set `theme: "x"` in `config.ron` to customise.
+- **Theming.** rmpc uses **Catppuccin Macchiato** — `rmpc/themes/catppuccin.ron`, set via `theme: "catppuccin"` in `config.ron`. Ported from the [official theme](https://rmpc.mierak.dev/themes/catppuccin/) onto the version-exact `0.11.0` default (`rmpc theme`) — **colour values only, structure untouched**, so it can't hit an "unknown field" crash the way the dev-docs theme would. Bootstrap another with `rmpc theme > ~/.dotfiles/rmpc/themes/x.ron`, then `theme: "x"`.
+- **Album art needs a graphics-capable terminal.** The Queue tab already has an `AlbumArt` pane (`config.ron`), but rmpc paints it via a terminal image protocol (kitty/iTerm/sixel). **iTerm2 inside tmux mangles the escapes → no art + a pegged-CPU render loop that stutters audio.** It renders in a terminal that speaks the kitty protocol (Ghostty/kitty), ideally with rmpc run *outside* tmux.
