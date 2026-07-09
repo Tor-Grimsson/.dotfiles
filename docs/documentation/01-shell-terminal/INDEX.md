@@ -33,6 +33,7 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | [[21-chafa|chafa]] | Terminal image renderer — turns an image into colored Unicode/braille/sixel; yazi's preview fallback and the fastfetch logo renderer. |
 | [[22-tmux-harpoon|tmux-harpoon]] | TPM plugin — bookmark a handful of tmux sessions, jump back with one key. |
 | [[24-workmux|workmux]] | Pairs a git worktree with a tmux window in one command — parallel branches/agents, no stashing. |
+| [[25-atuin|atuin]] | SQLite-backed shell history with scoped fuzzy search (global/host/session/directory) — takes over fzf's Ctrl-R. |
 
 ## Guides
 - [[10-tmux-help|tmux help & cheat sheet]] — built-in help commands first, then the keys, shell commands, and workflows you actually use with the [[02-tmux|tmux]] config.

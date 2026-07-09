@@ -200,8 +200,12 @@ export FZF_DEFAULT_OPTS="
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND='fd --type d --hidden --strip-cwd-prefix --exclude .git'
   export FZF_ALT_C_OPTS="--preview 'eza -T --level=2 --color=always {}'"      # Alt-C: tree-preview the dir before cd
-  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:wrap"    # Ctrl-R: show the full command before running
+  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:wrap"    # Ctrl-R fallback if atuin isn't installed
   source <(fzf --zsh)
+
+  # atuin — SQLite-backed shell history. Sourced after fzf so it wins the Ctrl-R bind
+  # (fzf keeps Ctrl-T/Alt-C). Guarded so a machine that hasn't run `brew bundle` yet won't error.
+  command -v atuin >/dev/null && eval "$(atuin init zsh)"
   alias cat='bat --paging=never'
   # eza — modern ls (icons need the Nerd Font, which is installed)
   alias ls='eza --group-directories-first --icons'

@@ -1,0 +1,11 @@
+# Atuin — shell-history search. Full reference: docs/documentation/01-shell-terminal/25-atuin.md
+# history.db/key/session live in ~/.local/share/atuin/ (untracked, machine-local) — this file only.
+
+# Skip the startup version-check network call.
+update_check = false
+
+# Enter runs the selected command immediately; Tab edits it instead of running.
+enter_accept = true
+
+# Up arrow scopes to the current directory; ctrl-r stays global (cycle modes with ctrl-r once searching).
+filter_mode_shell_up_key_binding = "directory"

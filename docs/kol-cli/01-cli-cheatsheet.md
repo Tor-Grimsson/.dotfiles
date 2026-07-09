@@ -2,8 +2,8 @@
 title: CLI cheatsheet
 type: reference
 status: active
-updated: 2026-07-05
-description: One-page printable keymap for the daily drivers — Neovim, tmux, yazi, fzf, AeroSpace — plus a highlight table of the most-reached-for bin/ scripts. Keys only; each section links to the tool's full doc for the why.
+updated: 2026-07-09
+description: One-page printable keymap for the daily drivers — Neovim, tmux, yazi, fzf, atuin, AeroSpace — plus a highlight table of the most-reached-for bin/ scripts. Keys only; each section links to the tool's full doc for the why.
 aliases:
   - cli-cheatsheet
   - kol-cli
@@ -14,7 +14,7 @@ tags:
 covers:
   - Neovim edit grammar (verb + target), motions, find/filter/replace, surround
   - tmux prefix keys — panes, windows, sessions, copy mode
-  - yazi, fzf, and AeroSpace keymaps
+  - yazi, fzf, atuin, and AeroSpace keymaps
   - Installed plugins per tool, and cross-tool integrations (yazi↔fzf/zoxide, Neovim↔yazi, tmux↔Neovim, Telescope↔fzf)
   - How to call up help inside each tool — first line of every section
   - A handful of frequently-used bin/ scripts (img- family so far) — flags, not the full family map
@@ -24,6 +24,7 @@ related:
   - "[[10-tmux-help|tmux help & cheat sheet]]"
   - "[[02-yazi|Yazi]]"
   - "[[12-fzf|fzf]]"
+  - "[[25-atuin|atuin]]"
   - "[[05-aerospace|AeroSpace]]"
   - "[[04-git-github|Git & GitHub]]"
   - "[[05-network-security|Network, remote & secrets]]"
@@ -41,7 +42,7 @@ related:
 | [[01-cli-cheatsheet#1. Neovim → config · beginner|Neovim]] | `:help` / `:h` · `<leader>fk` (Telescope) |
 | [[01-cli-cheatsheet#2. tmux → help · tips|tmux]] | `pfx ?` |
 | [[01-cli-cheatsheet#3. yazi → yazi|yazi]] | `~` |
-| [[01-cli-cheatsheet#4. fzf → fzf|fzf]] | `fzf --help` (shell) |
+| [[01-cli-cheatsheet#4. fzf → fzf|fzf]] (+ atuin) | `fzf --help` · `atuin --help` (shell) |
 | [[01-cli-cheatsheet#5. AeroSpace → aerospace|AeroSpace]] | `aerospace --help` (shell) |
 | [[01-cli-cheatsheet#6. Scripts → all scripts|Scripts]] | `<script> -h` / `--help` (shell) |
 
@@ -52,7 +53,7 @@ The daily drivers on one page. **Keys only** — for the *why* and the full tabl
 | **1** | **[[01-cli-cheatsheet#1. Neovim → config · beginner|Neovim]]** | text editor | leader = `Space` | [[10-neovim-config|config]] · [[11-neovim-cheatsheet|beginner]] |
 | **2** | **[[01-cli-cheatsheet#2. tmux → help · tips|tmux]]** | terminal multiplexer | prefix = `Ctrl-a` | [[10-tmux-help|help]] · [[09-tmux-tips|tips]] |
 | **3** | **[[01-cli-cheatsheet#3. yazi → yazi|yazi]]** | file manager | launch `y` | [[02-yazi|yazi]] |
-| **4** | **[[01-cli-cheatsheet#4. fzf → fzf|fzf]]** | fuzzy finder | `Ctrl-R` `Ctrl-T` `Alt-C` | [[12-fzf|fzf]] |
+| **4** | **[[01-cli-cheatsheet#4. fzf → fzf|fzf]]** + atuin | fuzzy finder / history | `Ctrl-T` `Alt-C` (fzf) · `Ctrl-R` `Up` (atuin) | [[12-fzf|fzf]] · [[25-atuin|atuin]] |
 | **5** | **[[01-cli-cheatsheet#5. AeroSpace → aerospace|AeroSpace]]** | window manager | mod = `Alt` | [[05-aerospace|aerospace]] |
 | **6** | **[[01-cli-cheatsheet#6. Scripts → all scripts|Scripts]]** | `bin/` CLI tools | invoke by name | [[03-scripts|all scripts]] |
 
@@ -345,15 +346,14 @@ Launch with **`y`** (cd's the shell to wherever you quit). `q` quits.
 
 Wired into the shell — **typing is the search**, `Enter` picks, `Esc` cancels.
 
-**Plugins:** fzf-tab (fzf-powered Tab completion, the only fzf-specific zsh plugin) — Ctrl-R/Ctrl-T/Alt-C are fzf's own built-in shell integration, not plugins.
+**Plugins:** fzf-tab (fzf-powered Tab completion, the only fzf-specific zsh plugin) — Ctrl-T/Alt-C are fzf's own built-in shell integration, not plugins. **Ctrl-R now belongs to atuin** (below) — its init sources after fzf's in `.zshrc` and wins the bind.
 
 | Key | Does | In-picker syntax | Matches |
 |---|---|---|---|
-| `Ctrl-R` | fuzzy command history | `foo` | fuzzy |
-| `Ctrl-T` | insert a file path | `'foo` | exact |
-| `Alt-C` | cd into a dir | `^foo` `foo$` | prefix / suffix |
-| `Tab` | fzf-tab completion | `!foo` | exclude |
-| `fe` | fd → fzf → open in nvim | `a b` | both (AND) |
+| `Ctrl-T` | insert a file path | `foo` | fuzzy |
+| `Alt-C` | cd into a dir | `'foo` | exact |
+| `Tab` | fzf-tab completion | `^foo` `foo$` | prefix / suffix |
+| `fe` | fd → fzf → open in nvim | `!foo` | exclude |
 
 ```sh
 vim "$(fzf)"                            # pick a file, open it
@@ -362,6 +362,29 @@ rg --line-number . | fzf --ansi        # live-grep file contents
 ```
 
 **In Neovim:** Telescope (`<leader>ff`/`fs`/`fc`/`fr`/`ft`/`fk`, in the [[01-cli-cheatsheet#1. Neovim → config · beginner|Neovim]] section above) runs on `telescope-fzf-native` — fzf's matching **algorithm**, compiled in, not this `fzf` binary.
+
+### atuin → [[25-atuin|atuin]]
+
+**Help:** `atuin --help` (subcommands) · no in-picker help screen.
+
+SQLite-backed shell history — replaces plain reverse-i-search with a scoped fuzzy picker. Config: `atuin/config.toml`.
+
+| Key | Does |
+|---|---|
+| `Ctrl-R` | search history (global scope); press again to cycle scope (global/host/session/dir) |
+| `Up` | search scoped to the current directory |
+| `Ctrl-S` | cycle search mode (fuzzy/prefix/fulltext/skim) |
+| `Enter` | run the selected command |
+| `Tab` | paste it into the prompt instead of running |
+| `Ctrl-O` | inspector (exit code, duration, cwd, host) |
+| `Ctrl-A d` / `Ctrl-A D` | prefix: delete this entry / delete all matching |
+
+```sh
+atuin stats           # top commands, usage patterns
+atuin import auto      # one-time backfill from existing shell history
+```
+
+Sync (`atuin register`/`login`, encrypted, multi-machine) is opt-in and not enabled here yet.
 
 ---
 

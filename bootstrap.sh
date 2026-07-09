@@ -108,6 +108,13 @@ if [ -d "$DOT/rmpc" ]; then
   ln -sf "$DOT/rmpc/config.ron" "$HOME/.config/rmpc/config.ron"
 fi
 
+# atuin (shell-history search — single config file; history.db/key/session live in
+# ~/.local/share/atuin/, untracked/machine-local, so only config.toml is symlinked)
+if [ -d "$DOT/atuin" ]; then
+  mkdir -p "$HOME/.config/atuin"
+  ln -sf "$DOT/atuin/config.toml" "$HOME/.config/atuin/config.toml"
+fi
+
 # Finder Quick Actions (macos/services/*.workflow) — includes "Open in glow"
 if [ -d "$DOT/macos/services" ]; then
   mkdir -p "$HOME/Library/Services"

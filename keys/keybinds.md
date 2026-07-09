@@ -167,3 +167,20 @@ gh api … --jq                       raw GitHub API
 ssh <host>            connect (see ~/.ssh/config aliases)
 ssh -t <host> tmux a  connect + attach tmux
 mosh <host>           roaming/latency-tolerant session
+
+## #fzf
+C-t    insert a file path into the command line (fd-fed picker)
+M-c    cd into a directory (fd-fed picker, tree preview)
+Tab    fzf-powered Tab completion (fzf-tab plugin)
+fe     fuzzy-pick a file (fd → fzf → bat preview) and open it in nvim
+
+## #atuin
+C-r          open search — fuzzy shell history (global scope); press again to cycle scope (global/host/session/dir)
+Up           search history scoped to this directory
+C-s          cycle search mode (fuzzy/prefix/fulltext/skim)
+Enter        run the selected command
+Tab          paste it into the prompt instead of running
+C-o          open the inspector (exit code, duration, cwd, host)
+Esc / C-c    cancel, restore what you were typing
+C-a d        prefix: delete the selected history entry
+C-a D        prefix: delete ALL entries matching the selected command

@@ -2,7 +2,7 @@
 title: Yazi cheatsheet (beginner)
 type: guide
 status: active
-updated: 2026-06-14
+updated: 2026-07-09
 audience: internal
 description: Zero-assumptions beginner guide to actually using Yazi — navigating, previewing, opening files, sending them to other apps, copying/moving, fuzzy-finding, and feeding files to Claude (llm). Worked workflows first, then one big everything-table at the end.
 aliases:
@@ -229,7 +229,7 @@ You asked specifically about fzf, zoxide (`z`), bat, eza, and llm. Here's the ho
 | Tool | Relationship to Yazi | How you feel it |
 |---|---|---|
 | **zoxide** ([[13-zoxide|13-zoxide]]) | **Built in** — `z` inside Yazi uses the *same* frecency database as `z` in your shell. | Press `z`, type a fragment, teleport. Visiting folders in Yazi *and* in the shell both train it. |
-| **fzf** ([[12-fzf|12-fzf]]) | **Built in** — `Z` inside Yazi fuzzy-finds files/folders via fzf. | Press `Z`, fuzzy-type, jump. Same engine as your shell's `Ctrl-T` / `Ctrl-R`. |
+| **fzf** ([[12-fzf|12-fzf]]) | **Built in** — `Z` inside Yazi fuzzy-finds files/folders via fzf. | Press `Z`, fuzzy-type, jump. Same engine as your shell's `Ctrl-T`. |
 | **bat** ([[09-bat|09-bat]]) | **Not** called by Yazi — Yazi has its *own* syntax-highlighted text preview. bat is your **shell's** `cat` (`alias cat='bat'`). | They're cousins, not connected: gorgeous text preview in Yazi, gorgeous `cat` in the shell. |
 | **eza** ([[08-eza|08-eza]]) | **Not** called by Yazi — Yazi *is* the visual file lister. eza is the **inline** `ls` for when you don't want a full TUI (`ls`/`ll`/`lt`). | Use eza for a quick listing in place; use `y` when you want to browse and preview. |
 | **llm** ([[09-llm|llm]]) | **Not** built in — but Yazi's shell command (`;`) pipes the hovered/selected file straight to it. | See [[17-yazi-cheatsheet#7. Ask Claude about a file (llm)|workflow 7]]. |

@@ -32,6 +32,7 @@ brew "mosh"        # SSH replacement that survives IP roaming / laptop sleep / w
 
 # ── Modern CLI core ───────────────────────────────────────────────────────────
 brew "fzf"         # Fuzzy finder — interactive filter for files, history, any list
+brew "atuin"       # Shell-history search — SQLite DB, context (exit code/cwd/host), scoped search; takes over fzf's Ctrl-R (init wired in .zshrc)
 brew "fd"          # Friendly, fast `find` replacement (respects .gitignore)
 brew "bat"         # `cat` with syntax highlighting + line numbers (also the fzf preview)
 brew "eza"         # Modern `ls` — colors, tree view, git status (maintained exa fork)

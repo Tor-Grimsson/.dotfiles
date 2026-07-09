@@ -2,7 +2,7 @@
 title: kol-cli — cheat cards
 type: index
 status: active
-updated: 2026-07-08
+updated: 2026-07-09
 description: Printable personal reference cards for the daily drivers — cross-cutting quick reference spanning both content and machinery. Symlinked into the kol-vault for print.
 tags:
   - project/dotfiles
@@ -17,7 +17,7 @@ Printable cross-cutting cheat cards for the daily drivers — not per-tool docs 
 
 | # | Card | Covers |
 |---|------|--------|
-| 01 | [[kol-cli/01-cli-cheatsheet|CLI cheatsheet]] | Neovim · tmux · yazi · fzf · AeroSpace keymaps on one page |
+| 01 | [[kol-cli/01-cli-cheatsheet|CLI cheatsheet]] | Neovim · tmux · yazi · fzf · atuin · AeroSpace keymaps on one page |
 | 02 | [[kol-cli/02-nvim-workflows|Neovim workflows]] | reshaping & handling text in nvim — edit grammar, wrap/reflow (`gq`/`par`), regex, `:g` filters, worked examples |
 | 03 | [[kol-cli/03-scripts|Scripts at a glance]] | the `bin/` scripts grouped by job (image/video/audio/PDF/download/files/sync/helpers) |
 | 04 | [[kol-cli/04-git-github|Git & GitHub]] | git syntax by task, the `gh` layer (PRs/CI/API), worktrees, and the commands that lose work |
