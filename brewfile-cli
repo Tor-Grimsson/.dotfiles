@@ -31,6 +31,7 @@ brew "chawan"      # TUI web browser (text-mode, renders in terminal)
 brew "w3m"         # Classic text-mode browser — instant, no JS; -dump renders HTML to stdout
 brew "gcalcli"     # Google Calendar from the terminal — agenda/week/month, natural-language quick-add (needs a one-time OAuth client; token is machine-local, not in the repo)
 brew "mosh"        # SSH replacement that survives IP roaming / laptop sleep / wifi drops — pairs with tmux auto-attach for remote-box work
+brew "tailscale"   # Tailnet mesh VPN — the CLI/daemon build (tailscaled), NOT the sandboxed GUI, so a Mac can be an SSH server on the tailnet. Setup: docs/operations/04-remote-machine/03-tailscale-remote-access.md
 
 # ── Modern CLI core ───────────────────────────────────────────────────────────
 brew "fzf"         # Fuzzy finder — interactive filter for files, history, any list
@@ -64,6 +65,7 @@ brew "czkawka"     # czkawka_cli — exact AND fuzzy (similar images / video / m
 
 # ── Dev & languages ─────────────────────────────────────────────────────────
 brew "neovim"      # Vim fork, extensible
+brew "tree-sitter-cli" # Parser-generator CLI — nvim-treesitter (main branch) builds its parsers with it (formula "tree-sitter" is just the lib, which neovim already pulls in)
 brew "node"        # JavaScript runtime (global fallback; per-project versions come from fnm)
 brew "pnpm"        # Fast, disk-efficient JS package manager (can self-manage node)
 brew "fnm"         # Fast Node version manager — per-project Node via .nvmrc, auto-switch on cd; docs/documentation/16-version-management
@@ -110,6 +112,7 @@ brew "entr"        # Re-run a command when files change (watch mode) — pdf-fro
 # ── System & cloud ──────────────────────────────────────────────────────────
 brew "fastfetch"   # System info banner (neofetch successor — neofetch was pulled from Homebrew)
 brew "htop"        # Interactive process/resource monitor (TUI) — live CPU/mem, find & kill hoggers
+brew "btop"        # Themeable resource monitor (boxed cpu/mem/net/proc panels) — kol-theme consumer; htop stays for quick kills
 brew "rclone"      # Rsync for cloud storage
 
 # NOTE: pkgconf + poppler + python@3.x are intentionally omitted — they arrive as

@@ -7,7 +7,7 @@ _template:
 
 # {{PROJECT_NAME}} — Architecture
 
-Load-bearing decisions and constraints. Anything in this document is "we chose this deliberately and it has downstream consequences." Do not revisit without explicit reason. For decision history (alternatives considered, rejections, and evolution), see `../history.md`.
+Load-bearing decisions and constraints. Anything in this document is "we chose this deliberately and it has downstream consequences." Do not revisit without explicit reason. For decision history (alternatives considered, rejections, and evolution), see `../HISTORY.md`.
 
 ---
 

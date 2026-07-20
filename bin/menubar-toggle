@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# menubar-toggle — show/hide the native macOS menu bar (flips auto-hide).
+#
+# Same flag as System Settings → "Automatically hide and show the menu bar".
+# Bound to cmd-alt-m in aerospace.toml. Sibling: dock-toggle.
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+menubar-toggle — show/hide the native macOS menu bar.
+
+USAGE
+  menubar-toggle            flip auto-hide (hidden <-> shown)
+  menubar-toggle -h|--help  this help
+
+Flips the same flag as System Settings → "Automatically hide and show the
+menu bar" via osascript — no GUI digging, macOS remembers the state.
+Bound to cmd-alt-m (aerospace.toml). While hidden, mousing to the top
+edge still reveals the bar. First run triggers a one-time macOS
+Automation permission prompt ("control System Events") — click Allow.
+EOF
+}
+
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
+
+osascript -e 'tell application "System Events" to set autohide menu bar of dock preferences to not autohide menu bar of dock preferences'

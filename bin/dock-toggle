@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# dock-toggle — show/hide the macOS Dock (flips auto-hide).
+#
+# Same flag as System Settings → "Automatically hide and show the Dock".
+# Bound to cmd-alt-d in aerospace.toml. Sibling: menubar-toggle.
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+dock-toggle — show/hide the macOS Dock.
+
+USAGE
+  dock-toggle            flip auto-hide (hidden <-> shown)
+  dock-toggle -h|--help  this help
+
+Flips the same flag as System Settings → "Automatically hide and show the
+Dock" via osascript — no GUI digging, macOS remembers the state.
+Bound to cmd-alt-d (aerospace.toml). While hidden, mousing to the screen
+edge still reveals the Dock. First run triggers a one-time macOS
+Automation permission prompt ("control System Events") — click Allow.
+EOF
+}
+
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
+
+osascript -e 'tell application "System Events" to set autohide of dock preferences to not autohide of dock preferences'

@@ -5,6 +5,9 @@ _tmp/
 **/node_modules/
 docs/.obsidian/
 
+# Ephemeral /goal state (goal-loop Stop hook)
+.kol/llm-context/.active-goal.md
+
 # Secrets — never track these, even by accident (secrets live in Bitwarden / ~/.secrets)
 .env
 .env.*
@@ -20,3 +23,7 @@ docs/.obsidian/
 .pgpass
 credentials
 **/oauth
+
+# kol-theme consumer symlinks (constant, machine-created by bin/kol-theme)
+ghostty/current-theme.conf
+kitty/current-theme.conf

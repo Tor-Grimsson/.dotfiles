@@ -81,7 +81,8 @@ chafa img.png --format iterm --size 60x40
 Regenerate the fastfetch portrait logo (source lives beside the fastfetch config):
 
 ```sh
-chafa ~/.dotfiles/fastfetch/logo-source.jpeg --size 42x26 --align center > ~/.dotfiles/fastfetch/logo.txt
+chafa ~/.dotfiles/fastfetch/logo-source.jpeg -f symbols --size 42x26 --align left > ~/.dotfiles/fastfetch/logo.txt
+# -f symbols: auto-detect may emit kitty-graphics escapes; --align left: center bakes a left gutter of spaces
 ```
 
 yazi calls chafa automatically as a preview fallback — no config action needed; it only engages when no native image protocol is available.

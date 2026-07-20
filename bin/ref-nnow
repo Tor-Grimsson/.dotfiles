@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# ref-nnow — alias of `ref nnow` (bin/ref owns the engine).
+exec "$HOME/.dotfiles/bin/ref" nnow "$@"

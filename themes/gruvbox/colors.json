@@ -1,0 +1,27 @@
+{
+  "name": "gruvbox",
+  "bgRgb": "29,31,32",
+  "fg": "#ebdbb2",
+  "muted": "#928374",
+  "accent": "#fe8019",
+  "hairline": "rgba(235,219,178,.10)",
+  "hover": "rgba(254,128,25,.14)",
+  "empty": "rgba(235,219,178,.3)",
+  "simplebar": {
+    "colorMain": "#1d1f20",
+    "colorMainAlt": "#928374",
+    "colorMinor": "#3c3836",
+    "colorAccent": "#fe8019",
+    "colorRed": "#cc241d",
+    "colorGreen": "#98971a",
+    "colorYellow": "#d79921",
+    "colorOrange": "#fe8019",
+    "colorBlue": "#458588",
+    "colorMagenta": "#b16286",
+    "colorCyan": "#689d6a",
+    "colorBlack": "#282828",
+    "colorWhite": "#ebdbb2",
+    "colorForeground": "#ebdbb2",
+    "colorBackground": "#1d1f20"
+  }
+}

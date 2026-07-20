@@ -7,7 +7,7 @@ _template:
 
 # dotfiles — Architecture
 
-Load-bearing decisions. Each was chosen deliberately and has downstream consequences. Don't revisit without explicit reason. For the narrative *why*, see `history.md`.
+Load-bearing decisions. Each was chosen deliberately and has downstream consequences. Don't revisit without explicit reason. For the narrative *why*, see `HISTORY.md`.
 
 ---
 

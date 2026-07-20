@@ -32,6 +32,17 @@ Respond with a clear plan of what you'll do BEFORE taking any action.
 
 ---
 
+## 🔔 Protocol update — 2026-07-11
+
+The documentation + llm-context protocol has been **unified** across the kol-system repos (most sync repos have upgraded). Two layout changes landed here:
+
+- **Plans moved to their own peer folder** `.kol/llm-plan/` — one `NN-slug.md` per plan (`01-parking-lot.md` is the backlog). No longer a single `llm-context/plan.md`.
+- **`history.md` → `HISTORY.md`** — uppercase marks it a system/protocol file, alongside `ARCHITECTURE.md` / `AGENT-CONTEXT.md`.
+
+The driving skills and protocol docs (`kol-docs-*`, `kol-migrate-structure`, `scaffold-*`, `docs/operations/02-claude-agents/`) reflect the unified shape.
+
+---
+
 # LLM Agent Onboarding
 
 Welcome to **dotfiles** — macOS configuration + tooling catalog for two machines (Intel iMac + Apple-Silicon MBP).
@@ -68,14 +79,14 @@ dotfiles/
 ├── macos/                           defaults baseline
 ├── shell/ git/ ssh/ iterm/ vscode/ mpv/ nvim/ bin/ scripts/
 ├── .kol/
-│   └── llm-context/                 agent-context protocol (hidden at repo root)
-│       ├── README.md
-│       ├── ARCHITECTURE.md          load-bearing decisions
-│       ├── AGENT-CONTEXT.md         current state, open items, gotchas, contracts
-│       ├── history.md               decision history — the "why"
-│       ├── plan.md                  future exploration
-│       ├── session-log/
-│       └── session-bridge/
+│   ├── llm-context/                 agent-context protocol (hidden at repo root)
+│   │   ├── README.md
+│   │   ├── ARCHITECTURE.md          load-bearing decisions
+│   │   ├── AGENT-CONTEXT.md         current state, open items, gotchas, contracts
+│   │   ├── HISTORY.md               decision history — the "why"
+│   │   ├── session-log/
+│   │   └── session-bridge/
+│   └── llm-plan/                    speculative plans — one NN-slug.md per plan
 ├── docs/
 │   └── INDEX.md + 01-…17-…/         per-tool reference catalog (kol-docs)
 └── LLM_RULES.md                     this file
@@ -114,8 +125,8 @@ Or use the `/log-work` skill to automate this.
 
 ### Filename Conventions
 
-- **Protocol files UPPERCASE:** `LLM_RULES.md`, `ARCHITECTURE.md`, `AGENT-CONTEXT.md`, `README.md`, `SKILL.md`.
-- **Content files kebab-case:** `history.md`, `plan.md`, session logs.
+- **Protocol/system files UPPERCASE:** `LLM_RULES.md`, `ARCHITECTURE.md`, `AGENT-CONTEXT.md`, `HISTORY.md`, `README.md`, `SKILL.md`.
+- **Content files kebab-case:** plans (`llm-plan/NN-slug.md`), session logs.
 
 ### Link Form
 

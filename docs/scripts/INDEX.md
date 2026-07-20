@@ -2,7 +2,7 @@
 title: Scripts
 type: index
 status: active
-updated: 2026-06-26
+updated: 2026-07-15
 description: The bin/ helper scripts, grouped by domain prefix (au-/vid-/img-/pdf-/art-/batch-/tor-/fs-/ss-/finder-/qa-/dl-/dot-/tg-/kol-/os-/theme-). One doc per family.
 tags:
   - project/dotfiles
@@ -36,6 +36,9 @@ CLI helpers in `~/.dotfiles/bin` (symlinked to `~/bin`, on PATH). Renamed 2026-0
 | `os-` / `theme-` | [[18-appearance|Appearance & wake automation]] | 2 | ⇧⌥⌘T toggle theme, ⇧⌥⌘A run wake-alarm test (Raycast) |
 | _(none)_ | [[15-calendar|Calendar]] | 1 | `cplan` — hides recurring noise over a date window ([[14-gcalcli|gcalcli]] companion) |
 | _(none)_ | [[19-keys|Keybind reference]] | 1 | `keys <tag>` — bat-print your own keybinds by tag (tmux/nvim/aerospace/git/…) |
+| _(none)_ | [[20-files|Folder navigation]] | 1 | `files <tag>` — bat-print bookmarked folders by tag; `to <tag>` jumps in (fzf when several) |
+| _(none)_ | [[21-help-lint|--help lint]] | 1 | `help-lint` — flag any `bin/` script missing the `--help` convention (static, skips binaries; the kol-appliant enforcement arm) |
+| _(none)_ | [[22-ref|Reference cards]] | 1 | `ref [card] <tag>` / `ref-<card>` — the reference-card dispatcher: keys · tmux · files · widgets · system · nvim · nnow · nmix; one engine, aliases per card |
 
 `cplan` is **non-prefixed** (callable as `cplan`, matching the `c*` gcalcli aliases)
 rather than `cal-…`. The other non-prefixed script is `tor-search`, under

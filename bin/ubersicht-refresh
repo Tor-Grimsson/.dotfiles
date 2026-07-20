@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# ubersicht-refresh — refresh all Übersicht widgets, twice.
+#
+# Twice because simple-bar renders from localStorage and imports
+# ~/.simplebarrc async — a config edit always needs refresh → import →
+# refresh to show. Plain widget refreshes don't mind the second pass.
+# Bound to cmd-alt-r in aerospace.toml. Siblings: ubersicht-toggle.
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+ubersicht-refresh — refresh all Übersicht widgets (double-pass).
+
+USAGE
+  ubersicht-refresh            refresh, wait 1s, refresh again
+  ubersicht-refresh -h|--help  this help
+
+The double pass exists for simplebarrc edits: simple-bar imports the file
+one refresh behind rendering it. Bound to cmd-alt-r (aerospace.toml).
+EOF
+}
+
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
+
+osascript -e 'tell application id "tracesOf.Uebersicht" to refresh'
+sleep 1
+osascript -e 'tell application id "tracesOf.Uebersicht" to refresh'

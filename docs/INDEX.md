@@ -2,8 +2,8 @@
 title: docs — top-level router
 type: index
 status: active
-updated: 2026-07-08
-description: Entry point to the dotfiles vault. Splits into documentation (the tool catalog & guides), operations (repo machinery & systems), and three named siblings (kol-cli cheat cards, scripts, explorations).
+updated: 2026-07-11
+description: Entry point to the dotfiles vault. Splits into documentation (the tool catalog & guides), operations (repo machinery & systems), and three named siblings (kol-cli cheat cards, scripts, kol-terminality).
 tags:
   - project/dotfiles
   - domain/tooling
@@ -20,7 +20,7 @@ The dotfiles Obsidian vault. Content and machinery are separated — the split f
 | Layer | Home | Holds |
 |---|---|---|
 | **Content** | [[documentation/INDEX|documentation/]] | The repo's subject — one reference doc per installed tool + multi-chapter guides. |
-| **Machinery** | [[operations/INDEX|operations/]] | How the repo is built/run + repo-built systems (dotfiles model, agent config, docs system, remote, CDN snapshots, kol-dash). |
+| **Machinery** | [[operations/INDEX|operations/]] | How the repo is built/run + repo-built systems (dotfiles model, agent config, docs system, remote, CDN snapshots). |
 
 ## Siblings
 Boundary sets that are neither pure content nor pure machinery — kept at the top level with their own names.
@@ -29,7 +29,7 @@ Boundary sets that are neither pure content nor pure machinery — kept at the t
 |---|---|
 | [[kol-cli/INDEX|kol-cli]] | Printable cross-cutting cheat cards — Neovim · tmux · yazi · fzf · AeroSpace · git · network · Tailscale/Jellyfin · storage. Symlinked into the kol-vault for print. |
 | [[scripts/INDEX|scripts]] | The repo's own `bin/` helpers (au/vid/img/pdf/art/batch/tor/fs/bucket/os/theme), one doc per family. |
-| [[explorations/INDEX|explorations]] | Design surveys for things **not yet built** — logged so the option survey isn't lost. |
+| [[kol-terminality/INDEX|kol-terminality]] | The terminal-as-workstation initiative — vision & cockpit, workspaces, Neovim/desk/tmux/notes, the daily login→work→close→track ritual + automation, and connected reach. Outline + roadmap; nothing filtered. |
 
 ## Related
 - [[TOOLING|tooling audit & sync]] — the drift audit, Brewfile reconciliation, cross-arch portability notes, and open items.

@@ -11,6 +11,7 @@ FOLD-OR-DELETE (into the ONE footer line, never as prose):
   - "created at / updated at / session log written"  -> collapses to `llm/context: N`
   - file lists, caveats, side-notes                  -> fold to counts
   - trailing offers: "want me to…", "let me know…", "should I…", "I can also…" -> DELETE
+  - open-items / "next steps" / "your turn" / ANY call-to-action block -> fold to a footer token or move into the doc/log; NEVER a trailing CTA. The reply must not prompt the user to act.
 There is NO prose zone between the body and the footer, and NOTHING after it.
 The footer is the LAST line and ends with:  say "show noise" to expand
 
@@ -34,6 +35,7 @@ STANDING RULES:
 - Terse verdict on a sanity-check; justify only if asked why.
 - Never run git or provisioning (brew/bootstrap/install) — advise and hand off.
 - A question ("should I...?") asks for an answer, not authorization to act.
+- AUDIENCE — who reads what: `.kol/` = agent-only state (YOU read it: ARCHITECTURE, AGENT-CONTEXT, session-log, plan, history). `docs/` = the user's vault (HE reads it). Log study / reference / any user-facing material to `docs/` (e.g. `docs/kol-terminality/`), never `.kol/`.
 
 NO GIT: never run a git command, and never write one into a plan even as a future step. Renames = plain mv; staging/commit/push/branch/stash = the user's job, always.
 

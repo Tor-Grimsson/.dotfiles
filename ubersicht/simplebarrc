@@ -1,0 +1,306 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Jean-Tinland/simple-bar/refs/heads/master/lib/schemas/config.json",
+  "global": {
+    "theme": "dark",
+    "compactMode": true,
+    "floatingBar": true,
+    "noBarBg": true,
+    "noColorInData": false,
+    "bottomBar": false,
+    "sideDecoration": true,
+    "inlineSpacesOptions": false,
+    "disableAnimations": false,
+    "spacesBackgroundColorAsForeground": false,
+    "widgetsBackgroundColorAsForeground": true,
+    "widgetMaxWidth": "160px",
+    "slidingAnimationPace": 4,
+    "font": "JetBrains Mono, Menlo, monospace",
+    "fontSize": "14px",
+    "yabaiPath": "$(which yabai)",
+    "aerospacePath": "$(PATH=/opt/homebrew/bin:/usr/local/bin:$PATH which aerospace)",
+    "windowManager": "aerospace",
+    "shell": "sh",
+    "terminal": "Terminal",
+    "disableNotifications": false,
+    "enableMissives": false,
+    "enableServer": false,
+    "serverSocketPort": 7777,
+    "yabaiServerRefresh": false,
+    "aerospaceServerRefresh": false
+  },
+  "themes": {
+    "lightTheme": "NightShiftLight",
+    "darkTheme": "NightShiftDark",
+    "colorMain": "#1d1f20",
+    "colorMainAlt": "#928374",
+    "colorMinor": "#3c3836",
+    "colorAccent": "#fe8019",
+    "colorRed": "#cc241d",
+    "colorGreen": "#98971a",
+    "colorYellow": "#d79921",
+    "colorOrange": "#fe8019",
+    "colorBlue": "#458588",
+    "colorMagenta": "#b16286",
+    "colorCyan": "#689d6a",
+    "colorBlack": "#282828",
+    "colorWhite": "#ebdbb2",
+    "colorForeground": "#ebdbb2",
+    "colorBackground": "#1d1f20"
+  },
+  "process": {
+    "showOnDisplay": "",
+    "displayForFocusedSpace": false,
+    "displayOnlyCurrent": true,
+    "centered": false,
+    "showCurrentSpaceMode": false,
+    "hideWindowTitle": true,
+    "displayOnlyIcon": false,
+    "expandAllProcesses": false,
+    "displaySkhdMode": false,
+    "displayStackIndex": false,
+    "displayOnlyCurrentStack": false
+  },
+  "spacesDisplay": {
+    "showOnDisplay": "",
+    "exclusions": "",
+    "titleExclusions": "",
+    "spacesExclusions": "",
+    "exclusionsAsRegex": false,
+    "displayAllSpacesOnAllScreens": false,
+    "hideDuplicateAppsInSpaces": false,
+    "displayStickyWindowsSeparately": false,
+    "hideCreateSpaceButton": false,
+    "hideEmptySpaces": true,
+    "showOptionsOnHover": true,
+    "switchSpacesWithoutYabai": false,
+    "customAeroSpaceDisplayIndexes": {}
+  },
+  "widgets": {
+    "processWidget": true,
+    "githubWidget": false,
+    "weatherWidget": false,
+    "netstatsWidget": false,
+    "cpuWidget": true,
+    "gpuWidget": false,
+    "memoryWidget": false,
+    "batteryWidget": false,
+    "wifiWidget": true,
+    "vpnWidget": false,
+    "zoomWidget": false,
+    "soundWidget": true,
+    "micWidget": true,
+    "dateWidget": true,
+    "timeWidget": true,
+    "keyboardWidget": false,
+    "spotifyWidget": false,
+    "cryptoWidget": false,
+    "stockWidget": false,
+    "youtubeMusicWidget": false,
+    "musicWidget": false,
+    "mpdWidget": false,
+    "browserTrackWidget": false,
+    "notificationsWidget": false,
+    "nextMeetingWidget": false,
+    "spacesWidget": false
+  },
+  "githubWidgetOptions": {
+    "refreshFrequency": 600000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "hideWhenNoNotification": false,
+    "notificationUrl": "https://github.com/notifications",
+    "ghBinaryPath": "/opt/homebrew/bin/gh"
+  },
+  "weatherWidgetOptions": {
+    "refreshFrequency": 1800000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "unit": "C",
+    "hideLocation": false,
+    "hideGradient": false,
+    "customLocation": ""
+  },
+  "netstatsWidgetOptions": {
+    "refreshFrequency": 2000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "displayAsGraph": false,
+    "netstatsThreshold": 0
+  },
+  "cpuWidgetOptions": {
+    "refreshFrequency": 2000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "displayAsGraph": false,
+    "cpuUsageThreshold": 0,
+    "cpuMonitorApp": "Activity Monitor"
+  },
+  "gpuWidgetOptions": {
+    "refreshFrequency": 3000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "displayAsGraph": false,
+    "gpuMacmonBinaryPath": "/opt/homebrew/bin/macmon"
+  },
+  "memoryWidgetOptions": {
+    "refreshFrequency": 4000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "memoryUsageThreshold": 0,
+    "memoryMonitorApp": "Activity Monitor"
+  },
+  "batteryWidgetOptions": {
+    "refreshFrequency": 10000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "toggleCaffeinateOnClick": true,
+    "disableCaffeinateInvertedBackground": false,
+    "caffeinateOption": ""
+  },
+  "networkWidgetOptions": {
+    "refreshFrequency": 20000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "networkDevice": "en0",
+    "hideWifiIfDisabled": false,
+    "toggleWifiOnClick": false,
+    "hideNetworkName": true
+  },
+  "vpnWidgetOptions": {
+    "refreshFrequency": 8000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "vpnConnectionName": "",
+    "vpnShowConnectionName": false
+  },
+  "zoomWidgetOptions": {
+    "refreshFrequency": 5000,
+    "showOnDisplay": "",
+    "showVideo": true,
+    "showMic": true
+  },
+  "soundWidgetOptions": {
+    "refreshFrequency": 20000,
+    "showOnDisplay": "",
+    "showIcon": true
+  },
+  "micWidgetOptions": {
+    "refreshFrequency": 20000,
+    "showOnDisplay": "",
+    "showIcon": true
+  },
+  "dateWidgetOptions": {
+    "refreshFrequency": 30000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "shortDateFormat": true,
+    "locale": "en-UK",
+    "calendarApp": ""
+  },
+  "timeWidgetOptions": {
+    "refreshFrequency": 1000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "hour12": false,
+    "dayProgress": true,
+    "showSeconds": false
+  },
+  "keyboardWidgetOptions": {
+    "refreshFrequency": 20000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "keyboardMaxLength": 0
+  },
+  "cryptoWidgetOptions": {
+    "refreshFrequency": 300000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "denomination": "usd",
+    "identifiers": "bitcoin,ethereum,celo",
+    "precision": 5
+  },
+  "stockWidgetOptions": {
+    "refreshFrequency": 900000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "yahooFinanceApiKey": "YOUR_API_KEY",
+    "symbols": "AAPL,TSLA",
+    "showSymbol": true,
+    "showCurrency": true,
+    "showMarketPrice": true,
+    "showMarketChange": false,
+    "showMarketPercent": true,
+    "showColor": true
+  },
+  "spotifyWidgetOptions": {
+    "refreshFrequency": 10000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "showSpecter": true,
+    "showSpotifyMetadata": true
+  },
+  "youtubeMusicWidgetOptions": {
+    "refreshFrequency": 10000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "showSpecter": true,
+    "youtubeMusicPort": 26538
+  },
+  "musicWidgetOptions": {
+    "refreshFrequency": 10000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "showSpecter": true
+  },
+  "mpdWidgetOptions": {
+    "refreshFrequency": 10000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "showSpecter": true,
+    "mpdBinaryPath": "/opt/homebrew/bin/mpc",
+    "mpdPort": "6600",
+    "mpdHost": "127.0.0.1",
+    "mpdFormatString": "%title%[ - %artist%]|[%file%]"
+  },
+  "browserTrackWidgetOptions": {
+    "refreshFrequency": 10000,
+    "showOnDisplay": "",
+    "showIcon": true,
+    "showSpecter": true
+  },
+  "notificationsWidgetOptions": {
+    "refreshFrequency": 10000,
+    "showOnDisplay": "",
+    "excludedApps": ""
+  },
+  "nextMeetingWidgetOptions": {
+    "refreshFrequency": 60000,
+    "showOnDisplay": "",
+    "showJoinButton": true,
+    "showTimeOnly": false,
+    "icalBuddyPath": "",
+    "lookAheadHours": 12
+  },
+  "userWidgets": {
+    "userWidgetsList": {
+      "1": {
+        "output": "PATH=/opt/homebrew/bin:/usr/local/bin:$PATH; echo \"($(aerospace list-workspaces --focused | tr -d '[:space:]'))\"",
+        "refreshFrequency": 2000,
+        "active": true,
+        "noIcon": true,
+        "hideWhenNoOutput": true,
+        "showOnDisplay": "",
+        "backgroundColor": "--accent",
+        "icon": "",
+        "onClickAction": "",
+        "onRightClickAction": "",
+        "onMiddleClickAction": ""
+      }
+    }
+  },
+  "customStyles": {
+    "styles": ":root { --bar-outer-margin: 10px; } .spaces { display: none; } .simple-bar__data { background: rgba(18, 18, 21, 0.62); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border-radius: 6px; }"
+  },
+  "_comment": "kol simple-bar settings — symlink to ~/.simplebarrc (bootstrap). simple-bar ALSO writes settings to localStorage via its own panel (cmd+click the bar); this file seeds/overrides it. After tuning in the panel, copy the exported JSON back here so the repo stays truth. Reference look: naked bar —  + app pill left, ONE capsule right, wallpaper between (refs 13-16 in _tmp/kol-terminality-refs).",
+  "windowManager": "aerospace"
+}

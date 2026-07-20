@@ -84,6 +84,16 @@ if [ -d "$DOT/fastfetch" ]; then
   ln -sfn "$DOT/fastfetch" "$HOME/.config/fastfetch"
 fi
 
+# neovim — daily config + the parallel from-scratch build (NVIM_APPNAME=nvim-now)
+if [ -d "$DOT/nvim" ]; then
+  mkdir -p "$HOME/.config"
+  ln -sfn "$DOT/nvim" "$HOME/.config/nvim"
+fi
+if [ -d "$DOT/nvim-now" ]; then
+  mkdir -p "$HOME/.config"
+  ln -sfn "$DOT/nvim-now" "$HOME/.config/nvim-now"
+fi
+
 # tmuxinator (shell-layout dashboards — whole dir of *.yml project configs)
 if [ -d "$DOT/tmuxinator" ]; then
   mkdir -p "$HOME/.config"
@@ -122,16 +132,42 @@ if [ -d "$DOT/ghostty" ]; then
   ln -sf "$DOT/ghostty/config" "$HOME/.config/ghostty/config"
 fi
 
+# kitty (terminal — main config; the kol-notes sticky loads kol-notes.conf
+# directly via bin/notes-toggle, no symlink needed for it)
+if [ -f "$DOT/kitty/kitty.conf" ]; then
+  mkdir -p "$HOME/.config/kitty"
+  ln -sf "$DOT/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
+fi
+
 # starship (prompt — single config file symlinked to the XDG path)
 if [ -d "$DOT/starship" ]; then
   mkdir -p "$HOME/.config"
   ln -sf "$DOT/starship/starship.toml" "$HOME/.config/starship.toml"
 fi
 
-# sketchybar (menu bar — whole config dir: sketchybarrc + plugins/)
+# sketchybar — ARCHIVED 2026-07-11 (config kept at _archive/sketchybar for reference).
+# The [ -d ] guard below self-heals: dir is gone, block is skipped. Left in place so
+# un-archiving is one `mv` away. Replacement is Übersicht + simple-bar (next block).
 if [ -d "$DOT/sketchybar" ]; then
   mkdir -p "$HOME/.config"
   ln -sfn "$DOT/sketchybar" "$HOME/.config/sketchybar"
+fi
+
+# Übersicht (menu bar + desk widgets) — simple-bar settings + our own widgets.
+# simple-bar itself is a git clone into the widgets folder (see docs/…/07-ubersicht.md).
+UB_WIDGETS="$HOME/Library/Application Support/Übersicht/widgets"
+if [ -d "$DOT/ubersicht" ]; then
+  ln -sf "$DOT/ubersicht/simplebarrc" "$HOME/.simplebarrc"
+  if [ -d "$UB_WIDGETS" ]; then
+    ln -sfn "$DOT/ubersicht/kol-bookmarks.widget" "$UB_WIDGETS/kol-bookmarks.widget"
+    ln -sfn "$DOT/ubersicht/kol-notes.widget" "$UB_WIDGETS/kol-notes.widget"
+  fi
+fi
+
+# kol-theme (one-switch colorscheme selector) — seed the default on a fresh
+# machine only; an existing pick is left alone.
+if [ ! -e "$HOME/.config/kol-theme/current" ] && [ -x "$DOT/bin/kol-theme" ]; then
+  "$DOT/bin/kol-theme" gruvbox
 fi
 
 # Finder Quick Actions (macos/services/*.workflow) — includes "Open in glow"

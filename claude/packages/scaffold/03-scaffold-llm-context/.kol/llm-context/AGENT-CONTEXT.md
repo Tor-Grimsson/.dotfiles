@@ -9,7 +9,7 @@ _template:
 
 Current project state + operational reference. Updated at the end of each significant session.
 
-For chronological detail see `session-log/`. For load-bearing decisions see `ARCHITECTURE.md`. For decision history / alternatives considered see `../history.md`. For speculative future work see `../plan.md`.
+For chronological detail see `session-log/`. For load-bearing decisions see `ARCHITECTURE.md`. For decision history / alternatives considered see `../HISTORY.md`. For speculative future work see `../llm-plan/`.
 
 **Last updated:** {{TODAY_ISO}}
 
@@ -103,4 +103,4 @@ For chronological detail see `session-log/`. For load-bearing decisions see `ARC
 
 ## Open architecture explorations
 
-<!-- Pointer to ../plan.md if it carries real speculative work. Otherwise delete this section. -->
+<!-- Pointer to ../llm-plan/ if it carries real speculative work. Otherwise delete this section. -->

@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# help-lint — flag bin/ scripts that don't service the --help convention.
+#
+# House rule (kol-appliant standard — docs/operations/03-kol-docs-system-setup/
+# 01-kol-appliant-tool-standard.md): every bin/ script answers --help.
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+help-lint — flag bin/ scripts that don't service the --help convention.
+
+USAGE
+  help-lint            lint ~/.dotfiles/bin (default)
+  help-lint DIR        lint another directory
+  help-lint -h|--help  this help
+
+Static check — no scripts are executed. A script passes if it contains a
+`--help` handler, is a Python argparse script (auto --help), or is a pure
+alias (`exec` into another bin/ script — help passes through). Exits
+non-zero if any are missing, so it can gate a commit or CI.
+EOF
+}
+
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
+
+dir="${1:-$HOME/.dotfiles/bin}"
+[ -d "$dir" ] || { printf 'help-lint: not a directory: %s\n' "$dir" >&2; exit 2; }
+
+miss=(); ok=0
+for f in "$dir"/*; do
+  [ -f "$f" ] && [ -x "$f" ] || continue
+  base="${f##*/}"
+  case "$base" in help-lint|_*|*.md|*.txt) continue ;; esac   # skip self, _bak, docs
+  grep -Iq . "$f" || continue                                 # skip binaries — compiled tools, not scripts
+  if grep -qE -- '--help|argparse|add_parser' "$f" || grep -qE '^exec "\$HOME/\.dotfiles/bin/' "$f"; then
+    ok=$((ok + 1))
+  else
+    miss+=("$base")
+  fi
+done
+
+printf 'OK       %d scripts service --help\n' "$ok"
+if [ "${#miss[@]}" -gt 0 ]; then
+  printf 'MISSING  %d:\n' "${#miss[@]}"
+  printf '   - %s\n' "${miss[@]}"
+  exit 1
+fi
+printf 'clean — every script services --help.\n'

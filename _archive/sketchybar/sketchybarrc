@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# SketchyBar — Catppuccin Mocha, aerospace-aware. Ported + adapted from Sin-cy's config
+# (https://github.com/Sin-cy/dotfiles), which derives from FelixKratz's dotfiles.
+# Reload: hotload is on (edits auto-apply). Or run this file. Or: brew services restart sketchybar.
+# Docs: docs/documentation/09-productivity-desktop/06-sketchybar.md
+
+CONFIG_DIR="$HOME/.config/sketchybar"
+ITEM_DIR="$CONFIG_DIR/items"
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+FONT="MesloLGS Nerd Font Mono"   # EXACT installed family name (fc-list); "MesloLGS NF" doesn't resolve → tofu icons
+export CONFIG_DIR ITEM_DIR PLUGIN_DIR FONT
+
+source "$CONFIG_DIR/colors.sh"
+source "$CONFIG_DIR/icons.sh"    # Nerd Font glyphs (printf-byte encoded so they never strip)
+
+# ── Bar ───────────────────────────────────────────────────────────────────────
+sketchybar --bar position=top height=32 blur_radius=20 color="$BAR_BG"
+
+# ── Item defaults (apply to every item added after this) ──────────────────────
+default=(
+  padding_left=3 padding_right=3
+  background.color="$ITEM_BG" background.corner_radius=5 background.height=22
+  icon.font="$FONT:Bold:14.0"   icon.color="$TEXT"
+  label.font="$FONT:Regular:13.0" label.color="$TEXT"
+  icon.padding_left=8 icon.padding_right=4
+  label.padding_left=4 label.padding_right=8
+)
+sketchybar --default "${default[@]}"
+
+# Custom event aerospace fires on every workspace change (wired in aerospace.toml).
+sketchybar --add event aerospace_workspace_change
+
+# ── Left ──────────────────────────────────────────────────────────────────────
+source "$ITEM_DIR/apple.sh"      # apple logo → power/session popup menu
+source "$ITEM_DIR/spaces.sh"     # aerospace workspaces (occupied + focused)
+source "$ITEM_DIR/front_app.sh"  # focused application name
+
+# ── Right (rightmost item added first) ────────────────────────────────────────
+source "$ITEM_DIR/clock.sh"      # date + time — click opens Calendar
+source "$ITEM_DIR/battery.sh"    # charge % (self-hides on desktop)
+source "$ITEM_DIR/wifi.sh"       # SSID
+source "$ITEM_DIR/volume.sh"     # output volume
+source "$ITEM_DIR/cpu.sh"        # CPU load %
+source "$ITEM_DIR/memory.sh"     # RAM used %
+source "$ITEM_DIR/weather.sh"    # temperature (wttr.in)
+source "$ITEM_DIR/brew.sh"       # outdated brew count (hidden when up to date)
+source "$ITEM_DIR/tmux.sh"       # tmux windows across all sessions
+
+# ── Finalize ──────────────────────────────────────────────────────────────────
+sketchybar --hotload on          # auto-reload on config-dir changes (no manual reload)
+sketchybar --update              # force all scripts once to initialize (never do this in a script)
+echo "sketchybar config loaded"

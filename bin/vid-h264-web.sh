@@ -33,6 +33,8 @@ NOTES
 EOF
 }
 
+case "${1:-}" in --help) usage; exit 0 ;; esac
+
 crf=23
 while getopts "q:h" opt; do
   case $opt in

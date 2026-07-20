@@ -1,7 +1,7 @@
 ---
 _template:
   version: 1
-  path: .kol/llm-context/history.md
+  path: .kol/llm-context/HISTORY.md
   sync: skip
 ---
 
@@ -80,6 +80,6 @@ For decisions as enforced rules, see `llm-context/ARCHITECTURE.md`. For current 
 - Load-bearing decisions stated as rules → `llm-context/ARCHITECTURE.md`
 - Current state, roadmap, gotchas, contracts → `llm-context/AGENT-CONTEXT.md`
 - Session-by-session dev log → `llm-context/session-log/`
-- Speculative future work → `plan.md`
+- Speculative future work → `../llm-plan/`
 
 This file is purely the decision history. Update it when a core decision is revisited or reversed, not for routine changes.

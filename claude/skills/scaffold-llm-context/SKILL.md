@@ -1,13 +1,13 @@
 ---
 name: scaffold-llm-context
-description: Scaffold the LLM agent-context protocol into the current repo (.kol/llm-context/{ARCHITECTURE,AGENT-CONTEXT,history,plan} + session-bridge, and a symlinked generic LLM_RULES.md). Docs system (.kol/docs-framework/ + docs/) is a separate concern — see /scaffold-docs-system. Skills are global (~/.claude), not scaffolded per-repo.
+description: Scaffold the LLM agent-context protocol into the current repo (.kol/llm-context/{ARCHITECTURE,AGENT-CONTEXT,HISTORY} + .kol/llm-plan/ + session-bridge, and a symlinked generic LLM_RULES.md). Docs system (.kol/docs-framework/ + docs/) is a separate concern — see /scaffold-docs-system. Skills are global (~/.claude), not scaffolded per-repo.
 disable-model-invocation: true
 allowed-tools: Bash, Read, Edit, Write, Glob, Grep, AskUserQuestion
 ---
 
 # scaffold-llm-context
 
-Scaffold the Kolkrabbi-style LLM agent context protocol into the current working directory. Produces `.kol/llm-context/{ARCHITECTURE,AGENT-CONTEXT,README,history,plan}.md` + `session-bridge/`, and a **symlinked** `LLM_RULES.md` → the one generic boot file at `~/.dotfiles/claude/packages/scaffold/03-scaffold-llm-context/LLM_RULES.md`. The `/agent-init` and `/log-work` skills are **global** (`~/.claude/skills`, dotfiles-backed) — never scaffolded per-repo. All project-specific content lives in `.kol/llm-context/`; `LLM_RULES.md` stays generic.
+Scaffold the Kolkrabbi-style LLM agent context protocol into the current working directory. Produces `.kol/llm-context/{ARCHITECTURE,AGENT-CONTEXT,README,HISTORY}.md` + `.kol/llm-plan/` + `session-bridge/`, and a **symlinked** `LLM_RULES.md` → the one generic boot file at `~/.dotfiles/claude/packages/scaffold/03-scaffold-llm-context/LLM_RULES.md`. The `/agent-init` and `/log-work` skills are **global** (`~/.claude/skills`, dotfiles-backed) — never scaffolded per-repo. All project-specific content lives in `.kol/llm-context/`; `LLM_RULES.md` stays generic.
 
 Templates live in `~/.dotfiles/claude/packages/scaffold/03-scaffold-llm-context/`. The docs system (`.kol/docs-framework/`, the `docs/` tree) is **not** this skill's job — run `/scaffold-docs-system` separately, in either order. Neither depends on the other: each only ever `mkdir -p`s its own `.kol/` subpath.
 
@@ -73,16 +73,17 @@ Templates live in `~/.dotfiles/claude/packages/scaffold/03-scaffold-llm-context/
 
    Created:
    - LLM_RULES.md → symlink to ~/.dotfiles/claude/packages/scaffold/03-scaffold-llm-context/LLM_RULES.md (generic boot)
-   - .kol/llm-context/{README,ARCHITECTURE,AGENT-CONTEXT,history,plan}.md + session-bridge/
+   - .kol/llm-context/{README,ARCHITECTURE,AGENT-CONTEXT,HISTORY}.md + session-bridge/
+   - .kol/llm-plan/{README,01-parking-lot}.md
    - .kol/llm-context/session-log/ (empty)
 
    Skills (/agent-init, /log-work) are global — nothing added under .claude/.
    Docs system not included — run /scaffold-docs-system separately if this repo needs one.
 
    Next:
-   1. Fill in real content in ARCHITECTURE.md (numbered §1, §2, ... decisions) and history.md.
+   1. Fill in real content in ARCHITECTURE.md (numbered §1, §2, ... decisions) and HISTORY.md.
    2. Flesh out AGENT-CONTEXT.md with current state when you have something to report.
-   3. Delete plan.md if you have no speculative work yet.
+   3. Delete .kol/llm-plan/01-parking-lot.md if you have no speculative work yet.
    4. Run /agent-init to verify the wiring works.
    ```
 

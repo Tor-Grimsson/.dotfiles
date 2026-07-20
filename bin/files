@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# files — alias of `ref files` (bin/ref owns the engine; data: files/folders.md).
+# Jump into a folder with `to <tag>` (a shell function — a bin script can't cd your shell).
+exec "$HOME/.dotfiles/bin/ref" files "$@"

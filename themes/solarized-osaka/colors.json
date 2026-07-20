@@ -1,0 +1,27 @@
+{
+  "name": "solarized-osaka",
+  "bgRgb": "0,20,25",
+  "fg": "#fdf5e2",
+  "muted": "#576d74",
+  "accent": "#268bd3",
+  "hairline": "rgba(131,147,149,.10)",
+  "hover": "rgba(38,139,211,.14)",
+  "empty": "rgba(131,147,149,.3)",
+  "simplebar": {
+    "colorMain": "#001419",
+    "colorMainAlt": "#576d74",
+    "colorMinor": "#063540",
+    "colorAccent": "#268bd3",
+    "colorRed": "#db302d",
+    "colorGreen": "#849900",
+    "colorYellow": "#b28500",
+    "colorOrange": "#c94c16",
+    "colorBlue": "#268bd3",
+    "colorMagenta": "#d23681",
+    "colorCyan": "#29a298",
+    "colorBlack": "#001014",
+    "colorWhite": "#fdf5e2",
+    "colorForeground": "#839395",
+    "colorBackground": "#001419"
+  }
+}

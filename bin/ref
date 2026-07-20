@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+# ref — desk reference cards: flat tagged lists, filtered by tag, via bat.
+#
+#   ref                       list the cards
+#   ref keys [tag …]          keybinds            (alias: keys)
+#   ref files [tag …]         folder map          (alias: files)
+#   ref widgets [tag …]       desk-widget stack — simple-bar · bookmarks · notes · Übersicht
+#
+# One engine, one flat .md per card. Hand-kept — edit the card when the setup changes.
+set -euo pipefail
+
+dot="$HOME/.dotfiles"
+
+# card → "data-file|base-tag" (base-tag scopes a shared file; empty = whole file)
+card_def() {
+  case "$1" in
+    keys)    printf '%s|\n'     "$dot/keys/keybinds.md" ;;
+    tmux)    printf '%s|tmux\n' "$dot/keys/keybinds.md" ;;
+    files)   printf '%s|\n'     "$dot/files/folders.md" ;;
+    widgets) printf '%s|\n'     "$dot/ref/widgets.md" ;;
+    system)  printf '%s|\n'     "$dot/ref/system.md" ;;
+    nvim)    printf '%s|\n'     "$dot/ref/nvim.md" ;;
+    nnow)    printf '%s|\n'     "$dot/ref/nnow.md" ;;
+    *) return 1 ;;
+  esac
+}
+
+usage() {
+  cat <<'EOF'
+ref — desk reference cards: flat tagged lists, filtered by tag, via bat.
+
+USAGE
+  ref                       list the cards
+  ref <card> [tag …]        print a card, optionally filtered by tag(s)
+
+CARDS
+  keys      your keybinds                      (aliases: keys, ref-keys)
+  tmux      the keys card scoped to #tmux                                    (ref-tmux)
+  files     the curated folder map             (aliases: files, ref-files)
+  widgets   desk-widget stack — simple-bar · bookmarks · notes · Übersicht   (ref-widgets)
+  system    system-level hotkeys & setup — #theme section and siblings      (ref-system)
+  nvim      the DAILY nvim config — tree/flash/substitute/lsp/git            (ref-nvim)
+  nnow      the from-scratch build — modes as tags, oil/harpoon/lsp          (ref-nnow)
+
+Tags match the card's `## #tag …` headers — case-insensitive, all must match:
+  ref keys tmux popover
+  ref-widgets refresh
+EOF
+}
+
+case "${1:-}" in
+  ""|-h|--help) usage; exit 0 ;;
+esac
+
+card="$1"; shift
+def=$(card_def "$card") || { printf 'ref: no card "%s" (keys · tmux · files · widgets · system · nvim · nnow)\n' "$card" >&2; exit 1; }
+data="${def%|*}"; base="${def##*|}"
+[ -f "$data" ] || { printf 'ref: no data at %s\n' "$data" >&2; exit 1; }
+
+card_usage() {
+  printf 'ref-%s — one card of the ref family.  Data: %s%s\n\n' "$card" "${data/#$HOME/~}" "${base:+ (scoped to #$base)}"
+  printf 'USAGE\n  ref-%s                the whole card\n  ref-%s <tag …>        only sections matching ALL tags (case-insensitive)\n\nSECTIONS\n' "$card" "$card"
+  if [ -n "$base" ]; then
+    grep '^## ' "$data" | grep -i -- "#$base" | sed 's/^## /  /'
+  else
+    grep '^## ' "$data" | sed 's/^## /  /'
+  fi
+}
+
+case "${1:-}" in
+  -h|--help) card_usage; exit 0 ;;
+esac
+
+show() { bat --language md --style plain --paging=never; }
+
+if [ -z "$base" ] && [ $# -eq 0 ]; then
+  show < "$data"
+  exit
+fi
+
+# Keep only sections whose "## " header contains ALL requested tags (case-insensitive).
+out=$(awk -v tags="$base $*" '
+  BEGIN { nt = split(tolower(tags), want, " ") }
+  /^## / { hdr = tolower($0); shw = 1; for (i = 1; i <= nt; i++) if (index(hdr, want[i]) == 0) shw = 0 }
+  shw
+' "$data")
+
+if [ -n "$out" ]; then
+  printf '%s\n' "$out" | show
+else
+  printf 'ref: nothing tagged "%s" in %s\n' "$*" "$card" >&2
+  exit 1
+fi

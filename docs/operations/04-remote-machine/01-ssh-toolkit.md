@@ -2,7 +2,7 @@
 title: SSH toolkit — config power features & alternative tools
 type: guide
 status: active
-updated: 2026-07-05
+updated: 2026-07-11
 description: What actually extends plain `ssh` — the ~/.ssh/config directives worth knowing (auto-attach tmux on connect, ControlMaster, ProxyJump, agent forwarding) and the third-party tools people reach for beyond it (mosh, autossh, Eternal Terminal, sshrc, sshfs).
 audience: internal
 aliases:
@@ -14,6 +14,7 @@ tags:
 related:
   - "[[INDEX|Remote machine]]"
   - "[[02-remote-dev-workflow|Remote dev workflow]]"
+  - "[[03-tailscale-remote-access|Tailscale SSH + mosh]]"
   - "[[05-network-security|Network, remote & secrets]]"
   - "[[09-tmux-tips|tmux tips & tricks]]"
 ---

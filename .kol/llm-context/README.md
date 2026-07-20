@@ -12,8 +12,8 @@ Agent-context protocol for the `~/.dotfiles` repo. Read this directory before wo
 ## Files
 - **ARCHITECTURE.md** — load-bearing decisions. Read first; don't revisit without reason.
 - **AGENT-CONTEXT.md** — current state: layout, key files, consistency seams, open items.
-- **history.md** — *why* things are the way they are (decision history).
-- **plan.md** — speculative / not-yet-committed ideas.
+- **HISTORY.md** — *why* things are the way they are (decision history).
+- **../llm-plan/** — speculative / not-yet-committed plans (peer folder, one `NN-slug.md` per plan).
 - **session-log/** — chronological per-session records (newest = latest context).
 - **session-bridge/** — short-lived handoffs for work paused mid-arc.
 

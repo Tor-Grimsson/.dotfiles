@@ -1,7 +1,7 @@
 ---
 _template:
   version: 1
-  path: .kol/llm-context/history.md
+  path: .kol/llm-context/HISTORY.md
   sync: skip
 ---
 
@@ -59,4 +59,4 @@ To stop Claude config (CLAUDE.md, skills, hooks, settings) drifting between mach
 - Current state, open items, gotchas → `llm-context/AGENT-CONTEXT.md`
 - Rules as invariants → `llm-context/ARCHITECTURE.md`
 - Session-by-session log → `session-log/`
-- Speculative future work → `plan.md`
+- Speculative future work → `../llm-plan/` (one `NN-slug.md` per plan)

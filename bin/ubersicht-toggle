@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# ubersicht-toggle — quit Übersicht if running, launch it if not.
+#
+# Bound to cmd-alt-u in aerospace.toml. Siblings: menubar-toggle, dock-toggle.
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+ubersicht-toggle — open/close Übersicht (the widget layer + simple-bar).
+
+USAGE
+  ubersicht-toggle            quit if running, launch if not
+  ubersicht-toggle -h|--help  this help
+
+Quit goes through osascript (clean AppleScript quit, takes simple-bar and
+all widgets with it); launch is a plain `open -a`. Bound to cmd-alt-u
+(aerospace.toml).
+EOF
+}
+
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
+
+# match "bersicht", not "Übersicht" — the process name's Ü is decomposed
+# Unicode (NFD) on macOS and won't equal a composed literal in this file
+if pgrep -q "bersicht"; then
+  osascript -e 'quit app "Übersicht"'
+else
+  open -a "Übersicht"
+fi

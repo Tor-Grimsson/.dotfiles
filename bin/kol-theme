@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+# kol-theme — one-switch colorscheme selector for the whole desk.
+#
+# A theme = one dir in ~/.dotfiles/themes/<name>/ holding a small native file
+# per tool (ghostty.conf · kitty.conf · tmux.conf · nvim.lua · colors.json).
+# Switching flips ONE symlink (~/.config/kol-theme/current) and reloads every
+# surface that can reload; the rest pick it up on next launch. Files are the
+# API — no daemon, each tool keeps its native theme format.
+#
+# Consumers:
+#   ghostty  — ghostty/config ends with `config-file = ?current-theme.conf`
+#   kitty    — kitty/kitty.conf + kitty/kol-notes.conf end with `include current-theme.conf`
+#   tmux     — .tmux.conf sources ~/.config/kol-theme/current/tmux.conf last
+#   nvim     — nvim-now/lua/current-theme.lua (copied; <leader>ths also writes it)
+#   widgets  — kol-bookmarks + kol-notes read current/colors.json each refresh
+#   btop     — ~/.config/btop/themes/kol-current.theme symlink + color_theme pointer
+#   simple-bar — colors.json's `simplebar` block jq-merged into .themes of
+#                ~/.simplebarrc (a symlink into the repo — write THROUGH it,
+#                never mv over it; layout keys untouched)
+set -euo pipefail
+
+DOT="$HOME/.dotfiles"
+THEMES="$DOT/themes"
+CUR_DIR="$HOME/.config/kol-theme"
+CURRENT="$CUR_DIR/current"
+
+usage() {
+  cat <<'EOF'
+kol-theme — one-switch colorscheme selector (ghostty · kitty · tmux · nvim · widgets)
+
+USAGE
+  kol-theme               list themes (* marks active)
+  kol-theme <name>        switch every surface to <name>
+  kol-theme -h|--help     this help
+
+Themes live in ~/.dotfiles/themes/<name>/ (one native file per tool).
+Instant: tmux, Übersicht widgets. Next launch: ghostty (or Cmd+Shift+,),
+kitty (main + notes sticky), btop, new nvim instances (running ones: <leader>ths).
+EOF
+}
+
+list() {
+  local active=""
+  [ -L "$CURRENT" ] && active="$(basename "$(readlink "$CURRENT")")"
+  for t in "$THEMES"/*/; do
+    t="$(basename "$t")"
+    [ "$t" = "$active" ] && echo "* $t" || echo "  $t"
+  done
+}
+
+case "${1:-}" in
+  -h|--help) usage; exit 0 ;;
+  "") list; exit 0 ;;
+esac
+
+NAME="$1"
+[ -d "$THEMES/$NAME" ] || { echo "kol-theme: no theme '$NAME' (have: $(ls "$THEMES" | tr '\n' ' '))" >&2; exit 1; }
+
+# the one switch
+mkdir -p "$CUR_DIR"
+ln -sfn "$THEMES/$NAME" "$CURRENT"
+
+# constant consumer symlinks (idempotent; relative targets = machine-portable).
+# ghostty's config-file resolves relative to the config's dir — which may be
+# ~/.config/ghostty (the symlink's home) or ~/.dotfiles/ghostty (its target),
+# so the include symlink exists in BOTH. Same for kitty: the sticky loads its
+# conf from the repo dir, the main kitty.conf from ~/.config/kitty.
+ln -sfn "../kol-theme/current/ghostty.conf" "$HOME/.config/ghostty/current-theme.conf"
+ln -sfn "../.config/kol-theme/current/ghostty.conf" "$DOT/ghostty/current-theme.conf"
+ln -sfn "../.config/kol-theme/current/kitty.conf" "$DOT/kitty/current-theme.conf"
+mkdir -p "$HOME/.config/kitty"
+ln -sfn "../kol-theme/current/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
+
+# nvim: copy (not link) — the in-nvim switcher <leader>ths writes this same file
+cp "$THEMES/$NAME/nvim.lua" "$DOT/nvim-now/lua/current-theme.lua"
+
+# btop: constant theme symlink + point color_theme at it. btop rewrites its
+# conf on exit (why it isn't repo-tracked), so edit the live file in place.
+if [ -f "$THEMES/$NAME/btop.theme" ]; then
+  mkdir -p "$HOME/.config/btop/themes"
+  ln -sfn "$CURRENT/btop.theme" "$HOME/.config/btop/themes/kol-current.theme"
+  BTOP_CONF="$HOME/.config/btop/btop.conf"
+  if [ -f "$BTOP_CONF" ] && grep -q '^color_theme' "$BTOP_CONF"; then
+    sed -i '' 's|^color_theme.*|color_theme = "kol-current"|' "$BTOP_CONF"
+  else
+    printf 'color_theme = "kol-current"\n' >> "$BTOP_CONF"
+  fi
+fi
+
+# simple-bar: merge the theme's color slots into .themes — panel write-backs
+# and the one-refresh-behind import are both beaten by re-patching every
+# switch + the double-pass refresh below.
+SBRC="$HOME/.simplebarrc"
+if [ -f "$SBRC" ] && command -v jq >/dev/null 2>&1; then
+  SB="$(jq -c '.simplebar // empty' "$CURRENT/colors.json" 2>/dev/null)"
+  if [ -n "$SB" ]; then
+    tmp="$(mktemp)"
+    jq --argjson sb "$SB" '.themes += $sb' "$SBRC" > "$tmp"
+    cat "$tmp" > "$SBRC"   # through the symlink — repo file is the target
+    rm -f "$tmp"
+  fi
+fi
+
+# live reloads where the tool allows it
+if tmux info >/dev/null 2>&1; then
+  tmux source-file "$CURRENT/tmux.conf"
+fi
+if pgrep -qf "bersicht" && [ -x "$DOT/bin/ubersicht-refresh" ]; then
+  "$DOT/bin/ubersicht-refresh"
+fi
+
+echo "kol-theme → $NAME"
+echo "  instant: tmux · widgets · simple-bar"
+echo "  next launch: ghostty (quit+relaunch) · kitty (main + sticky) · btop · nvim (running: <leader>ths)"

@@ -2,7 +2,7 @@
 title: keys
 type: reference
 status: active
-updated: 2026-07-08
+updated: 2026-07-15
 description: Print your own keybinds in the shell, filtered by tag, via bat — a fast read-and-throw reference for tmux / nvim / aerospace / git / gh / ssh keys you're still burning into memory.
 aliases:
   - keys
@@ -12,6 +12,7 @@ tags:
   - pattern/cli
 related:
   - "[[INDEX|Scripts index]]"
+  - "[[22-ref|ref]]"
   - "[[01-cli-cheatsheet|CLI cheatsheet]]"
   - "[[02-tmux|tmux]]"
   - "[[09-bat|bat]]"
@@ -19,6 +20,8 @@ related:
 
 ## Summary
 `keys [tag …]` bat-prints a hand-kept list of your own keybinds, filtered by tag. Fast, shell-local, throw-away — the thing you reach for while a bind isn't muscle-memory yet. Curated and terse, unlike the prose docs; a deliberate second copy, not generated from them.
+
+2026-07-15: `keys` is now a thin alias of `ref keys` — [[22-ref|ref]] owns the engine; data file and usage unchanged.
 
 ## Why it exists
 The keybinds live in configs and are explained in the docs, but neither gives a dense, greppable `key → action` list you can pull up in one word. This does. It's the always-a-shell-in-front reference `tldr` is for standard commands — but for *your* keys.

@@ -1,0 +1,27 @@
+{
+  "name": "kol-dark",
+  "bgRgb": "18,18,21",
+  "fg": "#F5EBD8",
+  "muted": "#A39A78",
+  "accent": "#FFCF33",
+  "hairline": "rgba(245,235,216,.10)",
+  "hover": "rgba(255,207,51,.14)",
+  "empty": "rgba(245,235,216,.3)",
+  "simplebar": {
+    "colorMain": "#121215",
+    "colorMainAlt": "#A39A78",
+    "colorMinor": "#242427",
+    "colorAccent": "#FFCF33",
+    "colorRed": "#AD5038",
+    "colorGreen": "#4C9A5F",
+    "colorYellow": "#FFCF33",
+    "colorOrange": "#CC7762",
+    "colorBlue": "#497DA2",
+    "colorMagenta": "#9179B8",
+    "colorCyan": "#6FB6B7",
+    "colorBlack": "#121215",
+    "colorWhite": "#F5EBD8",
+    "colorForeground": "#F5EBD8",
+    "colorBackground": "#121215"
+  }
+}

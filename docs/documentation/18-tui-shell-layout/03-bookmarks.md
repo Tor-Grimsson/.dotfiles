@@ -12,12 +12,12 @@ tags:
 related:
   - "[[02-tmux|tmux]]"
   - "[[02-tmux-dashboards|tmux dashboards]]"
-  - "[[explorations/INDEX|bookmark sidebar exploration]]"
+  - "[[06-explorations|bookmark sidebar exploration]]"
 ---
 
 # Bookmarks
 
-A minimal bookmark system: one plain-text list of favourite **paths and URLs**, reached from three tmux keybinds. No database, no plugin — a file plus three small scripts. This is the on-demand-popup first cut of the [[explorations/INDEX|bookmark sidebar exploration]] (the persistent sidebar, worktree entries, and clickable OSC-8 links are still unbuilt).
+A minimal bookmark system: one plain-text list of favourite **paths and URLs**, reached from three tmux keybinds. No database, no plugin — a file plus three small scripts. This is the on-demand-popup first cut of the [[06-explorations|bookmark sidebar exploration]] (the persistent sidebar, worktree entries, and clickable OSC-8 links are still unbuilt).
 
 ## 0. The pieces
 
@@ -37,6 +37,7 @@ All three are wired in `tmux/.tmux.conf` and live on both machines (the repo is 
 | `prefix C-b` | **open** — fzf popup of every bookmark; pick one → a **URL** opens in the default browser (`open`), a **path** opens in `nvim` (dirs land in nvim's explorer) |
 | `prefix B` | **quick-add** — bookmark the **current pane's directory** in one press (deduped; `$HOME` shortened to `~` so it's portable across machines) |
 | `prefix A` | **typed-add** — a small input popup: type a **path or URL**, hit Enter, it's added |
+| `cmd-alt-b` | **edit the file** — kol-bookmarks sticky: nvim on `bookmarks.txt` in a dedicated floating Kitty window (`bin/bookmarks-toggle`, sibling of the `cmd-alt-n` notes sticky) |
 
 ## 2. Add a bookmark — three ways
 

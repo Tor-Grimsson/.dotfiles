@@ -1,0 +1,27 @@
+{
+  "name": "linkarzu",
+  "bgRgb": "13,17,22",
+  "fg": "#ebfafa",
+  "muted": "#a5afc2",
+  "accent": "#37f499",
+  "hairline": "rgba(235,250,250,.10)",
+  "hover": "rgba(55,244,153,.14)",
+  "empty": "rgba(235,250,250,.3)",
+  "simplebar": {
+    "colorMain": "#0D1116",
+    "colorMainAlt": "#a5afc2",
+    "colorMinor": "#141b22",
+    "colorAccent": "#37f499",
+    "colorRed": "#f16c75",
+    "colorGreen": "#37f499",
+    "colorYellow": "#f1fc79",
+    "colorOrange": "#5fa9f4",
+    "colorBlue": "#1682ef",
+    "colorMagenta": "#987afb",
+    "colorCyan": "#04d1f9",
+    "colorBlack": "#141b22",
+    "colorWhite": "#ebfafa",
+    "colorForeground": "#ebfafa",
+    "colorBackground": "#0D1116"
+  }
+}

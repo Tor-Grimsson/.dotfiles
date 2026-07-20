@@ -396,17 +396,19 @@ Modifier = **`Alt`**. Tiling WM with its own fast virtual workspaces.
 
 **Plugins:** none — AeroSpace has no plugin system; behavior is config-only (`on-window-detected` rules + callbacks) in `aerospace.toml`.
 
+Modifier is **`Ctrl+Alt`** (bare `Alt` is left free for the terminal — fzf `Alt+C`, word-nav, tmux `prefix Alt+1..5`). `Cmd+Alt` macros unchanged.
+
 | Keys | Does | Keys | Does |
 |---|---|---|---|
-| `Alt+H/J/K/L` | focus ← ↓ ↑ → | `Alt+1`…`9` `Alt+A`…`Z` | go to workspace |
-| `Alt+Shift+H/J/K/L` | move window ← ↓ ↑ → | `Alt+Shift+1`…`Z` | throw window to workspace |
-| `Alt+-` `Alt+=` | resize − / + 50 | `Alt+Tab` | last workspace (back-and-forth) |
-| `Alt+/` `Alt+,` | tiles / accordion layout | `Alt+Shift+Tab` | move workspace to next monitor |
+| `Ctrl+Alt+H/J/K/L` | focus ← ↓ ↑ → | `Ctrl+Alt+1`…`9` `Ctrl+Alt+A`…`Z` | go to workspace |
+| `Ctrl+Alt+Shift+H/J/K/L` | move window ← ↓ ↑ → | `Ctrl+Alt+Shift+1`…`Z` | throw window to workspace |
+| `Ctrl+Alt+-` `Ctrl+Alt+=` | resize − / + 50 | `Ctrl+Alt+Tab` | last workspace (back-and-forth) |
+| `Ctrl+Alt+/` `Ctrl+Alt+,` | tiles / accordion layout | `Ctrl+Alt+Shift+Tab` | move workspace to next monitor |
 | `Cmd+Alt+G` | **2×2 grid** (4-win macro) | `Cmd+Alt+S` | **main+stack** (4-win macro) |
 | `Cmd+Alt+Shift+F` | fullscreen | `Cmd+Alt+Shift+R` | enter **resize mode** |
-| `Alt+Shift+;` | enter **service mode** | `Cmd+Alt+Shift+D` | **disable** AeroSpace (`enable on` / Raycast to undo) |
+| `Ctrl+Alt+Shift+;` | enter **service mode** | `Cmd+Alt+Shift+D` | **disable** AeroSpace (`enable on` / Raycast to undo) |
 
-**Service mode** (`Alt+Shift+;`, each returns to main):
+**Service mode** (`Ctrl+Alt+Shift+;`, each returns to main):
 
 | Key | Does | Key | Does |
 |---|---|---|---|
@@ -414,7 +416,7 @@ Modifier = **`Alt`**. Tiling WM with its own fast virtual workspaces.
 | `r` | reset layout | `Backspace` | close all but current |
 | `Alt+Shift+H/J/K/L` | join with neighbour | | |
 
-> Service-mode keys are bare — no Shift. `Shift+F` isn't a service-mode binding at all; it collides with the main-mode `Alt+Shift+F` (throw window to workspace **F**), which just relocates the window rather than closing it — looks like a "kill" because the other window then expands to fill the screen.
+> Service-mode keys are bare — no Shift. `Shift+F` isn't a service-mode binding at all; it collides with the main-mode `Ctrl+Alt+Shift+F` (throw window to workspace **F**), which just relocates the window rather than closing it — looks like a "kill" because the other window then expands to fill the screen.
 
 **Resize mode** (`Cmd+Alt+Shift+R`, stays in mode until exit):
 

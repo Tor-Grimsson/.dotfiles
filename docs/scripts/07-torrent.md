@@ -68,7 +68,7 @@ tor-search foo
 Error: no API key …      # locked vault → run `bwu` first
 ```
 
-## Streamlining (speculative — see .kol/llm-context/plan.md)
+## Streamlining (speculative — see .kol/llm-plan/01-parking-lot.md)
 
 Target flow: *anywhere in the UI → hotkey → terminal drops down → type query → results.* The friction points and their fixes, in impact order:
 

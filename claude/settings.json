@@ -56,6 +56,10 @@
         "hooks": [
           {
             "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/goal-loop.sh\""
+          },
+          {
+            "type": "command",
             "command": "bash \"$HOME/.claude/hooks/footer-gate.sh\""
           }
         ]
@@ -85,5 +89,6 @@
     "enabled": true,
     "mode": "hold"
   },
+  "skipWorkflowUsageWarning": true,
   "model": "claude-fable-5[1m]"
 }

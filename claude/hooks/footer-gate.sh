@@ -99,6 +99,15 @@ STATUS = re.compile(
     r'\b(untouched|nothing (?:to commit|installed|changed|to install)|no changes|'
     r'created at|updated at|session log (?:created|written|updated|added)|'
     r'staged for you)\b', re.I)
+# Open-items / next-steps / "your turn" / call-to-action headers + strong user-directed
+# imperatives in the trailing zone. These pull the user back in — the exact thing the
+# footer exists to suppress. Anchored at line start (optional bullet/bold prefix).
+CTA = re.compile(
+    r'^\s*[-*>#]*\s*\**\s*'
+    r'(your turn|open items?|open questions?|next steps?|to-?dos?|action items?|'
+    r'follow[- ]?ups?|left to do|still (?:to do|pending)|'
+    r"you(?:'ll| will)? (?:need|have|want) to|you (?:should|must|need to)|"
+    r"remember to|don'?t forget|make sure to)\b", re.I)
 
 for l in tail:
     if footer_line is not None and l is footer_line:
@@ -112,6 +121,11 @@ for l in tail:
         block('A bare status/recap line ("X untouched" / "created-updated at" / '
               '"session log written") is sitting in the trailing prose instead of the '
               'ONE footer line. Fold it into the footer counts (or drop it) and re-emit.')
+    if CTA.search(l):
+        block('An open-items / next-steps / "your turn" / call-to-action block is in the '
+              'trailing prose. That pulls the user back in — the exact thing the footer '
+              'exists to prevent. Fold it into the ONE footer line (a count/token) or move '
+              'it into the doc/log, then re-emit. Nothing in the reply may prompt the user to act.')
 
 sys.exit(0)
 PYEOF

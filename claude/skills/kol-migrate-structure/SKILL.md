@@ -21,7 +21,8 @@ Target layout:
 <repo>/
   LLM_RULES.md          ← SYMLINK → ~/.dotfiles/.../03-scaffold-llm-context/LLM_RULES.md (gitignored, generic)
   .kol/
-    llm-context/        ← ARCHITECTURE · AGENT-CONTEXT · plan · history · session-log/ · session-bridge/
+    llm-context/        ← ARCHITECTURE · AGENT-CONTEXT · HISTORY · session-log/ · session-bridge/
+    llm-plan/           ← speculative plans (one NN-slug.md per plan)
     docs-framework/     ← canon kol-docs-{fm,md,lib} packages (+ INDEX)
   docs/                 ← documentation/ (numbered sections) + operations/ (sibling) + .obsidian/
 ```
@@ -76,7 +77,7 @@ Show the user the planned moves/repairs as a short table and confirm before touc
 Plain `mv`/`rm` — the user owns git.
 
 - **Legacy context dir** (`docs/llm-context` / `.claude/llm-context` / `.llm-context`) → `.kol/llm-context/` (merge if several exist; newest wins on collisions — flag them, don't silently overwrite).
-- **Planning/working docs** (`plan.md`, `history.md`, `backlog/`, `migration/`) → `.kol/llm-context/`.
+- **Planning docs** (`plan.md`, `backlog/`, `migration/`) → `.kol/llm-plan/` as `NN-slug.md` (one per plan); **`history.md`** → `.kol/llm-context/HISTORY.md`.
 - **Old `docs/_framework/`** → **delete** (superseded by the canon packages installed in step 4 — do NOT move it into `.kol/docs-framework/`, that just carries a stale spec forward). If it had repo-specific edits, surface them before removing.
 - **Legacy RFCs / audits / research** (`docs/rfc/`, loose audit docs) → leave in place for step 4 to fold into `docs/documentation/NN-research/` with conformant frontmatter.
 
@@ -111,7 +112,7 @@ Then, per `scaffold-docs-system`: numbered `docs/documentation/` sections, a `do
 Grep the repo for every live mention of the old paths and fix them:
 
 - `docs/llm-context` → `.kol/llm-context` · `docs/_framework` → `.kol/docs-framework` — in docs, code comments, scripts, READMEs, config. (`LLM_RULES.md` is no longer a path to repoint — it's a symlink.)
-- **Cross-vault links:** wikilinks from `docs/` into `.kol/` **cannot resolve** — convert to relative markdown links `[text](../.kol/llm-context/plan.md)`, or drop from `related:` (that field is vault-internal). Section links target folders-with-`INDEX`, so use `[[NN-section/INDEX|display]]`.
+- **Cross-vault links:** wikilinks from `docs/` into `.kol/` **cannot resolve** — convert to relative markdown links `[text](../.kol/llm-plan/01-parking-lot.md)`, or drop from `related:` (that field is vault-internal). Section links target folders-with-`INDEX`, so use `[[NN-section/INDEX|display]]`.
 - **Leave historical session-log bodies untouched** — point-in-time records.
 - Verify: final grep for the old paths returns only session-log history; every `docs/` wikilink resolves to a file; run any repo validators.
 

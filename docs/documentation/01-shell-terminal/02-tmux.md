@@ -49,11 +49,11 @@ tmux new -s work          # start a named session "work"
 tmux ls                   # list running sessions
 tmux attach -t work       # reattach to "work"
 
-# Inside tmux, the prefix is Ctrl-a. With this repo's ~/.tmux.conf:
+# Inside tmux, the prefix is Ctrl-a (second prefix: §, added 2026-07-15). With this repo's ~/.tmux.conf:
 #   Ctrl-a |   split left/right         Ctrl-a -   split top/bottom
 #   Ctrl-a h/j/k/l   move between panes (arrows work too)
 #   Ctrl-a z   zoom a pane fullscreen (toggle)
-#   Ctrl-a c   new window               Ctrl-a 1..9   jump to window N
+#   Ctrl-a c   new window (right end)   Ctrl-a 1..9   jump to window N
 #   Ctrl-a n / p   next / previous window
 #   Ctrl-a C-n   new SESSION (prompts for a name, switches you in)
 #   Ctrl-a d   detach (session keeps running)
@@ -78,9 +78,9 @@ tmux attach -t work       # reattach to "work"
 - **New session** — `prefix C-n` asks for a name at the bottom prompt (`command-prompt`, not a popup) then creates it detached and switches you in (`switch-client`, never a raw attach from a bound key — same crash class as the sesh popup fix above).
 - **Quiet top status bar** — faint window list flush top-left (`#I:#W#F`), with a blank second row for breathing space above the p10k prompt.
 - **base-index 1**, 50k scrollback, true-colour passthrough, `prefix r` to reload.
-- **TPM** (`tmux-plugins/tpm`, cloned + installed by `bootstrap.sh`) runs [[20-tmux-sessionx|tmux-sessionx]] (`prefix O`) — an fzf-based session picker being run head-to-head against the standalone [[17-sesh|sesh]] — and [[22-tmux-harpoon|tmux-harpoon]] (session bookmarking) — given its own key table, `prefix a` then `1`–`4`/`a`/`e`, after both `Alt` (collides with AeroSpace's global workspace keys) and `Ctrl+Shift` (this terminal doesn't report Shift on Ctrl-letter combos) were tried and ruled out. [[18-tmuxinator|tmuxinator]] and [[19-tmuxp|tmuxp]] (YAML project layouts) round out the set — no tmux binding needed, both are plain shell commands, kept side by side rather than picked as a winner (tmuxinator for upfront-designed layouts, tmuxp for freezing one already built by hand). (`tmux-tea` was evaluated alongside these and dropped 2026-07-04.) [[24-workmux|workmux]] (git worktree + tmux window pairing, not a TPM plugin, plain CLI) rounds out the set for parallel-branch/agent workflows. (`tmux-agent-sidebar` was tried and removed 2026-07-05 — auto-popped a pane into every new window, unwanted.)
+- **TPM** (`tmux-plugins/tpm`, cloned + installed by `bootstrap.sh`) runs [[20-tmux-sessionx|tmux-sessionx]] (`prefix O`) — an fzf-based session picker being run head-to-head against the standalone [[17-sesh|sesh]] — and [[22-tmux-harpoon|tmux-harpoon]] (session bookmarking) — given its own key table, `prefix a` then `1`–`4`/`a`/`e`, after both `Alt` (collides with AeroSpace's global workspace keys) and `Ctrl+Shift` (this terminal doesn't report Shift on Ctrl-letter combos) were tried and ruled out. [[18-tmuxinator|tmuxinator]] and [[19-tmuxp|tmuxp]] (YAML project layouts) round out the set — no tmux binding needed, both are plain shell commands, kept side by side rather than picked as a winner (tmuxinator for upfront-designed layouts, tmuxp for freezing one already built by hand). (`tmux-tea` was evaluated alongside these and dropped 2026-07-04.) [[24-workmux|workmux]] (git worktree + tmux window pairing, not a TPM plugin, plain CLI) rounds out the set for parallel-branch/agent workflows. (`tmux-agent-sidebar` was tried and removed 2026-07-05 — auto-popped a pane into every new window, unwanted.) `tmux-resurrect` + `tmux-continuum` (added 2026-07-15) save/restore full session layouts **across reboots** — continuum autosaves every 15 min and `@continuum-restore` replays the last save when the server next starts; manual save `prefix S` (resurrect's default `C-s` is the sesh picker's), restore `prefix C-r`. Layouts + cwds come back, running process state doesn't.
 
 Day-to-day keys, copy mode in full, and pane/window/session tricks: see [[09-tmux-tips|tmux tips & tricks]].
 
 ## Future use
-`tmux-resurrect` / `tmux-continuum` to save and auto-restore full session layouts **across reboots** (native detach/reattach only survives while the machine stays on) — TPM is in place now, so these are just a `@plugin` line away whenever that's worth adding. Once `sesh` or `tmux-sessionx` "wins" the side-by-side evaluation, drop the other.
+Once `sesh` or `tmux-sessionx` "wins" the side-by-side evaluation, drop the other. (`tmux-resurrect`/`tmux-continuum` graduated from this list 2026-07-15 — see the TPM bullet above.)

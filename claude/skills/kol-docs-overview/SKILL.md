@@ -14,6 +14,7 @@ The **front door** to a kol repo's structure. One read to understand *why* both 
   LLM_RULES.md          ← boot pointer. A SYMLINK to one generic dotfiles file. Gitignored.
   .kol/                 ← machinery, hidden at root, outside the Obsidian vault
     llm-context/        ← agent state (this repo's facts)
+    llm-plan/           ← speculative plans — one NN-slug.md per plan
     docs-framework/     ← the kol-docs spec this repo's docs conform to
   docs/                 ← the Obsidian vault — 100% human-readable
     documentation/      ← the repo's SUBJECT (numbered sections 00-… NN)
@@ -37,7 +38,7 @@ The dividing question for any content: *agent-only?* → `.kol/`. *the repo's su
 Everything project-specific an agent needs, none of it in the boot file:
 
 - `ARCHITECTURE.md` — load-bearing decisions + invariants (numbered §1, §2…). · `AGENT-CONTEXT.md` — what the repo is, current state, gotchas, contracts.
-- `history.md` — the *why* (decisions, alternatives). · `plan.md` — speculative work.
+- `HISTORY.md` — the *why* (decisions, alternatives). · `../llm-plan/` — speculative plans (one `NN-slug.md` each; peer folder).
 - `session-log/` — concluded sessions (point-in-time; never rewritten). · `session-bridge/` — in-flight handoffs.
 
 ## `LLM_RULES.md` — the boot pointer (a symlink)
@@ -56,7 +57,7 @@ Inside the vault → **wikilinks**; outside it (root `README.md`, GitHub-facing 
 
 ## The numbering law
 
-`NN-slug.md` — two-digit, kebab-case, catalog (display-priority) or sequential (reading-order) per folder. **Not** `X.Y.Z-slug.md` — a dotted scheme was never the spec. Dated folders (`plan`/`log`) use `YYYY-MM-DD-`. `INDEX.md` is the only prefix-exempt filename. Numbering is contiguous, no gaps; removing a section means renumbering the rest and repointing refs.
+`NN-slug.md` — two-digit, kebab-case, catalog (display-priority) or sequential (reading-order) per folder. **Not** `X.Y.Z-slug.md` — a dotted scheme was never the spec. Plans (`llm-plan/`) use `NN-slug.md`; only `session-log/` is dated (`YYYY-MM-DD-`). `INDEX.md` is the only prefix-exempt filename. Numbering is contiguous, no gaps; removing a section means renumbering the rest and repointing refs.
 
 ## The doc contract (one line)
 

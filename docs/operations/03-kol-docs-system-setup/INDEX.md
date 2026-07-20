@@ -2,14 +2,15 @@
 title: kol-docs system setup
 type: index
 status: active
-updated: 2026-07-05
-description: The kol-docs skill trio (fm ⊂ md ⊂ lib), their packages, and the shared Obsidian vault-config source — how a repo's docs system gets authored, structured, and configured.
+description: The kol-docs skill trio (fm ⊂ md ⊂ lib), their packages, the shared Obsidian vault-config source, and the kol-appliant tool-doc standard — how a repo's docs system gets authored, structured, and configured.
+updated: 2026-07-11
 tags:
   - project/dotfiles
   - domain/ai/llm
   - framework/conventions
 related:
   - "[[INDEX|tooling catalog]]"
+  - "[[01-kol-appliant-tool-standard|kol-appliant standard]]"
   - "[[../claude/skills/kol-docs-fm/SKILL|kol-docs-fm skill]]"
   - "[[../claude/skills/kol-docs-md/SKILL|kol-docs-md skill]]"
   - "[[../claude/skills/scaffold-docs-system/SKILL|scaffold-docs-system skill]]"
@@ -32,6 +33,10 @@ Repo infrastructure for **authoring and structuring docs** — a russian-doll tr
 fm ⊂ md ⊂ lib. Reach for the smallest tier that covers the job — "fix this file's frontmatter" needs only `kol-docs-fm`; "stand up this repo's docs/" needs `scaffold-docs-system`.
 
 Each skill is self-contained (reads only its own package) and **local-authored** — won't ride a kol-system re-sync. A future re-sync still ships a single upstream `kol-docs`; reconcile it into `kol-docs-md`, don't let it re-add the old name.
+
+## The tool-doc standard (kol-appliant)
+
+Beyond authoring *a* doc, [[01-kol-appliant-tool-standard|kol-appliant]] is the completeness contract for documenting a **tool or solution** — its in-point install chain, category home, purpose surface (usage/hotkeys/use-cases/sources/links), `keys`/`files` accessibility, and dups map. The definition-of-done every tool ships against.
 
 ## The Obsidian vault-config source
 

@@ -49,11 +49,18 @@ persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B",
                          "C", "D", "E", "F", "G", "I", "M", "N", "O", "P", "Q",
                          "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
-# Redraw the SketchyBar workspace chips on every workspace switch. Both brew bin
-# dirs are put on PATH so `sketchybar` resolves on the Intel iMac (/usr/local) and
-# the Apple-Silicon MBP (/opt/homebrew) without hardcoding a single prefix (§1).
+# Refresh the simple-bar workspace chips (Übersicht) on every workspace switch.
+# Harmless no-op until Übersicht + simple-bar are installed (osascript just errors quietly).
+# sketchybar archived 2026-07-11 → _archive/sketchybar; its old trigger was:
+#   'PATH=/opt/homebrew/bin:/usr/local/bin:$PATH sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+# Both hooks refresh the WHOLE bar: this simple-bar version is one widget
+# (id simple-bar-index-jsx — the old …spaces-widget… id no longer exists,
+# which is why the bar lagged). Focus hook = instant process-widget updates.
 exec-on-workspace-change = ['/bin/bash', '-c',
-    'PATH=/opt/homebrew/bin:/usr/local/bin:$PATH sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+    'osascript -e "tell application id \\"tracesOf.Uebersicht\\" to refresh widget id \\"simple-bar-index-jsx\\"" 2>/dev/null || true'
+]
+on-focus-changed = [
+    "exec-and-forget osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-index-jsx\"' 2>/dev/null || true"
 ]
 
 # A callback that runs every time binding mode changes
@@ -79,8 +86,8 @@ on-mode-changed = []
     inner.vertical =   10
     outer.left =       10
     outer.bottom =     10
-    outer.top =        42
-    outer.right =      10
+    outer.top =        48   # aligns window tops with the widget column (top: 48)
+    outer.right =      304   # widget column (280 + 12 right margin) + 12 gap to windows
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -116,8 +123,8 @@ on-mode-changed = []
     # '''
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-    alt-slash = 'layout tiles horizontal vertical'
-    alt-comma = 'layout accordion horizontal vertical'
+    ctrl-alt-slash = 'layout tiles horizontal vertical'
+    ctrl-alt-comma = 'layout accordion horizontal vertical'
 
     # One-key grid layouts (AeroSpace has no native grid — these run the join/move
     # dance in one binding). Built + verified for a flat row of 4 windows.
@@ -148,87 +155,96 @@ on-mode-changed = []
         'move left',
     ]
 
+    # Desk chrome toggles — flip macOS auto-hide via osascript (bin/ scripts).
+    # First press triggers a one-time Automation permission prompt.
+    cmd-alt-m = 'exec-and-forget ~/.dotfiles/bin/menubar-toggle'
+    cmd-alt-d = 'exec-and-forget ~/.dotfiles/bin/dock-toggle'
+    cmd-alt-u = 'exec-and-forget ~/.dotfiles/bin/ubersicht-toggle'
+    cmd-alt-r = 'exec-and-forget ~/.dotfiles/bin/ubersicht-refresh'
+    cmd-alt-n = 'exec-and-forget ~/.dotfiles/bin/notes-toggle'
+    cmd-alt-b = 'exec-and-forget ~/.dotfiles/bin/bookmarks-toggle'
+
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-    alt-h = 'focus left'
-    alt-j = 'focus down'
-    alt-k = 'focus up'
-    alt-l = 'focus right'
+    ctrl-alt-h = 'focus left'
+    ctrl-alt-j = 'focus down'
+    ctrl-alt-k = 'focus up'
+    ctrl-alt-l = 'focus right'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move
-    alt-shift-h = 'move left'
-    alt-shift-j = 'move down'
-    alt-shift-k = 'move up'
-    alt-shift-l = 'move right'
+    ctrl-alt-shift-h = 'move left'
+    ctrl-alt-shift-j = 'move down'
+    ctrl-alt-shift-k = 'move up'
+    ctrl-alt-shift-l = 'move right'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-    alt-minus = 'resize smart -50'
-    alt-equal = 'resize smart +50'
+    ctrl-alt-minus = 'resize smart -50'
+    ctrl-alt-equal = 'resize smart +50'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-    alt-1 = 'workspace 1'
-    alt-2 = 'workspace 2'
-    alt-3 = 'workspace 3'
-    alt-4 = 'workspace 4'
-    alt-5 = 'workspace 5'
-    alt-6 = 'workspace 6'
-    alt-7 = 'workspace 7'
-    alt-8 = 'workspace 8'
-    alt-9 = 'workspace 9'
-    alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
-    alt-b = 'workspace B'
-    alt-c = 'workspace C'
-    alt-d = 'workspace D'
-    alt-e = 'workspace E'
-    alt-f = 'workspace F'
-    alt-g = 'workspace G'
-    alt-i = 'workspace I'
-    alt-m = 'workspace M'
-    alt-n = 'workspace N'
-    alt-o = 'workspace O'
-    alt-p = 'workspace P'
-    alt-q = 'workspace Q'
-    alt-r = 'workspace R'
-    alt-s = 'workspace S'
-    alt-t = 'workspace T'
-    alt-u = 'workspace U'
-    alt-v = 'workspace V'
-    alt-w = 'workspace W'
-    alt-x = 'workspace X'
-    alt-y = 'workspace Y'
-    alt-z = 'workspace Z'
+    ctrl-alt-1 = 'workspace 1'
+    ctrl-alt-2 = 'workspace 2'
+    ctrl-alt-3 = 'workspace 3'
+    ctrl-alt-4 = 'workspace 4'
+    ctrl-alt-5 = 'workspace 5'
+    ctrl-alt-6 = 'workspace 6'
+    ctrl-alt-7 = 'workspace 7'
+    ctrl-alt-8 = 'workspace 8'
+    ctrl-alt-9 = 'workspace 9'
+    ctrl-alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
+    ctrl-alt-b = 'workspace B'
+    ctrl-alt-c = 'workspace C'
+    ctrl-alt-d = 'workspace D'
+    ctrl-alt-e = 'workspace E'
+    ctrl-alt-f = 'workspace F'
+    ctrl-alt-g = 'workspace G'
+    ctrl-alt-i = 'workspace I'
+    ctrl-alt-m = 'workspace M'
+    ctrl-alt-n = 'workspace N'
+    ctrl-alt-o = 'workspace O'
+    ctrl-alt-p = 'workspace P'
+    ctrl-alt-q = 'workspace Q'
+    ctrl-alt-r = 'workspace R'
+    ctrl-alt-s = 'workspace S'
+    ctrl-alt-t = 'workspace T'
+    ctrl-alt-u = 'workspace U'
+    ctrl-alt-v = 'workspace V'
+    ctrl-alt-w = 'workspace W'
+    ctrl-alt-x = 'workspace X'
+    ctrl-alt-y = 'workspace Y'
+    ctrl-alt-z = 'workspace Z'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-    alt-shift-1 = 'move-node-to-workspace 1'
-    alt-shift-2 = 'move-node-to-workspace 2'
-    alt-shift-3 = 'move-node-to-workspace 3'
-    alt-shift-4 = 'move-node-to-workspace 4'
-    alt-shift-5 = 'move-node-to-workspace 5'
-    alt-shift-6 = 'move-node-to-workspace 6'
-    alt-shift-7 = 'move-node-to-workspace 7'
-    alt-shift-8 = 'move-node-to-workspace 8'
-    alt-shift-9 = 'move-node-to-workspace 9'
-    alt-shift-a = 'move-node-to-workspace A'
-    alt-shift-b = 'move-node-to-workspace B'
-    alt-shift-c = 'move-node-to-workspace C'
-    alt-shift-d = 'move-node-to-workspace D'
-    alt-shift-e = 'move-node-to-workspace E'
-    alt-shift-f = 'move-node-to-workspace F'
-    alt-shift-g = 'move-node-to-workspace G'
-    alt-shift-i = 'move-node-to-workspace I'
-    alt-shift-m = 'move-node-to-workspace M'
-    alt-shift-n = 'move-node-to-workspace N'
-    alt-shift-o = 'move-node-to-workspace O'
-    alt-shift-p = 'move-node-to-workspace P'
-    alt-shift-q = 'move-node-to-workspace Q'
-    alt-shift-r = 'move-node-to-workspace R'
-    alt-shift-s = 'move-node-to-workspace S'
-    alt-shift-t = 'move-node-to-workspace T'
-    alt-shift-u = 'move-node-to-workspace U'
-    alt-shift-v = 'move-node-to-workspace V'
-    alt-shift-w = 'move-node-to-workspace W'
-    alt-shift-x = 'move-node-to-workspace X'
-    alt-shift-y = 'move-node-to-workspace Y'
-    alt-shift-z = 'move-node-to-workspace Z'
+    ctrl-alt-shift-1 = 'move-node-to-workspace 1'
+    ctrl-alt-shift-2 = 'move-node-to-workspace 2'
+    ctrl-alt-shift-3 = 'move-node-to-workspace 3'
+    ctrl-alt-shift-4 = 'move-node-to-workspace 4'
+    ctrl-alt-shift-5 = 'move-node-to-workspace 5'
+    ctrl-alt-shift-6 = 'move-node-to-workspace 6'
+    ctrl-alt-shift-7 = 'move-node-to-workspace 7'
+    ctrl-alt-shift-8 = 'move-node-to-workspace 8'
+    ctrl-alt-shift-9 = 'move-node-to-workspace 9'
+    ctrl-alt-shift-a = 'move-node-to-workspace A'
+    ctrl-alt-shift-b = 'move-node-to-workspace B'
+    ctrl-alt-shift-c = 'move-node-to-workspace C'
+    ctrl-alt-shift-d = 'move-node-to-workspace D'
+    ctrl-alt-shift-e = 'move-node-to-workspace E'
+    ctrl-alt-shift-f = 'move-node-to-workspace F'
+    ctrl-alt-shift-g = 'move-node-to-workspace G'
+    ctrl-alt-shift-i = 'move-node-to-workspace I'
+    ctrl-alt-shift-m = 'move-node-to-workspace M'
+    ctrl-alt-shift-n = 'move-node-to-workspace N'
+    ctrl-alt-shift-o = 'move-node-to-workspace O'
+    ctrl-alt-shift-p = 'move-node-to-workspace P'
+    ctrl-alt-shift-q = 'move-node-to-workspace Q'
+    ctrl-alt-shift-r = 'move-node-to-workspace R'
+    ctrl-alt-shift-s = 'move-node-to-workspace S'
+    ctrl-alt-shift-t = 'move-node-to-workspace T'
+    ctrl-alt-shift-u = 'move-node-to-workspace U'
+    ctrl-alt-shift-v = 'move-node-to-workspace V'
+    ctrl-alt-shift-w = 'move-node-to-workspace W'
+    ctrl-alt-shift-x = 'move-node-to-workspace X'
+    ctrl-alt-shift-y = 'move-node-to-workspace Y'
+    ctrl-alt-shift-z = 'move-node-to-workspace Z'
 
     cmd-alt-shift-f = 'fullscreen'
 
@@ -239,12 +255,12 @@ on-mode-changed = []
     cmd-alt-shift-d = 'enable off' # d = disable; re-enable via Raycast / CLI
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-    alt-tab = 'workspace-back-and-forth'
+    ctrl-alt-tab = 'workspace-back-and-forth'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+    ctrl-alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-    alt-shift-semicolon = 'mode service'
+    ctrl-alt-shift-semicolon = 'mode service'
 
     # new mode resize
     cmd-alt-shift-r = 'mode resize'
@@ -278,6 +294,18 @@ on-mode-changed = []
 
 
 # T for Terminal and CLI
+
+# Finder floats (and still lands on W) — a file browser is a palette, not a
+# tile; tiling it squashes column view and drags the layout around. Only the
+# FIRST matching rule runs, so this combined rule replaces the old W-only one.
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ["layout floating", "move-node-to-workspace W"]
+
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+if.window-title-regex-substring = 'kol-(notes|bookmarks)'
+run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = 'com.googlecode.iterm2'
@@ -334,11 +362,7 @@ if.app-id = 'com.apple.MobileSMS'
 run = "move-node-to-workspace S"
 
 
-# W for windows, finder
-
-[[on-window-detected]]
-if.app-id = 'com.apple.finder'
-run = "move-node-to-workspace W"
+# W for windows — finder's rule lives up top (floating + W combined)
 
 
 # A for automation, bots & work
@@ -368,4 +392,17 @@ run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Passwords'
+run = "layout floating"
+
+# Utility windows the SketchyBar chips open (⌘-click) — float so they never reshuffle the tiles.
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iCal'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
 run = "layout floating"

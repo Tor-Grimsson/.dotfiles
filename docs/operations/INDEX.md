@@ -3,7 +3,7 @@ title: Operations — repo machinery & systems
 type: index
 status: active
 updated: 2026-07-08
-description: How this repo itself is built and run — the two-machine model, the agent config, the docs system, remote workflow, CDN snapshot infra, and the wake automation. Machinery, not subject matter (that's documentation/).
+description: How this repo itself is built and run — the two-machine model, the agent config, the docs system, remote workflow, CDN snapshot infra, and design explorations. Machinery, not subject matter (that's documentation/).
 tags:
   - project/dotfiles
   - domain/tooling
@@ -22,7 +22,7 @@ The **machinery** layer — how the repo itself is built, run, and operated, plu
 | 03 | [[operations/03-kol-docs-system-setup/INDEX|kol-docs system setup]] | The `kol-docs-fm`/`-md`/`-lib` skill trio + packages, and the shared Obsidian vault-config source (`claude/packages/scaffold/02-scaffold-docs/obsidian-shapes/`) repos symlink into. |
 | 04 | [[operations/04-remote-machine/INDEX|Remote machine]] | Working over SSH once a box is provisioned — `~/.ssh/config` power features (auto-attach tmux, ControlMaster, ProxyJump, agent forwarding) and alternative tools (mosh/autossh/et/sshrc/sshfs), then the dev workflow on top. |
 | 05 | [[operations/05-cdn-r2b2/INDEX|CDN tree snapshots (r2b2)]] | `bucket-tree.sh` snapshots each CDN bucket's file tree (B2 `website`/`vault-media`, R2 `kol-media`) into readable JSON in the dotfiles, refreshed on every write and mirrored to Obsidian + other consumers. |
-| 06 | [[operations/06-kol-dash/INDEX|kol-dash]] | The wake-up automation system (`os-mode.sh`/`theme-alarm.sh`, Raycast + `launchd`) plus a map of the three things called "the dashboard" and the always-on iPad kiosk plan. |
+| 06 | [[operations/06-explorations|explorations]] | Design surveys for things not yet built — the bookmark-sidebar / TUI-plugin exploration (OSC-8 links, yazi bookmark plugins, AeroSpace-window vs tmux-pane); logged so the option survey isn't lost. |
 
 ## Related
 - [[INDEX|docs root]] — top-level router

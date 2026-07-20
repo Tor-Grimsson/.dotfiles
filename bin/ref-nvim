@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# ref-nvim — alias of `ref nvim` (bin/ref owns the engine).
+exec "$HOME/.dotfiles/bin/ref" nvim "$@"

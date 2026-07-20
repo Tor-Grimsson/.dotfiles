@@ -2,7 +2,7 @@
 title: Agent-context protocol
 type: reference
 status: active
-updated: 2026-07-08
+updated: 2026-07-11
 description: How an agent session loads a project's state and logs its work — the symlinked LLM_RULES.md boot file, the .kol/ layout (llm-context + docs-framework at repo root), and the scaffold-llm-context / scaffold-docs-system / kol-migrate-structure / agent-init / log-work skills that drive it.
 aliases:
   - agent-context-protocol
@@ -29,7 +29,8 @@ A repo on the protocol has all machinery **hidden at repo root**, keeping `docs/
 | `.kol/llm-context/ARCHITECTURE.md` | decisions | load-bearing calls, each `§N` with a "do not revisit unless…" |
 | `.kol/llm-context/AGENT-CONTEXT.md` | state | current project state + the "Last updated" chain |
 | `.kol/llm-context/session-log/` | logs | one `YYYY-MM-DD-slug.md` per session |
-| `.kol/llm-context/{history,plan}.md` + `backlog/`, `migration/` | narrative/plans | the *why*, speculative work, working queues |
+| `.kol/llm-context/HISTORY.md` | narrative | the *why* (decisions, alternatives) |
+| `.kol/llm-plan/` | plans | speculative work — one `NN-slug.md` per plan (`01-parking-lot.md` = backlog) |
 | `.kol/docs-framework/` | spec | the kol-docs framework the repo's docs conform to |
 
 **Legacy layouts** (`docs/llm-context/` + `docs/_framework/`, or `.claude/llm-context/`, or `.llm-context/`) still boot — the skills check `.kol/` first, then fall back, and nag once: *"legacy layout — run `/kol-migrate-structure` to converge it onto `.kol/`."* (`kol-migrate-structure` was quarantined to `_tmp/` 2026-07-05 for lack of evidence it was ever used, then restored the same day.) As of 2026-07-08 `kol-migrate-structure` relocates the legacy content, then **delegates** the boot symlink to `scaffold-llm-context` and the framework + `docs/` vault to `scaffold-docs-system` — it no longer reimplements them (that reimplementation was the source of the boot-file symlink-vs-author contradiction). Reference implementation of the new shape: `kol-design-system`, `kol-design-editor`. Note: wikilinks from `docs/` into `.kol/` can't resolve (outside the Obsidian vault) — use standard relative links across that boundary.

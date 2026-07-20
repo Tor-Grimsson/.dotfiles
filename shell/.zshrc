@@ -81,6 +81,7 @@ function y() {
 
 # ── Aliases ───────────────────────────────────────────────────────────────────
 alias vim='nvim'   # the configured editor is nvim (repo nvim/ → ~/.config/nvim)
+alias nnow='NVIM_APPNAME=nvim-now nvim'   # the from-scratch build (repo nvim-now/), parallel to the daily config
 alias cc='clear'
 alias cl='claude'
 alias cllm='llm -c'   # continue the previous llm conversation (logged to SQLite)
@@ -249,9 +250,32 @@ export FZF_DEFAULT_OPTS="
   # is plain colored text, so it survives tmux + fzf redraws where the Kitty/Sixel protocols don't.
   fzv() {
     fzf --preview '[ -d {} ] && eza -T --level=2 --color=always {} ||
-      { [[ {} =~ \.(svg|png|jpe?g|gif|webp|bmp)$ ]] &&
+      { [[ {} =~ \.(svg|png|jpe?g|gif|webp|bmp|tiff?|heic|avif)$ ]] &&
           chafa -f symbols -s "${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}" {} ||
         bat --color=always --style=numbers {}; }'
+  }
+
+  # to — jump to a bookmarked folder by tag (data: ~/.dotfiles/files/folders.md; `files <tag>` prints it).
+  # `to kol` filters to #kol: one match cd's straight in, several fzf-pick; no arg picks from all.
+  # A function, not a bin/ script, because only the shell itself can change its own directory.
+  to() {
+    local data="$HOME/.dotfiles/files/folders.md"
+    [[ -f "$data" ]] || { print -u2 "to: no data at $data"; return 1 }
+    local paths
+    paths=$(awk -v tags="$*" -v home="$HOME" '
+      BEGIN { nt = split(tolower(tags), want, " ") }
+      /^## / { shw = 1; h = tolower($0); for (i = 1; i <= nt; i++) if (index(h, want[i]) == 0) shw = 0; next }
+      shw && $1 !~ /^#/ && NF { p = $1; sub(/^~/, home, p); print p }
+    ' "$data")
+    [[ -n "$paths" ]] || { print -u2 "to: nothing tagged: $*"; return 1 }
+    local target
+    if [[ $(print -r -- "$paths" | wc -l) -eq 1 ]]; then
+      target=$paths
+    else
+      target=$(print -r -- "$paths" | fzf --height 40% --reverse --prompt 'to> ' \
+        --preview 'eza -la --icons --group-directories-first --color=always {} 2>/dev/null || ls -la {}') || return
+    fi
+    cd -- "$target"
   }
 
 # zoxide — smarter cd: `z <fragment>` jumps to the best-matching visited dir, `zi` picks via fzf.
@@ -277,13 +301,27 @@ HB="${HOMEBREW_PREFIX:-/usr/local}"
 # ── shell vi-mode (zsh-vi-mode) ────────────────────────────────────────────
 # THE OFF-SWITCH: set VI_MODE=false below + `exec zsh` → instantly back to emacs
 # mode, nothing else to touch. It's a toggle, not a one-way door.
-# Also inert until `brew install zsh-vi-mode` — the [[ -r ]] guard skips it, so
-# staging this changes nothing live until you both install AND leave VI_MODE=true.
+# Inert until `brew install zsh-vi-mode` — the [[ -r ]] guard skips it, so staging
+# this changes nothing live until you install AND leave VI_MODE=true.
+# Config verified against the official README (github.com/jeffreytse/zsh-vi-mode).
+# Full walkthrough: docs/documentation/01-shell-terminal/28-zsh-vi-mode.md
 VI_MODE=true
-if [[ "$VI_MODE" == true ]] && [[ -r "$HB/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh" ]]; then
-  source "$HB/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-  # zsh-vi-mode re-initializes zle on first keypress, wiping custom binds — so
-  # every custom bindkey MUST be re-applied here, in its post-init hook.
+ZVM_PLUGIN="$HB/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"   # brew's documented path
+if [[ "$VI_MODE" == true ]] && [[ -r "$ZVM_PLUGIN" ]]; then
+  # zvm_config runs at the right point during sourcing — the ONLY correct place for
+  # options that reference plugin-defined vars ($ZVM_CURSOR_*, $ZVM_MODE_*).
+  function zvm_config() {
+    ZVM_TERM=xterm-256color                     # cursor-shape sequences that survive tmux (README: matters per-emulator)
+    ZVM_CURSOR_STYLE_ENABLED=true
+    ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK    # block cursor in normal mode
+    ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BEAM     # beam cursor in insert mode
+    ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT         # each new prompt starts in INSERT — type normally, Esc when you want motions
+    # ZVM_VI_INSERT_ESCAPE_BINDKEY=jk           # ← uncomment to add jk-as-Esc (real Esc still works too)
+  }
+  source "$ZVM_PLUGIN"
+  # zsh-vi-mode re-inits zle at the first prompt, wiping earlier keybinds. The
+  # README's documented fix: re-apply insert/main-keymap binds in zvm_after_init.
+  # (normal/visual-mode binds would instead go in zvm_after_lazy_keybindings.)
   function zvm_after_init() {
     source <(fzf --zsh)                                    # Ctrl-R fzf · Ctrl-T · Alt-C
     command -v atuin >/dev/null && bindkey '^P' atuin-search

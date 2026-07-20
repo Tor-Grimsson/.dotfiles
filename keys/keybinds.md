@@ -1,6 +1,7 @@
 # keybinds — quick reference
 
 Filter with `keys <tag …>` (e.g. `keys tmux`, `keys tmux popover`, `keys bookmark`, `keys aerospace focus`).
+tmux prefix = `C-a`, second prefix = `§` (either works everywhere "prefix" appears; `§ §` types a literal §).
 Edit this file when you rebind — it's a hand-kept list, not generated.
 
 ## #tmux #popover
@@ -23,18 +24,21 @@ prefix C-d               pick a layout → grafted as a WINDOW in the current se
 prefix C-o               pick a layout → spawned as its OWN session
 mux home/stats/torrent   dashboards: home=fastfetch+rmpc, stats=monitors, torrent
 prefix space             cycle the built-in pane layouts
-prefix M-1..M-5          even-h / even-v / main-h / main-v / tiled
+prefix Alt-1..5          preset layout: 1 even-columns · 2 even-rows · 3 big-top · 4 big-left · 5 grid
 
 ## #tmux #session
 prefix C-n    new named session (switches in)
 prefix C-s    switch session (sesh picker)
+prefix O      sessionx picker (fzf session manager — TPM plugin)
 prefix d      detach (session keeps running)
 prefix $      rename session
 
 ## #tmux #window
-prefix c      new window
+prefix c      new window — always lands at the RIGHT end
 prefix 1..9   jump to window N
 prefix n / p  next / previous window
+prefix N / P  move window right / left (swap with neighbour, follow it; repeatable)
+prefix F / G  move window to the far start / end (leftmost / rightmost)
 prefix ,      rename window
 prefix &      kill window
 
@@ -58,6 +62,10 @@ prefix a      harpoon prefix, then…
 a             add current session to the list
 e            edit the harpoon list
 1..4          jump to bookmarked session N
+
+## #tmux #resurrect
+prefix S      save all sessions now (tmux-resurrect; C-s is sesh's)
+prefix C-r    restore last save (post-reboot; continuum autosaves every 15 min)
 
 ## #tmux #lazygit
 prefix C-g    open the lazygit popup (cwd)
@@ -201,31 +209,44 @@ w                 task manager (show running jobs)
 q  ·  Q           quit  /  quit without cwd-file
 C-c               close current tab (quit if last)
 
+# NOTE: modifier is ctrl-alt (not bare alt) — alt is left free for the terminal (fzf Alt-C, word-nav Alt-b/f, tmux prefix Alt-1..5). Reload: aerospace service mode → esc.
 ## #aerospace #focus
-alt-h j k l       focus window left / down / up / right
-alt-tab           previous workspace (back-and-forth)
+ctrl-alt-h j k l       focus window left / down / up / right
+ctrl-alt-tab           previous workspace (back-and-forth)
 
 ## #aerospace #move
-alt-shift-h j k l   move window left / down / up / right
-alt-minus alt-equal resize -50 / +50
-alt-shift-tab       move workspace to next monitor
+ctrl-alt-shift-h j k l   move window left / down / up / right
+ctrl-alt-minus / =       resize -50 / +50
+ctrl-alt-shift-tab       move workspace to next monitor
 
 ## #aerospace #workspace
-alt-1..9          go to workspace 1–9
-alt-{letter}      go to workspace by letter (T term · B browser · P design · O obsidian · M music · S social · W finder · A bots)
-alt-shift-{n/l}   move focused window to that workspace
+ctrl-alt-1..9          go to workspace 1–9
+ctrl-alt-{letter}      go to workspace by letter (T term · B browser · P design · O obsidian · M music · S social · W finder · A bots)
+ctrl-alt-shift-{n/l}   move focused window to that workspace
 
 ## #aerospace #layout
-alt-slash         tiles: toggle horizontal / vertical
-alt-comma         accordion: toggle horizontal / vertical
-cmd-alt-g         grid 2×2 (from a flat row of 4)
-cmd-alt-s         main + stack (1 big left, rest stacked)
-cmd-alt-shift-f   fullscreen
+ctrl-alt-slash         tiles: toggle horizontal / vertical
+ctrl-alt-comma         accordion: toggle horizontal / vertical
+cmd-alt-g              grid 2×2 (from a flat row of 4)
+cmd-alt-s              main + stack (1 big left, rest stacked)
+cmd-alt-shift-f        fullscreen
 
 ## #aerospace #mode
-alt-shift-;       service mode (esc=reload · r=reset layout · f=float toggle · backspace=close others · alt-shift-hjkl=join)
-cmd-alt-shift-r   resize mode (h/j/k/l resize · b balance · enter/esc exit)
-cmd-alt-shift-d   DISABLE aerospace (app-native keys work) — re-enable via Raycast or `aerospace enable on`
+ctrl-alt-shift-;       service mode (esc=reload · r=reset layout · f=float toggle · backspace=close others · alt-shift-hjkl=join)
+cmd-alt-shift-r        resize mode (h/j/k/l resize · b balance · enter/esc exit)
+cmd-alt-shift-d        DISABLE aerospace (app-native keys work) — re-enable via Raycast or `aerospace enable on`
+
+## #aerospace #macos
+cmd-alt-m              toggle native macOS menubar (bin/menubar-toggle)
+cmd-alt-d              toggle macOS dock (bin/dock-toggle)
+cmd-alt-u              open/close Übersicht + simple-bar (bin/ubersicht-toggle)
+cmd-alt-r              refresh all Übersicht widgets, double-pass (bin/ubersicht-refresh)
+cmd-alt-n              summon/dismiss kol-notes sticky — nvim in Kitty (bin/notes-toggle)
+cmd-alt-b              summon/dismiss kol-bookmarks sticky — edit bookmarks.txt in nvim (bin/bookmarks-toggle)
+
+## #kitty #claude
+shift+enter   newline in Claude Code — kitty.conf maps it to ESC+CR (meta-enter)
+ctrl+shift+f5 reload kitty config in a running window
 
 ## #git #lazygit
 prefix C-g    lazygit popup (tmux)
@@ -272,3 +293,20 @@ C-o          open the inspector (exit code, duration, cwd, host)
 Esc / C-c    cancel, restore what you were typing
 C-a d        prefix: delete the selected history entry
 C-a D        prefix: delete ALL entries matching the selected command
+
+## #vimode
+Esc / C-[       enter normal mode (motions); i/a/I/A/o/O → back to insert
+v / V           visual select — char / whole line
+w / b / e       next word / prev word / end of word
+0 / $ / ^        line start / end / first non-blank
+f<c> / t<c>     jump onto / just-before next <c>   (; repeats, , reverses)
+x               delete the char under the cursor
+dw / dd / d$    delete word / whole line / to end of line
+cw / cc / ciw   change word / line / inner word (text object)
+ci" di( dt/     change inside quotes / delete inside parens / delete up-to /
+u / C-r         undo / redo
+.               repeat the last change
+yy / p / P      yank line / paste after / paste before
+ysiw" cs"' ds"  surround: wrap word in " / change "→' / delete the surround
+vv              edit the command line in nvim, save to run it
+gx              open the URL or file path under the cursor

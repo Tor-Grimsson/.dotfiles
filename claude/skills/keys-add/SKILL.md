@@ -11,7 +11,7 @@ description: Add or fix a keybind entry in the `keys` shell reference (~/.dotfil
 | File | Role |
 |---|---|
 | `~/.dotfiles/keys/keybinds.md` | **the data** — the flat list you edit. This is the only file you touch to add a keybind. |
-| `~/.dotfiles/bin/keys` | the script — filters by tag, pipes to `bat`. Don't touch it to add content. |
+| `~/.dotfiles/bin/keys` | the script — alias of `ref keys` (`bin/ref` owns the tag-filter engine). Don't touch it to add content. |
 | `docs/scripts/19-keys.md` | the catalog doc — only touch if the *tool* changes, not for new entries. |
 
 ## The data format

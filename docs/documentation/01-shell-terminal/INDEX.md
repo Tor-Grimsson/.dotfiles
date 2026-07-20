@@ -36,8 +36,11 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | [[22-tmux-harpoon|tmux-harpoon]] | TPM plugin — bookmark a handful of tmux sessions, jump back with one key. |
 | [[24-workmux|workmux]] | Pairs a git worktree with a tmux window in one command — parallel branches/agents, no stashing. |
 | [[25-atuin|atuin]] | SQLite-backed shell history with scoped fuzzy search (global/host/session/directory) — bound to Ctrl-P (fzf keeps Ctrl-R). |
+| [[28-zsh-vi-mode|zsh-vi-mode]] | Modal (vim) editing for the zsh command line — motions, text objects, surround, clipboard yank; behind a `VI_MODE` flag with a one-line off-switch. |
+| [[29-btop|btop]] | Themeable boxed resource monitor (cpu/mem/net/proc) — the reference desk's panels; kol-theme consumer, lives alongside htop. |
 
 ## Guides
+- [[zsh-vi-mode/INDEX|zsh vi-mode — complete guide]] — read-in-order how-to for command-line vi-mode: modes & the one-line off-switch, every motion worth drilling, and how it's wired into your shell. Companion to the [[28-zsh-vi-mode|zsh-vi-mode]] reference.
 - [[10-tmux-help|tmux help & cheat sheet]] — built-in help commands first, then the keys, shell commands, and workflows you actually use with the [[02-tmux|tmux]] config.
 - [[09-tmux-tips|tmux tips & tricks]] — copy mode in full, plus pane/window/session tricks for the [[02-tmux|tmux]] config.
 - [[23-stdin-pipes|stdin, stdout & pipes]] — the three standard streams, redirection, pipes, and the `-` convention CLI tools use to mean "read from stdin."

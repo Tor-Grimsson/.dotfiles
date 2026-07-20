@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# bookmarks-toggle — summon/dismiss the kol-bookmarks sticky (nvim in Kitty).
+# Edits tmux/bookmarks.txt — the SAME file the tmux picker and desk widget read.
+# Bound to cmd-alt-b. Sibling of notes-toggle.
+set -euo pipefail
+
+BM_FILE="$HOME/.dotfiles/tmux/bookmarks.txt"
+CONF="$HOME/.dotfiles/kitty/kol-bookmarks.conf"
+
+usage() {
+  cat <<'EOF'
+bookmarks-toggle — summon/dismiss the kol-bookmarks sticky (nvim in Kitty).
+
+USAGE
+  bookmarks-toggle            open the bookmarks window, or close it if it's up
+  bookmarks-toggle -h|--help  this help
+
+Opens ~/.dotfiles/tmux/bookmarks.txt (the tmux-picker + desk-widget source)
+in nvim inside a dedicated Kitty window (kitty/kol-bookmarks.conf, a kol-notes
+lookalike), floating via aerospace rule. Bound to cmd-alt-b.
+EOF
+}
+
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
+
+if pgrep -qf "kol-bookmarks.conf"; then
+  pkill -f "kol-bookmarks.conf"
+else
+  # app-bundle launch: PATH-proof under aerospace exec, cross-arch (no brew prefix).
+  # -u minimal init: the sticky must not load the daily nvim config
+  open -na kitty --args --config "$CONF" --title kol-bookmarks \
+    --directory "$(dirname "$BM_FILE")" \
+    nvim -u "$HOME/.dotfiles/kitty/kol-notes-init.lua" --noplugin "$BM_FILE"
+fi

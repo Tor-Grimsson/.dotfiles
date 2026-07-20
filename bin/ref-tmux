@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# ref-tmux — alias of `ref tmux` (bin/ref owns the engine).
+exec "$HOME/.dotfiles/bin/ref" tmux "$@"

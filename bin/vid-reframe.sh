@@ -8,6 +8,25 @@
 
 set -uo pipefail
 
+usage() {
+  cat <<'EOF'
+vid-reframe.sh — reframe clips to the folder's export-spec aspect.
+
+Run from inside frame-9-16 / frame-16-9 / frame-4-5.
+Outputs → ../_export/<folder>/<kebab-name>.mp4.
+
+USAGE
+  vid-reframe.sh            process all video files in the cwd
+  vid-reframe.sh <file>...  specific files only
+  vid-reframe.sh -h|--help  this help
+
+Reframes to the folder aspect (1080×1920 / 1920×1080 / 1080×1350) without upscaling;
+HEVC (libx265 CRF 22, hvc1) .mp4; discards any output that would grow vs its source.
+EOF
+}
+
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
+
 FOLDER=$(basename "$PWD")
 
 case "$FOLDER" in

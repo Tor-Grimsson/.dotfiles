@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# notes-toggle — summon/dismiss the kol-notes sticky (nvim in Kitty, kol-dark).
+#
+# The skitty-notes port: a dedicated Kitty window running nvim on a vault
+# note, floated top-right by an aerospace on-window-detected rule.
+# Bound to cmd-alt-n. Siblings: menubar-/dock-/ubersicht-toggle.
+set -euo pipefail
+
+NOTES_FILE="${KOL_NOTES_FILE:-$HOME/dev/projects/kol-vault/desk-notes.md}"
+CONF="$HOME/.dotfiles/kitty/kol-notes.conf"
+
+usage() {
+  cat <<'EOF'
+notes-toggle — summon/dismiss the kol-notes sticky (nvim in Kitty).
+
+USAGE
+  notes-toggle            open the notes window, or close it if it's up
+  notes-toggle -h|--help  this help
+
+Opens ~/dev/projects/kol-vault/desk-notes.md (override: KOL_NOTES_FILE)
+in nvim inside a dedicated kol-dark Kitty window (kitty/kol-notes.conf),
+floated top-right via aerospace. Bound to cmd-alt-n (aerospace.toml).
+EOF
+}
+
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
+
+if pgrep -qf "kol-notes.conf"; then
+  pkill -f "kol-notes.conf"
+else
+  [ -f "$NOTES_FILE" ] || printf '# desk notes\n\n' > "$NOTES_FILE"
+  # app-bundle launch: PATH-proof under aerospace exec, cross-arch (no brew prefix).
+  # -u own minimal init: the sticky must not load the daily nvim config
+  open -na kitty --args --config "$CONF" --title kol-notes \
+    --directory "$(dirname "$NOTES_FILE")" \
+    nvim -u "$HOME/.dotfiles/kitty/kol-notes-init.lua" --noplugin "$NOTES_FILE"
+fi

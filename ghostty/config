@@ -13,7 +13,7 @@
 # Same Nerd Font iTerm + powerlevel10k reference, so prompt glyphs render.
 font-family = "MesloLGS NF"
 # Ghostty's default (13) felt small; bump here or resize live with Cmd +/-.
-font-size = 16
+font-size = 14
 # Disable ligatures / contextual + discretionary alternates (mostly a no-op on
 # Meslo, which has none — kept for parity if the font ever changes).
 font-feature = -liga,-calt,-dlig
@@ -97,3 +97,10 @@ window-save-state = always
 # Check for updates on the stable channel (check only — doesn't auto-install).
 auto-update = check
 auto-update-channel = stable
+
+# ── kol-theme ────────────────────────────────────────────────────────────────
+# The selector's include — LAST so its colors override the theme/background
+# above (which stay as the fallback when the selector has never run).
+# `?` = optional: no error if the symlink doesn't exist yet. Managed by
+# bin/kol-theme; reload after a switch with Cmd+Shift+, or a new window.
+config-file = ?current-theme.conf
