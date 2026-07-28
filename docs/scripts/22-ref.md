@@ -2,8 +2,8 @@
 title: ref
 type: reference
 status: active
-updated: 2026-07-27
-description: The desk-reference-card dispatcher — one engine that bat-prints flat tagged cards (keys · tmux · files · widgets · system · nvim · nnow) filtered by tag; each one is a ref-<name> script printing its ref/<name>.md list.
+updated: 2026-07-28
+description: The desk-reference-card dispatcher — one engine that bat-prints flat tagged cards (keys · tmux · files · widgets · system · nvim) filtered by tag; each one is a ref-<name> script printing its ref/<name>.md list.
 aliases:
   - ref
 tags:
@@ -17,7 +17,7 @@ related:
 ---
 
 ## Summary
-`ref` is the parent of the reference-card family: flat, hand-kept, tag-filterable markdown cards printed via bat. Bare `ref` lists the cards; `ref <card> [tag …]` prints one. Every card also answers as a hyphenated command — `ref-keys`, `ref-tmux`, `ref-files`, `ref-widgets`, `ref-system`, `ref-nvim`, `ref-nnow` — so `ref-<TAB>` lists the family; bare `keys`/`files` remain as the short daily aliases. `ref-pick` (tmux popup: **Prefix + Ctrl+F**) is the guided front door — an fzf drill-down (card → section → read) for when you don't remember what a thing is called.
+`ref` is the parent of the reference-card family: flat, hand-kept, tag-filterable markdown cards printed via bat. Bare `ref` lists the cards; `ref <card> [tag …]` prints one. Every card also answers as a hyphenated command — `ref-keys`, `ref-tmux`, `ref-files`, `ref-widgets`, `ref-system`, `ref-nvim` — so `ref-<TAB>` lists the family; bare `keys`/`files` remain as the short daily aliases. `ref-pick` (tmux popup: **Prefix + Ctrl+F**) is the guided front door — an fzf drill-down (card → section → read) for when you don't remember what a thing is called.
 
 ## Why it exists
 The `keys` pattern (one concern, flat tagged data, zero prose) proved to be the most-used shell utility — worth systematising. Instead of copying the awk engine per tool, one dispatcher owns it and each new reference is just a data file plus a `card_file` line.
@@ -32,7 +32,6 @@ The `keys` pattern (one concern, flat tagged data, zero prose) proved to be the 
 | `ref/widgets.md` | the `widgets` card — desk-widget stack (simple-bar · bookmarks · notes · Übersicht) |
 | `ref/system.md` | the `system` card — system-level hotkeys & setup; `#theme` sections (⇧⌥⌘T toggle, kol-theme selector, gotchas) |
 | `ref/nvim.md` | the `nvim` card — the DAILY config (tree · flash · substitute · lsp · git · oil/harpoon since the 2026-07-20 nmix merge) |
-| `ref/nnow.md` | the `nnow` card — the from-scratch build, modes as tags (oil · harpoon · lsp) |
 
 ## How to use
 ```sh
@@ -41,7 +40,7 @@ ref widgets             # the whole desk-widget card
 ref widgets refresh     # just the refresh/debug section
 ref-widgets gotcha      # the burn-marks (hyphenated aliases work for every card)
 ref-system theme        # the theme sections (hotkeys, kol-theme, gotchas)
-ref-nvim harpoon        # harpoon binds in nnow
+ref-nvim harpoon        # harpoon binds in the daily config
 ref keys tmux popover   # same as `keys tmux popover`
 ref-pick                # interactive: pick a card, pick a section, read it
 ```

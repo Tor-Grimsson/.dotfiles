@@ -2,8 +2,8 @@
 title: Neovim from scratch — study doc
 type: reference
 status: active
-updated: 2026-07-14
-description: Study/build tracker for a Neovim config from scratch, following "The Ultimate Neovim Setup Guide From Scratch" + Sin-cy/dotfiles nvim. Learning notes, phase map, progress checkboxes. Building live at nvim-now/ (parallel via NVIM_APPNAME).
+updated: 2026-07-28
+description: Study/build tracker for a Neovim config from scratch, following "The Ultimate Neovim Setup Guide From Scratch" + Sin-cy/dotfiles nvim. Learning notes, phase map, progress checkboxes. Built live at nvim-now/; config retired 2026-07-28 after its features merged into the daily nvim.
 tags:
   - project/dotfiles
   - domain/shell
@@ -14,7 +14,9 @@ related:
 
 # Neovim from scratch — study doc
 
-Dedicated study space (split out of [`ricing-2025-backlog.md`](ricing-2025-backlog.md) on request). Goal: **understand and build a Neovim config from scratch** — not clone a distro. **Building live since 2026-07-14:** the config grows at `~/.dotfiles/nvim-now/`, run via `nnow` (`NVIM_APPNAME=nvim-now nvim`) parallel to the daily `nvim/` — work journal at `.kol/llm-context/playbook/2026-07-14-nvim-now-build.md`.
+Dedicated study space (split out of [`ricing-2025-backlog.md`](ricing-2025-backlog.md) on request). Goal: **understand and build a Neovim config from scratch** — not clone a distro. **Built live 2026-07-14** at `~/.dotfiles/nvim-now/` (run via `nnow`, parallel to the daily `nvim/`) — work journal at `.kol/llm-context/playbook/2026-07-14-nvim-now-build.md`.
+
+> **Config retired 2026-07-28.** The build served its purpose: its best features (Oil, harpoon, QoL keymaps) were merged into the daily `nvim/` on 2026-07-20 via the nmix overlay, and the `nvim-now/` folder + `nnow` alias were then scrapped. This doc stays as the learning record; the notes and map below remain valid study material.
 
 ## Sources
 - **Primary tutorial:** ["The Ultimate Neovim Setup Guide From Scratch"](https://youtu.be/FGVY7gbaoQI) (May 2025) — from-zero build: options → plugin manager → LSP → autocompletion → customization.

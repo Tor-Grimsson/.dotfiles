@@ -38,7 +38,7 @@ CLI helpers in `~/.dotfiles/bin` (symlinked to `~/bin`, on PATH). Renamed 2026-0
 | _(none)_ | [[19-keys|Keybind reference]] | 1 | `keys <tag>` — bat-print your own keybinds by tag (tmux/nvim/aerospace/git/…) |
 | _(none)_ | [[20-files|Folder navigation]] | 1 | `files <tag>` — bat-print bookmarked folders by tag; `to <tag>` jumps in (fzf when several) |
 | _(none)_ | [[21-help-lint|--help lint]] | 1 | `help-lint` — flag any `bin/` script missing the `--help` convention (static, skips binaries; the kol-appliant enforcement arm) |
-| _(none)_ | [[22-ref|Reference cards]] | 1 | `ref [card] <tag>` / `ref-<card>` — the reference-card dispatcher: keys · tmux · files · widgets · system · nvim · nnow · nmix; one engine, aliases per card |
+| _(none)_ | [[22-ref|Reference cards]] | 1 | `ref [card] <tag>` / `ref-<card>` — the reference-card dispatcher: keys · tmux · files · widgets · system · nvim; one engine, aliases per card |
 
 `cplan` is **non-prefixed** (callable as `cplan`, matching the `c*` gcalcli aliases)
 rather than `cal-…`. The other non-prefixed script is `tor-search`, under

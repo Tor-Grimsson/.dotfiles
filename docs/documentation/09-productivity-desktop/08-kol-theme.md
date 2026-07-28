@@ -2,9 +2,9 @@
 title: kol-theme — one-switch colorscheme selector
 type: reference
 status: active
-updated: 2026-07-14
+updated: 2026-07-28
 audience: internal
-description: The cross-tool colorscheme selector — one command reskins ghostty, kitty (main + notes sticky), tmux, nvim-now, btop, simple-bar, and the Übersicht desk widgets from per-theme native files in themes/. Ricing-backlog #4, built 2026-07-14.
+description: The cross-tool colorscheme selector — one command reskins ghostty, kitty (main + notes sticky), tmux, btop, simple-bar, and the Übersicht desk widgets from per-theme native files in themes/. Ricing-backlog #4, built 2026-07-14. The nvim leg is dormant since nvim-now retired 2026-07-28.
 aliases:
   - kol-theme
   - colorscheme selector
@@ -48,7 +48,7 @@ kol-theme linkarzu           # the reference desk: his palette + frosted ghostty
 | `ghostty.conf` | `ghostty/config` → `config-file = ?current-theme.conf` (last line, optional include; symlink kept in BOTH `~/.config/ghostty/` and repo `ghostty/` — relative-include resolution differs by entry path) | reload: Cmd+Shift+, or new window |
 | `kitty.conf` | `kitty/kitty.conf` (main, symlinked to `~/.config/kitty/`) + `kitty/kol-notes.conf` → both end `include current-theme.conf` (include symlink kept in BOTH dirs, same reason as ghostty) | main: `ctrl+shift+f5` or new window; sticky on next `cmd-alt-n` |
 | `tmux.conf` | `.tmux.conf` → `source-file -q ~/.config/kol-theme/current/tmux.conf` (last, overrides the gruvbox fallbacks above it) | instant — script runs `tmux source-file` |
-| `nvim.lua` | **copied** to `nvim-now/lua/current-theme.lua` (copy, not link — `<leader>ths` writes the same file) | new instances; running ones via `<leader>ths` |
+| `nvim.lua` | **dormant** — was copied to `nvim-now/lua/current-theme.lua`; the cp is a guarded no-op since nvim-now retired 2026-07-28 | revives when the daily `nvim/` adopts the selector |
 | `colors.json` | both Übersicht widgets prepend it in `command`, parse in render, **kol-dark hardcoded fallback** | instant — script runs `ubersicht-refresh` |
 | `btop.theme` | `~/.config/btop/themes/kol-current.theme` symlink + `color_theme` pointer (re-asserted every switch — btop rewrites its conf on exit) | next btop launch — see [[../01-shell-terminal/29-btop|btop]] |
 | `colors.json` → `simplebar` block | jq-merged into `.themes` of `~/.simplebarrc` — written **through** the symlink (repo file is the target), layout keys untouched; panel write-backs are beaten by re-patching every switch | instant — the double-pass refresh |
@@ -60,7 +60,7 @@ A theme's `tmux.conf` sources last, so it may carry **layout**, not just palette
 ## Gotchas
 
 - **tmux/ghostty/kitty keep their old colors as in-file fallbacks** — the theme include always lands *last* so it wins; delete nothing.
-- The daily `nvim/` is not a consumer yet (graduation item) — only `nvim-now` follows the selector, and kol-dark's `nvim.lua` stands in with gruvbox-material until a kol-dark nvim port exists (the parked emitters item).
+- **The nvim leg is dormant** — `nvim-now` (its only consumer) retired 2026-07-28; the daily `nvim/` never adopted the selector (still the graduation item). The `themes/*/nvim.lua` files stay on the shelf for when it does.
 - **Not yet themed:** yazi (needs authored flavors), starship (parked prompt).
 - simple-bar tuning via its panel still copy-backs to the repo file as before — kol-theme only owns the `.themes` color slots, everything else in `~/.simplebarrc` is yours.
 - The `linkarzu` theme's nvim half is a **tokyonight stand-in** (his real colors live in his neobean nvim config, no port on the shelf) — same pattern as kol-dark's gruvbox-material stand-in.

@@ -84,14 +84,10 @@ if [ -d "$DOT/fastfetch" ]; then
   ln -sfn "$DOT/fastfetch" "$HOME/.config/fastfetch"
 fi
 
-# neovim — daily config + the parallel from-scratch build (NVIM_APPNAME=nvim-now)
+# neovim — daily config
 if [ -d "$DOT/nvim" ]; then
   mkdir -p "$HOME/.config"
   ln -sfn "$DOT/nvim" "$HOME/.config/nvim"
-fi
-if [ -d "$DOT/nvim-now" ]; then
-  mkdir -p "$HOME/.config"
-  ln -sfn "$DOT/nvim-now" "$HOME/.config/nvim-now"
 fi
 
 # tmuxinator (shell-layout dashboards — whole dir of *.yml project configs)

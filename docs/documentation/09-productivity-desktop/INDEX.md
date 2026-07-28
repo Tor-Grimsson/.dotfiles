@@ -19,7 +19,7 @@ Everyday desktop tools installed as Homebrew casks: the launcher, the docs edito
 | [[05-aerospace|AeroSpace]] | i3-like tiling window manager driven from the keyboard. |
 | [[06-sketchybar|SketchyBar]] | **Archived** → `_archive/sketchybar/` — kept for reference (widget shell logic, power popup). |
 | [[07-ubersicht|Übersicht + simple-bar]] | The widget engine (JSX desktop layer) + the menu bar riding it — AeroSpace-aware; also hosts `kol-bookmarks.widget`. |
-| [[08-kol-theme|kol-theme]] | One-switch colorscheme selector — `kol-theme <name>` reskins ghostty/kitty/tmux/nvim-now/widgets from `themes/<name>/` native files. |
+| [[08-kol-theme|kol-theme]] | One-switch colorscheme selector — `kol-theme <name>` reskins ghostty/kitty/tmux/widgets from `themes/<name>/` native files. |
 
 ## Guides
 - [[sketchybar/INDEX|SketchyBar — complete guide]] — read-in-order how-to for the bar: the config model, every widget explained, adding your own, the styling toolkit, and the trendy-features roadmap. Companion to the [[06-sketchybar|SketchyBar]] reference.

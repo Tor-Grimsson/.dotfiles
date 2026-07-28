@@ -2,8 +2,8 @@
 title: docs — top-level router
 type: index
 status: active
-updated: 2026-07-11
-description: Entry point to the dotfiles vault. Splits into documentation (the tool catalog & guides), operations (repo machinery & systems), and three named siblings (kol-cli cheat cards, scripts, kol-terminality).
+updated: 2026-07-28
+description: Entry point to the dotfiles vault. Splits into documentation (the tool catalog & guides), operations (repo machinery & systems), and four named siblings (kol-cli cheat cards, scripts, kol-terminality, kol-claude-memory).
 tags:
   - project/dotfiles
   - domain/tooling
@@ -30,6 +30,8 @@ Boundary sets that are neither pure content nor pure machinery — kept at the t
 | [[kol-cli/INDEX|kol-cli]] | Printable cross-cutting cheat cards — Neovim · tmux · yazi · fzf · AeroSpace · git · network · Tailscale/Jellyfin · storage. Symlinked into the kol-vault for print. |
 | [[scripts/INDEX|scripts]] | The repo's own `bin/` helpers (au/vid/img/pdf/art/batch/tor/fs/bucket/os/theme), one doc per family. |
 | [[kol-terminality/INDEX|kol-terminality]] | The terminal-as-workstation initiative — vision & cockpit, workspaces, Neovim/desk/tmux/notes, the daily login→work→close→track ritual + automation, and connected reach. Outline + roadmap; nothing filtered. |
+| [[kol-claude-memory/INDEX|kol-claude-memory]] | The shared agent-memory system design — per-repo memory in `.kol/llm-memory/`, a global tier in `claude/memory/`, write-path symlinks, and the kol-glass vault as the lookup lens. Designed + built 2026-07-28. |
+| [[kol-agent-system/INDEX|kol-agent-system]] | The wholesale outline of the agent operating system — init, context economy, journaling, memory, plans, docs framework, human tier, behavior stack, routing, naming. One doc per module with diagrams + export notes. Working title; umbrella name open. |
 
 ## Related
 - [[TOOLING|tooling audit & sync]] — the drift audit, Brewfile reconciliation, cross-arch portability notes, and open items.

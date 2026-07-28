@@ -11,7 +11,7 @@
 #   ghostty  — ghostty/config ends with `config-file = ?current-theme.conf`
 #   kitty    — kitty/kitty.conf + kitty/kol-notes.conf end with `include current-theme.conf`
 #   tmux     — .tmux.conf sources ~/.config/kol-theme/current/tmux.conf last
-#   nvim     — nvim-now/lua/current-theme.lua (copied; <leader>ths also writes it)
+#   nvim     — guarded no-op since nvim-now retired 2026-07-28 (daily nvim not a consumer yet)
 #   widgets  — kol-bookmarks + kol-notes read current/colors.json each refresh
 #   btop     — ~/.config/btop/themes/kol-current.theme symlink + color_theme pointer
 #   simple-bar — colors.json's `simplebar` block jq-merged into .themes of
@@ -71,8 +71,9 @@ ln -sfn "../.config/kol-theme/current/kitty.conf" "$DOT/kitty/current-theme.conf
 mkdir -p "$HOME/.config/kitty"
 ln -sfn "../kol-theme/current/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
 
-# nvim: copy (not link) — the in-nvim switcher <leader>ths writes this same file
-cp "$THEMES/$NAME/nvim.lua" "$DOT/nvim-now/lua/current-theme.lua"
+# nvim: copy (not link) — the in-nvim switcher <leader>ths writes this same file.
+# ponytail: guard, not removal — nvim-now retired 2026-07-28; leg revives when the daily nvim adopts the selector
+[ -d "$DOT/nvim-now/lua" ] && cp "$THEMES/$NAME/nvim.lua" "$DOT/nvim-now/lua/current-theme.lua"
 
 # btop: constant theme symlink + point color_theme at it. btop rewrites its
 # conf on exit (why it isn't repo-tracked), so edit the live file in place.

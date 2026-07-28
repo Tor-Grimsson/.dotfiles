@@ -172,4 +172,22 @@ client-normalise, init-client/editor/repo, publication-mirror were cut in the 20
 
 ---
 
+## Dead-key Claude memory triage (~30 orphaned dirs)
+
+**Parked 2026-07-28** at the kol-claude-memory milestone. `~/.claude/projects/` holds ~30 memory dirs keyed to dead paths (the `kol-apparat-*` / `kol-monorepo` era, pre-reshuffle). Their facts were never migrated — the repos moved, the keys didn't.
+
+### shape
+Per dead key: map old path → the repo's current home (mostly `kol-apps/<name>`), create `.kol/llm-memory/` there, move the facts in, re-run kol-glass `sync.sh`. Judgment per dir — some repos are gone/renamed/merged; some facts are stale enough to delete outright.
+
+### kill criteria
+If a dead-key dir's facts are all stale on read, delete the dir instead of migrating. If nobody misses the old facts after a few months of the new system, delete the lot.
+
+---
+
+## kol-glass shareable scaffold (public template) — BUILT 2026-07-28
+
+Graduated and built same day: **`~/dev/projects/kol-humpty-dumpty/memory-glass`** (README · INDEX · `docs/SYSTEM.md` · `sync.sh` with neutral seam · .gitignore), token-screened clean. Open questions resolved: docs **bundled**, name **memory-glass** (neutral, rename-cheap). Publishing (git init + public push) is the user's step; journal: `llm-context/playbook/2026-07-28-memory-glass-scaffold.md`.
+
+---
+
 Nothing here is committed. This is a thought exercise until items move to `llm-context/AGENT-CONTEXT.md`.

@@ -84,7 +84,6 @@ function y() {
 
 # ── Aliases ───────────────────────────────────────────────────────────────────
 alias vim='nvim'   # the configured editor is nvim (repo nvim/ → ~/.config/nvim)
-alias nnow='NVIM_APPNAME=nvim-now nvim'   # the from-scratch build (repo nvim-now/), parallel to the daily config
 alias cc='clear'
 alias cl='claude'
 alias cllm='llm -c'   # continue the previous llm conversation (logged to SQLite)

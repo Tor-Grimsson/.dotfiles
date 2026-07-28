@@ -1,7 +1,6 @@
 # nvim — the daily config (~/.dotfiles/nvim/, lua/grim). leader = space. (nmix merged in 2026-07-20)
 
 ## #setup
-sibling       ref-nnow (the from-scratch build)
 <leader>fk    search every keymap live
 
 ## #modes
@@ -64,7 +63,7 @@ ctrl-space    incremental select (grow) · backspace shrink
 <leader>to tx tn tp   open · close · next · prev
 <leader>tf            buffer → new tab
 <leader>sv sh se sx   vsplit · hsplit · equal · close
-<leader>sm            maximize toggle (nnow: mx)
+<leader>sm            maximize toggle
 
 ## #harpoon
 harpoon =     per-project FILE BOOKMARKS, 4 jump slots (not tmux bookmarks)

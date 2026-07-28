@@ -20,7 +20,6 @@ card_def() {
     widgets) printf '%s|\n'     "$dot/ref/widgets.md" ;;
     system)  printf '%s|\n'     "$dot/ref/system.md" ;;
     nvim)    printf '%s|\n'     "$dot/ref/nvim.md" ;;
-    nnow)    printf '%s|\n'     "$dot/ref/nnow.md" ;;
     *) return 1 ;;
   esac
 }
@@ -40,7 +39,6 @@ CARDS
   widgets   desk-widget stack — simple-bar · bookmarks · notes · Übersicht   (ref-widgets)
   system    system-level hotkeys & setup — #theme section and siblings      (ref-system)
   nvim      the DAILY nvim config — tree/flash/substitute/lsp/git            (ref-nvim)
-  nnow      the from-scratch build — modes as tags, oil/harpoon/lsp          (ref-nnow)
 
 Tags match the card's `## #tag …` headers — case-insensitive, all must match:
   ref keys tmux popover
@@ -53,7 +51,7 @@ case "${1:-}" in
 esac
 
 card="$1"; shift
-def=$(card_def "$card") || { printf 'ref: no card "%s" (keys · tmux · files · widgets · system · nvim · nnow)\n' "$card" >&2; exit 1; }
+def=$(card_def "$card") || { printf 'ref: no card "%s" (keys · tmux · files · widgets · system · nvim)\n' "$card" >&2; exit 1; }
 data="${def%|*}"; base="${def##*|}"
 [ -f "$data" ] || { printf 'ref: no data at %s\n' "$data" >&2; exit 1; }
 

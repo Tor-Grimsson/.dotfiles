@@ -16,7 +16,7 @@ engine        bin/os-mode.sh — toggle · set · -t 3h30m relative timer
 alarm         bin/theme-alarm.sh — theme + Focus + Spotify + Telegram bundle (the launchd morning job)
 
 ## #theme #kol-theme #terminal
-switch        kol-theme <name> — reskins ghostty · kitty · tmux · nvim-now · btop · widgets · bar
+switch        kol-theme <name> — reskins ghostty · kitty · tmux · btop · widgets · bar
 themes        gruvbox · kol-dark · solarized-osaka · linkarzu   (themes/<name>/, native files per tool)
 current       ~/.config/kol-theme/current (symlink) — switch = relink + reloads
 nvim          <leader>ths — Telescope theme switcher (Sin-cy's 7 schemes + gruvbox-material)

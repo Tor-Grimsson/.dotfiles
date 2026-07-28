@@ -25,7 +25,7 @@ EOF
 case "${1:-}" in -h|--help) usage; exit 0 ;; esac
 
 ref="$HOME/.dotfiles/bin/ref"
-CARDS=(keys tmux files widgets system nvim nnow)
+CARDS=(keys tmux files widgets system nvim)
 
 while :; do
   card=$(printf '%s\n' "${CARDS[@]}" | fzf --prompt='ref > ' --layout=reverse \
