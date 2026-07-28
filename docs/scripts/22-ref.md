@@ -2,7 +2,7 @@
 title: ref
 type: reference
 status: active
-updated: 2026-07-15
+updated: 2026-07-27
 description: The desk-reference-card dispatcher — one engine that bat-prints flat tagged cards (keys · tmux · files · widgets · system · nvim · nnow) filtered by tag; each one is a ref-<name> script printing its ref/<name>.md list.
 aliases:
   - ref
@@ -17,7 +17,7 @@ related:
 ---
 
 ## Summary
-`ref` is the parent of the reference-card family: flat, hand-kept, tag-filterable markdown cards printed via bat. Bare `ref` lists the cards; `ref <card> [tag …]` prints one. Every card also answers as a hyphenated command — `ref-keys`, `ref-tmux`, `ref-files`, `ref-widgets`, `ref-system`, `ref-nvim`, `ref-nnow` — so `ref-<TAB>` lists the family; bare `keys`/`files` remain as the short daily aliases.
+`ref` is the parent of the reference-card family: flat, hand-kept, tag-filterable markdown cards printed via bat. Bare `ref` lists the cards; `ref <card> [tag …]` prints one. Every card also answers as a hyphenated command — `ref-keys`, `ref-tmux`, `ref-files`, `ref-widgets`, `ref-system`, `ref-nvim`, `ref-nnow` — so `ref-<TAB>` lists the family; bare `keys`/`files` remain as the short daily aliases. `ref-pick` (tmux popup: **Prefix + Ctrl+F**) is the guided front door — an fzf drill-down (card → section → read) for when you don't remember what a thing is called.
 
 ## Why it exists
 The `keys` pattern (one concern, flat tagged data, zero prose) proved to be the most-used shell utility — worth systematising. Instead of copying the awk engine per tool, one dispatcher owns it and each new reference is just a data file plus a `card_file` line.
@@ -26,6 +26,7 @@ The `keys` pattern (one concern, flat tagged data, zero prose) proved to be the 
 | Needs | For |
 |---|---|
 | `bat` | the highlighted print |
+| `fzf` | `ref-pick` only — the interactive card→section drill-down (tmux Prefix + Ctrl+F popup) |
 | `keys/keybinds.md` | the `keys` card — keybinds; also the `tmux` card (same data **scoped to `#tmux`** — a card can be a file + base tag, so domain views cost one line, no duplicate data) |
 | `files/folders.md` | the `files` card — curated folder map (`to <tag>` jumps) |
 | `ref/widgets.md` | the `widgets` card — desk-widget stack (simple-bar · bookmarks · notes · Übersicht) |
@@ -42,7 +43,9 @@ ref-widgets gotcha      # the burn-marks (hyphenated aliases work for every card
 ref-system theme        # the theme sections (hotkeys, kol-theme, gotchas)
 ref-nvim harpoon        # harpoon binds in nnow
 ref keys tmux popover   # same as `keys tmux popover`
+ref-pick                # interactive: pick a card, pick a section, read it
 ```
+In tmux, **Prefix + Ctrl+F** opens `ref-pick` in a popup — arrows or fuzzy-type at both levels, Enter drills in / pages the section (q back), Esc walks up and out.
 Tags match the `## #tag …` section headers (case-insensitive, all must match).
 `ref-<card> --help` prints card-specific help — its data path and live section list (pulled from the data file, so it never goes stale); bare `ref --help` keeps the family overview.
 

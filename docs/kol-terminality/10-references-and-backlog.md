@@ -43,4 +43,4 @@ The video sources can be turned into searchable markdown transcripts with `bin/a
 - [[12-nvim-from-scratch|nvim from scratch]] — the Sin-cy nvim build tracker.
 
 ## Loose flags captured
-- **`~/_inbox` image pipeline** — already live: `bin/clip-drop.sh` on tmux `prefix C-p` (pngpaste → yazi). Needs a catalog doc; feeds [[03-neovim|nvim image paste]].
+- **`~/_inbox` image pipeline** — already live: `bin/clip-drop.sh` on tmux `prefix C-p` (fzf capture menu: file/drop/note/review; `--note`/`--review` pair image + .md). Cataloged in dotfiles `docs/scripts/08-system.md`; feeds [[03-neovim|nvim image paste]].

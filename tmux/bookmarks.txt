@@ -1,5 +1,7 @@
 ~/.dotfiles
-~/.dotfiles/docs
+
+
+
 ~/.dotfiles/shell/.zshrc
 ~/.dotfiles/tmux/.tmux.conf
 ~/.dotfiles/aerospace/aerospace.toml

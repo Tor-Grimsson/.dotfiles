@@ -166,4 +166,10 @@ Low priority — cosmetic/metadata accuracy, no functional impact. Do it if a st
 
 ---
 
+## Skills cut 2026-06-04 — re-add review (parked 2026-07-27)
+
+client-normalise, init-client/editor/repo, publication-mirror were cut in the 2026-06-04 consolidation and never missed since. Parked from AGENT-CONTEXT open items after ~2 months cold. Revisit only if a client/publication workflow actually returns. Caveman stays permanently out (plugin, hooks, skill all removed).
+
+---
+
 Nothing here is committed. This is a thought exercise until items move to `llm-context/AGENT-CONTEXT.md`.

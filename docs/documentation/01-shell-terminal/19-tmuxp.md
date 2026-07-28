@@ -2,7 +2,7 @@
 title: tmuxp
 type: reference
 status: active
-updated: 2026-07-04
+updated: 2026-07-27
 description: Python session-layout tool with one feature tmuxinator lacks — tmuxp freeze snapshots an already-running session's layout into a config, instead of hand-typing one upfront.
 aliases:
   - tmuxp
@@ -30,6 +30,8 @@ Originally dropped 2026-07-04 in tmuxinator's favor, then reinstated the same da
 ## Setup
 Install (in `brewfile-cli`): `brew install tmuxp`
 
+Requires `export DISABLE_AUTO_TITLE='true'` before oh-my-zsh loads (set in `shell/.zshrc`) — omz auto-retitling panes breaks tmuxp's pane parsing (libtmux `zip()` crash mid-build).
+
 ## How to use
 ```sh
 # Build a layout by hand in tmux (split panes, cd into dirs, start your server, etc.),
@@ -54,5 +56,8 @@ Configs default to `~/.config/tmuxp/` (or a `.tmuxp.yaml`/`.tmuxp.json` in a pro
 | `tmuxp shell` | Interactive Python console with the session objects |
 | `tmuxp debug-info` | System info dump for troubleshooting |
 
-## Future use
-No frozen configs saved yet — the first real use case is: build a project's layout by hand once, `tmuxp freeze` it immediately, done. Compare the frozen YAML against a hand-typed tmuxinator equivalent to see which reads better as a reference example.
+## Gotcha — continuum race on fresh server start
+`tmuxp load` on a machine with tmux-continuum: if the tmux server isn't running yet, the load *starts* it, which fires continuum's auto-restore in parallel — the pane churn crashes tmuxp mid-build (partial session) while continuum restores the real one anyway. **After a reboot, check `tmux ls` first**: if continuum restored the session, just attach; `tmuxp load` is the fallback for when the restore didn't happen.
+
+## Saved configs
+`~/.config/tmuxp/studio.yaml` (machine-local, iMac) — frozen 2026-07-27 from the live 8-window studio session.

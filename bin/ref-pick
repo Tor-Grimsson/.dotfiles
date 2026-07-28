@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# ref-pick — fzf drill-down over the ref cards: card → section → read.
+# Popup companion to bin/ref (tmux: prefix Ctrl+F). Esc walks back up a level;
+# q in the reader returns to the section list. Zero deps beyond fzf/less/ref.
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+ref-pick — browse the ref cards interactively: card → section → read.
+
+Level 1 lists the cards with a live full-card preview; Enter drills into the
+card's sections (preview shows just the highlighted section); Enter again
+pages the section in less. q returns to the section list, Esc walks back up,
+Esc at the card list closes. Type anywhere to fuzzy-filter.
+
+USAGE
+  ref-pick            open the picker (tmux: prefix Ctrl+F popup)
+  ref-pick -h|--help  this help
+
+NOTES
+  Data comes from bin/ref — cards and tags stay in lockstep with it. Needs fzf.
+EOF
+}
+
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
+
+ref="$HOME/.dotfiles/bin/ref"
+CARDS=(keys tmux files widgets system nvim nnow)
+
+while :; do
+  card=$(printf '%s\n' "${CARDS[@]}" | fzf --prompt='ref > ' --layout=reverse \
+    --preview "$ref {}" --preview-window 'right,70%') || exit 0
+  while :; do
+    # Section headers, "## #a #b" → "a b" — a tag string ref takes as one arg.
+    section=$("$ref" "$card" | grep '^## ' | sed 's/^## //; s/#//g' | \
+      fzf --prompt="ref $card > " --layout=reverse \
+        --preview "$ref $card {}" --preview-window 'right,70%') || break
+    "$ref" "$card" "$section" | less -R
+  done
+done

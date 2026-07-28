@@ -8,11 +8,12 @@ Edit this file when you rebind — it's a hand-kept list, not generated.
 prefix C-t    scratch shell popup (cwd)
 prefix C-y    yazi file-manager popup (cwd)
 prefix C-g    lazygit popup — git TUI (cwd)
-prefix C-p    clipboard image → ~/_inbox → yazi (clip-drop.sh)
+prefix C-p    clipboard-image capture menu — file/drop/note/review (clip-drop.sh --menu)
 prefix C-s    sesh session picker popup
 prefix C-d    layout → WINDOW in current session (pane-layout.sh)
 prefix C-o    layout → its OWN session (layout-picker.sh)
 prefix C-b    bookmark picker (URL→browser, path→nvim)
+prefix C-f    ref-card picker — drill down card → section → read (ref-pick)
 
 ## #tmux #bookmark
 prefix C-b    open bookmark picker (fzf)
@@ -77,12 +78,13 @@ P             push   ·   p = pull
 q             quit the popup
 
 ## #tmux #clipdrop
-prefix C-p    capture: clipboard image → ~/_inbox → yazi opens on it
+prefix C-p    capture menu: file (yazi) · drop · note… · review (clip-drop.sh --menu; Esc = nothing saved)
 r             rename the file        (in yazi)
 x             cut it                 (in yazi)
 h/l j/k       navigate to the destination folder
 p             paste → moves it there
 q             quit (skip r/x/p to just leave it in ~/_inbox)
+shell         bare clip-drop.sh = save only · --note/--review = image + linked .md in a folder · ss-save.sh NAME DIR (ref-system clipboard)
 
 ## #rmpc #transport
 p             play / pause toggle

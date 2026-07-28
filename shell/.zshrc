@@ -24,6 +24,9 @@ fpath=("${HOMEBREW_PREFIX:-/usr/local}/share/zsh-completions" "${HOMEBREW_PREFIX
 # personal machine, so skip the check rather than chmod against Homebrew.
 ZSH_DISABLE_COMPFIX=true
 
+# tmuxp requires this — omz auto-retitling panes breaks its pane parsing (libtmux zip crash).
+export DISABLE_AUTO_TITLE='true'
+
 source $ZSH/oh-my-zsh.sh
 
 # ── PATH ──────────────────────────────────────────────────────────────────────
