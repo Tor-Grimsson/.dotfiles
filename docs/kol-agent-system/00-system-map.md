@@ -23,7 +23,7 @@ Start here to review everything built 2026-07-28. Numbers = module docs in this 
   ├── claude/               = repo-backed ~/.claude via bootstrap symlinks   [01 ✓]
   │   ├── CLAUDE.md            persona (private name)                        [08 ✓]
   │   ├── skills/  ×44         see jabberwocky MANIFEST for the full census  [08 ✓]
-  │   ├── hooks/               reinforce · footer-gate · goal-loop · doc-sync[08 ✓]
+  │   ├── hooks/               reinforce · gates: footer/goal/doc/git        [08 ✓]
   │   ├── packages/            kol-docs canon · scaffolds                    [06 ▷]
   │   └── memory/              GLOBAL memory tier (24 facts)                 [04 ✓]
   ├── .kol/

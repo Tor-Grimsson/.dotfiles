@@ -57,6 +57,8 @@ The whole system, outlined for export — wholesale or by module. Each module do
 | [[08-behavior\|08 — behavior]] | Discipline | Persona (ships as Ubu Roi) + ponytail + the enforcement hooks — anti-word-soup as code |
 | [[09-routing\|09 — routing]] | Search | The glass lenses over 30+ repos; grep first, indexer only when that fails |
 | [[10-naming\|10 — naming]] | Names | The three-family bag: Glass=state · Ubu=actors · Alice=motion |
+| [[11-grant\|11 — grant]] | Trust | Time-boxed permission windows: `prefix g` = 15m of read-only git + downloads, self-expiring, statusline-badged |
+| [[12-setup-a-to-z\|12 — setup A–Z]] | Adopt | The zero-to-verified walkthrough of the published system: humpty · memory-glass · jabberwocky · dotfiles wiring, every command verbatim, traps footnoted |
 
 ## Export rules (apply to every module)
 

@@ -25,7 +25,7 @@ prefix C-d               pick a layout → grafted as a WINDOW in the current se
 prefix C-o               pick a layout → spawned as its OWN session
 mux home/stats/torrent   dashboards: home=fastfetch+rmpc, stats=monitors, torrent
 prefix space             cycle the built-in pane layouts
-prefix Alt-1..5          preset layout: 1 even-columns · 2 even-rows · 3 big-top · 4 big-left · 5 grid
+prefix Alt-1..5          preset layout: 1 even-columns (1×3) · 2 even-rows · 3 big-top · 4 big-left · 5 grid (2×2)
 
 ## #tmux #session
 prefix C-n    new named session (switches in)
@@ -49,7 +49,11 @@ prefix -      split top/bottom (same dir)
 prefix h j k l   move between panes
 prefix H J K L   resize pane
 prefix z      zoom pane (toggle fullscreen)
-prefix m / M  mark / unmark a pane
+prefix m / M  tint / untint pane bg — visual marker (e.g. the local pane among SSH ones)
+prefix < / >  join: pull a picked window in as a pane / send this pane into a picked window
+prefix !      break pane out into its own window
+prefix { / }  swap pane with previous / next
+prefix q      flash pane numbers — press one to jump
 prefix x      kill pane
 
 ## #tmux #copy
@@ -67,6 +71,10 @@ e            edit the harpoon list
 ## #tmux #resurrect
 prefix S      save all sessions now (tmux-resurrect; C-s is sesh's)
 prefix C-r    restore last save (post-reboot; continuum autosaves every 15 min)
+
+## #tmux #claude
+prefix g      agent-grant toggle — 15m window where Claude may run read-only git + downloads (press again = revoke)
+shell         agent-grant [min] / off / status — same window from the CLI
 
 ## #tmux #lazygit
 prefix C-g    open the lazygit popup (cwd)
@@ -250,6 +258,28 @@ cmd-alt-b              summon/dismiss kol-bookmarks sticky — edit bookmarks.tx
 shift+enter   newline in Claude Code — kitty.conf maps it to ESC+CR (meta-enter)
 ctrl+shift+f5 reload kitty config in a running window
 
+## #git #new
+run in the project folder, top to bottom, verbatim — NAME is the only thing you replace
+
+git init -b main                                     1 · make it a repo
+git add -A                                           2 · stage everything
+git commit -m "init"                                 3 · first commit
+gh repo create NAME --private --source . --push      4 · GitHub repo + remote + push, one shot
+
+DONE — plain `git push` works from here on  ·  --public instead of --private = open repo
+one-paste: git init -b main && git add -A && git commit -m "init" && gh repo create NAME --private --source . --push
+(separate commands — join with &&, never with trailing backslashes)
+
+rescue A — step 4 errored ("not a git repository") or origin points at a dead repo:
+
+git remote remove origin                             (skip if "No such remote")
+gh repo create NAME --private --source . --push      re-run step 4 — creates + wires + pushes
+
+rescue B — GitHub repo EXISTS but push says "no configured push destination":
+
+git remote add origin "$(gh repo view NAME --json url -q .url).git"
+git push -u origin main
+
 ## #git #lazygit
 prefix C-g    lazygit popup (tmux)
 space         stage / unstage file · Enter = stage hunk
@@ -259,6 +289,11 @@ s  r  d  e    (commits) squash · reword · drop · edit (rebase)
 q             quit
 
 ## #gh
+gh repo create NAME --private --source . --push   new repo from cwd (see #git #new)
+gh repo rename NEW [-R owner/old]                 rename on GitHub (remote repoints itself)
+gh browse                                         open current repo's page in the browser
+gh repo view --json url -q .url                   print the repo URL as text (feed to remote add etc.)
+gh repo clone / view --web                        clone · open in browser
 gh pr create / checkout / merge     pull requests
 gh run watch / view --log-failed    CI
 gh issue create / list              issues

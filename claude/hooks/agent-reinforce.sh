@@ -25,9 +25,31 @@ file=""
 if [ "$n" -eq 1 ]; then file="$dir/reinforce-full.txt"
 elif [ $((n % 3)) -eq 0 ]; then file="$dir/reinforce-compact.txt"
 fi
-[ -n "$file" ] || exit 0
 
-msg=$(cat "$file" 2>/dev/null)
+msg=""
+[ -n "$file" ] && msg=$(cat "$file" 2>/dev/null)
+
+# agent-grant window (bin/agent-grant, flag = expiry epoch): while open, inject
+# EVERY turn — it overrides the NO-GIT rule for reads and the agent must know.
+gf="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.agent-grant"
+if [ -f "$gf" ]; then
+  exp=$(head -n1 "$gf" 2>/dev/null | tr -d '[:space:]')
+  gnow=$(date +%s)
+  case "$exp" in
+    ''|*[!0-9]*) rm -f "$gf" ;;
+    *)
+      if [ "$gnow" -lt "$exp" ]; then
+        grant="[grant] AGENT-GRANT WINDOW OPEN ($(( (exp - gnow + 59) / 60 ))m left): the user has temporarily allowed READ-ONLY git (log/show/diff/status/blame/branch/remote/…) plus downloads (git clone/fetch, wget, curl). The NO-GIT rule is suspended for READS this window — use it for what the task needs. Write git (add/commit/push/checkout/merge/…) remains forbidden, always."
+        if [ -n "$msg" ]; then msg="$msg
+
+$grant"; else msg="$grant"; fi
+      else
+        rm -f "$gf"
+      fi
+      ;;
+  esac
+fi
+
 [ -n "$msg" ] || exit 0
 
 python3 -c 'import sys, json

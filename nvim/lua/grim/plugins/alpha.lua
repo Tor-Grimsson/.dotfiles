@@ -27,6 +27,13 @@ return {
       dashboard.button("q", " > Quit NVIM", "<cmd>qa<CR>"),
     }
 
+    -- Buttons are 50 cells stock — too narrow since the SPC → <Leader> relabel,
+    -- so the right-aligned hint overprints the longest label. 60 clears it.
+    for _, b in ipairs(dashboard.section.buttons.val) do
+      b.opts.width = 60
+      b.opts.hl_shortcut = "YellowItalic" -- gruvbox-material yellow, tracks the theme
+    end
+
     -- Send config to alpha
     alpha.setup(dashboard.opts)
 

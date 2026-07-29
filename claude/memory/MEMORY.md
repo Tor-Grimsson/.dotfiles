@@ -25,3 +25,7 @@
 - [Docs lookup-first](docs-lookup-first.md) — reference docs lead with tables/steps/commands, prose detail below; deps stated head-on in a table, never sideways in prose
 - [Clarity over cleverness](feedback_clarity_over_cleverness.md) — lead with the plain answer in ≤3 short lines; reasoning only on "why"; if it needs a metaphor it is not clear yet
 - [Glass naming system](project_glass_naming_system.md) — Glass=state, Ubu Roi=actors, Alice=motion; names are picked from the bag, never invented; document in .kol + docs/ at outline start; umbrella name OPEN
+- [Own it, move on](feedback_own_it_move_on.md) — callout = one-line ownership then the work, zero validation prose; checkpoint questions are not build authorization
+- [Status chores footer-only](feedback_status_chores_footer_only.md) — git/deploy/restart chores + trailing caveats are footer tokens, never prose
+- [Text-transform is preference, not law](feedback_text_transform_preference_not_law.md) — never flag existing uppercase/transform as a violation
+- [Bash weight discipline](feedback_bash_weight_discipline.md) — no builds for routine edits, no spawn loops, no node_modules-wide scans

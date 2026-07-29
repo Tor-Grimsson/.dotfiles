@@ -24,12 +24,21 @@
       "mcp__playwright",
       "mcp__glif"
     ],
-    "deny": [
-      "Bash(git)",
-      "Bash(git:*)"
-    ]
+    "deny": []
   },
+  "model": "claude-fable-5[1m]",
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/git-gate.sh\""
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [
@@ -72,13 +81,20 @@
   },
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true,
-    "ponytail@ponytail": true
+    "ponytail@ponytail": false,
+    "humpty@humpty": true
   },
   "extraKnownMarketplaces": {
     "ponytail": {
       "source": {
         "source": "github",
         "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "humpty": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/biskup/dev/projects/kol-dumpty/humpty"
       }
     }
   },
@@ -89,6 +105,5 @@
     "enabled": true,
     "mode": "hold"
   },
-  "skipWorkflowUsageWarning": true,
-  "model": "claude-fable-5[1m]"
+  "skipWorkflowUsageWarning": true
 }

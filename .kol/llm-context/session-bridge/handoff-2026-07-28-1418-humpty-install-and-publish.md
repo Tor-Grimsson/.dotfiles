@@ -1,4 +1,6 @@
-# Handoff — 2026-07-28 14:18
+# Handoff — 2026-07-28 14:18 — ✅ RESOLVED 2026-07-28 21:50
+
+> All legs closed same day: humpty installed live + published (v0.4.0, github.com/Tor-Grimsson/humpty) · memory-glass published (…/memory-glass) · jabberwocky published (…/jabberwocky, six publish gates green). Arc sealed in `session-log/2026-07-28-MILESTONE-export-published.md`. Kept as record only — nothing in-flight below.
 
 ## Goal of the current arc
 Install and live-test the humpty-dumpty plugin, then publish the three public repos — deferred by the user until he's out of multiple-agent cross-repo work.

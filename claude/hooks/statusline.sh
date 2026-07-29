@@ -1,42 +1,56 @@
 #!/usr/bin/env bash
-# Status line: ponytail mode badge + model + cwd + context-window usage + token usage.
-# The ponytail badge logic is mirrored here (not sourced) from the plugin's own script
-# so a plugin update can't silently change/break this statusline:
-#   ~/.claude/plugins/marketplaces/ponytail/hooks/ponytail-statusline.sh
+# Status line: humpty dial badge + model + cwd + context-window usage + token usage.
+# The humpty badge reads the plugin's state file directly (not sourced) so a plugin
+# update can't silently change/break this statusline. State contract:
+#   ${CLAUDE_CONFIG_DIR:-~/.claude}/.humpty-active — key=value lines, muzzle=1..4
 
 input=$(cat)
 sep=" $(printf '\033[2m\342\224\202\033[0m') "
 out=""
 add() { [ -n "$1" ] && out="${out:+$out$sep}$1"; }
 
-# ── ponytail mode badge ──────────────────────────────────────────────────────
-flag="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.ponytail-active"
+# ── humpty dial badge — solid block in the tmux active-window yellow ─────────
+flag="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.humpty-active"
 if [ -f "$flag" ]; then
-  mode=$(head -n1 "$flag" | tr -d '[:space:]')
-  if [ -z "$mode" ] || [ "$mode" = "full" ]; then
-    add "$(printf '\033[38;5;108m[PONYTAIL]\033[0m')"
+  lvl=$(sed -n 's/^muzzle=//p' "$flag" | head -n1 | tr -d '[:space:]')
+  case "$lvl" in
+    1) name="loose" ;; 3) name="strict" ;; 4) name="muzzle" ;; *) name="" ;;
+  esac
+  # tmux current-window tab yellow (#fabd2f on #1d2021), in 256-color codes —
+  # this renderer approximates truecolor badly (learned live); 214/234 are the nearest.
+  add "$(printf '\033[1;48;5;214;38;5;234m humpty-dumpty%s \033[0m' "${name:+:$name}")"
+fi
+
+# ── agent-grant badge — git-read + download window open (bin/agent-grant) ────
+gflag="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.agent-grant"
+if [ -f "$gflag" ]; then
+  g_exp=$(head -n1 "$gflag" | tr -d '[:space:]')
+  g_now=$(date +%s)
+  if [ "$g_exp" -gt "$g_now" ] 2>/dev/null; then
+    add "$(printf '\033[1;33m[GRANT git %dm]\033[0m' $(( (g_exp - g_now + 59) / 60 )))"
   else
-    add "$(printf '\033[38;5;108m[PONYTAIL:%s]\033[0m' "$(printf '%s' "$mode" | tr '[:lower:]' '[:upper:]')")"
+    rm -f "$gflag"
   fi
 fi
 
-# ── model (session info) ─────────────────────────────────────────────────────
-add "$(printf '%s' "$input" | jq -r '.model.display_name // empty')"
+# ── model (session info) — gruvbox purple ────────────────────────────────────
+model=$(printf '%s' "$input" | jq -r '.model.display_name // empty')
+[ -n "$model" ] && add "$(printf '\033[38;5;175m%s\033[0m' "$model")"
 
-# ── cwd, ~-relative ───────────────────────────────────────────────────────────
+# ── cwd, ~-relative — gruvbox blue ───────────────────────────────────────────
 cwd=$(printf '%s' "$input" | jq -r '.workspace.current_dir // .cwd // empty')
-add "${cwd/#$HOME/~}"
+[ -n "$cwd" ] && add "$(printf '\033[38;5;109m%s\033[0m' "${cwd/#$HOME/~}")"
 
-# ── context-window usage (pre-calculated by Claude Code) ─────────────────────
+# ── context-window usage — gruvbox aqua ──────────────────────────────────────
 used_pct=$(printf '%s' "$input" | jq -r '.context_window.used_percentage // empty')
-[ -n "$used_pct" ] && add "$(printf 'ctx %.0f%%' "$used_pct")"
+[ -n "$used_pct" ] && add "$(printf '\033[38;5;108mctx %.0f%%\033[0m' "$used_pct")"
 
 # ── token usage (input+output tokens counted so far this session) ────────────
 in_tok=$(printf '%s' "$input" | jq -r '.context_window.total_input_tokens // empty')
 out_tok=$(printf '%s' "$input" | jq -r '.context_window.total_output_tokens // empty')
 if [ -n "$in_tok" ] && [ -n "$out_tok" ]; then
   tok_fmt=$(awk -v n="$((in_tok + out_tok))" 'BEGIN { if (n >= 1000) printf "%.1fk", n / 1000; else printf "%d", n }')
-  add "tok $tok_fmt"
+  add "$(printf '\033[38;5;179mtok %s\033[0m' "$tok_fmt")"   # gruvbox yellow
 fi
 
 # ── plan rate-limit quota (Settings → Usage: 5h session / 7d weekly) ──────────
@@ -58,18 +72,9 @@ if [ -n "$five_pct" ]; then
       fi
     fi
   fi
-  add "$(printf '5h %.0f%%%s' "$five_pct" "$reset_str")"
+  add "$(printf '\033[38;5;208m5h %.0f%%%s\033[0m' "$five_pct" "$reset_str")"   # gruvbox orange
 fi
 
-week_pct=$(printf '%s' "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
-if [ -n "$week_pct" ]; then
-  week_reset=$(printf '%s' "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
-  reset_str=""
-  if [ -n "$week_reset" ]; then
-    week_epoch=$(printf '%s' "$week_reset" | jq -Rr 'fromdateiso8601? // empty')
-    [ -n "$week_epoch" ] && reset_str=" (resets $(date -r "$week_epoch" '+%a %H:%M'))"
-  fi
-  add "$(printf '7d %.0f%%%s' "$week_pct" "$reset_str")"
-fi
+# (7d weekly quota field removed 2026-07-28 — user request)
 
 printf '%s\n' "$out"

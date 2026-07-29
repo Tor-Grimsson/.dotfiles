@@ -261,6 +261,10 @@ asset-library/cms/stack/mood/mood-04-1600.jpg
 asset-library/cms/stack/mood/mood-04-2560.jpg
 asset-library/cms/stack/mood/mood-04-400.jpg
 asset-library/cms/stack/mood/mood-04-800.jpg
+asset-library/cms/stack/mood/mood-05-1200.jpg
+asset-library/cms/stack/mood/mood-05-1600.jpg
+asset-library/cms/stack/mood/mood-05-400.jpg
+asset-library/cms/stack/mood/mood-05-800.jpg
 asset-library/cms/stack/stack-hero/stack-hero-1200.jpg
 asset-library/cms/stack/stack-hero/stack-hero-1600.jpg
 asset-library/cms/stack/stack-hero/stack-hero-2560.jpg
