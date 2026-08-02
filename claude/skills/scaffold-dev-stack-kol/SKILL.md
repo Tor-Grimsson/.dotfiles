@@ -21,7 +21,7 @@ Bootstrap a new web app in the current working directory on the **published** KO
 - `AppShell` + `SideNav` from kol-framework wired around the router
 - Umami analytics in `index.html`, commented out — uncomment to opt in
 
-> Superseded model: this skill used to copy DS source from a local repo. Since 2026-07-01 the packages are live on npm (`kol-design-system` is the maintenance home) — consumers install, never vendor.
+> Superseded model: this skill used to copy DS source from a local repo. Since 2026-07-01 the packages are live on npm (`kol-ds-ui` is the maintenance home) — consumers install, never vendor.
 
 ---
 
@@ -80,7 +80,7 @@ If an import specifier 404s, check the installed package's `exports`/files and u
 
 ### 5. Fonts — contract point 4
 
-The theme references brand fonts at absolute `/fonts/…`; packages don't bundle them. If `~/dev/projects/kol-apparat/kol-design-system/showcase/public/fonts/` exists locally, copy it to `public/fonts/`. Otherwise leave `public/fonts/` empty and tell the user the app falls back to system fonts until fonts land there.
+The theme references brand fonts at absolute `/fonts/…`; packages don't bundle them. If `~/dev/projects/kol-ds-ui/showcase/public/fonts/` exists locally, copy it to `public/fonts/`. Otherwise leave `public/fonts/` empty and tell the user the app falls back to system fonts until fonts land there.
 
 ### 6. Shell + router
 
@@ -100,4 +100,4 @@ The theme references brand fonts at absolute `/fonts/…`; packages don't bundle
 
 ## Docs
 
-The design-system documentation is NOT copied — it lives with the system (`kol-design-system/docs/documentation/`, and each package's README covers install/use). For per-repo agent context, run `/scaffold-llm-context` (lands `LLM_RULES.md` + `.kol/llm-context/`); for the docs system, run `/scaffold-docs-system` separately.
+The design-system documentation is NOT copied — it lives with the system (`kol-ds-ui/docs/documentation/`, and each package's README covers install/use). For per-repo agent context, run `/scaffold-llm-context` (lands `LLM_RULES.md` + `.kol/llm-context/`); for the docs system, run `/scaffold-docs-system` separately.

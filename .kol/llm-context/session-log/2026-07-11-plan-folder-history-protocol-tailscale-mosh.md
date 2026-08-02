@@ -12,7 +12,7 @@
 - **Repointed cross-refs:** `llm-context/{README,ARCHITECTURE,AGENT-CONTEXT}`, root `LLM_RULES.md` (tree + naming law + 🔔 protocol-update notification), `docs/scripts/07-torrent.md`.
 - **Scaffold template** (`claude/packages/scaffold/03-scaffold-llm-context/`): `LLM_RULES.md` + `HISTORY.md` rename + new `.kol/llm-plan/` so future scaffolds emit the new shape.
 - **Skills:** `scaffold-llm-context`, `kol-docs-overview`, `kol-migrate-structure` repointed. Resolved a canon conflict — `kol-docs-overview` called `plan` a *dated* folder → corrected to `NN-`. `kol-docs-{fm,md}` checked, left clean (their "plan" is the doc archetype, not the file).
-- **Docs (yours):** `docs/operations/02-claude-agents/01-agent-context-protocol.md`.
+- **Docs (yours):** `docs/operations/systems/claude-harness/01-agent-context-protocol.md`.
 
 ### Tailscale / mosh remote access
 - `brewfile-cli` += `brew "tailscale"` (the daemon build; **mosh already present**).

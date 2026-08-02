@@ -49,6 +49,14 @@ return {
       },
     }
 
+    -- socket badge: this instance's predictable address, when it has one.
+    -- The zshrc nvim() wrapper makes the first nvim per tmux session listen at
+    -- /tmp/nvim-<session>.sock (see `ref-nvim porting`); extra instances show nothing.
+    local function socket_badge()
+      local name = (vim.v.servername or ""):match("^/tmp/(nvim%-.+)%.sock$")
+      return name or ""
+    end
+
     -- configure lualine with modified theme
     lualine.setup({
       options = {
@@ -56,6 +64,7 @@ return {
       },
       sections = {
         lualine_x = {
+          { socket_badge },
           {
             lazy_status.updates,
             cond = lazy_status.has_updates,

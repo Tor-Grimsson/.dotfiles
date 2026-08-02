@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+# agent-drop — process ~/_inbox/agent/: one headless Claude run per dropped file,
+# result written beside it, input moved to done/.
+#
+# Started by launchd (macos/launchd/com.kolkrabbi.agent-drop.plist, QueueDirectories)
+# or by hand. QueueDirectories re-fires while the directory is NON-EMPTY, so
+# emptying the queue is not optional — leave a file and launchd loops forever.
+#
+# Safety floor (docs/operations/systems/headless-agents/04-safety.md):
+#   - reports, never decides: output is a NEW sibling .result.md, nothing is edited
+#   - KOL_HEADLESS=1 exempts the run from goal-loop (nobody can type /kol-goal done)
+#   - --allowedTools is the minimum set; no Edit, no Bash, no WebFetch, no Agent
+#   - one lockfile, so a burst of drops is one pass, not one paid run per file
+set -euo pipefail
+
+QUEUE="${AGENT_DROP_DIR:-$HOME/_inbox/agent}"
+DONE="$QUEUE/done"
+LOG="$QUEUE/.log"
+LOCK="$QUEUE/.lock"
+MODEL="${AGENT_DROP_MODEL:-claude-haiku-4-5-20251001}"
+REPO="$HOME/.dotfiles"
+
+usage() {
+  cat <<'EOF'
+agent-drop — drop a file in ~/_inbox/agent/, get a .result.md beside it.
+
+USAGE
+  agent-drop              process everything queued now
+  agent-drop --dry-run    list what WOULD be processed, run nothing
+  agent-drop --init       create the queue folders
+  agent-drop -h|--help    this help
+
+WHAT IT DOES
+  For each queued file: one `claude -p` run that reads it and writes
+  <name>.result.md next to the original, then moves the input to done/.
+  It only ever CREATES files. Nothing is edited, renamed or deleted.
+
+QUEUE
+  ~/_inbox/agent/          drop files here        (override: AGENT_DROP_DIR)
+  ~/_inbox/agent/done/     inputs land here after
+  ~/_inbox/agent/.log      every run, appended    · .lock while running
+
+TYPES
+  .md .txt .json .yaml .yml .toml .csv .log  — anything else is skipped and
+  logged, so a binary never reaches the model.
+
+NOTES
+  Model: haiku by default (override: AGENT_DROP_MODEL) — triage is cheap work.
+  Needs `claude` on PATH. Card: ref-system. Spec + safety rules:
+  docs/operations/systems/headless-agents/
+EOF
+}
+
+case "${1:-}" in
+  -h|--help) usage; exit 0 ;;
+  --init)    mkdir -p "$DONE"; echo "queue ready: ${QUEUE/#$HOME/~}"; exit 0 ;;
+esac
+
+DRY=0
+[ "${1:-}" = "--dry-run" ] && DRY=1
+
+mkdir -p "$DONE"
+
+# One pass at a time. A burst of drops must not become a burst of paid runs.
+exec 9>"$LOCK"
+if ! flock -n 9 2>/dev/null; then
+  # macOS has no flock(1) by default; fall back to a mkdir lock.
+  if ! mkdir "$LOCK.d" 2>/dev/null; then
+    echo "agent-drop: already running (lock held)"; exit 0
+  fi
+  trap 'rmdir "$LOCK.d" 2>/dev/null || true' EXIT
+fi
+
+command -v claude >/dev/null || { echo "agent-drop: claude not on PATH"; exit 1; }
+
+shopt -s nullglob
+processed=0
+for f in "$QUEUE"/*; do
+  [ -f "$f" ] || continue                       # skip done/ and anything odd
+  base="${f##*/}"
+  case "$base" in .*) continue ;; esac          # skip .log .lock and friends
+
+  # Type gate first, but a dry run must MOVE NOTHING — the skip branch used to
+  # mv before the DRY check, so `--dry-run` quietly emptied part of the queue.
+  case "${base##*.}" in
+    md|txt|json|yaml|yml|toml|csv|log) ok=1 ;;
+    *) ok=0 ;;
+  esac
+
+  if (( DRY )); then
+    (( ok )) && echo "would process: $base" || echo "would skip (type): $base"
+    continue
+  fi
+
+  if (( ! ok )); then
+    printf '%s  SKIP  %s (unhandled type)\n' "$(date +%FT%T)" "$base" >> "$LOG"
+    mv "$f" "$DONE/"; continue
+  fi
+
+  out="$QUEUE/${base%.*}.result.md"
+  printf '%s  RUN   %s\n' "$(date +%FT%T)" "$base" >> "$LOG"
+
+  # cd into the repo so the run gets this repo's CLAUDE.md, skills and hooks.
+  # KOL_HEADLESS=1 releases goal-loop — print mode has nobody to close a goal.
+  if ( cd "$REPO" && KOL_HEADLESS=1 claude -p "A file was dropped for you to triage: $f
+
+Read it. Write a short report to $out covering:
+  1. what this file IS, in one line
+  2. what it appears to be FOR
+  3. where in the estate it belongs, if anywhere — name a real path
+  4. anything that looks wrong, stale, or worth acting on
+
+Rules: create $out and nothing else. Do not edit, rename or delete any file.
+Do not run git. If the file is unreadable or empty, say so and stop." \
+      --model "$MODEL" \
+      --allowedTools "Read,Grep,Glob,Write" \
+      --output-format text >> "$LOG" 2>&1
+  ); then
+    printf '%s  OK    %s → %s\n' "$(date +%FT%T)" "$base" "${out##*/}" >> "$LOG"
+  else
+    printf '%s  FAIL  %s (exit %s)\n' "$(date +%FT%T)" "$base" "$?" >> "$LOG"
+  fi
+
+  mv "$f" "$DONE/"                              # MUST empty the queue
+  processed=$((processed+1))
+done
+
+(( DRY )) || printf '%s  PASS  %d file(s)\n' "$(date +%FT%T)" "$processed" >> "$LOG"
+echo "agent-drop: $processed file(s) processed · log: ${LOG/#$HOME/~}"

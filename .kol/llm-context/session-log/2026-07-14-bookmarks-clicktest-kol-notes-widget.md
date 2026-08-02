@@ -22,7 +22,7 @@
 - `ubersicht/kol-notes.widget/index.jsx` — new widget
 - `bootstrap.sh` — symlink line for kol-notes.widget
 - `docs/documentation/09-productivity-desktop/07-ubersicht.md` — worked example 3, description → three examples, bootstrap comment, bookmarks bg stale-claim fix (80% + blur → 96% near-solid), click-test note
-- `docs/kol-terminality/06-notes-and-tasks.md` — sticky-widget section: shipped line + answered-de-facto line; `updated` bumped
+- `docs/operations/systems/terminality/06-notes-and-tasks.md` — sticky-widget section: shipped line + answered-de-facto line; `updated` bumped
 
 ## Current State
 

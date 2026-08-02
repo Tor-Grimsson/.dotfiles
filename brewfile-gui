@@ -18,6 +18,7 @@ cask "visual-studio-code"          # Code editor
 
 # Window / launcher / menu bar
 cask "aerospace"                   # Tiling window manager (i3-like, keyboard-driven)
+cask "rectangle"                   # Floating-window snapping (halves/quarters/thirds) — replaced Magnet 2026-08-01: gaps + PER-EDGE margins, all `defaults write` keys, so the geometry lives in macos/defaults.sh instead of a GUI
 # brew "FelixKratz/formulae/sketchybar" # archived — config kept at _archive/sketchybar for reference; `brew services stop sketchybar` + uninstall when ready
 cask "ubersicht"                   # Desktop widget engine (JSX/WebView) — hosts simple-bar (the menu bar) + kol-bookmarks.widget; config: ubersicht/
 cask "raycast"                     # Launcher / command palette

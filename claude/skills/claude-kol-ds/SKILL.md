@@ -1,14 +1,14 @@
 ---
 name: claude-kol-ds
-description: Mandatory orientation gate for any agent working in the kol-design-system repo — read EVERY theme + framework CSS file and the foundations docs to build a real overview of the design system BEFORE touching, proposing, or answering anything. The non-negotiable minimum: no edits and no DS answers until the @import cascade, tokens, color, and type systems have actually been read, not skimmed. Use when starting work in kol-design-system, before any component/token/color/type change there, or on /claude-kol-ds.
+description: Mandatory orientation gate for any agent working in the kol-ds-ui repo — read EVERY theme + framework CSS file and the foundations docs to build a real overview of the design system BEFORE touching, proposing, or answering anything. The non-negotiable minimum: no edits and no DS answers until the @import cascade, tokens, color, and type systems have actually been read, not skimmed. Use when starting work in kol-ds-ui, before any component/token/color/type change there, or on /claude-kol-ds.
 ---
 
 # claude-kol-ds — read the whole design system first (non-negotiable)
 
-You do **not** touch, propose, or answer anything in `kol-design-system` until you have read the CSS below and can describe the system. This is the floor, not a nice-to-have. Reading filenames is not reading files. If you skip this, you will hardcode a value that's already a token, put a rule in the wrong cascade layer, or invent a class that already exists — every time.
+You do **not** touch, propose, or answer anything in `kol-ds-ui` until you have read the CSS below and can describe the system. This is the floor, not a nice-to-have. Reading filenames is not reading files. If you skip this, you will hardcode a value that's already a token, put a rule in the wrong cascade layer, or invent a class that already exists — every time.
 
 ## 0. Locate
-Repo root = the kol-design-system checkout — `packages/theme/`, `packages/framework/`, and `LLM_RULES.md` are present (on this machine: `~/dev/projects/kol-apparat/kol-design-system`). Not in it → `cd` there or ask for the path. Then obey its own `LLM_RULES.md`.
+Repo root = the kol-ds-ui checkout — `packages/theme/`, `packages/framework/`, and `LLM_RULES.md` are present (on this machine: `~/dev/projects/kol-ds-ui`). Not in it → `cd` there or ask for the path. Then obey its own `LLM_RULES.md`.
 
 ## 1. Read the cascade entry FIRST
 `packages/theme/kol-theme.css` is the entry point — it `@import`s the whole theme in **cascade order**, all inside `@layer components`. Read it first so every other file has a place in the order (later import wins). The order is load-bearing:

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# ref-explorer — alias of `ref explorer` (bin/ref owns the engine).
+exec "$HOME/.dotfiles/bin/ref" explorer "$@"

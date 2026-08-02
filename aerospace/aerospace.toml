@@ -29,12 +29,14 @@ default-root-container-layout = 'tiles'
 #               tall monitor (anything higher than wide) gets vertical orientation
 default-root-container-orientation = 'auto'
 
-# Mouse follows focus when focused monitor changes
-# Drop it from your config, if you don't like this behavior
+# Mouse does NOT follow focus across monitors (disabled 2026-08-01).
+# The stock value was ['move-mouse monitor-lazy-center'], which warps the cursor
+# to the new monitor's centre every time an app on another display takes focus —
+# so cmd-tabbing threw the pointer across the desk. [] is aerospace's own
+# documented fallback, not a hack.
 # See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
 # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
-# Fallback value (if you omit the key): on-focused-monitor-changed = []
-on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focused-monitor-changed = []
 
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
@@ -86,8 +88,12 @@ on-mode-changed = []
     inner.vertical =   10
     outer.left =       10
     outer.bottom =     10
-    outer.top =        48   # aligns window tops with the widget column (top: 48)
-    outer.right =      304   # widget column (280 + 12 right margin) + 12 gap to windows
+    # Per-monitor: the widget column only exists where Übersicht draws it, so
+    # only that monitor pays the gutter. Trailing value = every other monitor.
+    # Flip a monitor's widgets off (Übersicht menu icon → the widget → screen)
+    # and it gets its full snap area back with no config change. 2026-07-31.
+    outer.top =        [{ monitor.main = 48 },  10]   # widget column top: 48
+    outer.right =      [{ monitor.main = 304 }, 10]   # 280 col + 12 margin + 12 gap
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -157,8 +163,12 @@ on-mode-changed = []
 
     # Desk chrome toggles — flip macOS auto-hide via osascript (bin/ scripts).
     # First press triggers a one-time Automation permission prompt.
+    #
+    # NO cmd-alt-d here, and do not re-add it: macOS owns ⌥⌘D natively
+    # (symbolic hotkey 52, "Turn Dock Hiding On/Off", enabled by default).
+    # Binding it as well flipped autohide TWICE per press — the dock looked
+    # frozen. bin/dock-toggle retired 2026-07-31; the native chord still works.
     cmd-alt-m = 'exec-and-forget ~/.dotfiles/bin/menubar-toggle'
-    cmd-alt-d = 'exec-and-forget ~/.dotfiles/bin/dock-toggle'
     cmd-alt-u = 'exec-and-forget ~/.dotfiles/bin/ubersicht-toggle'
     cmd-alt-r = 'exec-and-forget ~/.dotfiles/bin/ubersicht-refresh'
     cmd-alt-n = 'exec-and-forget ~/.dotfiles/bin/notes-toggle'
@@ -259,6 +269,16 @@ on-mode-changed = []
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
     ctrl-alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
+    # Send the FOCUSED WINDOW to the next/prev monitor (the workspace stays put).
+    # Magnet is bound to the same chord and CANNOT do this job: a tiled window
+    # belongs to a workspace, and a workspace belongs to one monitor, so when
+    # Magnet moves the frame across, aerospace re-tiles it straight back — it
+    # flashes onto the other display and snaps home. Only floating windows (our
+    # 11 `layout floating` rules) escape that. This command moves the node in
+    # aerospace's own model, so it sticks. Added 2026-07-31.
+    ctrl-alt-cmd-right = 'move-node-to-monitor --focus-follows-window --wrap-around next'
+    ctrl-alt-cmd-left  = 'move-node-to-monitor --focus-follows-window --wrap-around prev'
+
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     ctrl-alt-shift-semicolon = 'mode service'
 
@@ -295,12 +315,29 @@ on-mode-changed = []
 
 # T for Terminal and CLI
 
-# Finder floats (and still lands on W) — a file browser is a palette, not a
-# tile; tiling it squashes column view and drags the layout around. Only the
-# FIRST matching rule runs, so this combined rule replaces the old W-only one.
+# QuickLook rides Finder's bundle id — the panel is drawn by an XPC service
+# running on Finder's behalf, so the Accessibility API reports it as
+# com.apple.finder and ANY Finder rule catches it. Verified 2026-07-31:
+#   aerospace list-windows --monitor all --app-bundle-id com.apple.finder \
+#     --format '%{window-id} | %{app-bundle-id} | %{window-title}'
+#   → 800 | com.apple.finder | Quick Look
+# The title is the literal string "Quick Look", not the previewed filename, so
+# it is a stable discriminator. This rule MUST stay above the Finder rule —
+# only the FIRST match runs. It exists to keep a workspace move OFF the panel:
+# with `move-node-to-workspace W` on the Finder rule, spacebar-previewing sent
+# the panel to W and dragged that monitor's workspace with it.
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-run = ["layout floating", "move-node-to-workspace W"]
+if.window-title-regex-substring = 'Quick Look'
+run = "layout floating"
+
+# Finder floats — a file browser is a palette, not a tile; tiling it squashes
+# column view and drags the layout around. The old `move-node-to-workspace W`
+# half is gone (2026-07-31); if it ever comes back, the QuickLook rule above is
+# what stops it applying to the preview panel.
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
@@ -405,4 +442,12 @@ run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.ActivityMonitor'
+run = "layout floating"
+
+
+# ── aero-add: generated rules ─────────────────────────────────────────────────
+# Written by bin/aero-add. Hand-editable — the marker is only a landmark.
+
+[[on-window-detected]]
+if.app-id = 'tv.jellyfin.player'
 run = "layout floating"

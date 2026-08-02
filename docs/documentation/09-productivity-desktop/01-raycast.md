@@ -41,6 +41,7 @@ The extension store and built-in window management. It absorbs the jobs that wou
 - Browse the Store from within Raycast to add extensions; manage them under Extensions in Settings.
 - Define text snippets and enable Clipboard History in Settings for everyday reuse.
 - Use window-management commands (halves, thirds, maximize) bound to your own shortcuts.
+- **Repo script commands, per-machine setup (2026-07-29, from the system ref card):** add `~/.dotfiles/raycast/scripts` once — Raycast → Extensions → Scripts → Add Directories. Hotkeys are per-machine too: assign per command (⌘K → Configure); they live in Raycast's DB, not the repo. Live pair: ⇧⌥⌘E re-enables AeroSpace (`aerospace-enable.sh` — it can't re-enable itself while off), ⇧⌥⌘A fires the wake-alarm test.
 
 ## Future use
 Script Commands and custom extensions can turn Raycast into a front-end for the dotfiles tooling — wrapping `rclone` syncs, font installs, or project scripts behind a typed command instead of a terminal invocation.

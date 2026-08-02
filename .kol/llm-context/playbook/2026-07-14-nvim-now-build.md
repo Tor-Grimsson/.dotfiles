@@ -1,7 +1,7 @@
 # Playbook — nvim-now: the from-scratch build
 
 > **Live work journal.** Append-only, newest at the bottom, real timestamps. One idea per line, no prose.
-> Milestone logs: `session-log/`. Study doc: `docs/kol-terminality/12-nvim-from-scratch.md`.
+> Milestone logs: `session-log/`. Study doc: `docs/operations/systems/terminality/12-nvim-from-scratch.md`.
 
 **Goal:** Build the `now` set from the map triage (`claude.ai/code/artifact/f13381d8`) as a real config at `nvim-now/`, parallel to the daily `nvim/` via `NVIM_APPNAME` — graduate to `~/.config/nvim` only when it's the editor actually reached for.
 

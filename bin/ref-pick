@@ -25,7 +25,10 @@ EOF
 case "${1:-}" in -h|--help) usage; exit 0 ;; esac
 
 ref="$HOME/.dotfiles/bin/ref"
-CARDS=(keys tmux files widgets system nvim)
+# Read the card list FROM the engine — a hardcoded array here silently lost
+# skill/humpty/repo when those cards were added (found 2026-07-31).
+CARDS=()
+while IFS= read -r c; do CARDS+=("$c"); done < <("$ref" --cards)
 
 while :; do
   card=$(printf '%s\n' "${CARDS[@]}" | fzf --prompt='ref > ' --layout=reverse \

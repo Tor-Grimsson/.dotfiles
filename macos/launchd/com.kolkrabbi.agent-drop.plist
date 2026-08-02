@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  agent-drop — headless triage of ~/_inbox/agent/.
+
+  QueueDirectories, NOT StartInterval: it fires when the directory becomes
+  NON-EMPTY and keeps firing until it is empty again. bin/agent-drop moves each
+  input to done/ for exactly that reason — leave a file and this loops forever.
+
+  RunAtLoad is deliberately absent: loading at login should not process a queue
+  you haven't looked at. The drop itself is the trigger.
+
+  /bin/zsh -lc because launchd hands a job a minimal environment with no brew on
+  PATH — the same workaround dot-sync and tg-inbox use.
+
+  Spec + safety rules: docs/operations/systems/headless-agents/
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.kolkrabbi.agent-drop</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/zsh</string>
+        <string>-lc</string>
+        <string>"$HOME/.dotfiles/bin/agent-drop"</string>
+    </array>
+
+    <key>QueueDirectories</key>
+    <array>
+        <string>/Users/biskup/_inbox/agent</string>
+    </array>
+
+    <key>StandardOutPath</key>
+    <string>/Users/biskup/_inbox/agent/.launchd.out.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/biskup/_inbox/agent/.launchd.err.log</string>
+
+    <key>ThrottleInterval</key>
+    <integer>30</integer>
+</dict>
+</plist>

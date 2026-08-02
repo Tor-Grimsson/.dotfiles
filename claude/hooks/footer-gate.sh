@@ -71,13 +71,23 @@ nonempty = [l for l in lines if l.strip()]
 if len(nonempty) <= 2:
     sys.exit(0)
 
-FOOTER = re.compile(r'show noise|to expand', re.I)
+# The footer is identified by its SHAPE, not by a closing phrase: a whole line of
+# two or more `·`-separated `label: value` tokens, optionally wrapped in backticks.
+# (Was `show noise|to expand` until 2026-08-01 — the user removed that phrase as
+# noise, so the detector moved to the grammar the footer already had.)
+FOOTER = re.compile(r'^\s*`?\s*[\w/+-]+:\s*[^·|`]+(?:·\s*[\w/+-]+:\s*[^·|`]+)+`?\s*$')
 
 def block(reason):
     print(json.dumps({"decision": "block", "reason": "[footer-gate] " + reason}))
     sys.exit(0)
 
-# 1) Nothing after the footer line.
+# 1) Nothing after the footer line — EXCEPT module 05, `where we are`.
+#
+# Spec: kol-dumpty/humpty/docs/documentation/08-formats/05-where-we-are.md (the user's
+# own design, 2026-07-31). It sits below the footer behind a break of two ------ rule
+# lines, then ONE fenced block carrying ARC / DONE N-of-NN / NEXT. Anything else after
+# the footer is the trailing prose this gate exists for and is still blocked.
+RULE = re.compile(r'^_{6,}$')
 footer_idx = None
 for i, l in enumerate(lines):
     if FOOTER.search(l):
@@ -85,48 +95,42 @@ for i, l in enumerate(lines):
 if footer_idx is not None:
     after = [l for l in lines[footer_idx + 1:] if l.strip()]
     if after:
-        block('Content appears AFTER the footer line. The footer must be the LAST line — '
-              'fold whatever is below it into the footer counts or delete it, then re-emit.')
+        # The module opens with a FENCE (so the breather's blank lines survive) and
+        # carries the breather's two ______ rule lines inside it — the same shape the
+        # header card has. Anything else after the footer is still trailing prose.
+        legal = (after[0].strip().startswith('```')
+                 and len([l for l in after if RULE.match(l.strip())]) >= 2)
+        if not legal:
+            block('Content appears AFTER the footer line. The footer must be the LAST line — '
+                  'fold whatever is below it into the footer counts or delete it, then re-emit. '
+                  '(The only exception is the `where we are` block: ONE fence carrying the '
+                  'breather — two blank lines, two ______ rules, two blank lines — then '
+                  'ARC/DONE/NEXT.)')
 
 # Only scrutinise the trailing zone the user complains about: the last 8 non-empty lines.
 footer_line = lines[footer_idx] if footer_idx is not None else None
 tail = nonempty[-8:]
 
-OFFER = re.compile(
-    r'^\s*[-*>]*\s*(want me to|would you like|do you want|should i|shall i|'
-    r'let me know|i can (also|go|now)|if you.?d like|feel free to)\b', re.I)
-STATUS = re.compile(
-    r'\b(untouched|nothing (?:to commit|installed|changed|to install)|no changes|'
-    r'created at|updated at|session log (?:created|written|updated|added)|'
-    r'staged for you)\b', re.I)
-# Open-items / next-steps / "your turn" / call-to-action headers + strong user-directed
-# imperatives in the trailing zone. These pull the user back in — the exact thing the
-# footer exists to suppress. Anchored at line start (optional bullet/bold prefix).
-CTA = re.compile(
-    r'^\s*[-*>#]*\s*\**\s*'
-    r'(your turn|open items?|open questions?|next steps?|to-?dos?|action items?|'
-    r'follow[- ]?ups?|left to do|still (?:to do|pending)|'
-    r"you(?:'ll| will)? (?:need|have|want) to|you (?:should|must|need to)|"
-    r"remember to|don'?t forget|make sure to)\b", re.I)
-
-for l in tail:
-    if footer_line is not None and l is footer_line:
-        continue
-    if FOOTER.search(l):          # any footer-like line is exempt from the token checks
-        continue
-    if OFFER.search(l):
-        block('The reply ends with a trailing offer ("want me to…" / "let me know…"). '
-              'End on the last real point — delete that line and re-emit.')
-    if STATUS.search(l):
-        block('A bare status/recap line ("X untouched" / "created-updated at" / '
-              '"session log written") is sitting in the trailing prose instead of the '
-              'ONE footer line. Fold it into the footer counts (or drop it) and re-emit.')
-    if CTA.search(l):
-        block('An open-items / next-steps / "your turn" / call-to-action block is in the '
-              'trailing prose. That pulls the user back in — the exact thing the footer '
-              'exists to prevent. Fold it into the ONE footer line (a count/token) or move '
-              'it into the doc/log, then re-emit. Nothing in the reply may prompt the user to act.')
-
+# OFFER, CTA and STATUS were DELETED 2026-08-01 after the first corpus measurement
+# they ever had. `_files/gate-fp.py` over 4,469 real reply/response pairs:
+#
+#     FG status   coverage 1.5%   FP 2.0%
+#     FG offer    coverage 1.2%   FP 1.4%
+#     FG cta      coverage 0.2%   FP 0.5%
+#
+# The bar every other lever in this system is held to is coverage >= 15%. D2, D3, D4
+# and D6 were all retired on it the same day; keeping these three would have been a
+# second standard for the same job. They fired on runbook lines ("You'll need to run
+# bootstrap-cli.sh"), on prerequisites ("Make sure to source the CLI half first"), on
+# a footer token of its own ("open questions: 0"), and on the single architectural
+# fork CLAUDE.md explicitly permits.
+#
+# WHAT SURVIVES is rule 1 above: nothing after the footer except module 05. It is the
+# only rule here with no measured false positive, and it is the footer contract itself
+# rather than a guess about phrasing.
+#
+# Full result: kol-dumpty/humpty/docs/documentation/06-measure/_results/
+#              2026-08-01-every-reply-content-gate-is-under-the-bar.md
 sys.exit(0)
 PYEOF
 exit 0

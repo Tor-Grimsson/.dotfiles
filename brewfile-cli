@@ -24,9 +24,18 @@ brew "sevenzip"    # 7-Zip — yazi preview backend: browse/extract inside archi
 brew "resvg"       # SVG renderer — yazi preview backend for .svg
 brew "chafa"       # ASCII/unicode-block image renderer — yazi's fallback when it can't detect a native image protocol (e.g. over SSH+tmux); iTerm2 direct never needed it
 brew "broot"       # Tree navigation + fuzzy jump
+# TUI file managers on trial 2026-08-01 — layout-mode survey, docs/operations/08-research/01-tui-file-managers.md
+brew "vifm"        # vi file manager — vifmrc is a .vimrc dialect, :rename edits names as text
+brew "midnight-commander" # `mc` — dual-pane commander, Alt+, flips split orientation, 39 skins
+brew "xplr"        # Lua-programmable layouts (Horizontal/Vertical nested arbitrarily)
+brew "ranger"      # Python, miller + multipane view modes
+brew "superfile"   # `spf` — live-variable panel count, ships a gruvbox theme
+brew "lf"          # Go, ranger-like, ratios only
+brew "nnn"         # C, minimal, ratios only
 brew "glow"        # Render markdown in the terminal (used by scripts + Quick Actions)
 brew "mdcat"       # Markdown renderer — yazi .md previewer + `M` full-screen viewer (clean headings, inline iTerm2 images)
 brew "watch"       # Run a command on an interval, fullscreen output (procps-ng)
+brew "emojify"     # Convert :shortcodes: in text to emoji — a filter, not a picker (picker = emoji-fzf, uv-managed)
 brew "chawan"      # TUI web browser (text-mode, renders in terminal)
 brew "w3m"         # Classic text-mode browser — instant, no JS; -dump renders HTML to stdout
 brew "gcalcli"     # Google Calendar from the terminal — agenda/week/month, natural-language quick-add (needs a one-time OAuth client; token is machine-local, not in the repo)
@@ -74,6 +83,7 @@ brew "pipx"        # Install Python CLI apps in isolated venvs (one app per env)
 brew "uv"          # Fast Python project/dep/version manager (+ uvx tool runner)
                    #   uv-tool-managed (run per machine): llm — terminal LLM client, docs/documentation/04-dev-languages/09-llm.md
                    #   uv-tool-managed (run per machine): pdf2image — PDF→raster; avoids the poppler-symlink clash the brew formula has
+                   #   uv-tool-managed (run per machine): emoji-fzf — fzf emoji picker, `emo` function in shell/.zshrc
 brew "jq"          # Command-line JSON processor
 brew "yq"          # Command-line YAML/JSON processor (jq for YAML; reads .md frontmatter — au-tag.sh)
 brew "gh"          # GitHub CLI — PRs/issues/releases/CI + `gh api`; docs/documentation/04-dev-languages/12-gh.md

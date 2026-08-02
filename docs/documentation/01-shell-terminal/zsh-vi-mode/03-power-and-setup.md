@@ -96,7 +96,7 @@ For the record — the vi-mode work touched exactly these files, all **in-place 
 | --- | --- |
 | `shell/.zshrc` | added the guarded vi-mode block |
 | `brewfile-cli` | added `brew "zsh-vi-mode"` |
-| `keys/keybinds.md` | added the `#vimode` drill section |
+| `ref/shell.md` | the `vimode` drill section (was keys/keybinds.md until the 2026-07-29 dissolution) |
 | `docs/…/28-zsh-vi-mode.md` | catalog reference (new) |
 | `docs/…/zsh-vi-mode/` | this guide folder (new) |
 | both `INDEX.md`s | routing + tool count |

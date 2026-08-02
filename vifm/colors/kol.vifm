@@ -1,0 +1,34 @@
+" kol — vifm colorscheme built ONLY from ANSI 0-15, never hex.
+" That is the whole point: the terminal's palette is set by kol-theme
+" (themes/<name>/ghostty.conf + kitty.conf), so switching theme retints
+" vifm for free with no file here to update.
+"
+" 0 bg   1 red    2 green  3 yellow  4 blue   5 magenta  6 cyan   7 fg
+" 8 grey 9 bred  10 bgreen 11 byellow 12 bblue 13 bmagenta 14 bcyan 15 bfg
+
+highlight clear
+
+highlight Win         cterm=none    ctermfg=7      ctermbg=default
+highlight Border      cterm=none    ctermfg=8      ctermbg=default
+highlight TopLine     cterm=none    ctermfg=11     ctermbg=default
+highlight TopLineSel  cterm=bold    ctermfg=0      ctermbg=11
+highlight StatusLine  cterm=none    ctermfg=7      ctermbg=default
+highlight WildMenu    cterm=bold    ctermfg=0      ctermbg=11
+highlight CmdLine     cterm=none    ctermfg=7      ctermbg=default
+highlight ErrorMsg    cterm=bold    ctermfg=9      ctermbg=default
+highlight JobLine     cterm=bold    ctermfg=0      ctermbg=6
+
+" the cursor line — the active pane's is the solid yellow block that
+" tmux's current window uses, so the eye reads them the same way
+highlight CurrLine    cterm=bold    ctermfg=0      ctermbg=11
+highlight OtherLine   cterm=none    ctermfg=7      ctermbg=8
+highlight Selected    cterm=bold    ctermfg=13     ctermbg=default
+
+highlight Directory   cterm=bold    ctermfg=12     ctermbg=default
+highlight Link        cterm=none    ctermfg=14     ctermbg=default
+highlight BrokenLink  cterm=bold    ctermfg=9      ctermbg=default
+highlight Executable  cterm=bold    ctermfg=10     ctermbg=default
+highlight Device      cterm=bold    ctermfg=3      ctermbg=default
+highlight Fifo        cterm=none    ctermfg=5      ctermbg=default
+highlight Socket      cterm=bold    ctermfg=13     ctermbg=default
+highlight HardLink    cterm=none    ctermfg=3      ctermbg=default

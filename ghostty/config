@@ -67,6 +67,12 @@ macos-titlebar-style = hidden
 # Option = Alt, so shell word-nav (Alt-B/F) and fzf Alt-C keep working.
 macos-option-as-alt = true
 
+# Cmd+Left is a Ghostty default that sends Ctrl+A (line start) — but Ctrl+A is
+# the tmux prefix, so inside tmux it silently armed the prefix instead of moving.
+# Send it twice: tmux's `bind C-a send-prefix` passes one literal Ctrl+A through.
+# Outside tmux the doubled byte is harmless (line start twice).
+keybind = super+arrow_left=text:\x01\x01
+
 # Shift+Enter in Claude Code: Ghostty handles this NATIVELY via the Kitty
 # keyboard protocol — no keybind needed (per Claude Code's terminal-config docs).
 # A `shift+enter=text:\n` override actually BREAKS it under tmux: it sends a raw

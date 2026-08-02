@@ -28,5 +28,19 @@ Browsing, navigating, organizing, archiving, and renaming files — across the t
 | [[15-sevenzip|7-Zip (sevenzip)]] | High-ratio archiver (`7zz`); yazi's archive preview/extract backend. |
 | [[16-resvg|resvg]] | Fast, correct SVG → PNG rasterizer; yazi's SVG preview backend. |
 
+## On trial — the layout-mode survey (2026-08-01)
+
+Seven managers installed together to answer *"can a file manager have a layout other than three columns"*. The comparison and the verdict live in [[operations/08-research/01-tui-file-managers|the survey]]; these are their reference docs. [[02-yazi|yazi]] remains the daily driver.
+
+| Tool | Description |
+|------|-------------|
+| [[18-vifm|vifm]] | Dual-pane manager whose config language is a vim dialect; `:rename` edits filenames as text. **The pick of the seven.** |
+| [[19-midnight-commander|midnight-commander]] | The classic two-panel commander (`mc`); `Alt+,` flips the split orientation. |
+| [[20-xplr|xplr]] | Layouts and keymaps are Lua code; the selection list survives changing directory. |
+| [[21-ranger|ranger]] | The original miller-column manager; `multipane` shows tabs side by side. |
+| [[22-superfile|superfile]] | `spf` — panel count varies at runtime, with a live process bar for file operations. |
+| [[23-lf|lf]] | Single Go binary, no runtime; the fastest cold start. |
+| [[24-nnn|nnn]] | ~35KB C binary configured purely by environment variables; four contexts. |
+
 ## Guides
 - [[17-yazi-cheatsheet|Yazi cheatsheet (beginner)]] — zero-assumptions, workflow-first guide to using [[02-yazi|Yazi]]: navigating, previewing, opening/sending files to apps, copy/move, fuzzy-find, and feeding files to Claude (llm), plus one big everything-table.

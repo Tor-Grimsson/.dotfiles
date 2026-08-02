@@ -13,14 +13,6 @@ The parking lot for ~/.dotfiles: speculative ideas and deferred cleanups, held h
 
 ---
 
-## macOS ricing 2025 (linkarzu) → see dedicated doc
-
-**Premise:** a themed wishlist of tools/scripts to evaluate — btop, simple-bar, skitty-notes, a cross-tool colorscheme selector, tmux pane arrows, osascript menubar-hide + osascript learning, and his dotfiles *organizational* layout. Too big for one parking-lot entry.
-
-Captured with links + open questions in [`docs/research/ricing-2025-backlog.md`](../../docs/research/ricing-2025-backlog.md) — moved to the user-facing vault (`.kol/` is agent-only, `docs/` is what the user reads). Discuss after rest.
-
----
-
 ## mbp ↔ iMac Claude reconcile
 
 **Premise:** the MBP's `~/.claude` lives in iCloud Workbox and has diverged (different CLAUDE.md, different skills) from the repo. Bring it under git without losing the fresher iCloud-side work.
@@ -49,7 +41,7 @@ If the MBP work turns out to be throwaway, just `bootstrap.sh` the MBP and overw
 
 ### shape
 1. launchd user agents (`KeepAlive`) for Jackett + `transmission-daemon` — no cold start, the big win.
-2. iTerm2 Hotkey Window (built-in) as the global-hotkey terminal — zero code.
+2. Ghostty's built-in quick terminal (`toggle_quick_terminal`, bound with a `global:` keybind) as the drop-down — zero code. (Was iTerm2's Hotkey Window; the live terminal is Ghostty since the 2026-07-29 audit.)
 3. Optional: self-healing daemon start + query stash inside `tor-search`; fzf result picker; loop mode.
 
 ### open questions
@@ -84,24 +76,6 @@ If terminal/GitHub reading never becomes a habit, keep wikilinks as-is and close
 
 ---
 
-## AeroSpace keybind conflict — move off the Alt modifier
-
-**Premise:** AeroSpace's default modifier is Alt (Option), which collides with Figma/Affinity (Option-drag to duplicate, measurements, etc.). Currently worked around by manually toggling `aerospace enable` when moving between apps — high friction, wants automating.
-
-### shape
-Move AeroSpace's base modifier from `alt` → **`ctrl-alt`** across all binds in `aerospace/aerospace.toml`. Those apps live on Option + Cmd, not Ctrl+Alt, so the collision class disappears and AeroSpace stays always-on — no more enable/disable dance. Removes the conflict rather than managing it.
-
-### the tradeoff
-Move-window binds become 4-key chords (`ctrl-alt-shift-<letter>`). If that grates, the upgrade is a **Hyper key** (Caps Lock → Ctrl+Alt+Cmd+Shift via Karabiner-Elements) bound as the AeroSpace mod — clean single chords, but adds Karabiner as a dependency.
-
-### why not auto-toggle
-No native per-app disable in AeroSpace; `on-window-detected` only sets layout, not keybind suppression. A focus-watcher script calling `aerospace enable off/on` is fragile — fires on every focus change, and `enable off` unmanages/reflows windows.
-
-### kill criteria
-If Ctrl+Alt chords feel fine in practice, ship them and close. If they're awkward and Karabiner's unwanted, stay on the manual toggle.
-
----
-
 ## AGENT-CONTEXT status-list trim
 
 **Premise:** `AGENT-CONTEXT.md` is ~66 KB — the "Status at a glance" bullet list has grown append-only across every session since 2026-06-04. It loads every session, so the bloat is a real cost. `session-log/` is the archive; AGENT-CONTEXT should be *current state* only.
@@ -118,7 +92,7 @@ Once the file is back under ~30 KB and the list holds a sane window, done. Recur
 
 ## active → canonical status pass
 
-**Premise:** all 207 docs carry `status: active`. The kol-docs spec distinguishes `active` (might shift under an agent) from `canonical` (an agent can act without verifying). Stable tool-reference docs are really `canonical`; blanket-`active` undersells them.
+**Premise:** all 287 docs carry `status: active`. The kol-docs spec distinguishes `active` (might shift under an agent) from `canonical` (an agent can act without verifying). Stable tool-reference docs are really `canonical`; blanket-`active` undersells them.
 
 ### shape
 Reclassify the settled reference docs to `canonical`, leaving genuinely-in-flux ones `active`. Judgment per doc, not a blind sweep — which is why it wasn't folded into the 2026-07-08 frontmatter-conform pass.
@@ -172,9 +146,9 @@ client-normalise, init-client/editor/repo, publication-mirror were cut in the 20
 
 ---
 
-## Dead-key Claude memory triage (~30 orphaned dirs)
+## Dead-key Claude memory triage (57 orphaned dirs)
 
-**Parked 2026-07-28** at the kol-claude-memory milestone. `~/.claude/projects/` holds ~30 memory dirs keyed to dead paths (the `kol-apparat-*` / `kol-monorepo` era, pre-reshuffle). Their facts were never migrated — the repos moved, the keys didn't.
+**Parked 2026-07-28** at the kol-claude-memory milestone. `~/.claude/projects/` holds 57 memory dirs, most keyed to dead paths (the `kol-apparat-*` / `kol-monorepo` era, pre-reshuffle). Their facts were never migrated — the repos moved, the keys didn't.
 
 ### shape
 Per dead key: map old path → the repo's current home (mostly `kol-apps/<name>`), create `.kol/llm-memory/` there, move the facts in, re-run kol-glass `sync.sh`. Judgment per dir — some repos are gone/renamed/merged; some facts are stale enough to delete outright.
@@ -184,9 +158,15 @@ If a dead-key dir's facts are all stale on read, delete the dir instead of migra
 
 ---
 
-## kol-glass shareable scaffold (public template) — BUILT 2026-07-28
+## Estate leftovers from the ref-card arc
 
-Graduated and built same day: **`~/dev/projects/kol-humpty-dumpty/memory-glass`** (README · INDEX · `docs/SYSTEM.md` · `sync.sh` with neutral seam · .gitignore), token-screened clean. Open questions resolved: docs **bundled**, name **memory-glass** (neutral, rename-cheap). Publishing (git init + public push) is the user's step; journal: `llm-context/playbook/2026-07-28-memory-glass-scaffold.md`.
+**Parked 2026-07-30** at the ref-card-system milestone. Two structural questions the arc surfaced but didn't need to answer:
+
+### four non-repo folders under ~/dev/projects
+`_kol-lobby` · `_kol-quick` · `kol-ds-type` · `kol-studio` — neither repos nor families, so nothing tracks them. Either they earn a `.git`, move under `kol-apps/`, or leave `dev/projects` for a scratch home. Flagged in `docs/operations/systems/repo-map/01-repos.md` § Not repos; `repo-map.sh` ignores them by design (no `.git`).
+
+### kol-cli vs the ref cards
+`docs/kol-cli/` is printable cross-cutting cheat cards (nvim · tmux · yazi · fzf · aerospace · git · network · storage) symlinked into kol-vault for print. The 14 ref cards now cover most of that ground in the shell. Question: is kol-cli the *print* surface of the same data (then generate it from `ref/*.md`), or a genuinely different audience (then keep, and stop expanding it)? Kill criterion: if a card there hasn't been printed or read in six months, delete it.
 
 ---
 

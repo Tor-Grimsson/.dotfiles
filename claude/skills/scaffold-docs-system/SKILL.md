@@ -40,9 +40,10 @@ docs/
 ## Non-negotiables (repo layer)
 
 1. **Every section folder gets an `INDEX.md`.** The md-tier rule is "INDEX is a position, not a default" — at the library level, any folder something *navigates into* is a routing position, so it gets one. Folders left without an INDEX is the most common drift; reinforce it.
-2. **Contiguous numbering.** `00-…NN` with no gaps. Remove a section → renumber the rest and repoint refs (a gap is a rule you set but didn't keep).
-3. **Render-target decides link form.** Wikilinks `[[path|display]]` for files read *inside the Obsidian vault* (backlinks, graph, move-resilience). **Markdown links** `[text](path.md)` for anything rendered *outside* it — root `README.md`, `LLM_RULES.md`, GitHub-facing files — where wikilinks render as dead `[[…]]`. Links pointing *out of* the vault (to `.kol/…`) are markdown links. **Heading anchors always use the literal heading text** (`[[file#Heading Text|display]]`), never a GitHub kebab-slug — Obsidian doesn't resolve GFM-style `#kebab-case` anchors at all (open upstream feature request, no setting fixes it); a markdown-style anchor link still opens the file but silently fails to jump to the section.
-4. **`LLM_RULES.md` is not this skill's job** — it's owned by `/scaffold-llm-context`. Don't write it here.
+2. **`docs/INDEX.md` carries the agent section** — `## For the agent — the read contract for this vault`, placed directly under the router table. `/ag-init` reads this file at boot, so it is a boot surface and must answer an agent: `docs/` is rules and `.kol/` is state · grep, don't read end to end · **a summary is never the source**, with an enumeration→source table · the repo's literal grep handles · what is deliberately outside `docs/` (`lobby/`, ledgers, registers). **Authored per repo, never pasted** — the value is which handles work here. Spec + reference implementation: `kol-docs-lib/01-structure.md` § The agent section.
+3. **Contiguous numbering.** `00-…NN` with no gaps. Remove a section → renumber the rest and repoint refs (a gap is a rule you set but didn't keep).
+4. **Render-target decides link form.** Wikilinks `[[path|display]]` for files read *inside the Obsidian vault* (backlinks, graph, move-resilience). **Markdown links** `[text](path.md)` for anything rendered *outside* it — root `README.md`, `LLM_RULES.md`, GitHub-facing files — where wikilinks render as dead `[[…]]`. Links pointing *out of* the vault (to `.kol/…`) are markdown links. **Heading anchors always use the literal heading text** (`[[file#Heading Text|display]]`), never a GitHub kebab-slug — Obsidian doesn't resolve GFM-style `#kebab-case` anchors at all (open upstream feature request, no setting fixes it); a markdown-style anchor link still opens the file but silently fails to jump to the section.
+5. **`LLM_RULES.md` is not this skill's job** — it's owned by `/scaffold-llm-context`. Don't write it here.
 
 ---
 
@@ -68,9 +69,9 @@ docs/
    The packages land at `.kol/docs-framework/{kol-docs-fm,kol-docs-md,kol-docs-lib}/`; wikilinks like `[[kol-docs-md/01-archetypes|…]]` resolve against them. No automated sync skill exists — re-run this step by hand if the canonical packages change and the target repo needs the update.
 
 2. **Scaffold the split:** `docs/documentation/` (numbered sections) + sibling machinery folders.
-3. **INDEX every section** — docs home `docs/INDEX.md`, `documentation/INDEX.md`, and one per section folder.
+3. **INDEX every section** — docs home `docs/INDEX.md`, `documentation/INDEX.md`, and one per section folder. **Author the agent section into `docs/INDEX.md`** (Non-negotiables §2) — this is the file `/ag-init` reads at boot, so a docs home without it boots an agent that can route but not reference.
 4. **Wire `.obsidian/`** — ask which source shape (picker below), then symlink (per-file) or copy.
-5. **Apply link form** per Non-negotiables §3; numbering per §2.
+5. **Apply link form** per Non-negotiables §4; numbering per §3.
 6. Per-doc authoring/normalising → hand each file to `kol-docs-md`.
 
 ## .obsidian source picker

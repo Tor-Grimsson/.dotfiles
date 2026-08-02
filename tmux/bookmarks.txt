@@ -10,3 +10,8 @@
 ~/.dotfiles/fastfetch/config.jsonc
 ~/.dotfiles/.kol/llm-context/AGENT-CONTEXT.md
 https://github.com/tmux/tmux/wiki
+
+## ref-system
+~/.dotfiles/docs/scripts/ref-system
+~/.dotfiles/ref/glow-style.json
+~/.dotfiles/docs/scripts/ref-system/04-theme.md

@@ -33,7 +33,7 @@ Per name/alias × per angle — separate queries, not one mega-query:
 
 Never log a search-result snippet unverified. Fetch each candidate:
 
-- `npx @kolkrabbi/kol-scrape <url>` → structured record (title, og-meta, dates); until published: `node ~/dev/projects/kol-apparat/kol-design-system/packages/scrape/bin/kol-scrape.js <url>`
+- `npx @kolkrabbi/kol-scrape <url>` → structured record (title, og-meta, dates); until published: `node ~/dev/projects/kol-ds-ui/packages/scrape/bin/kol-scrape.js <url>`
 - Or WebFetch when a judgment question needs the prose ("is this about *our* subject?").
 - Dead link → try `web.archive.org/web/*/<url>`; log the archive URL and note it.
 

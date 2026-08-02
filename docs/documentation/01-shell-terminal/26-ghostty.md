@@ -57,6 +57,7 @@ The whole configuration is one tracked file. No GUI-only state to export (the tr
 | `macos-titlebar-style = hidden` | Frameless clean top edge — no native titlebar. |
 | `macos-option-as-alt = true` | So shell word-nav (Alt-B/F) and fzf's Alt-C keep working — Option must send Alt, not compose an accented char. |
 | Shift+Enter — **no keybind** | Ghostty handles Shift+Enter → newline in Claude Code natively via the Kitty keyboard protocol; a `shift+enter=text:\n` override *breaks* it under tmux (raw newline vs the extended-key sequence tmux forwards), so it's left unbound. Inside tmux also needs `set -s extended-keys on` + `terminal-features '…:extkeys'` — see [[02-tmux|tmux]]. |
+| `keybind = super+arrow_left=text:\x01\x01` | Cmd+← — Ghostty's default sends one Ctrl+A (line start), but Ctrl+A is the tmux prefix, so inside tmux it silently armed the prefix instead of moving. Doubled, tmux's `bind C-a send-prefix` passes one literal Ctrl+A through; outside tmux the second byte is a harmless repeat. |
 | `clipboard-read = allow` | Terminal apps may read the clipboard, so tmux/OSC-52 `y` yanks from a remote box reach the local clipboard (mirrors iTerm2's deliberate "Always Allow"). |
 | `window-padding-x = 10`, `window-padding-y = 10`, `window-padding-balance = true` | Breathing room (points) between content and the window edge; `-balance` evens out leftover space so opposite sides match. |
 | `confirm-close-surface = false`, `window-decoration = auto` | No confirm prompt when closing a surface/tab; let Ghostty decide window decoration. |
@@ -64,6 +65,7 @@ The whole configuration is one tracked file. No GUI-only state to export (the tr
 | `auto-update = check`, `auto-update-channel = stable` | Check for updates on the stable channel (check only — doesn't auto-install). |
 
 ## How to use
+- **Mirror contract (2026-07-29):** `kitty/kitty.conf` mirrors this config setting-for-setting (font, ligatures, symbol_map, option-as-alt, the Cmd+← tmux-prefix fix, cursor, padding, titlebar, clipboard, split dimming; theme via the shared kol-theme include). Change one terminal → change the other. No kitty equivalent: window-save-state, alpha-blending.
 - **First run:** macOS prompts for permissions; allow them. The config is already live via the symlink — no setup screen to click through.
 - **Change the theme:** `ghostty +list-themes` to browse (463 bundled), then edit the `theme =` line and reload with `Cmd+Shift+,`.
 - **Inspect the resolved config:** `ghostty +show-config` (add `--default --docs` to see every setting with its default and inline docs).
@@ -71,4 +73,4 @@ The whole configuration is one tracked file. No GUI-only state to export (the tr
 - **Splits:** `Cmd+D` (right), `Cmd+Shift+D` (down); navigate with `Cmd+Alt+Arrow`. **Tabs:** `Cmd+T`. **Scrollback search:** `Cmd+F`.
 
 ## Future use
-If the trial sticks, the iTerm2 cask + its `iterm/` plist/theme files can be retired. Ghostty also supports config `keybind` sequences, per-split working dirs, and `config-file` includes for splitting the config — none used yet.
+If the trial sticks, the iTerm2 cask + its `iterm/` plist/theme files can be retired. Ghostty also supports per-split working dirs and further `config-file` includes for splitting the config — unused so far (one `keybind` override is in use: the Cmd+← tmux-prefix fix above).

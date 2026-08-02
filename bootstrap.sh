@@ -96,6 +96,15 @@ if [ -d "$DOT/tmuxinator" ]; then
   ln -sfn "$DOT/tmuxinator" "$HOME/.config/tmuxinator"
 fi
 
+# TUI file managers on trial (vifm · lf · xplr) — each config is ANSI-only or
+# style-free on purpose, so the terminal palette from kol-theme tints all three.
+for fm in vifm lf xplr; do
+  if [ -d "$DOT/$fm" ]; then
+    mkdir -p "$HOME/.config"
+    ln -sfn "$DOT/$fm" "$HOME/.config/$fm"
+  fi
+done
+
 # gcalcli (single config file — the OAuth token lives beside it in this dir and
 # is machine-local, so only config.toml is symlinked, not the whole dir)
 if [ -d "$DOT/gcalcli" ]; then
@@ -193,6 +202,18 @@ if [ -f "$DOT/macos/launchd/com.kolkrabbi.tg-inbox.plist" ]; then
   launchctl bootout "gui/$(id -u)/com.kolkrabbi.tg-inbox" 2>/dev/null || true
   launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.kolkrabbi.tg-inbox.plist"
 fi
+
+# agent-drop launchd agent — QueueDirectories on ~/_inbox/agent: a dropped file
+# starts one headless `claude -p` triage run (bin/agent-drop). Copied, not
+# symlinked. NOT installed by default — headless runs cost money and this one is
+# opt-in; uncomment the block or run it by hand. Spec:
+# docs/operations/systems/headless-agents/
+# if [ -f "$DOT/macos/launchd/com.kolkrabbi.agent-drop.plist" ]; then
+#   mkdir -p "$HOME/Library/LaunchAgents" "$HOME/_inbox/agent/done"
+#   cp "$DOT/macos/launchd/com.kolkrabbi.agent-drop.plist" "$HOME/Library/LaunchAgents/"
+#   launchctl bootout "gui/$(id -u)/com.kolkrabbi.agent-drop" 2>/dev/null || true
+#   launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.kolkrabbi.agent-drop.plist"
+# fi
 
 # mpd launchd agent — mount-guarded (only runs while the external library drive is
 # mounted; KeepAlive→PathState). Copied, not symlinked (launchd dislikes symlinked plists).

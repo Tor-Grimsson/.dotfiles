@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# ref-desk — alias of `ref desk` (bin/ref owns the engine).
+exec "$HOME/.dotfiles/bin/ref" desk "$@"

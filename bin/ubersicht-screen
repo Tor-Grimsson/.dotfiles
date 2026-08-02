@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# ubersicht-screen — put every Übersicht widget on ONE screen, or on all of them.
+#
+# Why this exists: widgets default to `showOnAllScreens`, but the snap gutter
+# that reserves room for them is per-monitor in aerospace.toml
+# (`outer.right = [{ monitor.main = 304 }, 10]`). Widgets on both screens +
+# a gutter on one = windows sliding under the widget column on the other.
+# The two halves have to agree, and this is the half that isn't in a config file:
+# it lives in Übersicht's own state, so a reinstall or a wiped store loses it.
+#
+# Scriptable because Uebersicht.sdef exposes showOnMainScreen / showOnAllScreens
+# as access="rw" properties. (The Debug Console is NOT scriptable — icon only.)
+set -euo pipefail
+
+APP='tracesOf.Uebersicht'
+
+usage() {
+  cat <<'EOF'
+ubersicht-screen — which screen(s) the widgets draw on.
+
+USAGE
+  ubersicht-screen              show the current setting per widget
+  ubersicht-screen main         MAIN SCREEN ONLY  (pairs with the aerospace
+                                per-monitor gutter — the normal setting)
+  ubersicht-screen all          every screen (Übersicht's own default)
+  ubersicht-screen -h|--help    this help
+
+WHY
+  aerospace reserves the 304px widget gutter on `monitor.main` only. If the
+  widgets draw on every screen, the other monitor gets widgets with no reserved
+  space and tiled windows slide underneath them. `main` keeps the two in step.
+
+  macOS "main" = the display carrying the menu bar (System Settings → Displays).
+  On this desk that is the iMac's built-in Retina 5K, not the U32J59x.
+
+NOTES
+  Not persisted in the repo — Übersicht stores it. Re-run after a reinstall or
+  after deleting ~/Library/WebKit/tracesOf.Uebersicht. Sibling: ubersicht-toggle,
+  ubersicht-refresh. Card: ref-desk widgets.
+EOF
+}
+
+state() {
+  osascript -e "tell application id \"$APP\" to get {id, showOnMainScreen, showOnAllScreens} of every widget"
+}
+
+case "${1:-}" in
+  -h|--help) usage; exit 0 ;;
+  main)
+    osascript -e "tell application id \"$APP\" to set showOnAllScreens of every widget to false" \
+              -e "tell application id \"$APP\" to set showOnMainScreen of every widget to true"
+    echo "widgets → MAIN SCREEN only (matches the aerospace monitor.main gutter)"
+    ;;
+  all)
+    osascript -e "tell application id \"$APP\" to set showOnMainScreen of every widget to false" \
+              -e "tell application id \"$APP\" to set showOnAllScreens of every widget to true"
+    echo "widgets → ALL SCREENS · the aerospace gutter is still main-only, so the"
+    echo "other monitor will have widgets with no reserved space."
+    ;;
+  "")
+    state | tr ',' '\n' | sed 's/^ *//'
+    ;;
+  *)
+    echo "ubersicht-screen: unknown argument '$1' (try main · all · -h)" >&2
+    exit 1
+    ;;
+esac

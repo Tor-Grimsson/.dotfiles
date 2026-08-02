@@ -68,4 +68,4 @@ The 15 you'll use hourly (full tables in [[02-motions-and-editing|chapter 2]]):
 ## Also handy
 
 - Type a prefix then **Up** to walk only matching history (that's the [[25-atuin|history]] tiers, not vi-mode) — the two work together.
-- `keys vimode` prints the drill list any time; `keys vi` shows vi-mode **and** the nvim motions together.
+- `ref-shell vimode` prints the drill list any time; the nvim motions live in `ref-nvim` (move/edit sections).

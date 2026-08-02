@@ -111,6 +111,7 @@ if [ -d "$DOT/claude" ]; then
   mkdir -p "$HOME/.claude"
   ln -sf  "$DOT/claude/CLAUDE.md"      "$HOME/.claude/CLAUDE.md"
   ln -sf  "$DOT/claude/settings.json"  "$HOME/.claude/settings.json"
+  ln -sf  "$DOT/claude/humpty-gate"    "$HOME/.claude/.humpty-gate"
   ln -sfn "$DOT/claude/skills"         "$HOME/.claude/skills"
   ln -sfn "$DOT/claude/hooks"          "$HOME/.claude/hooks"
   ln -sfn "$DOT/claude/commands"       "$HOME/.claude/commands"

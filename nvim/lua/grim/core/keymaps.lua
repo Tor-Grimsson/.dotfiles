@@ -10,6 +10,33 @@ keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
 
+-- alt word-nav — the terminal sends alt-left/right as Esc+b / Esc+f. Unmapped,
+-- nvim degrades <M-b> to plain `b` (works) but <M-f> to `f` (find-char, hangs
+-- waiting for a char). Map both explicitly; <M-Left>/<M-Right> cover profiles
+-- that send CSI alt-arrows instead.
+keymap.set("n", "<M-f>", "w", { desc = "Word forward (alt-right)" })
+keymap.set("n", "<M-b>", "b", { desc = "Word back (alt-left)" })
+keymap.set("n", "<M-Right>", "w", { desc = "Word forward (alt-right)" })
+keymap.set("n", "<M-Left>", "b", { desc = "Word back (alt-left)" })
+
+-- INSERT mode too, or the terminal's raw Esc-prefix leaks through: alt-left
+-- became Esc + `b` (right by accident) while alt-right became Esc + `f`, and
+-- flash.nvim owns `f` — it dimmed the buffer and sat waiting for a character.
+-- Both now hop to normal deliberately, which is the half that was worth keeping.
+keymap.set("i", "<M-Left>", "<Esc>b", { desc = "Word back (alt-left), to normal" })
+keymap.set("i", "<M-Right>", "<Esc>w", { desc = "Word forward (alt-right), to normal" })
+
+-- Markdown prose on a SCRATCH buffer. after/ftplugin/markdown.lua keys off the
+-- FILETYPE, not the filename and not saving — so a `:enew` notepad has ft="" and
+-- gets none of it (no wrap, no conceal, no textwidth). Setting the filetype fires
+-- the ftplugin immediately, on an unnamed unsaved buffer, exactly as if it were a
+-- .md file. This binding can't live in the ftplugin itself: that file only loads
+-- once the filetype is already markdown.
+-- md=markdown · mc=conceal (ftplugin) · mp=prettier (conform).
+keymap.set("n", "<leader>md", function()
+  vim.bo.filetype = "markdown"
+end, { desc = "Markdown mode on this buffer (scratch notes)" })
+
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally

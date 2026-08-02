@@ -65,4 +65,4 @@ Only the two most-reached-for commands (instant toggle, manual alarm test) get a
 
 - [[16-capture|Capture pipeline]] — the Telegram bot `--telegram` reuses
 - [[05-aerospace|AeroSpace]] — the Raycast hotkey-binds-a-script pattern this follows
-- `docs/kol-terminality/kol-dash/` — the wider wake-alarm + dashboard system this is one piece of
+- `docs/operations/systems/terminality/kol-dash/` — the wider wake-alarm + dashboard system this is one piece of

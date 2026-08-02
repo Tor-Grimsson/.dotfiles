@@ -5,7 +5,7 @@ description: Conform text styling to the KOL type protocol — every string uses
 
 # kol-type-conform — the KOL text-styling protocol
 
-Canonical reference: `kol-design-system/docs/documentation/01-foundations/03-typography.md`. This skill is the portable enforcement procedure.
+Canonical reference: `kol-ds-ui/docs/documentation/01-foundations/03-typography.md`. This skill is the portable enforcement procedure.
 
 ## The protocol (the part that never changes)
 
@@ -49,5 +49,5 @@ Between helper stops? Take the tighter one (precedent: an 18px glyph → `kol-he
 
 ## Precedents
 
-- 2026-07-02 conformance sweep: package source is clean and machine-checked (`pnpm extract:docs` runs a freestyle-type offender report in kol-design-system).
+- 2026-07-02 conformance sweep: package source is clean and machine-checked (`pnpm extract:docs` runs a freestyle-type offender report in kol-ds-ui).
 - 2026-07-03: ported monorepo dashboards rendered the wrong mono via undefined `--kol-font-family-dash` (case 2 above) — fixed to `--kol-font-family-mono` + LH-1 on `dash-value`/`dash-detail`/`dash-caption`.

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# ref-humpty — alias of `ref humpty` (bin/ref owns the engine).
+exec "$HOME/.dotfiles/bin/ref" humpty "$@"

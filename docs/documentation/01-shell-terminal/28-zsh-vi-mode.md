@@ -83,7 +83,7 @@ The full, read-in-order how-to lives in the companion folder **[[zsh-vi-mode/IND
 | `ysiw"` | wrap the word in quotes (surround) |
 | `vv` | edit the line in nvim, save to run |
 
-> Escape hatch while learning: `^A` `^E` `^K` and word-nav still work **in insert mode** (kept on purpose, below), so you're never stuck. Also `keys vimode` prints the drill list any time.
+> Escape hatch while learning: `^A` `^E` `^K` and word-nav still work **in insert mode** (kept on purpose, below), so you're never stuck. Also `ref-shell vimode` prints the drill list any time.
 
 ## What's preserved (and how)
 

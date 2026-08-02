@@ -9,7 +9,7 @@
 ### Files Modified
 - `shell/.zshrc` — new `fzv()` function beside `fe` (line ~227): fzf whose preview renders images via `chafa -f symbols` (svg/png/jpg/gif/webp/bmp), dirs → eza tree, everything else → bat. Plain `fzf` left text-only. `zsh -n` clean.
 - `keys/keybinds.md` — `#fzf` section: added `fzv` row (verified via `keys fzf`).
-- `docs/operations/02-claude-agents/02-skills.md` — synced twice: Utility 3→4 (`claude-npm`), Design/brand 4→5 (`claude-kol-ds`); count 36→38; header "installed set" 32→38; local-authored list += both; `updated` 2026-07-08→2026-07-09.
+- `docs/operations/systems/claude-harness/02-skills.md` — synced twice: Utility 3→4 (`claude-npm`), Design/brand 4→5 (`claude-kol-ds`); count 36→38; header "installed set" 32→38; local-authored list += both; `updated` 2026-07-08→2026-07-09.
 
 ### Features Added/Removed
 - **`fzv`** — on-demand image preview in fzf. Chose a separate command over changing default `fzf` (user wanted opt-in). chafa symbol output is plain colored text, so it survives tmux + fzf redraws where the Kitty/Sixel graphics protocols don't. All rasterizers already present (`chafa`, `resvg`, `rsvg-convert` — yazi backends).

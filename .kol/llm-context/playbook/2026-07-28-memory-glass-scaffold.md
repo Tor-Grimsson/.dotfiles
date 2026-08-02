@@ -3,7 +3,7 @@
 > **Live work journal.** Append-only, newest at the bottom, real timestamps. One idea per line, no prose.
 > Milestone logs: `session-log/`. Prior arc: `2026-07-28-kol-claude-memory-build.md` (sealed 🏁).
 
-**Goal:** Ship the public template of the memory system — `sync.sh` + generic INDEX + README + bundled docs, zero KOL content — per `docs/kol-claude-memory/04-sharing.md`.
+**Goal:** Ship the public template of the memory system — `sync.sh` + generic INDEX + README + bundled docs, zero KOL content — per `docs/operations/systems/claude-memory/04-sharing.md`.
 
 **Standing rules (non-negotiable):**
 - ZERO private tokens in the template: no `/Users/biskup`, no client names, no repo roster, no memory content — grep-screened before handoff.

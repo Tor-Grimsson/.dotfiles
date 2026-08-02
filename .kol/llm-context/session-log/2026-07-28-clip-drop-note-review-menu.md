@@ -13,7 +13,7 @@
 - `ref/system.md` — `#clipboard` section: menu/note/review lines added
 - `docs/scripts/08-system.md` — table row + section rewritten for modes + menu
 - `docs/documentation/01-shell-terminal/02-tmux.md` — popup list + the line-63 cheat-sheet block (stale "clipboard image → yazi" caught in audit)
-- `docs/kol-terminality/10-references-and-backlog.md` — stale "pngpaste → yazi / needs a catalog doc" fixed (doc exists: `08-system.md`)
+- `docs/operations/systems/terminality/10-references-and-backlog.md` — stale "pngpaste → yazi / needs a catalog doc" fixed (doc exists: `08-system.md`)
 
 ### Bugs caught during build (all fixed + re-tested)
 - Greedy flag parser ate a DIR positional as a NAME → path-shaped args are never names. (Test pollution in `~/_inbox` cleaned; user's clips untouched.)

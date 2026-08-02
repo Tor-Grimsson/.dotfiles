@@ -91,7 +91,7 @@ rmpc          # press Ctrl-u to scan the library (fast — it's an SSD now), the
 | `Ctrl-u` / `Ctrl-U` | update library / full rescan |
 | `?` · `:` · `q` | help · command mode · quit |
 
-Also in `keys rmpc` (`keys rmpc transport` / `keys rmpc nav`).
+Also in `ref-media` (`ref-media transport` / `ref-media nav`).
 
 ## The mount-guard (why the launchd agent, not `brew services`)
 

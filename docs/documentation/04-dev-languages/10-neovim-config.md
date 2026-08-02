@@ -78,8 +78,52 @@ Use `vim.opt_local` (not `vim.opt`) so the change stays scoped to that buffer.
 
 - **`markdown.lua`** — prose mode for `.md`: `wrap = true` (re-enables soft wrap that
   the global turns off), `conceallevel = 2` (hides `**`/`_`/link markup), `textwidth = 80`
-  (hard-wrap column). This is the only filetype override so far; add a sibling file to
-  cover another (e.g. `gitcommit.lua`).
+  (hard-wrap column), plus **`<leader>md`** to flip conceal 2 ↔ 0 per buffer. This is the
+  only filetype override so far; add a sibling file to cover another (e.g. `gitcommit.lua`).
+
+### The trigger is the filetype — not the filename, and not saving
+
+An `after/ftplugin/<ft>.lua` runs on the **`FileType` event**. Saving has nothing to do with it, and neither does the file having a name. Measured 2026-07-31:
+
+| buffer | `filetype` | `wrap` |
+|---|---|---|
+| fresh `:enew` notepad | `""` | `false` — gets **none** of the prose settings |
+| same buffer after `:set ft=markdown` | `markdown` | `true`, `conceallevel=2`, `textwidth=80` |
+
+So a scratch notepad isn't excluded because it's unsaved — it's excluded because nothing has told nvim what it is. **`<leader>md`** (`core/keymaps.lua`) sets the filetype on the current buffer and the whole ftplugin fires at once, unnamed and unsaved.
+
+`md` **can't** live in `after/ftplugin/markdown.lua`: that file only loads *once the filetype is already markdown*. Chicken-and-egg — so the pair splits by where each has to work:
+
+| key | lives in | because |
+|---|---|---|
+| `<leader>md` — markdown **on** | `core/keymaps.lua` | must fire on a buffer that is *not* markdown yet |
+| `<leader>mc` — **conceal** toggle | `after/ftplugin/markdown.lua` | only meaningful once markdown is on |
+| `<leader>mp` — **prettier** | `plugins/formatting.lua` | conform owns it, all filetypes |
+
+Each letter is its own word's initial: **m**ark**d**own · **m**ark**c**onceal · **m**ark**p**rettier. (Conceal was on `md` until 2026-07-31, which forced markdown-mode onto a meaningless `mm`.)
+
+**This is the same trick `$EDITOR` handoffs use.** Tools that open your editor for a message — git's `COMMIT_EDITMSG`, and Claude Code's compose-in-editor — write a **real temp file with a real extension** and open the editor on that. There's no hidden autosave system; the extension just lets normal filetype detection do the work. If you want a scratch note to behave like markdown *and* survive a crash, give it a name (`~/_inbox/x.md`) so swapfile and undofile have something to key on — see § Crash safety.
+
+## Crash safety — swapfile + undofile
+
+**Changed 2026-07-31 after a real loss.** `swapfile` was `false` and `undofile` was
+never set, so a tmux crash took unsaved buffer text with it and **nothing was
+recoverable** — no swap, no undo file, and tmux-resurrect was saving layout only.
+
+| option | value | what it saves you from |
+|---|---|---|
+| `swapfile` | `true` | a crash with **never-saved** text in the buffer. nvim writes the swap every ~200 chars / 4s; reopening the file then offers **RECOVER**, and `nvim -r` lists orphan swaps in `~/.local/state/nvim/swap/` |
+| `undofile` | `true` | undo history dying at `:q`. Reopen days later and `u` still walks back past the last save. Stored in `~/.local/state/nvim/undo/` |
+| `updatetime` | `250` | tightens the idle write; also drives `CursorHold` (gitsigns / LSP hover) |
+
+`undofile` does **not** rescue a never-saved buffer — there is no file to key the undo
+history to. That is exactly why both are on: `swapfile` covers the unsaved case,
+`undofile` covers the saved-but-reverted case. Sibling fix in `tmux/.tmux.conf`:
+`@resurrect-capture-pane-contents 'on'`, so a restored session brings its pane text back
+instead of empty panes.
+
+**Recovery drill:** `nvim -r` (list orphan swaps) → `nvim -r <file>` (recover one) →
+compare with `:earlier`/`:later`, then `:w` and delete the `.swp`.
 
 ## Plugin roster
 
@@ -114,6 +158,17 @@ Use `vim.opt_local` (not `vim.opt`) so the change stays scoped to that buffer.
 | `<leader>sm` | maximize / restore a split |
 | `<leader>to` `tx` `tn` `tp` `tf` | tab new / close / next / prev / current-buffer-in-new-tab |
 | `Ctrl-h/j/k/l` | move between splits (and tmux panes) |
+| `Alt-←` / `Alt-→` | word back / forward — **in insert mode too**, hopping to NORMAL |
+| `<leader>md` | **markdown mode on this buffer** — works on an unnamed scratch buffer |
+| `<leader>mc` | markdown only: toggle conceal (raw markup ⇄ concealed prose) |
+| `<leader>mp` | format with prettier (conform, normal + visual) |
+
+> **Why the Alt-arrows are mapped in insert mode as well** (fixed 2026-07-31) — `core/keymaps.lua`
+> mapped `<M-Left>`/`<M-Right>`/`<M-b>`/`<M-f>` in **normal** mode only. In insert, Ghostty's
+> `macos-option-as-alt = true` sends the raw `Esc`-prefixed pair, so Alt-← became `Esc`+`b`
+> (correct by accident) while Alt-→ became `Esc`+`f` — and **flash.nvim owns `f`**, so it dimmed
+> the buffer and sat waiting for a target character. Both are now explicit insert-mode maps that
+> exit to normal deliberately. Full modal picture across nvim/zsh/claude/tmux/yazi: `ref-vim`.
 
 ### Files & search
 | Key | Action |

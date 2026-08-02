@@ -35,5 +35,16 @@ opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
 
--- turn off swapfile
-opt.swapfile = false
+-- Crash safety. Both were off, and on 2026-07-31 a tmux crash took unsaved
+-- notes with it — nothing to recover from, because nothing was being written.
+--
+-- swapfile  = the ONLY thing that survives a crash with UNSAVED text in it.
+--             nvim writes it every 200 chars / 4s (updatetime below tightens
+--             the idle half). After a crash, reopening the file offers RECOVER;
+--             `nvim -r` lists orphan swaps.
+-- undofile  = persistent undo. Reopen a file days later and `u` still walks
+--             back past the last save. Does NOT help a never-saved buffer —
+--             that is swapfile's job, which is why both are on.
+opt.swapfile = true
+opt.undofile = true
+opt.updatetime = 250 -- also drives CursorHold (gitsigns/LSP hover timing)

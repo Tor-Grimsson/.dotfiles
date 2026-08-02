@@ -141,6 +141,60 @@ defaults write com.apple.dock tilesize              -int  48
 - **mru-spaces** off — stop macOS from **reordering your Spaces** by most-recently-used; they stay where you put them (vital for muscle memory with multiple desktops).
 - **tilesize** — icon size in px.
 
+```sh
+defaults write com.apple.dock appswitcher-all-displays -bool true
+```
+The **⌘-Tab switcher on every display**, not only the one with the menu bar. On a two-monitor desk the stock behaviour makes you look away from whatever you were working on.
+
+---
+
+## 5b. Rectangle — window snapping
+
+Replaced **Magnet** on 2026-08-01. The reason is this section existing at all: Magnet has **no gap or margin setting**, and its keymap lives in an opaque plist blob (`horizontalCommands` / `verticalCommands`, JSON stuffed into a data field). Rectangle exposes every setting as a plain `defaults` key — so the geometry is tracked here instead of clicked into a GUI.
+
+```sh
+defaults write com.knollsoft.Rectangle gapSize                -float 24
+defaults write com.knollsoft.Rectangle screenEdgeGapTop       -int   48
+defaults write com.knollsoft.Rectangle screenEdgeGapRight     -int   304
+defaults write com.knollsoft.Rectangle screenEdgeGapLeft      -int   10
+defaults write com.knollsoft.Rectangle screenEdgeGapBottom    -int   10
+defaults write com.knollsoft.Rectangle screenEdgeGapsOnMainScreenOnly -bool true
+defaults write com.knollsoft.Rectangle applyGapsToMaximize    -int   2
+```
+
+- **gapSize** — the gutter **between** windows. Separate from the edge margins, which is the thing Raycast can't do (it has one global value for both).
+- **screenEdgeGap\*** — margin per edge. `304` clears the Übersicht widget column (280 wide + 12 margin + 12 gap); `48` clears the bar strip.
+- **screenEdgeGapsOnMainScreenOnly** — confines those two large values to the **iMac**. Rectangle has no true per-display setting, so main-vs-rest is as fine as it gets — which happens to be exactly the split `aerospace.toml`'s `[gaps]` uses (`[{ monitor.main = N }, 10]`).
+- **applyGapsToMaximize** — without it, Maximize ignores the gaps and fills the screen edge-to-edge.
+
+**The numbers mirror `aerospace.toml` on purpose.** AeroSpace tiles managed windows; Rectangle snaps the 11 `layout floating` apps. Same grid, two tools, so a floated Finder lines up with a tiled Ghostty.
+
+**Division of labour:** AeroSpace owns `ctrl-alt` (workspaces + focus). Rectangle's chords must not collide with it — Magnet's did, on 11 of them, and lost all 11 silently (first registrar wins).
+
+### Shortcuts
+
+Also `defaults` keys, so the keymap is tracked rather than clicked:
+
+```sh
+defaults write com.knollsoft.Rectangle leftHalf -dict-add keyCode -float 123 modifierFlags -float 786432
+```
+
+`modifierFlags` are **Cocoa** masks, not the Carbon ones Magnet stored: `ctrl 262144` · `alt 524288` · `cmd 1048576` · `shift 131072`. So `786432` = ctrl+alt and `1310720` = cmd+ctrl.
+
+| chord | action | why this band |
+|---|---|---|
+| `⌃⌥←` `→` `↑` `↓` | `leftHalf` `rightHalf` `topHalf` `bottomHalf` | Magnet's exact chords — AeroSpace has **no arrow bindings**, so these were never contested |
+| `⌃⌥⏎` | `almostMaximize` | not `maximize` — that one ignores the gaps |
+| `⌃⌥⌫` | `restore` | uncontested |
+| `⌘⌃U` `I` `J` `K` | quarters | same letters as Magnet, moved off `ctrl-alt` |
+| `⌘⌃D` `F` `G` | `firstThird` `secondThird` `thirdThird` | ditto |
+| `⌘⌃E` `T` | `firstTwoThirds` `lastTwoThirds` | ditto |
+| `⌘⌃C` | `center` | ditto |
+
+`cmd-ctrl` was chosen because AeroSpace has **zero** bindings in it — verified, not assumed.
+
+**One trap closed:** Rectangle's *Todo* feature ships bound to `⌃⌥N` and `⌃⌥B`, which are AeroSpace workspaces N and B. `defaults.sh` deletes both and sets `todo -bool false`.
+
 ---
 
 ## 6. Save / print dialogs

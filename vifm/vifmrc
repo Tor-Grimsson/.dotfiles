@@ -1,0 +1,36 @@
+" vifm — repo-tracked config. Live via ~/.config/vifm -> ~/.dotfiles/vifm.
+" Colours come from colors/kol.vifm, which is ANSI-only so kol-theme drives it.
+
+colorscheme kol
+
+set vicmd=nvim
+set syscalls
+set trash
+set history=100
+set nofollowlinks
+set sortnumbers
+set undolevels=100
+set vimhelp
+set norunexec
+set timefmt='%Y-%m-%d %H:%M'
+set mouse=a
+set wildmenu
+set wildstyle=popup
+set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
+set ignorecase
+set smartcase
+set nohlsearch
+set incsearch
+set scrolloff=4
+set dotfiles
+
+" one pane by default — tmux owns splitting; :vsplit when the commander
+" move (copy between two panes) is actually wanted. THIS is why vifm opens
+" with one pane here; stock vifm opens with two.
+only
+
+" :tree walks the WHOLE subtree eagerly — no lazy expansion. In $HOME or /
+" that is minutes of stat() calls, and `set dotfiles` above means it descends
+" into .git too. ALWAYS bound the depth. These two are the everyday form:
+command! t1 :tree depth=1
+command! t2 :tree depth=2

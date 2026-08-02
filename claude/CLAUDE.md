@@ -42,11 +42,21 @@ Title of response
 Inside the fence, in order: the date (`DD/MM/YY`) · two blank lines · two `____` rule lines · two blank lines · the title. **The title must be the fence's last line, not a trailing blank** — a blank line at the very end of a code block gets trimmed, which is exactly why an earlier attempt lost the bottom breather. The message body starts below the fence. One-line answers skip all of this.
 - **Open with a 1–2 sentence plain-language summary** — how you'd say it out loud, ~60 words max — *then* parse the detail into structure. The lead is normal prose (the human gist); everything after it is scannable. Don't skip straight to bullets.
 - **Body in scan shape, tables first** — bold headers, and prefer a **table or checkbox list** over stacked prose bullets whenever you're reporting parallel facts. What-changed / how-it-works / verified / files are table rows, not a dozen bullet lines; a "how it works" + "verified" pair folds into ONE two-column table. Use `- [x]` / `- [ ]` for status/verification items. Bold the load-bearing word per line. (`/claude-bullet` + `/claude-clear` are the default, not an opt-in.)
-- **Fold caveats, file-lists, side-notes, and any "X created/updated at …" status into ONE footer line** — e.g. `docs: N · llm/context: N · caveats: N · open: … · git: untouched · say "show noise" to expand`. The line **always ends with `say "show noise" to expand`** — that's the expand handle, not optional; stop dropping it. Session-log + AGENT-CONTEXT writes collapse to **`llm/context: N`** (N = files touched, e.g. log + context = 2) — never a prose "Session log created at …" line. Never append any of this as prose.
-- **Git / provisioning status is not a talking point.** "Didn't run git", "nothing installed", "staged for you to run" — established, doesn't concern the user, so never as prose. Drop it, or at most one footer token (`git: untouched`). Stop repeating it every reply.
+- **A table needs ≥2 rows of the same kind. One record is a LABEL BLOCK, not a table.** A one-row table wastes a full box border on a single fact and forces the terminal to wrap every cell — that's the noise. Write it as aligned `Label:` lines instead, **one line each, no wrapping**:
+  ```
+  Ticket: mode-self-arms-from-its-own-docs → humpty
+  State:  🟢 Verified 2026-07-31, gate removed 2026-08-01
+  Left:   📌 claude/skills/yona/SKILL.md:23 is false
+  ```
+  If a value doesn't fit one line, **cut the value** — never wrap it, never spill to a second line. The path or the count is protected; the explanation around it is not.
+- **Sub-section titles are ONE line, bold, no colon-prose after them.** `**Receipts — filed elsewhere**` then the block. Not a sentence, not a paragraph introducing the block.
+- **A block gets at most ONE line of follow-up.** If the point needs two sentences it belongs in the doc, not the reply.
+- **Fold caveats, file-lists, side-notes, and any "X created/updated at …" status into ONE footer line** — e.g. `Docs: (3) · Llm/context: (2) · Caveats: (1)`. **Counts in parentheses, no closing phrase** — the line ends on its last token. (`say "show noise" to expand` was cut 2026-08-01: a token carrying no count on the counts-only line. The gates now identify a footer by that token grammar.) Session-log + AGENT-CONTEXT writes collapse to **`Llm/context: (N)`** (N = files touched, e.g. log + context = 2) — never a prose "Session log created at …" line. Never append any of this as prose.
+- **NEVER mention git. Not in prose, not as a footer token, not ever.** No `git: untouched`, no "didn't run git", no "staged for you to run", no "nothing committed". The user owns his repo and has said so repeatedly; restating it is noise every single time. **`git: untouched` is banned outright** — it was a sanctioned token until 2026-08-01 and is now a defect. If a reply would say anything about git status, say nothing.
+- **Sentence case, always.** First letter of every sentence, every table cell, and every footer label is a capital. `Receipts: (1)` not `receipts: (1)`. Basic, and it was being skipped.
 - Surface a caveat/file **inline only when load-bearing** — it changes the user's next action. Everything else goes in the footer's counts.
 - **Rate any highlighted file/path `[n/5]`** by review importance (5/5 = read this first).
-- On **`show noise`**, expand what the footer hid — the full caveats + file list.
+- On **`show noise`** (typed by the user), expand what the footer hid — the full caveats + file list. It stays a command; it just isn't advertised on every reply.
 - **No trailing offers** ("want me to…"). End on the last real point.
 
 ## Terminology
@@ -70,7 +80,7 @@ Inside the fence, in order: the date (`DD/MM/YY`) · two blank lines · two `___
 
 - Default to long-term fixes, not short-term patches. Don't present them as equal options. If you spot a bigger-but-cleaner approach, advocate for it directly; mention the shortcut only if the user asks or is time-constrained.
 - Respect existing structure. If a component was extracted on purpose, there's a reason. Don't absorb it back into a parent and refactor all consumers. Fix at the smallest scope — usually CSS or a single file, not a multi-file sweep.
-- Kill redundancy aggressively. Duplicate icons, parallel folders, near-identical loaders — pick one, migrate, delete. Default to deletion over archival.
+- Kill redundancy aggressively. Duplicate icons, parallel folders, near-identical loaders — pick one, migrate, **retire the loser to `_tmp/`**. Aggressive about getting it out of the tree, never about destroying it — see Repo hygiene. ("Default to deletion over archival" stood here until 2026-08-01 and was read as permission to `rm`; it meant *don't keep dead code in the source tree*, which `_tmp/` already satisfies.)
 
 ## Debugging
 
@@ -94,7 +104,8 @@ Inside the fence, in order: the date (`DD/MM/YY`) · two blank lines · two `___
 
 ## Repo hygiene
 
-- **Never drop artifacts at repo root.** Screenshots (Playwright etc.), scratch files, verification output → the repo's `_tmp/` or the session scratchpad — never the root, never committed paths. Delete them when done.
+- **NEVER DELETE. `rm` is not an available verb.** Removing anything from a repo — a file, a folder, an asset, dead code, a superseded font — means **moving it to `_tmp/<date>-<what>/`** and saying where it went. Not `rm`, not "it's recoverable from npm / from `~/Library/Fonts` / from the archive". Recoverability is not the point: the user owns what leaves his repo, he can read a diff but he cannot read a file that is gone, and choosing his recovery path for him is the same as deciding for him. This outranks every "clean up", "kill redundancy", "remove the unused" instruction — those all mean *out of the tree*, and `_tmp/` is out of the tree.
+- **Never drop artifacts at repo root.** Screenshots (Playwright etc.), scratch files, verification output → the repo's `_tmp/` or the session scratchpad — never the root, never committed paths. Clear them into `_tmp/` when done.
 - **Creating a `_tmp/` folder? Gitignore it in the same breath** — check the repo's `.gitignore` for `_tmp/` and add the line if missing, before writing anything into it.
 
 ## Docs in kol-system projects

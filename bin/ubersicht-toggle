@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ubersicht-toggle — quit Übersicht if running, launch it if not.
 #
-# Bound to cmd-alt-u in aerospace.toml. Siblings: menubar-toggle, dock-toggle.
+# Bound to cmd-alt-u in aerospace.toml. Sibling: menubar-toggle.
 set -euo pipefail
 
 usage() {

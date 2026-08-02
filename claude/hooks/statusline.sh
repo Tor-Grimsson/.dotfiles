@@ -16,8 +16,9 @@ if [ -f "$flag" ]; then
   case "$lvl" in
     1) name="loose" ;; 3) name="strict" ;; 4) name="muzzle" ;; *) name="" ;;
   esac
-  # tmux current-window tab yellow (#fabd2f on #1d2021), in 256-color codes —
-  # this renderer approximates truecolor badly (learned live); 214/234 are the nearest.
+  # 256-color 214/234 — this renderer approximates truecolor badly (learned live),
+  # so the badge is the SOURCE of the yellow: tmux's window-status-current-style
+  # was matched to it (bg=#ffaf00 = colour214) on 2026-08-01, not the other way round.
   add "$(printf '\033[1;48;5;214;38;5;234m humpty-dumpty%s \033[0m' "${name:+:$name}")"
 fi
 

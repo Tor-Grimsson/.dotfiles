@@ -1,10 +1,13 @@
 // kol-bookmarks.widget — v1 (Übersicht)
 // The sticky-widget idea, first cut: BOOKMARKS ONLY (notes live in the sibling
 // kol-notes.widget). Reads the SAME file as the tmux `prefix C-b` picker —
-// ~/.dotfiles/tmux/bookmarks.txt, one path or URL per line — so the desk
-// widget and the tmux popup never drift.
+// ~/.dotfiles/tmux/bookmarks.txt, one path or URL per line, plus optional
+// `## name` section-header lines (2026-07-29) — so the desk widget and the
+// tmux popup never drift (the picker greps the `##` lines out).
 // Click a URL → browser. Click a path → COPY to clipboard (~-form, ready to
 // paste into a shell — reveal-in-Finder was v1, user call 2026-07-15).
+// Paths display SHORT (last segment — `/ref-system/`); hovering a row swaps
+// in the full ~-form path (user call 2026-07-29).
 //
 // Anatomy (the whole Übersicht contract in one file):
 //   command          — shell that produces this widget's data (stdout → render's `output`)
@@ -62,7 +65,15 @@ const styles = (t) => ({
 });
 
 const isUrl = (l) => /^https?:\/\//.test(l);
+const isSection = (l) => /^##\s+/.test(l);
 const label = (l) => (isUrl(l) ? l.replace(/^https?:\/\/(www\.)?/, "") : l.replace(/^\/Users\/[^/]+/, "~"));
+// short display: hide the parent path — last segment only; dirs keep a trailing
+// slash (extension heuristic). Hover swaps the full label back in.
+const short = (l) => {
+  if (isUrl(l)) return label(l);
+  const seg = l.split("/").filter(Boolean).pop() || l;
+  return /\.[A-Za-z0-9]+$/.test(seg) ? `/${seg}` : `/${seg}/`;
+};
 const openIt = (l) =>
   // paths copy AS LISTED (the ~ form) — pasteable into any shell
   run(isUrl(l) ? `open "${l}"` : `printf '%s' '${l}' | pbcopy`);
@@ -77,13 +88,25 @@ export const render = ({ output, error }) => {
 
   if (error) return <div style={{ ...S.root, ...S.empty }}>bookmarks: {String(error)}</div>;
   const lines = (data || "").split("\n").map((l) => l.trim()).filter(Boolean);
-  const urls = lines.filter(isUrl);
-  const paths = lines.filter((l) => !isUrl(l));
+
+  // `## name` starts a named section; lines above the first marker keep the
+  // classic auto paths/links split.
+  const loose = [];
+  const sections = [];
+  let cur = null;
+  for (const l of lines) {
+    if (isSection(l)) { cur = { name: l.replace(/^##\s+/, ""), items: [] }; sections.push(cur); }
+    else if (cur) cur.items.push(l);
+    else loose.push(l);
+  }
+  const urls = loose.filter(isUrl);
+  const paths = loose.filter((l) => !isUrl(l));
+
   const Row = (l) => (
     <button key={l} style={S.row} title={l} onClick={() => openIt(l)}
-      onMouseOver={(e) => { e.currentTarget.style.background = theme.hover; e.currentTarget.style.color = theme.fg; }}
-      onMouseOut={(e)  => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = theme.muted; }}>
-      {label(l)}
+      onMouseOver={(e) => { e.currentTarget.style.background = theme.hover; e.currentTarget.style.color = theme.fg; e.currentTarget.textContent = label(l); }}
+      onMouseOut={(e)  => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = theme.muted; e.currentTarget.textContent = short(l); }}>
+      {short(l)}
     </button>
   );
   return (
@@ -93,6 +116,12 @@ export const render = ({ output, error }) => {
       {paths.map(Row)}
       {urls.length > 0 && <div style={S.head}>links</div>}
       {urls.map(Row)}
+      {sections.map((s) => s.items.length > 0 && (
+        <div key={s.name}>
+          <div style={S.head}>{s.name}</div>
+          {s.items.map(Row)}
+        </div>
+      ))}
       {lines.length === 0 && <div style={S.empty}>empty — add with prefix B / A</div>}
     </div>
   );

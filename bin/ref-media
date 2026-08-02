@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# ref-media — alias of `ref media` (bin/ref owns the engine).
+exec "$HOME/.dotfiles/bin/ref" media "$@"

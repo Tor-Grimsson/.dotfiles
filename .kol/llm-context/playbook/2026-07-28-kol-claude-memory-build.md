@@ -3,12 +3,12 @@
 > **Live work journal.** Append-only, newest at the bottom, real timestamps. One idea per line, no prose.
 > Milestone logs: `session-log/`.
 
-**Goal:** Build the shared memory system per `docs/kol-claude-memory/` — global tier in `claude/memory/`, repo tiers in `.kol/llm-memory/`, write-path symlinks in `~/.claude/projects/`, vault memory lens + `sync.sh`.
+**Goal:** Build the shared memory system per `docs/operations/systems/claude-memory/` — global tier in `claude/memory/`, repo tiers in `.kol/llm-memory/`, write-path symlinks in `~/.claude/projects/`, vault memory lens + `sync.sh`.
 
 **Standing rules (non-negotiable):**
 - No git, no provisioning — user owns both (he's giting the vault repo in parallel).
 - Facts **move** (`mv`), never copy-and-fork — one copy of every fact, ever.
-- `docs/kol-claude-memory/` is the spec — build drifts from it → fix the doc same-turn.
+- `docs/operations/systems/claude-memory/` is the spec — build drifts from it → fix the doc same-turn.
 
 ---
 ## Entries
@@ -35,7 +35,7 @@
   note → vault rename question pending user (recommended kol-lens); repo name unchanged everywhere until his call · backlog: ~30 dead-key memory dirs (kol-apparat-* era) await old→new triage · MBP needs a sync.sh run when repo lands there
 
 [06:36] · rename · kol-symlink → kol-glass ✓
-  what → user picked kol-glass (over kol-lens/looking-glass/alice), renamed + git-inited the vault; doc-03 file renamed 03-kol-glass-vault.md; sed sweep over docs/kol-claude-memory/*, docs/INDEX.md, vault INDEX — 0 refs left; stale "nothing built yet" claims corrected
+  what → user picked kol-glass (over kol-lens/looking-glass/alice), renamed + git-inited the vault; doc-03 file renamed 03-kol-glass-vault.md; sed sweep over docs/operations/systems/claude-memory/*, docs/INDEX.md, vault INDEX — 0 refs left; stale "nothing built yet" claims corrected
   note → visibility verdict: PRIVATE (INDEX carries the client roster); screening: vault tracks scaffold only, real exposure = tier repos' git (dotfiles + 5 seeded must stay private; _kol-quick holds client work detail) · facts audited during move: process rules only, no secrets · sync.sh untouched by rename (self-locating)
 
 [06:38] · vault · pushed ✓ — build order v1 complete

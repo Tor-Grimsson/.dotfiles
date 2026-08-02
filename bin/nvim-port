@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# nvim-port — open a path as a new tab in this tmux session's running nvim.
+# The zshrc nvim() wrapper gives the first nvim per session a predictable
+# socket (/tmp/nvim-<session>.sock); this ports paths to it from any pane,
+# then focuses the nvim pane. Documented in `ref-nvim porting`.
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+nvim-port — open a path as a new tab in this tmux session's running nvim
+
+USAGE
+  nvim-port <path>      open <path> in the session's nvim (new tab), focus it
+  nvim-port             same, path taken from the clipboard (pbpaste)
+
+NEEDS
+  - inside tmux
+  - an addressable nvim in the session (the first one opened via the zshrc
+    wrapper — it listens at /tmp/nvim-<session>.sock; check the statusline)
+
+GOTCHAS
+  - path must exist (guards against porting clipboard garbage)
+  - a second/third nvim in the same session is NOT addressable — only the first
+EOF
+}
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
+
+[ -n "${TMUX:-}" ] || { echo "nvim-port: not inside tmux" >&2; exit 1; }
+
+path="${1:-$(pbpaste)}"
+path="${path%"${path##*[![:space:]]}"}"; path="${path#"${path%%[![:space:]]*}"}"
+[ -n "$path" ] || { echo "nvim-port: no path (arg empty, clipboard empty)" >&2; exit 1; }
+path="${path/#\~/$HOME}"
+[ -e "$path" ] || { echo "nvim-port: no such path: $path" >&2; exit 1; }
+
+sess=$(tmux display-message -p '#S' | tr -c '[:alnum:]_-' '-' | sed 's/^-*//; s/-*$//')
+sock="/tmp/nvim-${sess}.sock"
+[ -S "$sock" ] || { echo "nvim-port: no addressable nvim in session '${sess}' — open nvim first" >&2; exit 1; }
+
+command nvim --server "$sock" --remote-tab "$path"
+
+# best-effort: focus the pane running nvim in this session
+pane=$(tmux list-panes -s -F '#{window_index} #{pane_id} #{pane_current_command}' \
+  | awk '$3 == "nvim" { print $1, $2; exit }')
+if [ -n "$pane" ]; then
+  tmux select-window -t "${pane%% *}" && tmux select-pane -t "${pane##* }"
+fi

@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# llm-pick — ask the llm CLI from a popup: pick a mode, type, read the answer.
+# Popup companion to bin/llm (tmux: prefix Ctrl+L). Same shape as ref-pick and
+# clip-drop.sh --menu — fzf picks, the script runs, esc walks back out.
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+llm-pick — ask Claude from a popup, without leaving the pane.
+
+An fzf menu of the four things you actually do (ask · continue · chat · pipe
+the clipboard), then a prompt, then the answer paged in less. Esc at the menu
+closes. The answer stays in the pager until you press q.
+
+USAGE
+  llm-pick            open the menu (tmux: prefix Ctrl+L popup)
+  llm-pick -h|--help  this help
+
+MODES
+  ask         one-shot question, default model (Haiku 4.5)
+  continue    keep going from the last exchange (llm -c)
+  chat        drop into the interactive REPL (llm chat)
+  clipboard   pipe the clipboard in as context, then ask about it
+  model       one-off model override, then ask
+
+NOTES
+  Needs fzf + llm on PATH. Every exchange logs to llm's SQLite either way, so
+  `continue` always has something to continue. Card: ref-llm.
+EOF
+}
+
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
+
+command -v llm >/dev/null || { echo "llm-pick: llm not on PATH (uv tool install llm)"; exit 1; }
+command -v fzf >/dev/null || { echo "llm-pick: needs fzf"; exit 1; }
+
+MODES="ask	one-shot question (Haiku 4.5)
+continue	keep going from the last exchange
+chat	interactive REPL — exit or Ctrl-D to leave
+clipboard	pipe the clipboard in, then ask about it
+model	pick a model for one question"
+
+# read a prompt; empty input aborts back to the menu
+ask_for() {
+  local label="$1" reply
+  read -r -p "$label" reply || return 1
+  [ -n "$reply" ] || return 1
+  printf '%s' "$reply"
+}
+
+while :; do
+  mode=$(printf '%s\n' "$MODES" | fzf --prompt='llm > ' --layout=reverse \
+    --delimiter='\t' --with-nth=1,2 --height=100%) || exit 0
+  mode=${mode%%	*}
+
+  case "$mode" in
+    ask)
+      q=$(ask_for 'ask: ') || continue
+      llm "$q" | less -R
+      ;;
+    continue)
+      q=$(ask_for 'continue: ') || continue
+      llm -c "$q" | less -R
+      ;;
+    chat)
+      llm chat
+      ;;
+    clipboard)
+      q=$(ask_for 'about the clipboard: ') || continue
+      pbpaste | llm "$q" | less -R
+      ;;
+    model)
+      m=$(llm models --options 2>/dev/null | grep -oE '^[A-Za-z]+: [^ ]+' | awk '{print $2}' \
+          | fzf --prompt='model > ' --layout=reverse) || continue
+      q=$(ask_for "ask ($m): ") || continue
+      llm -m "$m" "$q" | less -R
+      ;;
+  esac
+done

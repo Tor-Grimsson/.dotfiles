@@ -9,13 +9,13 @@ _template:
 
 # kol-appliant tool-doc standard + vault lean-up
 
-Forward plan captured for review. Nothing here is committed. Continues [`02-docs-restructure.md`](02-docs-restructure.md); feeds [`docs/kol-terminality/`](../../docs/kol-terminality/INDEX.md).
+Forward plan captured for review. Nothing here is committed. Continues [`02-docs-restructure.md`](02-docs-restructure.md); feeds [`docs/operations/systems/terminality/`](../../docs/operations/systems/terminality/INDEX.md).
 
 ---
 
 ## Phase 1 — captures & a bug (mechanical, minutes)
 
-- **The sticky-widget idea** → `docs/kol-terminality/06-notes-and-tasks.md`: a persistent widget = notes **+ bookmarks + links**, realised via **Übersicht** (the engine under simple-bar). Ties the raindrop/raycast bookmark angle to the widget layer. Distinct from skitty-notes (notes-only) — this is the superset.
+- **The sticky-widget idea** → `docs/operations/systems/terminality/06-notes-and-tasks.md`: a persistent widget = notes **+ bookmarks + links**, realised via **Übersicht** (the engine under simple-bar). Ties the raindrop/raycast bookmark angle to the widget layer. Distinct from skitty-notes (notes-only) — this is the superset.
 - **`keys` breaks the `--help` convention** — flagged, to confirm + fix. Every `bin/` script is supposed to service `--help` (house standard); `keys` doesn't. Fix it, then see Phase 3's lint so it can't recur.
 
 ## Phase 2 — lean the vault ✅ DONE (2026-07-11)
@@ -50,7 +50,7 @@ Then: plain `mv` + reroute every ref above; user owns git.
 
 ## Phase 3 — the "kol-appliant" standard ✅ DONE (2026-07-11)
 
-Built: the standard spec (`docs/operations/03-kol-docs-system-setup/01-kol-appliant-tool-standard.md`); `bin/help-lint` (the `--help` lint — static, skips binaries; `bin/` scan clean, 64 pass; caught + fixed `keys`/`files`/`vid-h264-web`/`vid-reframe`); the `/kol-appliant` enforcement skill (registered, local-authored); help-lint's own catalog doc (`docs/scripts/21-help-lint.md`). Section-changelog = git (no hash system). Retrofit backlog: run `/kol-appliant` per existing tool + a `keys`/`files` coverage sweep.
+Built: the standard spec (`docs/operations/systems/docs-framework/01-kol-appliant-tool-standard.md`); `bin/help-lint` (the `--help` lint — static, skips binaries; `bin/` scan clean, 64 pass; caught + fixed `keys`/`files`/`vid-h264-web`/`vid-reframe`); the `/kol-appliant` enforcement skill (registered, local-authored); help-lint's own catalog doc (`docs/scripts/21-help-lint.md`). Section-changelog = git (no hash system). Retrofit backlog: run `/kol-appliant` per existing tool + a `keys`/`files` coverage sweep.
 
 **Principle:** every tool or solution we produce has an *immediate, accessible* answer — quick, greppable, never buried as a child of an unrelated process or an un-findable mention. Individually and thoroughly documented, one home, one contract.
 

@@ -5,7 +5,7 @@ description: Check or bring a tool/solution up to the kol-appliant standard — 
 
 # kol-appliant
 
-Bring a tool or solution up to — or audit it against — the **kol-appliant** standard: every tool has an immediate, findable, complete home, never buried. Full spec: `docs/operations/03-kol-docs-system-setup/01-kol-appliant-tool-standard.md`.
+Bring a tool or solution up to — or audit it against — the **kol-appliant** standard: every tool has an immediate, findable, complete home, never buried. Full spec: `docs/operations/systems/docs-framework/01-kol-appliant-tool-standard.md`.
 
 ## When
 - A new tool/script/solution ships → run the DoD before calling it done.
@@ -21,8 +21,8 @@ Bring a tool or solution up to — or audit it against — the **kol-appliant** 
    - `bin/` scripts → `docs/scripts/` (by family); installed tools → `docs/documentation/<NN-category>/`.
    - Check: `grep -rl <T> docs/` → has a doc? If not, author one via `/kol-docs-md`.
 3. **Purpose** — the doc answers all of: **usage · hotkeys · use-cases · sources · external links**.
-4. **KOL-accessible** — keybinds registered in `keys` (via `/keys-add`), home folder in `files` (via `/files-add`). If `<T>` has neither, mark N/A.
-   - Check: `keys <T>` · `grep <T> keys/keybinds.md files/folders.md`.
+4. **KOL-accessible** — keybinds registered in a `ref` card, home folder in `files` (both via `/ref-add`). If `<T>` has neither, mark N/A.
+   - Check: `ref <card> <T>` · `grep -r <T> ref/ files/folders.md`.
 5. **`--help`** — for a `bin/` script, `<T> --help` prints usage and exits 0. Lint the whole `bin/` at once with **`help-lint`** (`bin/help-lint`; static, skips binaries).
 6. **Dups** — the doc maps `<T>`'s other locations/mentions (`grep -rn <T>`), so nothing goes stale silently.
 

@@ -25,7 +25,7 @@
 - `bootstrap.sh` — neovim block (nvim + nvim-now symlinks)
 - `shell/.zshrc` — `nnow` alias
 - `brewfile-cli` — `tree-sitter-cli` line
-- `docs/kol-terminality/12-nvim-from-scratch.md` — triage record, progress, graduation notes
+- `docs/operations/systems/terminality/12-nvim-from-scratch.md` — triage record, progress, graduation notes
 - `.kol/llm-context/playbook/2026-07-14-nvim-now-build.md` — the arc's live journal
 
 ## Current State

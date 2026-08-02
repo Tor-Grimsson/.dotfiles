@@ -1,38 +1,99 @@
 # system — quick reference
 
-Filter with `ref-system <tag …>` (e.g. `ref-system theme`, `ref-system raycast`, `ref-system gotcha`).
+Filter: `ref-system <word …>` · `[e]` = example · pfx = tmux prefix
 
-## #window-snapping #aerospace #raycast
-⇧⌥⌘D          disable AeroSpace — hands every key to the focused app (aerospace bind: enable off)
-⇧⌥⌘E          enable AeroSpace — Raycast script (aerospace-enable.sh; aerospace can't re-enable itself while off)
-per-machine   add ~/.dotfiles/raycast/scripts once — Raycast → Extensions → Scripts → Add Directories
-per-machine   hotkeys too — assign per command (⌘K → Configure) on each machine; they live in Raycast's DB, not the repo
+## theme — kol-theme terminals
 
-## #theme #os #raycast
-⇧⌥⌘T          Toggle Theme — OS light/dark (theme-toggle.sh, silent)
-⇧⌥⌘A          Run Wake-Up Alarm Now (alarm-test.sh)
-(search)      Set Theme: Day / Night · Theme Timer <delay> — Raycast search by name
-engine        bin/os-mode.sh — toggle · set · -t 3h30m relative timer
-alarm         bin/theme-alarm.sh — theme + Focus + Spotify + Telegram bundle (the launchd morning job)
+| keys          | does                     |
+|---------------|--------------------------|
+| kol-theme     | --help · list themes     |
+| `<leader>`ths | nvim theme switcher      |
 
-## #theme #kol-theme #terminal
-switch        kol-theme <name> — reskins ghostty · kitty · tmux · btop · widgets · bar
-themes        gruvbox · kol-dark · solarized-osaka · linkarzu   (themes/<name>/, native files per tool)
-current       ~/.config/kol-theme/current (symlink) — switch = relink + reloads
-nvim          <leader>ths — Telescope theme switcher (Sin-cy's 7 schemes + gruvbox-material)
+[e] — as typed:
 
-## #clipboard #capture #screenshots
-save          ss-save.sh NAME DIR — clipboard image → named file (two args, NAME then DIR; default cwd, timestamped)
-inbox         clip-drop.sh — clipboard image → ~/_inbox/clip_<timestamp>.png, save only (flat, no subfolders)
-file it       clip-drop.sh --yazi — same save, then yazi opens hovering the file
-menu          prefix C-p (tmux) — fzf capture menu: file (yazi) · drop · note… · review (clip-drop.sh --menu)
-note          clip-drop.sh --note [name] — issue capture: own folder ~/_inbox/<name>/ + <name>.md (embed appended)
-review        clip-drop.sh --review <name> starts/switches the CURRENT review; bare --review appends to it (.current-review pointer)
-shots         ⌘⇧3/4 screenshots → ~/Screenshots (macos/defaults.sh), NOT ~/_inbox — that's clipboard-only
-needs         pngpaste (brew) — both scripts; docs/scripts/08-system.md is the full writeup
+```sh
+kol-theme gruvbox
+```
 
-## #theme #gotcha
-ghostty       reload doesn't repaint existing surfaces — quit + relaunch after a switch
-btop          rewrites its conf on exit — kol-theme re-asserts the pointer on every switch
-glyphs        PUA powerline glyphs (E0B6/E0B4) don't survive normal file writes — inject by codepoint
-nvim ports    kol-dark + linkarzu nvim halves are stand-ins (no real ports yet)
+----
+doc: docs/documentation/09-productivity-desktop/08-kol-theme.md
+
+## clipboard capture — screenshots
+
+| keys    | does                       |
+|---------|----------------------------|
+| pfx C-p | capture menu (tmux)        |
+| save    | ss-save.sh NAME DIR        |
+| inbox   | clip-drop.sh               |
+| file it | clip-drop.sh --yazi        |
+| note    | clip-drop.sh --note kolx   |
+| review  | clip-drop.sh --review kolx |
+| folder  | clip-drop.sh bingo          |
+| lobby   | clip-drop.sh --humpty NAME |
+
+[e] — as typed:
+
+```sh
+ss-save.sh bingo ~/dev
+clip-drop.sh bingo --note
+clip-drop.sh --kol-ds-ui topnav --desc "hairline 1px low at 1440"
+clip-drop.sh --lobby
+```
+
+----
+doc: docs/scripts/08-system.md
+
+## agent-drop — headless triage
+
+drop a file, get a report beside it · creates only, edits nothing
+
+| keys                 | does                                    |
+|----------------------|-----------------------------------------|
+| ~/_inbox/agent/      | drop files here                         |
+| agent-drop           | process the queue now                   |
+| agent-drop --dry-run | list what would run, move nothing       |
+| agent-drop --init    | create the queue folders                |
+| .result.md           | the report, beside the original         |
+| done/                | inputs land here after                  |
+| .log                 | every run, appended                     |
+
+[e] arm the watcher · `cp ~/.dotfiles/macos/launchd/com.kolkrabbi.agent-drop.plist ~/Library/LaunchAgents/`
+[e] then · `launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.kolkrabbi.agent-drop.plist`
+[e] NOT armed by default — headless runs cost money
+
+----
+doc: docs/operations/systems/headless-agents/INDEX.md
+
+## emoji — pick and render
+
+two vocabularies, do not mix them
+
+| type      | does                                       |
+|-----------|--------------------------------------------|
+| emo       | pick a glyph -> clipboard has the emoji    |
+| emo -n    | pick -> clipboard has :shortcode:          |
+| emojify   | filter — :shortcode: in text becomes emoji |
+| emojify --list `<word>` | find a shortcode by name     |
+
+| gotcha    | fact                                       |
+|-----------|--------------------------------------------|
+| the vocab | emojify 2562 github names · emoji-fzf 4440 |
+|           | unicode names — :astronaut: is ONLY in the |
+|           | second, emojify leaves it as literal text  |
+| so        | emo -n reads emojify's list, not emoji-fzf |
+| the file  | holds :rocket: · the terminal shows it     |
+
+----
+doc: docs/documentation/01-shell-terminal/30-emojify.md
+
+## theme gotchas
+
+| thing   | fact                                         |
+|---------|----------------------------------------------|
+| ghostty | theme switch → quit + relaunch               |
+| btop    | rewrites conf on exit — kol-theme re-asserts |
+| glyphs  | powerline PUA — inject by codepoint          |
+| nvim    | kol-dark / linkarzu halves = stand-ins       |
+
+----
+doc: docs/documentation/09-productivity-desktop/08-kol-theme.md

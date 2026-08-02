@@ -3,7 +3,7 @@ title: files
 type: reference
 status: active
 updated: 2026-07-15
-description: Print your own bookmarked folders in the shell, filtered by tag, via bat — and jump into one with `to`. A curated map of where things live (projects, configs) so navigation is one word, not a half-remembered cd.
+description: Print your own bookmarked folders in the shell as glow-rendered tables, filtered by section-title words — and jump into one with `to`. A curated map of where things live (projects, configs) so navigation is one word, not a half-remembered cd.
 aliases:
   - files
   - to
@@ -13,16 +13,16 @@ tags:
   - pattern/cli
 related:
   - "[[INDEX|Scripts index]]"
-  - "[[22-ref|ref]]"
-  - "[[19-keys|keys — keybind reference]]"
+  - "[[scripts/ref-system/01-system|ref]]"
+  - "[[scripts/ref-system/01-system|ref — the card engine]]"
   - "[[13-zoxide|zoxide]]"
   - "[[09-bat|bat]]"
 ---
 
 ## Summary
-`files [tag …]` bat-prints a hand-kept list of your bookmarked folders, filtered by tag; `to [tag …]` jumps into one (single match cd's straight in, several fzf-pick). A curated map of where things live — projects, design-system repos, dotfiles configs — reachable in one word. Same skeleton as [[19-keys|keys]], plus the `cd` that keybind-printing doesn't need.
+`files [word …]` glow-renders a hand-kept table of your bookmarked folders, filtered by words in the section titles; `to [word …]` jumps into one (single match cd's straight in, several fzf-pick). A curated map of where things live — projects, design-system repos, dotfiles configs — reachable in one word. One card of the [[scripts/ref-system/01-system|ref family]], plus the `cd` that card-printing doesn't need.
 
-2026-07-15: `files` is now a thin alias of `ref files` — [[22-ref|ref]] owns the engine; data file and usage unchanged.
+2026-07-15: `files` is now a thin alias of `ref files` — [[scripts/ref-system/01-system|ref]] owns the engine; data file and usage unchanged.
 
 ## Why it exists
 `cd ~/dev/projects/kol-apps/kol-media-admin` is a lot of typing you only half-remember. zoxide ([[13-zoxide|z]]) helps once you've *been* somewhere, by frecency. `files`/`to` is the **curated** counterpart: you decide what's on the map and tag it, so `to kol` reaches the right place whether or not you've visited it lately.
@@ -30,8 +30,8 @@ related:
 ## `files` vs `to`
 | Command | Does |
 |---|---|
-| `files [tag …]` | **prints** the catalog, filtered by tag (a `bin/` script → `bat`) |
-| `to [tag …]` | **jumps** — filter by tag; one match cd's in, several fzf-pick, no arg picks from all |
+| `files [word …]` | **prints** the catalog, filtered by title words (a `bin/` script → glow) |
+| `to [word …]` | **jumps** — filter by tag; one match cd's in, several fzf-pick, no arg picks from all |
 
 `to` is a **shell function**, not a `bin/` script — only the shell can change its own working directory; a child process can't. That's the one structural difference from `keys`.
 

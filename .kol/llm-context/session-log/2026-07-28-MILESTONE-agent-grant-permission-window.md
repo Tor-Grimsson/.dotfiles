@@ -12,7 +12,7 @@
 - **Gate semantics** → done: closed = deny with unlock hint; open = allow read-only git (`log/show/diff/status/blame/branch/remote/…` + `clone/fetch`) and `wget`/`curl`; git writes denied **always**; chained/`$(…)`/multiline smuggling → "ask". The parser only downgrades (allow→ask→deny), never widens; bare-path `/usr/bin/git` falls to the normal prompt.
 - **Agent awareness + visibility** → done: `agent-reinforce.sh` injects "window open, Nm left" every turn while active; statusline shows `[GRANT git Nm]` (block survives the same-day humpty statusline rework).
 - **Keybind + reference** → done: `bind g` in `.tmux.conf` (C-g was lazygit, G was move-window — plain g was free); keys card `## #tmux #claude`; `02-tmux.md` synced same turn.
-- **Docs + porting** → done: module doc `docs/kol-agent-system/11-grant.md` + INDEX row (11 · Trust) + map hooks line; porting note at kol-dumpty `lobby/agent-grant.md` (path trued after the repo's same-day rename from kol-humpty-dumpty).
+- **Docs + porting** → done: module doc `docs/operations/systems/agent-system/11-grant.md` + INDEX row (11 · Trust) + map hooks line; porting note at kol-dumpty `lobby/agent-grant.md` (path trued after the repo's same-day rename from kol-humpty-dumpty).
 - **Verification** → done: 18-case verdict battery green against a sandboxed flag dir; one real bug caught live — the heredoc ate the hook's stdin JSON, fixed by env handoff (`HOOK_INPUT`).
 - **Arming** → done: recorded as user routine — one Claude Code restart snapshots the new PreToolUse hook, `prefix r` loads the bind. Nothing pending on the agent.
 

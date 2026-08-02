@@ -46,6 +46,7 @@ Zero-privilege install. Unlike yabai it needs no SIP changes — just an Accessi
 - **Reload after editing:** `aerospace reload-config`, or service mode → `Esc` (see table). Config errors surface in the menu-bar icon.
 - **Launch at login:** `start-at-login = false` in our config — flip to `true` (or use AeroSpace's menu) to autostart.
 - **Gaps:** 10px inner + outer, except `outer.top = 48` to clear the bar strip and align window tops with the widget column (`top: 48`), and `outer.right = 304` (2026-07-15) — widget column (280 wide + 12 right margin) + a 12px gap to the tiles, matching the widgets' own spacing.
+- **Per-monitor gaps (2026-07-31).** `outer.top` and `outer.right` are now arrays, not constants: `[{ monitor.main = 48 }, 10]` / `[{ monitor.main = 304 }, 10]` — the trailing value is the default for every other monitor. The widget column only *exists* where Übersicht draws it, so only that monitor should pay a 304px gutter; a second display gets its full snap area back. The pattern grammar is the same as `workspace-to-monitor-force-assignment` (`monitor.main`, or a name like `"U32J59x"`). Pair it with Übersicht's per-widget screen assignment (menu-bar icon → the widget → screen; the `showOnMainScreen` / `showOnAllScreens` sdef properties) and simple-bar's `showOnDisplay` — turn widgets off on a monitor and the gutter follows with no config change.
 
 ## Keymap
 `Ctrl+Alt` is the modifier throughout (qwerty preset) — **chosen over bare `Alt`** so the terminal keeps its Alt-keys (fzf `Alt+C`, word-nav `Alt+B`/`Alt+F`, tmux `prefix Alt+1..5`). The `Cmd+Alt` macros are unchanged. Reload after this change: service mode → `Esc`.
@@ -63,8 +64,11 @@ Zero-privilege install. Unlike yabai it needs no SIP changes — just an Accessi
 | `Ctrl+Alt+Shift+1`…`9`, `Ctrl+Alt+Shift+A`…`Z` | Move focused window to workspace |
 | `Ctrl+Alt+Tab` | Jump to previous workspace (back-and-forth) |
 | `Ctrl+Alt+Shift+Tab` | Move current workspace to the next monitor |
+| `Ctrl+Alt+Cmd+←` `→` | Move the focused **window** to the prev/next display (focus follows) |
 | `Ctrl+Alt+Shift+;` | Enter **service mode** |
 | `Cmd+Alt+Shift+D` | **Disable** AeroSpace — release all keys to the focused app (re-enable with `Cmd+Alt+Shift+E`, see below) |
+
+> **Why a window-mover, and why not Magnet** (added 2026-07-31) — a **tiled** window belongs to a workspace, and a workspace is shown on exactly one monitor. Magnet (`Ctrl+Alt+Cmd+←/→`, its `nextDisplay`/`previousDisplay`) moves the window's *frame* through the Accessibility API; AeroSpace sees the frame move and re-tiles it straight back, so the window flashes onto the other display and snaps home — it reads as a rejection, not a missing keybind. Only **floating** windows (our 11 `layout floating` rules) escape it. `move-node-to-monitor` moves the node inside AeroSpace's own model, so it sticks. The binding deliberately reuses Magnet's chord, and **Magnet does not need disabling** — AeroSpace registers the global hotkey first and swallows the event, so Magnet never sees it (verified live 2026-07-31: reload, and it just works). Magnet still holds 11 other `Ctrl+Alt` chords that collide with AeroSpace (`ref-desk magnet clashes`) — those resolve the same way, first-registrar wins, which is why they read as random rather than broken.
 
 > **Grid macros** — AeroSpace has no native grid layout (it's a binary tree, i3-style). `Cmd+Alt+G` / `Cmd+Alt+S` bundle the whole `flatten-workspace-tree` → `join-with` → `layout tiles vertical` / `move` sequence into one binding, with focus pinned to the workspace (`--boundaries workspace --boundaries-action stop`) so it can't wander to another workspace. Built + verified for a flat row of **4** windows; other counts still run (extra focus/join steps are harmless no-ops) but won't tile into a clean grid.
 
@@ -95,9 +99,47 @@ Zero-privilege install. Unlike yabai it needs no SIP changes — just an Accessi
 | Spotify | `M` |
 | Mail | `M` |
 | Messages | `S` |
-| Finder | `W` — **floating** (combined rule: `["layout floating", "move-node-to-workspace W"]`, 2026-07-15) |
+| Finder | **floating**. The `move-node-to-workspace W` half was removed 2026-07-31 — see below |
 | Telegram | `A` |
 | Todoist | `A` |
+
+## Panels that wear another app's bundle id
+
+**Hit 2026-07-31.** Spacebar-previewing a file in Finder threw the QuickLook panel onto the *other* monitor and dragged that monitor's workspace with it — while normal windows (Ghostty on `T`, Finder on `W`) never move together.
+
+**Cause.** The QuickLook panel is drawn by `QuickLookUIService.xpc`, an XPC service running **on Finder's behalf**, so the Accessibility API attributes the window to Finder's process. AeroSpace sees a new window with `app-id = com.apple.finder`, matches the Finder rule, and runs `move-node-to-workspace W`. A workspace lives on exactly one monitor, so the panel lands on W's monitor and that monitor switches to W. Both halves of the symptom, one rule.
+
+**The guard** — a narrower rule placed **above** the app rule, because only the first match runs:
+
+```toml
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+if.window-title-regex-substring = 'Quick Look'
+run = "layout floating"
+```
+
+The title is the literal string `Quick Look`, **not** the previewed filename, which is what makes it a stable discriminator.
+
+### How to identify a panel — force the fields the tool hides
+
+`aerospace list-apps` will never show it. **It is not an app**; it exists only at the window layer. Ask the window layer, and make it print more than the default:
+
+```sh
+aerospace list-windows --monitor all --app-bundle-id com.apple.finder \
+  --format '%{window-id} | %{app-bundle-id} | %{app-name} | %{window-title}'
+# 108 | com.apple.finder | Finder | /Users/biskup/dev/projects/…/operations
+# 800 | com.apple.finder | Finder | Quick Look
+```
+
+| flag | why it's load-bearing |
+| --- | --- |
+| `list-windows` | one row per **window**, not per app — the only layer the panel exists on |
+| `--monitor all` | a filtering flag is **required**; bare `--all` conflicts with `--app-bundle-id` and exits 2. Same silent failure that made [[scripts/aero-add\|aero-add]]'s catch-up loop report `0 open window(s) moved` on 2026-07-30 |
+| `--format '%{…}'` | the default output is `id \| app-name \| title` — it shows the title but **not the bundle id**. The explicit format prints `app-bundle-id`, which is what *proves* the panel is `com.apple.finder` rather than something that merely looks like Finder |
+
+**The generalisable move:** when a window behaves as if it belongs to an app it isn't part of, don't reason about it — make the tool print the fields it hides by default, with the window on screen. `--format` turns a guess into a fact. The panel is **transient**: an identical query with nothing previewing returns only the real Finder windows.
+
+The same trap applies to any XPC-hosted surface — share sheets, Open/Save dialogs, other preview panels. Only QuickLook has been enumerated so far. Daily lookup: `ref-desk panels`.
 
 ## Disabling for apps that need their own shortcuts
 Since AeroSpace now uses `Ctrl+Alt` (not bare `Alt`), most apps' own `Alt`-combos already pass straight through — Figma/Affinity `Alt`-shortcuts no longer get swallowed. For an app that uses `Ctrl+Alt` combos, or when you want to hand over **every** key, there's still no per-app disable (that would need Karabiner) — turn AeroSpace off globally:

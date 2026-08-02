@@ -2,7 +2,8 @@
 # menubar-toggle — show/hide the native macOS menu bar (flips auto-hide).
 #
 # Same flag as System Settings → "Automatically hide and show the menu bar".
-# Bound to cmd-alt-m in aerospace.toml. Sibling: dock-toggle.
+# Bound to cmd-alt-m in aerospace.toml. Sibling: ubersicht-toggle.
+# (No dock sibling — macOS owns ⌥⌘D natively; ours doubled it, retired 2026-07-31.)
 set -euo pipefail
 
 usage() {

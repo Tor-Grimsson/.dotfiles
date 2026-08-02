@@ -60,13 +60,80 @@ setopt hist_reduce_blanks     # strip extra whitespace before saving
 
 export EDITOR=nvim
 
+# File-manager theming. These two tools carry their palette in env, not a config
+# file, and both values are ANSI 0-15 ONLY — the terminal's palette is what
+# kol-theme swaps, so switching theme retints them with nothing to edit here.
+export MC_SKIN=modarcon16-defbg   # 16-colour skin, "defbg" = keep terminal's own background
+export NNN_COLORS='2136'          # context 1-4 colours: green · blue · yellow · cyan
+
+# emo — fzf emoji picker, straight to the clipboard. Needs `uv tool install emoji-fzf`.
+#   emo      copies the glyph      🚀   — for chat, commit bodies, anywhere final
+#   emo -n   copies the shortcode  :rocket:  — for FILES, rendered later by emojify
+# The -n half is what makes emojify usable: you can't type ":rocket:" from memory
+# for 4440 emoji, so the picker hands you the name and emojify renders it at
+# display time. That is the whole loop — ASCII in the file, glyph on screen.
+emo() {
+  local pick
+  # -n reads emojify's OWN list, not emoji-fzf's. The two vocabularies differ:
+  # emojify ships 2562 GitHub shortcodes, emoji-fzf 4440 Unicode/CLDR names, and
+  # names like :astronaut: exist only in the latter — pick one there and emojify
+  # leaves it as literal text. Sourcing -n from emojify guarantees a round trip.
+  # The awk duplicates each shortcode without colons, so piping the pair through
+  # emojify renders field 1 to a glyph and leaves field 2 as the plain name.
+  if [ "$1" = "-n" ] || [ "$1" = "--name" ]; then
+    command -v emojify >/dev/null || { print -u2 "emo: brew install emojify"; return 127; }
+    pick=$(emojify --list 2>/dev/null | grep '^:' \
+      | awk '{n=$1; c=$1; gsub(/:/,"",c); print n, c}' | emojify \
+      | fzf --prompt='shortcode > ' --no-preview --nth=2 \
+      | awk '{print ":" $2 ":"}')
+    [ -n "$pick" ] || return 1
+    printf '%s' "$pick" | pbcopy
+    print "copied: $pick"
+    return 0
+  fi
+  command -v emoji-fzf >/dev/null || { print -u2 "emo: uv tool install emoji-fzf"; return 127; }
+  # --prepend puts the actual glyph in field 1, so you SEE emoji, not names.
+  # --with-nth=1,2 shows only "<glyph> <name>" — the rest of each line is a
+  # keyword soup 20 words long, hidden here but still searched via --nth=2..
+  # --no-preview is REQUIRED: FZF_DEFAULT_OPTS carries `bat {}` and every line
+  # is a name, not a path — without it the pane fills with "[bat error]".
+  # awk takes field 1, NOT `emoji-fzf get` — get would re-expand the name and
+  # return the glyph twice (😀😀) now that the glyph is already on the line.
+  pick=$(emoji-fzf preview --prepend \
+    | fzf --prompt='emoji > ' --no-preview --with-nth=1,2 --nth=2.. \
+    | awk '{print $1}')
+  [ -n "$pick" ] || return 1
+  printf '%s' "$pick" | pbcopy
+  print "copied: $pick"
+}
+
+# nvim → addressable per tmux session: the FIRST nvim in a session listens on a
+# predictable socket (/tmp/nvim-<session>.sock) so any pane can port paths into
+# it (`nvim-port`, see `ref-nvim porting`). Extra instances start plain.
+nvim() {
+  if [[ -n "$TMUX" ]]; then
+    local sess sock
+    sess=$(tmux display-message -p '#S' | tr -c '[:alnum:]_-' '-' | sed 's/^-*//; s/-*$//')
+    sock="/tmp/nvim-${sess}.sock"
+    if [[ -S "$sock" ]] && ! command nvim --server "$sock" --remote-expr 1 >/dev/null 2>&1; then
+      rm -f "$sock"   # stale socket left by a crashed instance
+    fi
+    if [[ ! -S "$sock" ]]; then
+      command nvim --listen "$sock" "$@"
+      return
+    fi
+  fi
+  command nvim "$@"
+}
+
 # ── Keybindings ───────────────────────────────────────────────────────────────
+setopt no_flow_control   # free Ctrl+S / Ctrl+Q at the prompt — no XOFF freeze
+stty -ixon 2>/dev/null   # same while a command is running
 bindkey '^[^?' backward-kill-word
 bindkey '^[b' backward-word
 bindkey '^[f' forward-word
 
 # ── Tools ─────────────────────────────────────────────────────────────────────
-source "$HOME/Library/Application Support/org.dystroy.broot/launcher/bash/br" 2>/dev/null || true
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -82,10 +149,23 @@ function y() {
     rm -f -- "$tmp"
 }
 
+# broot: run the command it emits (cd, $EDITOR) in THIS shell, not a subshell.
+# Named `b`, not broot's own `br` — oh-my-zsh's brew plugin owns `alias br='brew reinstall'`
+# and an alias beats a function. Body is broot's own launcher recipe, verbatim.
+function b() {
+    local cmd cmd_file code
+    cmd_file=$(mktemp)
+    if broot --outcmd "$cmd_file" "$@"; then
+        cmd=$(<"$cmd_file"); command rm -f "$cmd_file"; eval "$cmd"
+    else
+        code=$?; command rm -f "$cmd_file"; return "$code"
+    fi
+}
+
 # ── Aliases ───────────────────────────────────────────────────────────────────
 alias vim='nvim'   # the configured editor is nvim (repo nvim/ → ~/.config/nvim)
 alias cc='clear'
-alias cl='claude'
+alias cl='claude /ag-init'   # boot straight into the agent-context protocol
 alias cllm='llm -c'   # continue the previous llm conversation (logged to SQLite)
 alias llmc='llm chat'   # interactive llm REPL
 # reveal: Finder at PATH (default cwd); `reveal -f` = new FLOATING window on the current AeroSpace workspace. See bin/fs-reveal.sh
@@ -138,8 +218,8 @@ cbrief() {
   cplan --30d-p
 }
 
-# ── Location shortcuts (g-nav) ────────────────────────────────────────────────
-source "$HOME/.dotfiles/shell/functions/g-nav.zsh"
+# ── Path verbs (zshrc · cwd) ──────────────────────────────────────────────────
+source "$HOME/.dotfiles/shell/functions/paths.zsh"
 
 # ── Bitwarden ─────────────────────────────────────────────────────────────────
 # unlock + export session key; reads master password from macOS Keychain (item: bw-master), falls back to prompt
@@ -267,7 +347,7 @@ export FZF_DEFAULT_OPTS="
     paths=$(awk -v tags="$*" -v home="$HOME" '
       BEGIN { nt = split(tolower(tags), want, " ") }
       /^## / { shw = 1; h = tolower($0); for (i = 1; i <= nt; i++) if (index(h, want[i]) == 0) shw = 0; next }
-      shw && $1 !~ /^#/ && NF { p = $1; sub(/^~/, home, p); print p }
+      shw && /^\| *~\// { p = $0; sub(/^\| */, "", p); sub(/ *\|.*$/, "", p); sub(/^~/, home, p); print p }
     ' "$data")
     [[ -n "$paths" ]] || { print -u2 "to: nothing tagged: $*"; return 1 }
     local target

@@ -22,6 +22,7 @@ covers:
 related:
   - "[[07-fastfetch|fastfetch]]"
   - "[[15-mdcat|mdcat]]"
+  - "[[scripts/ref-system/03-glow|ref-system: the glow end]]"
 ---
 
 ## Summary

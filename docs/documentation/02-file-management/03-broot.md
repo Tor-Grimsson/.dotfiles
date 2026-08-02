@@ -2,11 +2,11 @@
 title: broot
 type: reference
 status: active
-updated: 2026-06-10
+updated: 2026-08-01
 description: Tree-based terminal navigator that fuzzy-filters directory trees and runs commands on matches.
 aliases:
   - broot
-  - br
+  - b
 tags:
   - domain/files
   - pattern/tui
@@ -32,7 +32,7 @@ broot shows a directory tree that stays readable no matter how deep it is by col
 
 ## Why installed
 
-It fills the gap between `tree` (static dump) and `yazi` (full file manager): a navigator for finding a path in a large hierarchy by typing a few characters, then jumping the shell there. The `br` wrapper makes it a powerful interactive `cd` for deep project trees.
+It fills the gap between `tree` (static dump) and `yazi` (full file manager): a navigator for finding a path in a large hierarchy by typing a few characters, then jumping the shell there. The `b` wrapper makes it a powerful interactive `cd` for deep project trees.
 
 ## Most common use case
 
@@ -44,26 +44,20 @@ It keeps the whole tree comprehensible while you search — branches collapse so
 
 ## How to use
 
-Install the `br` shell function once so broot can change the parent shell's directory:
-
-```sh
-broot --install
-```
-
-Then:
+The launcher is **`b`**, a shell function in `shell/.zshrc` — broot has to run its emitted command (`cd`, `$EDITOR`) in the parent shell, not a subshell, so a plain alias cannot work. Do **not** run `broot --install`: it writes a function named `br`, and oh-my-zsh's `brew` plugin already sets `alias br='brew reinstall'` — an alias beats a function, so broot's own launcher is silently shadowed. `b` sidesteps the collision and carries broot's `--outcmd` recipe verbatim.
 
 ```sh
 # Launch broot in the current directory
-br
+b
 
 # Start in a specific path
-br ~/Projects
+b ~/Projects
 
 # Show sizes (disk usage), sorted
-br -s
+b -s
 
 # Show hidden and gitignored files
-br -h -g
+b -h -g
 ```
 
 Inside broot: type to fuzzy-filter, arrows to move, `Enter` to focus a directory or open a file, `Alt+Enter` to `cd` there and quit, `:` to invoke a verb (e.g. `:rm`, `:mv`, `:cp`), `?` for help.

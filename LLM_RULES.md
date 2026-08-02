@@ -39,7 +39,7 @@ The documentation + llm-context protocol has been **unified** across the kol-sys
 - **Plans moved to their own peer folder** `.kol/llm-plan/` — one `NN-slug.md` per plan (`01-parking-lot.md` is the backlog). No longer a single `llm-context/plan.md`.
 - **`history.md` → `HISTORY.md`** — uppercase marks it a system/protocol file, alongside `ARCHITECTURE.md` / `AGENT-CONTEXT.md`.
 
-The driving skills and protocol docs (`kol-docs-*`, `kol-migrate-structure`, `scaffold-*`, `docs/operations/02-claude-agents/`) reflect the unified shape.
+The driving skills and protocol docs (`kol-docs-*`, `kol-migrate-structure`, `scaffold-*`, `docs/operations/systems/claude-harness/`) reflect the unified shape.
 
 ---
 

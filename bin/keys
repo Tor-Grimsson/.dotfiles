@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-# keys — alias of `ref keys` (bin/ref owns the engine; data: keys/keybinds.md).
-exec "$HOME/.dotfiles/bin/ref" keys "$@"

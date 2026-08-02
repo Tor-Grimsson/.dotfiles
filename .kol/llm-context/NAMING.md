@@ -1,6 +1,6 @@
 # NAMING — the three-family system (agent reference)
 
-Names are **picked from a bag, never invented**. Ask what kind of thing it is → use that family. Set 2026-07-28; user-facing copy: `docs/kol-agent-system/10-naming.md`.
+Names are **picked from a bag, never invented**. Ask what kind of thing it is → use that family. Set 2026-07-28; user-facing copy: `docs/operations/systems/agent-system/10-naming.md`.
 
 | Family | Domain | Test |
 |---|---|---|

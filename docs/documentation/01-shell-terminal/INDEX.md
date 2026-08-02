@@ -38,6 +38,8 @@ The tools that build the day-to-day command-line environment: the terminal app i
 | [[25-atuin|atuin]] | SQLite-backed shell history with scoped fuzzy search (global/host/session/directory) — bound to Ctrl-P (fzf keeps Ctrl-R). |
 | [[28-zsh-vi-mode|zsh-vi-mode]] | Modal (vim) editing for the zsh command line — motions, text objects, surround, clipboard yank; behind a `VI_MODE` flag with a one-line off-switch. |
 | [[29-btop|btop]] | Themeable boxed resource monitor (cpu/mem/net/proc) — the reference desk's panels; kol-theme consumer, lives alongside htop. |
+| [[30-emojify|emojify]] | Text filter converting `:shortcodes:` to emoji in a pipe — source files stay ASCII, the terminal renders. |
+| [[31-emoji-fzf|emoji-fzf]] | Fuzzy emoji **picker** (uv-managed, not brew); the `emo` function copies the pick to the clipboard. |
 
 ## Guides
 - [[zsh-vi-mode/INDEX|zsh vi-mode — complete guide]] — read-in-order how-to for command-line vi-mode: modes & the one-line off-switch, every motion worth drilling, and how it's wired into your shell. Companion to the [[28-zsh-vi-mode|zsh-vi-mode]] reference.

@@ -1,0 +1,11 @@
+# lf — repo-tracked config. Live via ~/.config/lf -> ~/.dotfiles/lf.
+# Colours are left to the terminal: lf reads LS_COLORS/ANSI, so kol-theme drives it.
+
+set mouse true
+set hidden true
+set icons true
+set drawbox true
+set ignorecase true
+set scrolloff 4
+set previewer bat
+set shell zsh

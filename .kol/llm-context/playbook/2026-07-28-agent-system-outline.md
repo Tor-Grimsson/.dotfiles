@@ -3,12 +3,12 @@
 > **Live work journal.** Append-only, newest at the bottom, real timestamps. One idea per line, no prose.
 > Milestone logs: `session-log/`. Prior arcs: kol-claude-memory build 🏁 · memory-glass scaffold.
 
-**Goal:** Outline the entire agent operating system as an interconnected docs suite in `docs/kol-agent-system/` (working title — umbrella name OPEN, glass bag) — every module, skills + hooks included, ASCII diagrams, export/scrub notes per module. Design first; extraction later.
+**Goal:** Outline the entire agent operating system as an interconnected docs suite in `docs/operations/systems/agent-system/` (working title — umbrella name OPEN, glass bag) — every module, skills + hooks included, ASCII diagrams, export/scrub notes per module. Design first; extraction later.
 
 **Standing rules (non-negotiable):**
 - Umbrella + module public names come from the three-family naming system (Glass/Ubu/Alice) — never invented ad hoc, never decided without the user.
 - Published persona = **Ubu Roi**, never Grim.
-- Naming system documented TWICE: `.kol/llm-context/NAMING.md` (agents) + `docs/kol-agent-system/10-naming.md` (user).
+- Naming system documented TWICE: `.kol/llm-context/NAMING.md` (agents) + `docs/operations/systems/agent-system/10-naming.md` (user).
 - No git, no provisioning.
 
 ---
@@ -19,7 +19,7 @@
   note → suite shape: INDEX + 10 modules (init/context/journaling/memory/plans/docs-framework/human-tier/behavior/routing/naming)
 
 [09:07] · suite · 11 docs written ✓
-  what → docs/kol-agent-system/ complete: INDEX (master diagram + module table + export rules) + 01-init (boot chain) 02-context (red-queen trim) 03-journaling (4 log skills) 04-memory (pointer to shipped cog) 05-plans (parking lot verbs) 06-docs-framework (kol-docs spec + package rule) 07-human-tier (docs/ split + .obsidian) 08-behavior (persona/ponytail/4 hooks, Ubu Roi in export) 09-routing (lenses + search ladder) 10-naming (three families)
+  what → docs/operations/systems/agent-system/ complete: INDEX (master diagram + module table + export rules) + 01-init (boot chain) 02-context (red-queen trim) 03-journaling (4 log skills) 04-memory (pointer to shipped cog) 05-plans (parking lot verbs) 06-docs-framework (kol-docs spec + package rule) 07-human-tier (docs/ split + .obsidian) 08-behavior (persona/ponytail/4 hooks, Ubu Roi in export) 09-routing (lenses + search ladder) 10-naming (three families)
   what → NAMING.md agent copy at .kol/llm-context/ · docs root INDEX +1 sibling row
   note → every module doc carries export notes (bag candidate, ship-form, scrub); 04-memory links kol-claude-memory/ instead of duplicating · umbrella name left OPEN throughout
 
@@ -36,7 +36,7 @@
 [10:32] · phase-1-4 · jabberwocky BUILT ✓ (35 files) + map + proofs
   what → ~/dev/projects/jabberwocky: README (pitch+diagram+adoption) · MANIFEST (44 skills, 7 hooks, 4 agents, 4 packages — every one statused: shipped/standalone/port-next/private/third-party) · 9 module dirs, each README+files: 01 LLM_RULES+ag-init · 02 three state templates+trim spec · 03 four journaling skills · 04 →memory-glass pointer · 05 parking-lot template · 06 docs spec (canon ▷port-next) · 07 human-tier spec (scaffold ▷port-next) · 08 UBU-ROI.md persona + 4 hooks + scrubbed payloads + goal/jana/clear-reply/bullet-reply/action-items + settings wiring · 09 lens pattern + search ladder + embedded reference sync.sh
   verify → token screen CLEAN (grim/biskup/clients: 0 outside intended github links) · bash -n all hooks ✓ · goal-loop /kol-goal→/goal renamed ✓ · md-link check ✓ (1 false positive traced) · DRY-RUN: templates stamped into scratch repo, boot-sequence files all present, scratch cleaned
-  note → master map at docs/kol-agent-system/00-system-map.md (review outpoint w/ checklist) · honest gaps tracked not hidden: 06 canon + 07 scaffold = port-next in MANIFEST
+  note → master map at docs/operations/systems/agent-system/00-system-map.md (review outpoint w/ checklist) · honest gaps tracked not hidden: 06 canon + 07 scaffold = port-next in MANIFEST
 
 [10:56] · parent · kol-humpty-dumpty ✓ (user call — local organisation)
   what → mkdir ~/dev/projects/kol-humpty-dumpty · jabberwocky + memory-glass moved in · kol-glass sync re-run (+1, lens re-pointed, 0 broken) · path sweep: map, 04-sharing, parking lot, AGENT-CONTEXT(38), naming memory — append-only records (playbook/session-log/goal file) left as history

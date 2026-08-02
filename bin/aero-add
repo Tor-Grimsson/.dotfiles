@@ -1,0 +1,403 @@
+#!/usr/bin/env bash
+# aero-add — see and set which aerospace workspace an app lands in, and whether
+# it floats. A state view over the [[on-window-detected]] rules in
+# aerospace.toml: the picker shows each running app's CURRENT rule, previews the
+# real TOML block, and Enter edits it in place — add, change, or remove.
+#
+# New rules land in a marker-delimited generated block at the end of the file
+# (same pattern as bin/repo-map.sh); rules written by hand above the marker are
+# edited only after an explicit confirm, so hand-kept grouping stays intact.
+# Popup companion: tmux prefix Ctrl+W (bound with -EE so results stay on screen).
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+aero-add — see and set each app's aerospace workspace + float rule
+
+EXAMPLES
+  aero-add                              the state view: app → target (fzf)
+  aero-add --dry-run                    same, but print the rule instead of writing
+  aero-add --list                       print every app's current rule, no picker
+  aero-add --show <bundle-id>           print one app's TOML block
+  aero-add com.figma.Desktop P          non-interactive: Figma → workspace P
+  aero-add com.apple.TextEdit floating  non-interactive: TextEdit floats
+  aero-add md.obsidian O float          workspace O *and* floating (both)
+  aero-add com.apple.ActivityMonitor remove    delete that app's rule
+
+USAGE
+  aero-add [--dry-run] [<bundle-id> <floating|WORKSPACE|remove> [float]]
+  aero-add --list | --show <bundle-id> | -h|--help
+
+  Pick an app (column 3 = its CURRENT rule, preview = its TOML block), then a
+  two-toggle form — no menu:
+
+     [x] float        [ ] snaps          1  swap
+     [x] workspace    → P                2 or ⌫  remove workspace
+
+     enter  write     r  reload aerospace     d  clear both     q / esc  back
+
+  The toggles are keyed by ROW NUMBER (1, 2) — `w` read as W-for-Window.
+  `2` sets the workspace when there is none (the next key is the letter) and
+  removes it when there is one; backspace and `-` also remove. Float is
+  untouched either way. `d` clears both — and both toggles off IS the aerospace
+  default (snaps, no workspace), so that state deletes the rule.
+
+  `enter` WRITES the file and the form stays open. Nothing is reloaded on its
+  own — `r` is what makes the written config live, when you decide to. Edit
+  several apps, press `r` once. Esc goes back to the list; esc in the LIST ends
+  the session. Arrows, function keys and unknown keys draw a red hint, never an
+  exit.
+
+WHAT IT DOES
+  1. writes the [[on-window-detected]] rule in ~/.dotfiles/aerospace/aerospace.toml
+     — appended for a new app, edited in place for one that already has a rule
+  2. applies the result to that app's ALREADY-OPEN windows — on-window-detected
+     only fires for NEW windows, so without this nothing moves until relaunch
+  3. reloads aerospace ONLY when you press `r`
+
+NEEDS
+  - AeroSpace running (the CLI talks to the app server) — except --list/--show
+  - fzf, for the interactive pickers
+
+GOTCHAS
+  - Only the FIRST matching rule runs, which is why this edits in place instead
+    of appending a second rule that would be silently ignored.
+  - Both at once is ONE rule, not two — `run` takes an array and its entries run
+    in sequence, so the workspace assignment goes first and the float second
+    (floating first, then moving, loses the float). Finder is the in-repo example.
+  - A rule with extra conditions (e.g. the kitty window-title regex) is shown
+    with a * and never rewritten automatically — edit those by hand.
+EOF
+}
+
+toml="$HOME/.dotfiles/aerospace/aerospace.toml"
+marker='# ── aero-add: generated rules ─────────────────────────────────────────────────'
+
+# ── rule state ────────────────────────────────────────────────────────────────
+# Emits one TSV row per [[on-window-detected]] block:
+#   bundle-id  state  startline  lastline  runline  zone
+# state: "—" none · "float" · "→P" · "→P +float" · trailing "*" = extra conditions
+rules_map() {
+  local mline
+  mline=$(grep -nF "$marker" "$toml" 2>/dev/null | head -1 | cut -d: -f1 || true)
+  awk -v mline="${mline:-999999}" '
+    function flush() {
+      if (id == "") return
+      ws = ""; fl = 0
+      if (match(run, /move-node-to-workspace[[:space:]]+[A-Za-z0-9]+/))
+        { t = substr(run, RSTART, RLENGTH); sub(/.*[[:space:]]/, "", t); ws = t }
+      if (run ~ /layout[[:space:]]+floating/) fl = 1
+      st = (ws != "" && fl) ? "→" ws " +float" : (ws != "" ? "→" ws : (fl ? "float" : "?"))
+      if (extra) st = st "*"
+      printf "%s\t%s\t%d\t%d\t%d\t%s\n", id, st, start, last, runline, (start > mline ? "gen" : "hand")
+      id = ""; run = ""; extra = 0; runline = 0
+    }
+    /^\[\[on-window-detected\]\]/ { flush(); start = NR; last = NR; next }
+    start && /^if\.app-id[[:space:]]*=/ {
+      match($0, /'"'"'[^'"'"']*'"'"'/); id = substr($0, RSTART + 1, RLENGTH - 2); last = NR; next }
+    start && /^if\./              { extra = 1; last = NR; next }
+    start && /^run[[:space:]]*=/  { run = $0; runline = NR; last = NR; next }
+    END { flush() }
+  ' "$toml"
+}
+
+state_of()  { rules_map | awk -F'\t' -v b="$1" '$1 == b { print $2; exit }'; }
+field_of()  { rules_map | awk -F'\t' -v b="$1" -v n="$2" '$1 == b { print $n; exit }'; }
+
+show_block() {
+  local b="$1" s e
+  s=$(field_of "$b" 3); e=$(field_of "$b" 4)
+  if [ -z "$s" ]; then
+    printf 'no rule yet — %s\n\nEnter picks where it should land.\n' "$b"; return
+  fi
+  printf '%s  (lines %s–%s, %s)\n\n' "$b" "$s" "$e" "$(field_of "$b" 6)"
+  sed -n "$((s > 2 ? s - 2 : 1)),${e}p" "$toml"
+}
+
+case "${1:-}" in
+  -h|--help) usage; exit 0 ;;
+  --show)    [ -n "${2:-}" ] || { echo "aero-add --show needs a bundle-id" >&2; exit 2; }
+             show_block "$2"; exit 0 ;;
+  --list)    rules_map | awk -F'\t' '{ printf "%-38s %-12s %s:%s\n", $1, $2, $6, $3 }'; exit 0 ;;
+esac
+
+dry=0
+[ "${1:-}" = "--dry-run" ] && { dry=1; shift; }
+
+[ -f "$toml" ] || { echo "aero-add: no config at $toml" >&2; exit 1; }
+command -v aerospace >/dev/null || { echo "aero-add: aerospace not on PATH" >&2; exit 1; }
+aerospace list-workspaces --all >/dev/null 2>&1 || {
+  echo "aero-add: AeroSpace isn't running (or is 'enable off')" >&2; exit 1; }
+
+# ── 1. the app ────────────────────────────────────────────────────────────────
+interactive=0
+if [ -n "${AERO_ADD_FORM:-}" ]; then
+  # re-entering the form on the same app after a write (see the tail of the file)
+  bundle="$AERO_ADD_FORM"; interactive=1
+elif [ $# -ge 1 ]; then
+  bundle="$1"; shift
+else
+  interactive=1
+  command -v fzf >/dev/null || { echo "aero-add: needs fzf for the picker" >&2; exit 1; }
+  # Columns: bundle-id | name | current rule | hidden?
+  # Windowed apps first (on-window-detected can never fire for a windowless
+  # one), then by name. Labelled rather than excluded — an app can be
+  # windowless now and a valid target once it opens something.
+  # --no-preview would hide the block view; the explicit --preview also
+  # overrides the global bat/eza one in FZF_DEFAULT_OPTS, which errors on a row.
+  # One tagged stream instead of three awk input files — a multi-file awk
+  # miscounts when any input is empty, and macOS awk can't take a multi-line -v.
+  apps=$( { aerospace list-windows --all --format '%{app-bundle-id}' 2>/dev/null \
+              | sort -u | awk '{ print "W\t" $0 }'
+            rules_map      | awk '{ print "R\t" $0 }'
+            aerospace list-apps | awk '{ print "A\t" $0 }'
+          } | awk -F'\t' '
+      $1 == "W" { sub(/[[:space:]]+$/, "", $2); win[$2] = 1; next }
+      $1 == "R" { st[$2] = $3; next }
+      $1 == "A" { split($2, p, / *\| */); b = p[2]; n = p[3]
+                  s = (b in st) ? st[b] : "—"
+                  printf "%s\t%s|%s|%s|%s\n", (win[b] ? 0 : 1), b, n, s, (win[b] ? "" : "hidden") }
+    ' | sort -t"$(printf '\t')" -k1,1 -k2,2f | cut -f2- | column -t -s'|')
+  [ -n "$apps" ] || { echo "aero-add: aerospace lists no running apps" >&2; exit 1; }
+  pick=$(printf '%s\n' "$apps" \
+    | fzf --prompt='aero-add app > ' --layout=reverse \
+          --preview "$HOME/.dotfiles/bin/aero-add --show {1}" \
+          --preview-window 'right,50%,<90(down,45%)' \
+          --header="${AERO_ADD_LAST:+$AERO_ADD_LAST
+}col 3 = current rule · — none · * extra conds · hidden = no window") || exit 0
+  bundle=$(printf '%s' "$pick" | awk '{print $1}')
+fi
+[ -n "$bundle" ] || { echo "aero-add: no bundle-id" >&2; exit 1; }
+
+# Backing out of ONE app returns to the list; only the list itself ends the
+# session. A non-interactive call has no list to go back to, so it just exits.
+back_or_exit() {
+  if [ "$interactive" = 1 ]; then
+    printf '\033[?25h\033[H\033[2J'
+    AERO_ADD_FORM= AERO_ADD_LAST="${1:-}" exec "$0"   # cleared → lands on the LIST
+  fi
+  exit 0
+}
+
+cur=$(state_of "$bundle")
+zone=$(field_of "$bundle" 6)
+runline=$(field_of "$bundle" 5)
+blkstart=$(field_of "$bundle" 3)
+blkend=$(field_of "$bundle" 4)
+
+# ── 2. hand-written and multi-condition rules are protected ───────────────────
+case "$cur" in
+  *\*) echo "aero-add: '$bundle' has a rule with extra conditions — edit it by hand:" >&2
+       show_block "$bundle" >&2; exit 1 ;;
+esac
+if [ -n "$cur" ] && [ "$zone" = "hand" ] && [ $# -eq 0 ] && [ "$dry" = 0 ]; then
+  printf '\033[?25l\033[H\033[2J  %s has a HAND-WRITTEN rule at line %s.\n' "$bundle" "$blkstart"
+  printf '  Only its run= line changes; comments and grouping stay.\n\n  edit it?  y / n  '
+  IFS= read -rsn1 ok; printf '\033[?25h\n'
+  case "$ok" in y|Y) ;; *) back_or_exit "↩ ${bundle} left alone (hand-written)" ;; esac
+fi
+
+# ── 3. the target ─────────────────────────────────────────────────────────────
+# Two toggles, not a menu: float-or-snaps, and workspace-or-not. A workspace
+# letter is only asked for when the workspace toggle is ON — which is also why
+# f/w/d can be command keys here: letters are only read as letters inside the
+# capture step.  Both toggles off == no rule at all, which is the aerospace
+# default (tiled, wherever it opens), so that state deletes the rule.
+alsofloat=0
+if [ $# -ge 1 ]; then
+  target="$1"; shift
+  [ "${1:-}" = "float" ] && alsofloat=1
+else
+  wslist=$(aerospace list-workspaces --all)
+  # seed the form from the current rule
+  float=0; ws=""
+  case "$cur" in *float*) float=1 ;; esac
+  case "$cur" in →*) ws=$(printf '%s' "$cur" | sed 's/^→//; s/ .*//') ;; esac
+  name=$(aerospace list-apps | awk -F' *\\| *' -v b="$bundle" '$2 == b { print $3; exit }')
+  capture=0
+
+  mark() { [ "$1" = 1 ] && printf 'x' || printf ' '; }
+  after() {
+    if [ -n "$ws" ] && [ "$float" = 1 ]; then printf '→%s +float' "$ws"
+    elif [ -n "$ws" ];   then printf '→%s' "$ws"
+    elif [ "$float" = 1 ]; then printf 'float'
+    else printf '— no rule (snaps, no workspace)'; fi
+  }
+  draw() {
+    printf '\033[H\033[2J'
+    printf '  \033[1m%s\033[0m   %s\n\n' "${name:-$bundle}" "$bundle"
+    printf '   [%s] float        [%s] snaps        %-14s 1  swap\n' \
+      "$(mark $float)" "$(mark $((1 - float)))" ""
+    if [ "$capture" = 1 ]; then
+      printf '   [x] workspace    \033[7m type a letter or digit \033[0m   esc  back out\n'
+    else
+      printf '   [%s] workspace    %-24s %s\n' \
+        "$( [ -n "$ws" ] && printf x || printf ' ' )" "${ws:+→ $ws}" \
+        "$( [ -n "$ws" ] && printf '2 or ⌫  remove workspace' || printf '2  set workspace' )"
+    fi
+    printf '\n   now    %s\n   after  %s\n' "${cur:-— no rule}" "$(after)"
+    printf '\n   enter  write       r  reload aerospace       d  clear both       q / esc  back\n'
+    [ -n "$msg" ] && printf '\n   %s\n' "$msg"
+    return 0   # set -e would kill the loop on the empty-msg test above
+  }
+
+  # An arrow key is ESC [ A — a bare read sees the ESC and would quit, which is
+  # why any arrow used to close the popup. Read the ESC, then peek for a second
+  # byte: present = it was a sequence (swallow it whole, ignore); absent = a
+  # real Escape.
+  #
+  # The timeout MUST be an integer. macOS ships bash 3.2 (no newer one here),
+  # which floors a fractional -t to 0 — `-t 0.05` timed out instantly every
+  # time, so the peek was always empty and arrows read as cancel. Cost of the
+  # integer: a bare Escape pauses 1s before cancelling, hence `q` as the
+  # instant cancel.
+  read_key() {
+    IFS= read -rsn1 k || return 1
+    [ "$k" = $'\033' ] || return 0
+    local b="" c=""
+    IFS= read -rsn1 -t 1 b 2>/dev/null || true
+    [ -n "$b" ] || return 0                      # nothing followed → real Escape
+    k="SEQ"
+    case "$b" in
+      '['|O) while IFS= read -rsn1 -t 1 c 2>/dev/null; do   # swallow to the CSI final byte
+               case "$c" in [A-Za-z~]) break ;; esac
+             done ;;
+    esac
+    return 0
+  }
+  err() { msg=$'\033[1;31m'"$1"$'\033[0m'; }
+
+  # no text is typed here, so a blinking cursor only invites arrow keys
+  # (interactive=1 already, which is what the EXIT trap keys off)
+  printf '\033[?25l'; trap 'printf "\033[?25h"; exit' INT TERM
+
+  msg=""
+  while :; do
+    draw
+    read_key || back_or_exit ""
+    if [ "$k" = "SEQ" ]; then
+      err "arrows and function keys do nothing here — 1 · 2 · ⌫ · d · enter · q"
+      continue
+    fi
+    if [ "$capture" = 1 ]; then
+      capture=0
+      case "$k" in $'\033'|$'\177'|$'\b'|-) ws=""; msg=""; continue ;; esac
+      up=$(printf '%s' "$k" | tr '[:lower:]' '[:upper:]')
+      if printf '%s\n' "$wslist" | grep -qxF "$up"; then ws="$up"; msg=""
+      else err "'$up' is not a workspace — press w and try another"; fi
+      continue
+    fi
+    # Row numbers, not initials: `w` collided with W-for-Window in muscle memory.
+    # Digits are safe as commands for the same reason letters were — a digit is
+    # only read as a workspace name inside the capture step.
+    case "$k" in
+      1)   float=$((1 - float)); msg="" ;;
+      2)   if [ -n "$ws" ]; then ws=""; else capture=1; fi; msg="" ;;
+      # backspace (DEL or ^H) and - also clear the workspace
+      $'\177'|$'\b'|-) ws=""; msg="" ;;
+      d|D) float=0; ws=""; break ;;
+      "")  break ;;
+      # make the written config live — explicitly, never on its own
+      r|R) if aerospace reload-config 2>/dev/null; then
+             msg=$'\033[1;32maerospace reloaded — config is live\033[0m'
+           else err "reload failed — is AeroSpace running?"; fi ;;
+      q|Q|$'\033') back_or_exit "↩ ${name:-$bundle} unchanged" ;;
+      *)   err "no such key — 1 swap · 2 workspace · ⌫ or - remove it · d clear both · enter write · r reload · esc back" ;;
+    esac
+  done
+  printf '\033[?25h\033[H\033[2J'
+
+  if [ -z "$ws" ] && [ "$float" = 0 ]; then target="remove"
+  elif [ -z "$ws" ];                     then target="floating"
+  else target="$ws"; alsofloat=$float; fi
+fi
+[ -n "$target" ] || { echo "aero-add: no target" >&2; exit 1; }
+if [ "$target" = "remove" ] && [ -z "$cur" ]; then
+  back_or_exit "↩ ${name:-$bundle} already had no rule"
+fi
+
+# ── 4. build the run= line ────────────────────────────────────────────────────
+if [ "$target" = "remove" ]; then
+  [ -n "$cur" ] || { echo "aero-add: '$bundle' has no rule to remove" >&2; exit 1; }
+  desc='no rule (removed)'
+elif [ "$target" = "floating" ]; then
+  run='run = "layout floating"'; desc='floating'; alsofloat=0
+else
+  aerospace list-workspaces --all | grep -qxF "$target" || {
+    echo "aero-add: '$target' is not a workspace (see: aerospace list-workspaces --all)" >&2; exit 1; }
+  if [ "$alsofloat" = 1 ]; then
+    run="run = [\"move-node-to-workspace ${target}\", \"layout floating\"]"
+    desc="workspace ${target} + floating"
+  else
+    run="run = \"move-node-to-workspace ${target}\""; desc="workspace ${target}"
+  fi
+fi
+
+if [ "$dry" = 1 ]; then
+  printf 'aero-add --dry-run · %s\n  now:   %s\n  would: %s\n' "$bundle" "${cur:-— none}" "$desc"
+  [ "$target" = "remove" ] && printf '  delete lines %s–%s of %s\n' "$blkstart" "$blkend" "${toml/#$HOME/~}" \
+    || printf '  %s\n' "$run"
+  exit 0
+fi
+
+# ── 5. write ──────────────────────────────────────────────────────────────────
+# restore the cursor only if the form actually hid it — a non-interactive run
+# must not spray an escape sequence into piped output
+tmp=$(mktemp "${TMPDIR:-/tmp}/aero-add.XXXXXX")
+trap 'rm -f "$tmp"; [ "${interactive:-0}" = 1 ] && printf "\033[?25h"; exit' EXIT
+if [ "$target" = "remove" ]; then
+  # take the blank line that separates this block from the previous one — a
+  # rule is written with a leading \n, but blkstart points at the [[ line, so
+  # deleting the range alone would leave that blank behind
+  del=$blkstart
+  [ "$del" -gt 1 ] && [ -z "$(sed -n "$((del - 1))p" "$toml" | tr -d '[:space:]')" ] && del=$((del - 1))
+  awk -v s="$del" -v e="$blkend" 'NR < s || NR > e' "$toml" > "$tmp" && cat "$tmp" > "$toml"
+  # removing the last generated rule leaves an empty marker header — take it with
+  # it, so an add/remove round-trip returns the file to exactly where it started
+  if [ -z "$(rules_map | awk -F'\t' '$6 == "gen"')" ] && grep -qF "$marker" "$toml"; then
+    awk -v m="$marker" '
+      index($0, m) { skip = 2; next }                  # the marker + its comment line
+      skip > 0 && /^#/ { skip--; next }
+      { skip = 0; print }
+    ' "$toml" | awk '{ b[NR] = $0 } END { n = NR; while (n > 0 && b[n] ~ /^[[:space:]]*$/) n--; for (i = 1; i <= n; i++) print b[i] }' > "$tmp"
+    cat "$tmp" > "$toml"
+  fi
+elif [ -n "$cur" ]; then
+  awk -v n="$runline" -v new="$run" 'NR == n { print new; next } { print }' "$toml" > "$tmp" \
+    && cat "$tmp" > "$toml"
+else
+  grep -qF "$marker" "$toml" || printf '\n\n%s\n# Written by bin/aero-add. Hand-editable — the marker is only a landmark.\n' "$marker" >> "$toml"
+  printf '\n[[on-window-detected]]\nif.app-id = %s\n%s\n' "'${bundle}'" "$run" >> "$toml"
+fi
+
+# ── 6. catch the windows that are already open ────────────────────────────────
+# NO automatic `aerospace reload-config` — that is the `r` key's job, on the form.
+moved=0
+if [ "$target" != "remove" ]; then
+  while read -r wid; do
+    [ -n "$wid" ] || continue
+    if [ "$target" = "floating" ]; then
+      aerospace layout --window-id "$wid" floating 2>/dev/null || true
+    else
+      # same order as the rule: assign, then float
+      aerospace move-node-to-workspace --window-id "$wid" "$target" 2>/dev/null || true
+      [ "$alsofloat" = 1 ] && aerospace layout --window-id "$wid" floating 2>/dev/null || true
+    fi
+    moved=$((moved + 1))
+  # `--monitor all`, NOT `--all`: the --all alias CONFLICTS with filtering flags
+  # and exits 2. With 2>/dev/null || true that failure was invisible — the loop
+  # got no window ids, every run reported "0 windows moved", and a floating rule
+  # never actually floated the window that was already open.
+  done < <(aerospace list-windows --monitor all --app-bundle-id "$bundle" --format '%{window-id}' 2>/dev/null || true)
+fi
+
+printf 'aero-add: %s\n  %s  →  %s\n  written · %d open window(s) moved · NOT live until r\n' \
+  "$bundle" "${cur:-— none}" "$desc" "$moved"
+
+# Applying does NOT leave the form — it re-opens on the same app so `r` is still
+# reachable to make the change live, and esc is what goes back to the list.
+# Re-exec rather than loop in-process so the redrawn form reads the file we just
+# wrote (`now` is never stale).
+if [ "$interactive" = 1 ]; then
+  AERO_ADD_FORM="$bundle" exec "$0"
+fi

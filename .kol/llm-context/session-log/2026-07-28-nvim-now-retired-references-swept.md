@@ -12,7 +12,7 @@
 - `ref/nvim.md` — sibling line + `(nnow: mx)` stripped; `ref/system.md` — nvim-now out of the kol-theme switch line
 - `shell/.zshrc` — `nnow` alias removed; `bootstrap.sh` — nvim-now symlink block removed
 - `bin/kol-theme` — nvim cp now `[ -d nvim-now/lua ] &&`-guarded (no-op until daily nvim adopts the selector); header updated
-- Docs synced: `docs/scripts/22-ref.md`, `docs/scripts/INDEX.md`, `docs/documentation/09-productivity-desktop/{08-kol-theme.md,INDEX.md}`, `docs/kol-terminality/12-nvim-from-scratch.md` (retirement note — doc kept as the learning record)
+- Docs synced: `docs/scripts/22-ref.md`, `docs/scripts/INDEX.md`, `docs/documentation/09-productivity-desktop/{08-kol-theme.md,INDEX.md}`, `docs/operations/systems/terminality/12-nvim-from-scratch.md` (retirement note — doc kept as the learning record)
 
 ### Features Added/Removed
 - **Removed (user-deleted, agent-swept):** `nvim-now/`, `~/.config/nvim-now`, `ref/nnow.md`, `bin/ref-nnow`, `nnow` alias, runtime data dirs. Historical mentions in backlog/session logs left as record.

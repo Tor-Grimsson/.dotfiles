@@ -44,6 +44,57 @@ defaults write com.apple.dock show-recents -bool false                     # no 
 defaults write com.apple.dock minimize-to-application -bool true           # minimize windows into the app icon
 defaults write com.apple.dock mru-spaces -bool false                       # don't auto-reorder Spaces
 defaults write com.apple.dock tilesize -int 48                             # icon size
+defaults write com.apple.dock appswitcher-all-displays -bool true          # cmd-tab switcher on EVERY display, not just the main one
+
+# ── Rectangle (window snapping) ─────────────────────────────────────────────
+# Replaced Magnet 2026-08-01. Magnet had NO gap or margin setting at all and its
+# whole keymap lived in an opaque plist blob; Rectangle exposes every setting as
+# a `defaults` key, which is the only reason the geometry can live here.
+#
+# The numbers MIRROR aerospace's [gaps] so a floating window and a tiled one sit
+# on the same grid: 304 right clears the Übersicht widget column (280 + 12 + 12),
+# 48 top clears the bar. screenEdgeGapsOnMainScreenOnly confines those two to the
+# iMac, matching aerospace's `[{ monitor.main = N }, 10]` arrays — Rectangle has
+# no true per-display values, main-vs-rest is as fine as it gets.
+defaults write com.knollsoft.Rectangle gapSize -float 24                   # gutter BETWEEN windows
+defaults write com.knollsoft.Rectangle screenEdgeGapTop -int 48            # = aerospace outer.top (bar strip)
+defaults write com.knollsoft.Rectangle screenEdgeGapRight -int 304         # = aerospace outer.right (widget column)
+defaults write com.knollsoft.Rectangle screenEdgeGapLeft -int 10           # = aerospace outer.left
+defaults write com.knollsoft.Rectangle screenEdgeGapBottom -int 10         # = aerospace outer.bottom
+defaults write com.knollsoft.Rectangle screenEdgeGapsOnMainScreenOnly -bool true  # 304/48 apply to the iMac only
+defaults write com.knollsoft.Rectangle applyGapsToMaximize -int 2          # Maximize honours the gaps instead of filling the screen
+defaults write com.knollsoft.Rectangle launchOnLogin -bool true
+
+# Shortcuts — Magnet's keymap, rehomed. modifierFlags are COCOA masks, not Carbon:
+#   ctrl 262144 · alt 524288 · cmd 1048576 · shift 131072
+#   786432  = ctrl+alt   (Magnet's band — kept ONLY where aerospace doesn't use it)
+#   1310720 = cmd+ctrl   (free: aerospace has zero cmd-ctrl binds)
+# The four arrows, enter and backspace were never contested, so they stay exactly
+# where the fingers already know them. The ten letters WERE contested — aerospace
+# owns ctrl-alt-{u,i,j,k,d,f,g,e,t,c} for workspaces/focus and wins every one, so
+# they move to cmd-ctrl with the SAME letter.
+_rect() { defaults write com.knollsoft.Rectangle "$1" -dict-add keyCode -float "$2" modifierFlags -float "$3"; }
+_rect leftHalf   123 786432   # ctrl-alt-←
+_rect rightHalf  124 786432   # ctrl-alt-→
+_rect topHalf    126 786432   # ctrl-alt-↑
+_rect bottomHalf 125 786432   # ctrl-alt-↓
+_rect almostMaximize 36 786432 # ctrl-alt-⏎  (almost, not maximize — this one honours the gaps)
+_rect restore     51 786432   # ctrl-alt-⌫
+_rect topLeftQuarter     32 1310720   # cmd-ctrl-u
+_rect topRightQuarter    34 1310720   # cmd-ctrl-i
+_rect bottomLeftQuarter  38 1310720   # cmd-ctrl-j
+_rect bottomRightQuarter 40 1310720   # cmd-ctrl-k
+_rect firstThird      2 1310720       # cmd-ctrl-d
+_rect secondThird     3 1310720       # cmd-ctrl-f
+_rect thirdThird      5 1310720       # cmd-ctrl-g
+_rect firstTwoThirds 14 1310720       # cmd-ctrl-e
+_rect lastTwoThirds  17 1310720       # cmd-ctrl-t
+_rect center          8 1310720       # cmd-ctrl-c
+unset -f _rect
+# Rectangle's Todo feature defaults to ctrl-alt-n / ctrl-alt-b = aerospace workspaces N and B.
+defaults delete com.knollsoft.Rectangle toggleTodo 2>/dev/null || true
+defaults delete com.knollsoft.Rectangle reflowTodo 2>/dev/null || true
+defaults write com.knollsoft.Rectangle todo -bool false
 
 # ── Save / print panels ─────────────────────────────────────────────────────
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true

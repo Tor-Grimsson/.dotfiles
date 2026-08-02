@@ -6,7 +6,7 @@ No arc is open — the user logged off with everything sealed: the export-publis
 
 ## Last actions taken (causal trail, newest first)
 
-- A-Z guide deep pass (`docs/kol-agent-system/12-setup-a-to-z.md`): every §8 verification row probed live or by fixture; §6 rewritten module-by-module from the jabberwocky docs.
+- A-Z guide deep pass (`docs/operations/systems/agent-system/12-setup-a-to-z.md`): every §8 verification row probed live or by fixture; §6 rewritten module-by-module from the jabberwocky docs.
 - **The two-gate bug found + fixed**: humpty's gate and the dotfiles agent-grant held separate windows — `prefix g` was silently dead since the plugin installed. `bin/agent-grant` now writes/revokes BOTH flags (`.agent-grant` + `.humpty-grant`); fixture-proven both directions. Effective immediately, no restart needed.
 - humpty's install doc §2 rewritten verbatim (marketplace/install/reload + the two install traps).
 - All three repos published: humpty · memory-glass (public) · jabberwocky (private). kol-glass re-synced clean.

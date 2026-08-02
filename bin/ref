@@ -11,65 +11,222 @@ set -euo pipefail
 
 dot="$HOME/.dotfiles"
 
-# card → "data-file|base-tag" (base-tag scopes a shared file; empty = whole file)
+# card → "data-file|base-tag|renderer" (base-tag scopes a shared file; empty = whole file).
+# All cards are md-table dialect, glow-RENDERED (real box tables) since 2026-07-29;
+# bat remains the fallback when glow is missing.
+# The one list of card names. bin/ref-pick reads it via `ref --cards` so the
+# picker can never drift out of sync with the engine again (it used to carry a
+# hardcoded array and silently lost skill/humpty/repo). Keep it alphabetical.
+card_list() {
+  printf '%s\n' desk explorer files git grep humpty llm lobby media nvim repo \
+                shell skill system terminal tmux vim
+}
+
 card_def() {
   case "$1" in
-    keys)    printf '%s|\n'     "$dot/keys/keybinds.md" ;;
-    tmux)    printf '%s|tmux\n' "$dot/keys/keybinds.md" ;;
-    files)   printf '%s|\n'     "$dot/files/folders.md" ;;
-    widgets) printf '%s|\n'     "$dot/ref/widgets.md" ;;
-    system)  printf '%s|\n'     "$dot/ref/system.md" ;;
-    nvim)    printf '%s|\n'     "$dot/ref/nvim.md" ;;
+    tmux)     printf '%s||glow\n' "$dot/ref/tmux.md" ;;
+    files)    printf '%s||glow\n' "$dot/files/folders.md" ;;
+    system)   printf '%s||glow\n' "$dot/ref/system.md" ;;
+    vim)      printf '%s||glow\n' "$dot/ref/vim.md" ;;
+    llm)      printf '%s||glow\n' "$dot/ref/llm.md" ;;
+    lobby)    printf '%s||glow\n' "$dot/ref/lobby.md" ;;
+    nvim)     printf '%s||glow\n' "$dot/ref/nvim.md" ;;
+    git)      printf '%s||glow\n' "$dot/ref/git.md" ;;
+    explorer) printf '%s||glow\n' "$dot/ref/explorer.md" ;;
+    grep)     printf '%s||glow\n' "$dot/ref/grep.md" ;;
+    media)    printf '%s||glow\n' "$dot/ref/media.md" ;;
+    desk)     printf '%s||glow\n' "$dot/ref/desk.md" ;;
+    terminal) printf '%s||glow\n' "$dot/ref/terminal.md" ;;
+    shell)    printf '%s||glow\n' "$dot/ref/shell.md" ;;
+    skill)    printf '%s||glow\n' "$dot/ref/skill.md" ;;
+    humpty)   printf '%s||glow\n' "$dot/ref/humpty.md" ;;
+    repo)     printf '%s||glow\n' "$dot/ref/repo.md" ;;
     *) return 1 ;;
   esac
 }
 
+# Renderer for cards AND for the help screens — defined before either can call
+# it. `renderer` is unset while the help runs (no card picked yet), so it
+# defaults to glow: the help is markdown too, and gets the same tables.
+show() {
+  if [ "${renderer:-glow}" = "glow" ] && command -v glow >/dev/null; then
+    # | cat: the global glow.yml sets pager:true (wanted for `glow file.md` doc
+    # reading), and glow 2.1.2 pages even with --pager=false when the config says
+    # so. A pager draws on the alternate screen — quitting ERASES the card; piping
+    # through cat means no TTY, so no pager can engage and the print stays in the
+    # scrollback. CLICOLOR_FORCE=1 because glow also strips color on a non-TTY.
+    CLICOLOR_FORCE=1 glow -s dark -w "$(tput cols 2>/dev/null || echo 100)" | cat
+  else
+    bat --language md --style plain --paging=never
+  fi
+}
+
 usage() {
-  cat <<'EOF'
-ref — desk reference cards: flat tagged lists, filtered by tag, via bat.
+  cat <<'EOF' | show
+# ref — desk reference cards
 
-USAGE
-  ref                       list the cards
-  ref <card> [tag …]        print a card, optionally filtered by tag(s)
+Glow-rendered tables. One card per subject, narrowed by section-title words.
 
-CARDS
-  keys      your keybinds                      (aliases: keys, ref-keys)
-  tmux      the keys card scoped to #tmux                                    (ref-tmux)
-  files     the curated folder map             (aliases: files, ref-files)
-  widgets   desk-widget stack — simple-bar · bookmarks · notes · Übersicht   (ref-widgets)
-  system    system-level hotkeys & setup — #theme section and siblings      (ref-system)
-  nvim      the DAILY nvim config — tree/flash/substitute/lsp/git            (ref-nvim)
+## Usage
 
-Tags match the card's `## #tag …` headers — case-insensitive, all must match:
-  ref keys tmux popover
-  ref-widgets refresh
+| you type            | you get                                        |
+|---------------------|------------------------------------------------|
+| `ref-bingo`         | the WHOLE bingo card — every section, a long dump |
+|                     |                                                |
+| `ref-bingo ping`    | only sections whose title contains "ping"      |
+|                     |                                                |
+| `ref-bingo ping pong` | only sections whose title has BOTH words     |
+|                     |                                                |
+| `ref bingo ping`    | same thing — `ref-bingo` is just a wrapper     |
+|                     |                                                |
+| `ref-bingo --help`  | that card's own section list                   |
+| `ref --lint`        | check every card against the dialect           |
+
+Words NARROW, they don't drill — every word is matched against the same
+section title, case-insensitive, substring. Cards have no subsections.
+
+## Cards
+
+| card     | covers                                          |
+|----------|-------------------------------------------------|
+| tmux     | popover · bookmark · layout · session · pane · copy |
+|          |                                                 |
+| nvim     | modes · mac muscle memory · drill · plugins · markdown |
+|          |                                                 |
+| git      | create · branch · delete · lazygit · gh         |
+|          |                                                 |
+| explorer | yazi · broot · the nvim explorers               |
+|          |                                                 |
+| grep     | ugrep flags · regex · fzf                       |
+|          |                                                 |
+| media    | rmpc · torrent · media scripts                  |
+|          |                                                 |
+| desk     | aerospace · magnet · raycast · hidden bar · widgets |
+|          |                                                 |
+| terminal | ghostty · kitty                                 |
+|          |                                                 |
+| shell    | ssh · history · atuin · vi-mode · cwd           |
+|          |                                                 |
+| vim      | which vim you are in — nvim · zsh · claude · tmux · yazi |
+|          |                                                 |
+| llm      | the llm CLI · models · piping · the popup       |
+|          |                                                 |
+| lobby    | cross-repo tickets — states · where · file · law |
+|          |                                                 |
+| system   | kol-theme · clipboard capture · gotchas         |
+|          |                                                 |
+| skill    | tmpl · wl · mode · kolds · lobby                |
+|          |                                                 |
+| humpty   | dial · clamp · laws · gate · lobby              |
+|          |                                                 |
+| repo     | one section per repo · the wiring               |
+|          |                                                 |
+| files    | the folder map — `to <word>` jumps              |
+
+`ref-pick` (tmux: prefix Ctrl+F) browses all of it in a popup.
 EOF
+}
+
+# ── lint ────────────────────────────────────────────────────────────────────
+# The card dialect as a MACHINE CHECK, not a paragraph in a skill nobody reruns.
+# Every rule here has cost a correction at least once:
+#   per-row spacers  — 385 stripped 2026-07-31, they regrew from a wrong spec line
+#   long cells       — a sentence in a cell is a doc wearing a table costume
+#   dead doc: paths  — a fold target that renders fine and points nowhere
+#   dead ref- points — `ref-tmux bookmarks` when the section is `## bookmark`
+# Exit 1 on any violation so it can gate a commit or a skill's verify step.
+# python3, NOT awk: macOS awk's length() counts BYTES, so a cell full of `·` and
+# `→` measured 49 when it was 42 characters. Every card is full of those.
+card_lint() {
+  local files=""
+  for c in $(card_list); do files="$files $(card_def "$c" | cut -d'|' -f1)"; done
+  python3 - "$dot" $files <<'PY'
+import os, re, sys
+
+MAX  = 46                      # cell budget, in CHARACTERS
+dot  = sys.argv[1]
+bad  = 0
+
+for path in sys.argv[2:]:
+    card = os.path.splitext(os.path.basename(path))[0]
+    if not os.path.exists(path):
+        print(f'ERR  {card:<9} no data file at {path}'); bad = 1; continue
+    lines = open(path).read().split('\n')
+    sections = 0
+
+    for i, line in enumerate(lines, 1):
+        def flag(msg):
+            global bad
+            print(f'WARN {card:<9} {path}:{i}  {msg}'); bad = 1
+
+        if line.startswith('## '):
+            sections += 1
+
+        # A blank table row is a CATEGORY break and nothing else — the row after
+        # it must be a `| ## name |` group marker. Anything else is a per-row
+        # spacer (385 were stripped 2026-07-31; they regrew from a wrong spec).
+        if re.match(r'^\|[\s|]*$', line):
+            nxt = lines[i] if i < len(lines) else ''
+            if not re.match(r'^\|\s*##\s', nxt):
+                flag('per-row spacer — a blank row is a CATEGORY break; next row must be | ## name |')
+            continue
+
+        # Data rows: the second cell stays glance-length. A sentence in a cell is
+        # a doc wearing a table costume — evict the depth to the doc: fold.
+        if line.startswith('|') and not re.match(r'^\|\s*[-:]', line):
+            cells = line.split('|')
+            if len(cells) >= 3:
+                v = cells[2].strip()
+                if len(v) > MAX:
+                    flag(f'cell {len(v)} chars (max {MAX}) — evict the depth to the doc: fold')
+
+        # doc: fold targets must exist. A dead pointer renders perfectly.
+        if line.startswith('doc: '):
+            target = line[5:].split()[0] if line[5:].split() else ''
+            if target and not target.startswith(('http://', 'https://', 'ref-')):
+                if not os.path.exists(os.path.join(dot, target)):
+                    flag(f'doc: target does not exist — {target}')
+
+    if not sections:
+        print(f'WARN {card:<9} {path}  no ## section — nothing is filterable'); bad = 1
+
+if not bad:
+    print(f'ref --lint: {len(sys.argv) - 2} cards clean')
+sys.exit(bad)
+PY
 }
 
 case "${1:-}" in
   ""|-h|--help) usage; exit 0 ;;
+  --cards)      card_list; exit 0 ;;   # machine-readable; bin/ref-pick reads this
+  --lint)       card_lint; exit $? ;;  # dialect check across every card
 esac
 
 card="$1"; shift
-def=$(card_def "$card") || { printf 'ref: no card "%s" (keys · tmux · files · widgets · system · nvim)\n' "$card" >&2; exit 1; }
-data="${def%|*}"; base="${def##*|}"
+def=$(card_def "$card") || { printf 'ref: no card "%s" — try: %s\n' "$card" "$(card_list | tr '\n' ' ')" >&2; exit 1; }
+IFS='|' read -r data base renderer <<< "$def"
 [ -f "$data" ] || { printf 'ref: no data at %s\n' "$data" >&2; exit 1; }
 
 card_usage() {
-  printf 'ref-%s — one card of the ref family.  Data: %s%s\n\n' "$card" "${data/#$HOME/~}" "${base:+ (scoped to #$base)}"
-  printf 'USAGE\n  ref-%s                the whole card\n  ref-%s <tag …>        only sections matching ALL tags (case-insensitive)\n\nSECTIONS\n' "$card" "$card"
-  if [ -n "$base" ]; then
-    grep '^## ' "$data" | grep -i -- "#$base" | sed 's/^## /  /'
-  else
-    grep '^## ' "$data" | sed 's/^## /  /'
-  fi
+  {
+    printf '# ref-%s\n\n' "$card"
+    printf '`%s`%s\n\n' "${data/#$HOME/~}" "${base:+ — scoped to #$base}"
+    printf '| you type | you get |\n|---|---|\n'
+    printf '| `ref-%s` | every section below |\n' "$card"
+    printf '| `ref-%s <word>` | only titles containing that word |\n' "$card"
+    printf '| `ref-%s <word> <word>` | only titles containing BOTH |\n\n' "$card"
+    printf '## Sections\n\n'
+    if [ -n "$base" ]; then
+      grep '^## ' "$data" | grep -i -- "#$base" | sed 's/^## /- /'
+    else
+      grep '^## ' "$data" | sed 's/^## /- /'
+    fi
+  } | show
 }
 
 case "${1:-}" in
   -h|--help) card_usage; exit 0 ;;
 esac
-
-show() { bat --language md --style plain --paging=never; }
 
 if [ -z "$base" ] && [ $# -eq 0 ]; then
   show < "$data"

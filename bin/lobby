@@ -1,0 +1,189 @@
+#!/usr/bin/env bash
+# lobby — browse every registered lobby queue: sweep → pick → read.
+# Popup companion to the /lobby skill family (tmux: prefix Ctrl+K). Registry is
+# files/folders.md § lobby — the SAME catalog clip-drop.sh parses, never a copy.
+set -euo pipefail
+
+dot="$HOME/.dotfiles"
+
+usage() {
+  cat <<'EOF'
+lobby — the queues across every registered lobby, in one place.
+
+USAGE
+  lobby                 sweep all lobbies, then fzf-pick an entry to read
+  lobby --counts        one line per lobby: queue · done · archived · out · owed
+  lobby --outbox        the receipts: what each repo filed elsewhere, what
+                        came back, and what it still owes because of it
+  lobby --paths         print the registered lobby paths (registry order)
+  lobby -h|--help       this help
+
+WHAT IT READS
+  Registry  ~/.dotfiles/files/folders.md  section "## lobby"
+  Ledger    <lobby>/INDEX.md  or  <lobby>/LEDGER.md  (humpty uses LEDGER)
+  Entries   <lobby>/inbox/*.md   live queue      — sent TO this repo
+            <lobby>/done/*.md    closed
+            <lobby>/archive/*.md ⚪ parked (not-now) / ⚫ retired (not-ever) / notes
+            <lobby>/outbox/*.md  receipts        — filed BY this repo elsewhere
+
+THE OWED COLUMN
+  A receipt carries "**Remainder here:** <what this repo still owes>" once its
+  destination closed the ticket. Anything but `none` is work this repo owns and
+  has no other record of — it was decided in another repo's ledger. That is the
+  column to read first.
+
+READ-ONLY. It never moves, closes or files anything — open/closed/stale is
+the user's call. To file: /lobby-<repo> or clip-drop.sh --<flag> NAME.
+
+NOTES
+  Needs fzf + a pager. Card: ref-lobby. Spec: docs/operations/systems/lobby/
+EOF
+}
+
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
+
+# Registry: the `## lobby` section of files/folders.md — one path per table row.
+# Same parse as clip-drop.sh's lobby_paths(), deliberately: one catalog, and a
+# hardcoded copy here is exactly how bin/ref-pick silently lost three cards.
+lobby_paths() {
+  awk '
+    /^## / { shw = (tolower($0) ~ /lobby/); next }
+    shw && /^\| *~/ { gsub(/^\| */, ""); sub(/ *\|.*/, ""); if ($0 != "") print }
+  ' "$dot/files/folders.md" | sed "s|^~|$HOME|"
+}
+
+lobby_name() { local d="${1%/lobby}"; d="${d##*/}"; printf '%s' "${d#.}"; }
+
+ledger() {
+  [ -f "$1/INDEX.md" ] && { printf '%s/INDEX.md' "$1"; return; }
+  [ -f "$1/LEDGER.md" ] && { printf '%s/LEDGER.md' "$1"; return; }
+}
+
+# queue = live entries. inbox/ is the standard; fall back to loose root .md for
+# a lobby that predates the inbox/ split.
+queue_files() {
+  local lp="$1"
+  if [ -d "$lp/inbox" ]; then
+    find "$lp/inbox" -maxdepth 1 -name '*.md' 2>/dev/null | sort
+  else
+    find "$lp" -maxdepth 1 -name '*.md' ! -name 'INDEX.md' ! -name 'LEDGER.md' \
+         ! -name 'README.md' 2>/dev/null | sort
+  fi
+}
+
+# outbox = receipts for tickets THIS repo filed elsewhere. Not queue: the work
+# is someone else's. What matters here is what came BACK.
+outbox_files() {
+  find "$1/outbox" -maxdepth 1 -name '*.md' 2>/dev/null | sort
+}
+
+# Pull a "**Field:** value" line out of a receipt, minus the markdown furniture.
+receipt_field() {
+  awk -v key="$2" '
+    index($0, "**" key ":**") == 1 {
+      sub(/^\*\*[^*]*\*\*[ \t]*/, ""); gsub(/`/, ""); print; exit
+    }
+  ' "$1"
+}
+
+# Owed = the destination closed it and named a remainder that is not `none`.
+# A receipt with no Remainder line has not come back yet — that is `out`, not owed.
+# Judge the FIRST WORD only: the real receipts read "`none`. <why>" — a whole-value
+# compare marked every one of them owed, which is the failure this reads around.
+receipt_owed() {
+  local r w
+  r=$(receipt_field "$1" 'Remainder here')
+  [ -n "$r" ] || return 1
+  w=$(printf '%s' "$r" | awk '{print tolower($1)}' | tr -d '.,;:`*')
+  [ "$w" != none ] && [ "$w" != nothing ]
+}
+
+owed_count() {
+  local lp="$1" n=0 f
+  while read -r f; do
+    [ -n "$f" ] || continue
+    # `if`, not `&&` — under `set -e` a failing && list would kill the sweep.
+    if receipt_owed "$f"; then n=$((n + 1)); fi
+  done < <(outbox_files "$lp")
+  printf '%s' "$n"
+}
+
+counts() {
+  printf '%-14s %5s %5s %8s %5s %5s  %s\n' lobby queue done archived out owed ledger
+  while read -r lp; do
+    [ -n "$lp" ] || continue
+    local n d a o w l
+    n=$(queue_files "$lp" | grep -c . || true)
+    d=$(find "$lp/done" -maxdepth 1 -name '*.md' 2>/dev/null | grep -c . || true)
+    a=$(find "$lp/archive" -maxdepth 1 -name '*.md' 2>/dev/null | grep -c . || true)
+    o=$(outbox_files "$lp" | grep -c . || true)
+    w=$(owed_count "$lp")
+    l=$(ledger "$lp"); l="${l##*/}"; [ -n "$l" ] || l='— none —'
+    printf '%-14s %5s %5s %8s %5s %5s  %s\n' \
+      "$(lobby_name "$lp")" "$n" "$d" "$a" "$o" "$w" "$l"
+  done < <(lobby_paths)
+}
+
+# One line per receipt: who filed it, where it went, what came back, what is owed.
+outbox() {
+  local any=
+  while read -r lp; do
+    [ -n "$lp" ] || continue
+    local name; name=$(lobby_name "$lp")
+    while read -r f; do
+      [ -n "$f" ] || continue
+      any=1
+      local dest last rem mark
+      dest=$(receipt_field "$f" 'Filed')
+      last=$(receipt_field "$f" 'Last known')
+      rem=$(receipt_field "$f" 'Remainder here')
+      if receipt_owed "$f"; then mark='OWED'; else mark='    '; fi
+      [ -n "$rem" ] || rem='— not returned yet —'
+      printf '%s %-12s %-32s %s\n' "$mark" "$name" "$(basename "$f" .md)" "$dest"
+      printf '     %-12s %-32s last known: %s\n' '' '' "${last:-—}"
+      printf '     %-12s %-32s remainder:  %s\n' '' '' "$rem"
+    done < <(outbox_files "$lp")
+  done < <(lobby_paths)
+  [ -n "$any" ] || echo "lobby: no receipts — nothing filed elsewhere from any repo"
+}
+
+case "${1:-}" in
+  --paths)  lobby_paths; exit 0 ;;
+  --counts) counts; exit 0 ;;
+  --outbox) outbox; exit 0 ;;
+esac
+
+command -v fzf >/dev/null || { counts; exit 0; }
+
+# One row per live entry, across every lobby: "<lobby>  <entry>  <path>"
+rows() {
+  while read -r lp; do
+    [ -n "$lp" ] || continue
+    local name; name=$(lobby_name "$lp")
+    while read -r f; do
+      [ -n "$f" ] || continue
+      printf '%-12s  %-38s  %s\n' "$name" "$(basename "$f" .md)" "$f"
+    done < <(queue_files "$lp")
+    # Receipts sort in beside the queue, marked — owed ones first to the eye.
+    while read -r f; do
+      [ -n "$f" ] || continue
+      local tag='↗'; if receipt_owed "$f"; then tag='📌'; fi
+      printf '%-12s  %-38s  %s\n' "$name" "$tag $(basename "$f" .md)" "$f"
+    done < <(outbox_files "$lp")
+    local lg; lg=$(ledger "$lp")
+    [ -n "$lg" ] && printf '%-12s  %-38s  %s\n' "$name" "· the ledger ·" "$lg"
+  done < <(lobby_paths)
+}
+
+all=$(rows)
+[ -n "$all" ] || { echo "lobby: every queue is empty"; counts; exit 0; }
+
+while :; do
+  pick=$(printf '%s\n' "$all" | fzf --prompt='lobby > ' --layout=reverse \
+    --header="$(counts | head -1)  ·  enter reads · esc closes" \
+    --preview 'glow -s dark {3} 2>/dev/null || cat {3}' \
+    --preview-window 'right,62%') || exit 0
+  file=$(printf '%s' "$pick" | awk '{print $NF}')
+  [ -f "$file" ] || continue
+  { glow -s dark "$file" 2>/dev/null || cat "$file"; } | less -R
+done

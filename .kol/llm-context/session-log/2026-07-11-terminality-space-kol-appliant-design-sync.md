@@ -6,12 +6,12 @@
 
 ## Changes Made
 
-### kol-terminality (docs/kol-terminality/)
+### kol-terminality (docs/operations/systems/terminality/)
 - INDEX + 10 category docs (vision/cockpit, workspaces, neovim, desk, tmux, notes+tasks, macos-control, automation+ritual, connected reach, references) + v1/v2/later roadmap. Sticky-widget idea (notes+bookmarks+links on Übersicht) captured in 06.
 - **Vault lean 5→3:** `research/` → terminality (`11-ricing-backlog`, `12-nvim-from-scratch`, `13-awesome-tuis`); `explorations/` → `operations/06-explorations.md`; `operations/06-kol-dash/` → `kol-terminality/kol-dash/`. All INDEXes + wikilinks rerouted; final grep zero stale.
 
 ### kol-appliant standard (phase 3 of llm-plan/03)
-- Spec: `docs/operations/03-kol-docs-system-setup/01-kol-appliant-tool-standard.md` (5-point contract + DoD; keys/files registration mandatory; git = section changelog).
+- Spec: `docs/operations/systems/docs-framework/01-kol-appliant-tool-standard.md` (5-point contract + DoD; keys/files registration mandatory; git = section changelog).
 - `/kol-appliant` skill (audit/fix a tool against the DoD) + `bin/help-lint` (static `--help` lint, skips binaries, exit-code gate) + its doc `docs/scripts/21-help-lint.md`.
 - Lint caught + fixed: `keys`, `files`, `vid-h264-web.sh`, `vid-reframe.sh`; `tor-jackett` = binary false-positive → lint hardened. `bin/` now 64/64 clean.
 

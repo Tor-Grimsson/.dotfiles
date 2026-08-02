@@ -2,7 +2,7 @@
 title: System & clipboard scripts
 type: reference
 status: active
-updated: 2026-07-08
+updated: 2026-07-29
 description: fs-* filesystem + ss-*/clip-* clipboard helpers.
 aliases:
   - system
@@ -22,7 +22,7 @@ related:
 | `fs-rm-folder-smart.sh` | **Flatten** nested folders: move files out, delete emptied folders (clash-safe) | `fs-rm-folder-smart.sh [-w] [-d N] [-n]` — run `--help` |
 | `fs-shoot.sh` | **Shoot** files/folders into a destination folder (created if missing, clash-safe) | `fs-shoot.sh [-n] <dest> <files…>` — run `--help` |
 | `ss-save.sh` | Save clipboard image → file via `pngpaste` (you pick the path up front) | `ss-save.sh [name] [dir]` — run `--help`; full path rules in [[ss-save|ss-save.md]] |
-| `clip-drop.sh` | Clipboard image → `~/_inbox`; `--yazi` **opens yazi on it**; `--note`/`--review` fold image + a linked `.md` into a named folder; `--menu` = fzf picker over all modes | `clip-drop.sh [--note [name] \| --review [name]] [--yazi] [dir]` — run `--help`; bound to `prefix C-p` (`--menu`) |
+| `clip-drop.sh` | Clipboard image → `~/_inbox` (a bare word = a folder INSIDE it, never a path); `--note`/`--review` add a linked `.md`; **repo flags** (`--kol-ds-ui` `--humpty` `--kol-website` `--dotfiles`) file it into that repo's `lobby/`; `--yazi` opens yazi; `--menu` = fzf picker | `clip-drop.sh [word] [--note \| --review] [--yazi]` · `clip-drop.sh --humpty overload` — run `--help` (examples-first); bound to `prefix C-p` |
 | `fs-reveal.sh` | Open Finder at PATH; `-f` = new **floating** window on the current AeroSpace workspace | `fs-reveal.sh [-f] [path]` — run `--help`; the `-f` bypass in [[fs-reveal|fs-reveal.md]] |
 
 > `fs-rm-folder-smart.sh` renamed from `rm-fold-smart.sh` (fold → folder). Older `rm-folder*` variants were relocated to `~/_temp/bin_bak/` (out of the repo) on 2026-06-05.
@@ -55,10 +55,21 @@ Enter-Enter = capture-and-file; Esc = nothing saved; the review line shows the c
 `clip-drop.sh` just saves. If you don't feel like filing it, it just sits in `~/_inbox` as an unfiled pile.
 
 Filing it, entirely in yazi (no path typed): `r` rename → `x` cut → navigate to the destination → `p` paste.
-Needs `pngpaste` (`yazi` only with `--yazi`); errors out if the clipboard holds no image. Image preview inside
+Needs `pngpaste` (`yazi` only with `--yazi`); errors out if the clipboard holds no image. (⌘⇧3/4 *screenshots* land in `~/Screenshots` via `macos/defaults.sh` — the `~/_inbox` flow is clipboard-only.) Image preview inside
 the popup relies on tmux `allow-passthrough on` (the same thing the `prefix C-y` [[02-yazi|yazi]] popup depends on).
 
 Optional arg overrides the inbox: `clip-drop.sh ~/Pictures/staging`.
+
+**`_inbox` is the home (rebuilt 2026-07-30).** A bare word is a **folder name inside `~/_inbox`**, never a path — before this, `clip-drop.sh review` created `./review` in whatever directory the shell happened to be in, which is how a `review/` folder appeared inside kol-ds-ui. Path-shaped words are stripped to their last segment; `--dir PATH` is the deliberate override.
+
+| you type | you get |
+|---|---|
+| `clip-drop.sh` | `~/_inbox/clip_<ts>.png` |
+| `clip-drop.sh bingo` | `~/_inbox/bingo/clip_<ts>.png` — same word twice = same folder |
+| `clip-drop.sh bingo --note` | …plus `bingo.md` with a timestamped embed |
+| `clip-drop.sh --humpty overload` | `humpty/lobby/overload.md` + `_assets/` |
+
+**Repo flags** — one per lobby registered in `files/folders.md`'s `## lobby` section: `--kol-ds-ui` · `--humpty` · `--kol-website` · `--dotfiles`. The flag name is the folder holding the lobby, so registering a new lobby (one row) creates its flag with no code change. The `.md` sits at the lobby root, images in `<lobby>/_assets/`, repeat captures append. `--lobby` bare lists the registry; `--lobby WORD` is the generic form underneath. `--menu` (tmux `prefix C-p`) grows one `lobby: <repo> …` item per registered path.
 
 When the screenshot is **evidence** (an issue, a review), the modes pair it with a markdown doc in its own folder:
 `--note [name]` = one-off issue — saves into `~/_inbox/<name>/` and creates/appends `<name>.md` there (title + image

@@ -24,7 +24,7 @@ A **personal command center**: SketchyBar as the always-visible glance + one-tap
 | **SketchyBar** | ambient status + micro-action popups | the bar (this folder) |
 | **Raycast** | the hotkey-summoned palette (search & run) | 6 script commands (`theme-*`, `aerospace-enable`, `alarm-*`) — scales to scripts/links/tasks/snippets |
 | **tmux popups** | in-terminal summons | 4 already: scratch shell · yazi · lazygit · bookmark (+ sesh) |
-| **`keys <tag>`** | shortcuts on demand | the `keys` cheatsheet tool |
+| **`ref-<card> <word>`** | shortcuts on demand | the ref-card family |
 
 ## The constraint (what belongs where)
 SketchyBar popups **cannot be dragged or resized** — they're bar-anchored overlays, not windows. So:
@@ -41,7 +41,7 @@ SketchyBar popups **cannot be dragged or resized** — they're bar-anchored over
 | **Progress** (logged projects, time-on-project) | stat chip / popup | — | `session-log/` across repos |
 | **Saved links / bookmarks** | — | Raycast Quicklinks | + the tmux bookmark popup |
 | **tmux sessions** | chip ✓ (done) | sesh / tmux-sessionx picker | — |
-| **Shortcuts** | — | — | `keys <tag>` |
+| **Shortcuts** | — | — | `ref-<card> <word>` |
 | **Calendar** (gcalcli display) | agenda chip + popup | — | `cag`/`cday`/`cw`/`cm` |
 
 ## Backlog

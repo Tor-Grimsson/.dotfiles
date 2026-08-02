@@ -19,7 +19,7 @@
 - `claude/settings.json` — wired the `Stop` → footer-gate hook (JSON re-validated).
 - `claude/hooks/reinforce-full.txt` + `reinforce-compact.txt` — rewritten to lead with a loud "END AT THE FOOTER / fold-or-delete" rule in the user's words.
 - `claude/hooks/agent-reinforce.sh` — compact-reground cadence tightened **5 → 3** turns.
-- `docs/operations/02-claude-agents/04-hooks-and-tools.md` — synced (footer-gate added to hooks list + settings table, cadence 5→3, `updated` 2026-07-09).
+- `docs/operations/systems/claude-harness/04-hooks-and-tools.md` — synced (footer-gate added to hooks list + settings table, cadence 5→3, `updated` 2026-07-09).
 
 ### Docs synced (prompt swap)
 - `01-shell-terminal/03-powerlevel10k.md` — `archived → active`, callout + "why" reversed.

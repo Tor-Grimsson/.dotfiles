@@ -4,6 +4,8 @@
 
 - [No commits](feedback_no_commits.md) — Never commit or offer to commit on behalf of the user
 - [No unrequested options](feedback_no_unrequested_options.md) — Apply the directive; don't append alternative-menus
+- [Never manufacture tasks](feedback_never_manufacture_tasks.md) — "open/stale tasks" = last session's leftovers only; zero is the whole answer, parked ≠ open, and never WRITE an invented item into a queue
+- [No substance, no structure](feedback_no_substance_no_structure.md) — nothing to report means say nothing; an acknowledgement gets no header card, no cards, no footer
 - [Workbox location](reference_workbox.md) — iCloud Drive path for user's Workbox folder
 - [No provisioning](feedback_no_provisioning.md) — don't run brew bundle/install/upgrade or bootstrap.sh; the user runs those
 - [Question ≠ command](feedback_question_not_command.md) — "run this?" is asking for an answer, not authorization to act
@@ -24,8 +26,15 @@
 - [Teach simplest path first](teach-simplest-path-first.md) — user is learning; offer the simplest option (GUI included) before CLI ceremony, no silent background fixes during walkthroughs
 - [Docs lookup-first](docs-lookup-first.md) — reference docs lead with tables/steps/commands, prose detail below; deps stated head-on in a table, never sideways in prose
 - [Clarity over cleverness](feedback_clarity_over_cleverness.md) — lead with the plain answer in ≤3 short lines; reasoning only on "why"; if it needs a metaphor it is not clear yet
+- [Examples are copy-pasteable](feedback_examples_are_copy_pasteable.md) — no `$` prompt prefix, ever; a command block is only commands, output goes in its own block or a table
 - [Glass naming system](project_glass_naming_system.md) — Glass=state, Ubu Roi=actors, Alice=motion; names are picked from the bag, never invented; document in .kol + docs/ at outline start; umbrella name OPEN
 - [Own it, move on](feedback_own_it_move_on.md) — callout = one-line ownership then the work, zero validation prose; checkpoint questions are not build authorization
 - [Status chores footer-only](feedback_status_chores_footer_only.md) — git/deploy/restart chores + trailing caveats are footer tokens, never prose
 - [Text-transform is preference, not law](feedback_text_transform_preference_not_law.md) — never flag existing uppercase/transform as a violation
 - [Bash weight discipline](feedback_bash_weight_discipline.md) — no builds for routine edits, no spawn loops, no node_modules-wide scans
+- [Audits are tables](feedback_audits_are_tables.md) — audit results and any ≥3-item enumeration are delivered as tables, never prose paragraphs
+- [Three columns is a card](feedback_three_columns_is_a_card.md) — count columns first; 3+ or a wrapping cell means the T1/T2 card stack (module 07), not a table
+- [Audit the live tool](feedback_audit_the_live_tool.md) — confirm which tool is actually in use before auditing its config; a config on disk isn't proof it's live
+- [Lead first](feedback_lead_first.md) — the direct answer is the FIRST line; never behind framing, distinctions, or evidence
+- [Print the path](feedback_print_the_path.md) — never show an icon/asset/finding without its repo-relative path; the path is the handle to the source
+- [Found a bug? Fix it](feedback_found_a_bug_fix_it.md) — a defect in your own work gets fixed + verified that turn, never described, agreed-with, or offered as options

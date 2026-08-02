@@ -11,12 +11,12 @@ tags:
   - domain/scripts
 related:
   - "[[INDEX|Scripts]]"
-  - "[[operations/03-kol-docs-system-setup/01-kol-appliant-tool-standard|kol-appliant standard]]"
+  - "[[operations/systems/docs-framework/01-kol-appliant-tool-standard|kol-appliant standard]]"
 ---
 
 # help-lint
 
-Flags any `bin/` script that doesn't service the `--help` convention (the house rule: every script answers `--help`). The enforcement arm of the [[operations/03-kol-docs-system-setup/01-kol-appliant-tool-standard|kol-appliant standard]].
+Flags any `bin/` script that doesn't service the `--help` convention (the house rule: every script answers `--help`). The enforcement arm of the [[operations/systems/docs-framework/01-kol-appliant-tool-standard|kol-appliant standard]].
 
 ## Usage
 
