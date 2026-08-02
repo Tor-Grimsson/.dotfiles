@@ -7,6 +7,7 @@
 # ════════════════════════════════════════════════════════════════════════════
 
 tap "siddharthvaddem/openscreen"   # provides the openscreen cask
+tap "nikitabobko/tap"              # provides the aerospace cask
 # tap "FelixKratz/formulae"        # sketchybar's tap — config archived 2026-07-11 (_archive/sketchybar), bar replaced by Übersicht + simple-bar
 
 # Browser / terminal / editor
