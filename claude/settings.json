@@ -80,7 +80,7 @@
   },
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true,
-    "ponytail@ponytail": false,
+    "ponytail@ponytail": true,
     "humpty@humpty": true
   },
   "extraKnownMarketplaces": {
@@ -99,11 +99,11 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
-  "editorMode": "vim",
   "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"
   },
-  "skipWorkflowUsageWarning": true
+  "skipWorkflowUsageWarning": true,
+  "editorMode": "vim"
 }
