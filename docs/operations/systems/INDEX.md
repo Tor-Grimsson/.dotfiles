@@ -2,7 +2,7 @@
 title: Systems — the interconnected ones
 type: index
 status: active
-updated: 2026-07-30
+updated: 2026-08-03
 description: One folder per system that spans repos, machines or services — agent OS, agent memory, the Claude harness config, the docs framework, CDN buckets, terminality, the repo map, and the cross-repo lobby queue. Plain names, no sequencing; the shelf grows as the estate does.
 tags:
   - project/dotfiles
@@ -33,3 +33,29 @@ No `NN-` prefixes on these folders — the shelf is deliberately sized to grow, 
 ## The rule that keeps this honest
 
 Each system documents the **map and the machinery** here; each repo keeps its **own depth** in its own `docs/`. Nothing is written twice — [[operations/systems/claude-memory/03-kol-glass-vault|kol-glass]] then makes both greppable in one vault.
+
+## Shipped as concepts — 2026-08-03
+
+Eight of the systems above (or parts of them) are additionally packaged as **adoptable
+patterns** in `kol-dumpty/humpty/concepts/`. The rule: a thing ships as a concept **and
+keeps its dotfiles copy**. Nothing here is single-homed, so an export never obsoletes
+its source doc, and this table's "where the thing lives" column stays true.
+
+| Concept | Dependency-in-use here | Ships as |
+|---|---|---|
+| Lobby | `lobby/` + `bin/lobby` + 8 `lobby-*` skills | `concepts/01-lobby` |
+| Drop queue | `bin/agent-drop` + launchd plist | `concepts/02-drop-queue` |
+| Journal | 7 skills — `ag-init`, `log-work*`, `playbook` | `concepts/03-journal` |
+| Docs spec | `claude/packages/kol-docs/` — **the keystone** | `concepts/04-docs-spec` |
+| Scaffold | `claude/packages/scaffold/` | `concepts/05-scaffold` |
+| CDN | 3 `kol-bucket*` skills + the `bucket` CLI | `concepts/06-cdn` |
+| Export specs | `export-specs` skill + `bin/img-canvas.sh` | `concepts/07-export-specs` |
+| Publishing | `upig` + `claude-npm` | `concepts/08-publishing` |
+
+**Status: specs only.** Each names its strip list; none is executed. `04` must ship
+first — `05` points into it.
+
+**Agent behaviour is NOT on this list** — it did not ship as a concept, it *moved*.
+Seven hooks, the statusline and 35 skills went to the humpty plugin on 2026-08-03;
+`claude/settings.json` no longer carries a `hooks` key. See `agent-system/INDEX.md`
+for which docs that superseded.

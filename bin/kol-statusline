@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# kol-statusline — locate humpty's statusline and run it, wherever it lives.
+#
+# WHY A LOCATOR. `statusLine` in settings.json is NOT a hook, so `$CLAUDE_PLUGIN_ROOT`
+# is unset when it runs — pointing the key straight at the plugin silently produces an
+# empty line. And settings.json is symlinked from dotfiles, so one hardcoded absolute
+# path cannot be right on two machines with different checkouts.
+#
+# So: this file is the stable target. It looks for the statusline in preference order
+# and execs the first it finds, passing stdin through untouched.
+#
+#   1. the dev repo   — this machine develops humpty; edits are live immediately
+#   2. the plugin cache — newest version installed from the marketplace
+#
+# Nothing found -> print nothing, exit 0. A missing statusline is a blank line, never
+# an error in the user's chrome.
+
+dev="$HOME/dev/projects/kol-dumpty/humpty/bin/humpty-statusline"
+if [ -x "$dev" ]; then
+  exec bash "$dev"
+fi
+
+# Cache layout: ~/.claude/plugins/cache/<marketplace>/<plugin>/<version>/bin/…
+# Version sorts last-wins, so `sort -V | tail -1` picks the newest installed.
+base="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/plugins/cache"
+if [ -d "$base" ]; then
+  found=$(find "$base" -type f -name humpty-statusline -perm -u+x 2>/dev/null | sort -V | tail -1)
+  if [ -n "$found" ]; then
+    exec bash "$found"
+  fi
+fi
+
+cat >/dev/null 2>&1   # drain stdin so the caller never blocks
+exit 0

@@ -1,8 +1,8 @@
 ---
 title: 08 · Behavior — discipline shipped as code
 type: explainer
-status: active
-updated: 2026-08-01
+status: superseded
+updated: 2026-08-03
 description: The anti-word-soup stack — the persona (ships as Ubu Roi), the ponytail laziness ladder, and the enforcement hooks (agent-reinforce cadence injection, footer-gate Stop-block, goal-loop and its checklist, doc-sync-reminder) plus the memory tier that makes corrections durable. Output rules as executable machinery, not vibes.
 tags:
   - project/dotfiles
@@ -15,15 +15,23 @@ related:
 
 # 08 · Behavior — discipline shipped as code
 
+> **SUPERSEDED 2026-08-03 — the machinery named below moved to the humpty plugin.**
+> Every hook this doc describes left `claude/hooks/` in the agent-behaviour
+> consolidation; `settings.json` no longer carries a `hooks` key at all. The file
+> map here is kept as the DESIGN RECORD of how it was wired in dotfiles — it is no
+> longer where the code lives. Current wiring: `humpty/hooks/hooks.json`.
+> Quarantined originals: `_tmp/2026-08-03-agent-behaviour-to-humpty/`.
+
+
 The thesis: people hate word soup, and a model won't hold the line from a prompt alone. So the line is held by **layers that re-assert themselves** — a persona, a build philosophy, hooks that inject and block, and memory that makes corrections permanent.
 
 ```
   LAYER            MECHANISM                        FIRES
   persona          CLAUDE.md (ships as Ubu Roi)     always loaded — tone, report shape, rules
   build philosophy ponytail plugin                  every response — the laziness ladder
-  cadence          agent-reinforce.sh (hook)        turn 1 full · every ~5 turns compact
-  gate             footer-gate.sh (Stop hook)       BLOCKS the reply that breaks the shape
-  goal lock        goal-loop.sh (Stop hook)         blocks stopping until every `- [ ]` is ticked
+  cadence          humpty_track.py (plugin)        turn 1 full · every ~5 turns compact
+  gate             humpty_footer.py (plugin)       BLOCKS the reply that breaks the shape
+  goal lock        humpty_goal.py (plugin)         blocks stopping until every `- [ ]` is ticked
   sync nudge       doc-sync-reminder.sh             edit a tracked file → reminded to sync its doc
   durability       feedback memories (04)           corrections persist across sessions
 ```

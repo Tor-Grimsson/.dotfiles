@@ -2,7 +2,7 @@
 title: kol-agent-system — the wholesale outline
 type: index
 status: active
-updated: 2026-07-28
+updated: 2026-08-03
 description: The complete outline of the agent operating system — init, context economy, journaling, memory, plans, docs framework, human tier, behavior stack, routing, and the naming system. One doc per module, each with diagram, file map, and export notes. The design space for sharing the system wholesale or by module.
 tags:
   - project/dotfiles
@@ -15,6 +15,41 @@ related:
 # kol-agent-system
 
 The whole system, outlined for export — wholesale or by module. Each module doc answers: what it is, how it's wired, which files/skills/hooks it owns, and what extraction costs. Working title only; the public umbrella name is open and comes from the naming system ([[10-naming|10]]).
+
+## Canon vs superseded — ruled 2026-08-03
+
+This suite is the **design outline of the private source** (dotfiles). jabberwocky,
+humpty and memory-glass are the **exports**. They are two views of one system, not
+duplicates — so nothing here is retired for merely having an exported twin. Only a
+doc whose *facts* stopped being true is marked superseded.
+
+| Doc | Verdict | Why |
+|---|---|---|
+| `08-behavior` | 🔴 **superseded** | every hook it maps moved to humpty 2026-08-03; kept as the design record |
+| `11-grant` | 🔴 **superseded** | `agent-grant` → `humpty-grant`; gate, badge and cadence all moved |
+| `12-setup-a-to-z` | 🟡 **needs a pass** | walks the published system; the hook wiring half is now wrong |
+| `04-memory` | 🟢 canon | pointer module — memory-glass verified accurate 2026-08-03 |
+| `10-naming` | 🟢 canon | the Glass/Ubu/Alice bag; a copy now also lives in humpty |
+| `00` `01` `02` `03` `05` `06` `07` `09` | 🟢 canon | describe dotfiles' own wiring, which did not move |
+
+**Rule this produced:** a thing ships as a concept **and keeps its dotfiles copy**.
+Nothing is single-homed, so an export never obsoletes its source doc.
+
+## The publishing surface — added 2026-08-03
+
+`kol-dumpty/ubu-roi` is the **public repo**, generated from humpty by `bin/humpty-payload`.
+It receives runtime payload only — `hooks/ skills/ commands/ bin/ .claude-plugin/ LICENSE`
+plus `README.public.md` staged as its README. `.kol/`, `docs/`, `lobby/`, `concepts/` and
+`_tmp/` never leave the dev repo.
+
+The generator refuses to stage unless the tests are green, no personal paths survive, every
+hook `hooks.json` registers exists, and every skill has valid frontmatter. So the published
+tree cannot drift from the dev repo by hand, and a broken plugin cannot be published by
+accident.
+
+**Rejected:** hoisting `.kol/` and `docs/` up to `kol-dumpty/` to leave only payload behind.
+It would break `/ag-init` (which reads `.kol/` at repo root) and the self-hosting property
+both humpty and jabberwocky were deliberately rebuilt for.
 
 ## The system at a glance
 

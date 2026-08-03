@@ -46,13 +46,27 @@ escalating word floors — decay back to normal on clean turns
 
 fuck-up protocol (always on): one line of ownership, then one question line — memory? severity? scope?
 
+## delete
+
+| keys                | does                                       |
+|---------------------|--------------------------------------------|
+| rm · rmdir · unlink | DENIED by humpty-rm (PreToolUse Bash)      |
+| trash · shred       | denied the same way                        |
+| find -delete        | denied — the flag is the tell              |
+| mv to _tmp/         | the ONLY sanctioned removal                |
+| /tmp · dist · cache | scratch roots, allowed through             |
+
+Law: nothing leaves a repo, it moves to `_tmp/<date>-<what>/`. Gitignore `_tmp/` in
+the same breath. Outranks every clean-up instruction. Text: humpty `skills/laws`,
+dotfiles `CLAUDE.md` § Repo hygiene — both copies canon.
+
 ## gate
 
 | keys                | does                                       |
 |---------------------|--------------------------------------------|
-| prefix g            | agent-grant 15m read-only window           |
-| agent-grant [min]   | same from the shell · `off` · `status`     |
-| humpty-grant git    | open a git-write window                    |
+| prefix g            | humpty-grant 15m window (again = revoke)   |
+| humpty-grant [min]  | same from the shell · `off` · `status`     |
+| humpty-grant git    | open ONE pipeline · npm · gh · downloads   |
 
 ## lobby
 

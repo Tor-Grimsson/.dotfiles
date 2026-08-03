@@ -2,7 +2,7 @@
 title: Claude & Agents
 type: index
 status: active
-updated: 2026-07-05
+updated: 2026-08-03
 description: The repo's own Claude Code / agent layer — the agent-context protocol, skills, subagents, hooks, and MCP tools. Distinct from the numbered tool catalog; this documents how `~/.claude` (repo-backed per ARCHITECTURE §3) is wired.
 tags:
   - project/dotfiles
@@ -10,6 +10,14 @@ tags:
 ---
 
 # Claude & Agents
+
+> **2026-08-03 — the hooks left this repo.** `claude/settings.json` no longer carries a
+> `hooks` key; all seven hooks plus the statusline now ship with the humpty plugin and
+> are registered in `humpty/hooks/hooks.json`. `statusLine` stays here (it is not a hook)
+> and points at `humpty/bin/humpty-statusline`. What remains under `claude/` is skills,
+> packages, agents, memory and settings. Quarantined originals:
+> `_tmp/2026-08-03-agent-behaviour-to-humpty/`.
+
 
 Everything under `claude/` is the **agent layer** of this repo — the Claude Code config that `bootstrap.sh` symlinks into `~/.claude/`. Per `ARCHITECTURE.md` §3, **git is the source of truth** for it (not iCloud); editing `~/.claude/<x>` edits the repo. Per §4, skills are sourced from kol-system and bundled self-contained.
 

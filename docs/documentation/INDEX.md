@@ -2,7 +2,7 @@
 title: Documentation — tool catalog & guides
 type: index
 status: active
-updated: 2026-07-09
+updated: 2026-08-03
 description: The repo's subject matter — one reference doc per installed tool, plus multi-chapter guides. Content only; repo machinery lives in operations/.
 tags:
   - project/dotfiles
@@ -26,7 +26,7 @@ Two cross-cutting axes live in **tags**, not folders:
 | 01 | [[documentation/01-shell-terminal/INDEX|Shell & Terminal]] | 26 | terminal emulators (iTerm2, Ghostty), multiplexers, prompt (starship), zsh plugins, clipboard, sysinfo, process monitor, cheat-sheets (tldr), calendar (gcalcli), markdown renderers (glow/mdcat), image renderer (chafa), kanban (kanban-tui), tmux session/project managers, git worktree pairing (workmux), shell-history search (atuin), vi-mode (zsh-vi-mode) |
 | 02 | [[documentation/02-file-management/INDEX|File Management]] | 22 | tree view, TUI/GUI managers, renamers, archiver + modern CLI core (eza/bat/fd/rg/fzf/zoxide/dust) + yazi preview backends (7-Zip/resvg) |
 | 03 | [[documentation/03-dedup-cleanup/INDEX|Dedup & Cleanup]] | 6 | duplicate finders, app uninstallers, file recovery |
-| 04 | [[documentation/04-dev-languages/INDEX|Dev & Languages]] | 10 | editors, JS/Python runtimes & managers, jq, containers, LLM client, Claude Code plugin (ponytail) |
+| 04 | [[documentation/04-dev-languages/INDEX|Dev & Languages]] | 11 | editors, JS/Python runtimes & managers, jq, containers, LLM client, Claude Code integrations (ponytail, framer-agent) |
 | 05 | [[documentation/05-network-security/INDEX|Network & Security]] | 8 | scanners, throughput, antivirus, password vault, SSH |
 | 06 | [[documentation/06-media-av/INDEX|Media & A/V]] | 8 | player, transcoders, downloader, torrents, speech-to-text, text-to-speech, terminal music (mpd + rmpc) |
 | 07 | [[documentation/07-pdf-images/INDEX|PDF & Images]] | 4 | image toolkit, PDF↔image/SVG, clipboard PNG |

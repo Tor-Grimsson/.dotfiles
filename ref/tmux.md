@@ -102,8 +102,8 @@ Filter: `ref-tmux <word …>` · `[e]` = example · pfx = `C-a` (second prefix `
 
 | keys  | does                                    |
 |-------|-----------------------------------------|
-| pfx g | agent-grant 15m window (again = revoke) |
-| shell | agent-grant [min] / off / status        |
+| pfx g | humpty-grant 15m window (again=revoke)  |
+| shell | humpty-grant [min] / off / status       |
 
 ## clipdrop
 

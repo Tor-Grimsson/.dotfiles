@@ -26,57 +26,9 @@
     ],
     "deny": []
   },
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$HOME/.claude/hooks/git-gate.sh\""
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$HOME/.claude/hooks/agent-reinforce.sh\""
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$HOME/.claude/hooks/doc-sync-reminder.sh\""
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$HOME/.claude/hooks/goal-loop.sh\""
-          },
-          {
-            "type": "command",
-            "command": "bash \"$HOME/.claude/hooks/footer-gate.sh\""
-          }
-        ]
-      }
-    ]
-  },
   "statusLine": {
     "type": "command",
-    "command": "bash \"$HOME/.claude/hooks/statusline.sh\""
+    "command": "bash \"$HOME/.dotfiles/bin/kol-statusline\""
   },
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true,
@@ -92,8 +44,8 @@
     },
     "humpty": {
       "source": {
-        "source": "directory",
-        "path": "/Users/biskup/dev/projects/kol-dumpty/humpty"
+        "source": "github",
+        "repo": "Tor-Grimsson/ubu-roi"
       }
     }
   },
@@ -105,5 +57,6 @@
     "mode": "hold"
   },
   "skipWorkflowUsageWarning": true,
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "model": "opus"
 }
