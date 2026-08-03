@@ -1,9 +1,9 @@
 ---
-name: ref-add
-description: Add or fix an entry in any ref card (~/.dotfiles/ref/*.md, files/folders.md) the right way — the one table dialect (glow-rendered, NO per-row spacer rows, single-word sections, [e] blocks, doc: folds), the files/to path contract, and the keep-it-in-sync-with-the-actual-config discipline. Use after rebinding/adding a tool command or moving a folder, or on /ref-add. Replaces the retired keys-add + files-add skills (2026-07-29).
+name: ref-admin
+description: Add or fix an entry in any ref card (~/.dotfiles/ref/*.md, files/folders.md) the right way — the one table dialect (glow-rendered, NO per-row spacer rows, single-word sections, [e] blocks, doc: folds), the files/to path contract, and the keep-it-in-sync-with-the-actual-config discipline. Use after rebinding/adding a tool command or moving a folder, or on /ref-admin. Replaces the retired keys-add + files-add skills (2026-07-29); renamed from ref-add 2026-08-02 (ref-skill was rejected as the new name — that's the live terminal lookup for ref/skill.md, a different thing).
 ---
 
-# ref-add — maintain the ref cards
+# ref-admin — maintain the ref cards
 
 `ref <card> [word …]` glow-renders hand-kept reference cards as box tables, filtered by words in section titles. Cards: tmux · nvim · git · explorer · grep · media · desk · terminal · shell · system · files. This skill is how to **add to them correctly**.
 
@@ -24,7 +24,7 @@ description: Add or fix an entry in any ref card (~/.dotfiles/ref/*.md, files/fo
 | key  | terse command  |
 | key2 | terse command  |
 |      |                |
-| ## group | what it is |
+| **## group** | what it is |
 | key3 | terse command  |
 
 [e] — as typed:
@@ -41,9 +41,15 @@ doc: docs/<the file that homes the depth>
 - **NO spacer row between data rows.** A blank `|  |  |` is a **category break** and
   nothing else — 385 per-row spacers were stripped on 2026-07-31 because this line
   used to say the opposite, and the wrong version is why the habit kept regrowing.
-- **A group inside a table is marked `| ## name | what it is |`**, preceded by one
+- **A group inside a table is marked `| **## name** | what it is |`**, preceded by one
   blank spacer row. That is how seven tools live in ONE table instead of seven
   scattered `## sections` (user ruling 2026-08-01, `ref-explorer trial` is the model).
+- **Group markers get bolded** — `glow-style.json`'s `strong` style carries the accent
+  color (256-color 214), so a category header reads distinct from a plain key row.
+  Bold is otherwise almost unused in these cards, so this doesn't fight anything else.
+- **Categories are optional, not default.** Group only when a card genuinely holds
+  multiple tools/topics that belong in one table. A card about one tool stays a plain
+  table — don't invent categories to look thorough.
 - **Cells stay glance-length** — a sentence in a cell is a doc in a table costume; depth is EVICTED to the `doc:` fold target (moved there first, never dropped).
 - **`[e]` blocks below the table**, real terminal strings, one command per line — never `&&` chains, never `[e]` as a table row.
 - Backtick angle tokens (`` `<leader>` ``); escape literal `|` as `\|`; command sequences may be ```sh blocks.

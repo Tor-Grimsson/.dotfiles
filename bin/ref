@@ -55,7 +55,7 @@ show() {
     # so. A pager draws on the alternate screen — quitting ERASES the card; piping
     # through cat means no TTY, so no pager can engage and the print stays in the
     # scrollback. CLICOLOR_FORCE=1 because glow also strips color on a non-TTY.
-    CLICOLOR_FORCE=1 glow -s dark -w "$(tput cols 2>/dev/null || echo 100)" | cat
+    CLICOLOR_FORCE=1 glow -s "$dot/ref/glow-style.json" -w "$(tput cols 2>/dev/null || echo 100)" | cat
   else
     bat --language md --style plain --paging=never
   fi
@@ -167,7 +167,7 @@ for path in sys.argv[2:]:
         # spacer (385 were stripped 2026-07-31; they regrew from a wrong spec).
         if re.match(r'^\|[\s|]*$', line):
             nxt = lines[i] if i < len(lines) else ''
-            if not re.match(r'^\|\s*##\s', nxt):
+            if not re.match(r'^\|\s*(\*\*)?##\s', nxt):
                 flag('per-row spacer — a blank row is a CATEGORY break; next row must be | ## name |')
             continue
 

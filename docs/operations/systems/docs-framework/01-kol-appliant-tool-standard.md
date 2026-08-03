@@ -42,7 +42,7 @@ A tool/solution ships **kol-appliant** only when every box holds:
 - [ ] a catalog doc under the correct `docs/` family **+ an INDEX row**
 - [ ] the doc answers usage · hotkeys · use-cases · sources · links
 - [ ] `--help` works, for any `bin/` script (the house convention)
-- [ ] keybinds registered in a `ref` card / folder registered in `files` (if it has them), via `/ref-add`
+- [ ] keybinds registered in a `ref` card / folder registered in `files` (if it has them), via `/ref-admin`
 - [ ] known mentions/dups mapped in the doc
 
 ## Enforcement

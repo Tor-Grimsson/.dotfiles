@@ -129,8 +129,14 @@ fi
 # ── Editor / file-tool configs (~/.config + single-file configs) ──────────────
 # nvim (whole dir — plugins self-install on first launch from the pinned lock)
 [ -d "$DOT/nvim" ] && ln -sfn "$DOT/nvim" "$HOME/.config/nvim"
-# yazi (whole dir — config + plugins + flavors are all tracked)
-[ -d "$DOT/yazi" ] && ln -sfn "$DOT/yazi" "$HOME/.config/yazi"
+# yazi (whole dir — config + plugins + flavors are all tracked). If
+# ~/.config/yazi already exists as a REAL dir (e.g. from an old single-file
+# keymap.toml symlink setup), `ln -sfn` nests instead of replacing it —
+# strip that first so the whole-dir symlink actually lands on ~/.config/yazi.
+if [ -d "$DOT/yazi" ]; then
+  [ -e "$HOME/.config/yazi" ] && [ ! -L "$HOME/.config/yazi" ] && rm -rf "$HOME/.config/yazi"
+  ln -sfn "$DOT/yazi" "$HOME/.config/yazi"
+fi
 # broot
 if [ -d "$DOT/broot" ]; then
   mkdir -p "$HOME/.config/broot"

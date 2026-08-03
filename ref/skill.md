@@ -72,7 +72,7 @@ the whole system — states, where things go, the law: `ref-lobby`
 
 | keys          | does                                      |
 |---------------|-------------------------------------------|
-| /ref-add      | add an entry to any ref card              |
+| /ref-admin    | add an entry to any ref card              |
 | /log-work     | session log (retrospective)               |
 | /playbook     | live work journal entry                   |
 | /log-work-handoff | forward-looking state, mid-arc        |

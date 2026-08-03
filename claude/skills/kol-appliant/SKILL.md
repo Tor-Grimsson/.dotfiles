@@ -21,7 +21,7 @@ Bring a tool or solution up to — or audit it against — the **kol-appliant** 
    - `bin/` scripts → `docs/scripts/` (by family); installed tools → `docs/documentation/<NN-category>/`.
    - Check: `grep -rl <T> docs/` → has a doc? If not, author one via `/kol-docs-md`.
 3. **Purpose** — the doc answers all of: **usage · hotkeys · use-cases · sources · external links**.
-4. **KOL-accessible** — keybinds registered in a `ref` card, home folder in `files` (both via `/ref-add`). If `<T>` has neither, mark N/A.
+4. **KOL-accessible** — keybinds registered in a `ref` card, home folder in `files` (both via `/ref-admin`). If `<T>` has neither, mark N/A.
    - Check: `ref <card> <T>` · `grep -r <T> ref/ files/folders.md`.
 5. **`--help`** — for a `bin/` script, `<T> --help` prints usage and exits 0. Lint the whole `bin/` at once with **`help-lint`** (`bin/help-lint`; static, skips binaries).
 6. **Dups** — the doc maps `<T>`'s other locations/mentions (`grep -rn <T>`), so nothing goes stale silently.

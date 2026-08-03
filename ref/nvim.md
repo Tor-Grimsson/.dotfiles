@@ -61,15 +61,25 @@ in: `i a o I A O` (see Modes) · out: `Esc` or `jk`
 
 | keys        | does                                    |
 |-------------|-----------------------------------------|
-| C-w         | delete word BEFORE cursor               |
-| C-u         | delete to line start                    |
-| C-o {cmd}   | ONE normal command, back to insert      |
-| Tab  S-Tab  | hop snippet fields (snippet active)     |
-| C-Space     | completion menu (cmp)                   |
-| C-j  C-k    | completion: next / prev suggestion      |
-| Enter       | completion: accept — C-e closes         |
-| C-b  C-f    | completion: scroll docs                 |
-| C-s         | LSP signature help                      |
+| **## edit**       | delete word / to line start       |
+| C-w               | delete word BEFORE cursor         |
+| C-u               | delete to line start              |
+|                   |                                    |
+| **## C-o**        | one normal command, back to insert |
+| C-o j · C-o 0     | down a line, then to column 0     |
+| C-o 0 · C-o $     | line start / end                  |
+| C-o b · C-o w     | word back / forward               |
+| C-o dw            | delete word forward               |
+| C-o gg · C-o G    | file top / bottom                 |
+| C-o zz            | center cursor line                |
+|                   |                                    |
+| **## completion** | snippet + LSP popups              |
+| Tab  S-Tab        | hop snippet fields (snippet active) |
+| C-Space           | completion menu (cmp)             |
+| C-j  C-k          | completion: next / prev suggestion |
+| Enter             | completion: accept — C-e closes   |
+| C-b  C-f          | completion: scroll docs           |
+| C-s               | LSP signature help                |
 
 ## Normal mode — moving
 
@@ -134,6 +144,8 @@ in: `v` chars · `V` lines · `C-v` block · out: `Esc`
 | :w       | write          | save the file                         |
 | :q       | quit           | close — refuses if unsaved changes    |
 | :q!      | quit, force    | close and DISCARD unsaved changes     |
+| :e       | edit           | reload from disk — refuses on local edits |
+| :e!      | edit, force    | reload from disk, DISCARDING local edits |
 | :wq  :x  | write-quit     | save, then close (:x = same, shorter) |
 | :wqa     | write-quit-all | save + close everything               |
 | :noh     | no-highlight   | clear leftover search highlight       |
@@ -219,18 +231,18 @@ Every .md buffer gets these on open; nothing to enable.
 
 | keys           | does                                          |
 |----------------|-----------------------------------------------|
-| `<leader>`mm   | markdown mode ON THIS BUFFER — scratch notes  |
-| `<leader>`md   | toggle conceal — raw markup ⇄ concealed prose |
+| `<leader>`md   | markdown mode ON THIS BUFFER — scratch notes  |
+| `<leader>`mm   | toggle conceal — raw markup ⇄ concealed prose |
 | `<leader>`mp   | format with prettier (conform, n + v)         |
 
 | on open      | value                                            |
 |--------------|--------------------------------------------------|
-| conceallevel | 2 — tokens hidden (`<leader>`md flips) |
+| conceallevel | 2 — tokens hidden (`<leader>`mm flips) |
 | wrap         | true — OVERRIDES the global wrap = false         |
 | textwidth    | 80                                               |
 
 the trigger is the FILETYPE, not the filename and not saving. A `:enew`
-notepad has ft="" so it gets nothing — `<leader>`mm sets it and the whole
+notepad has ft="" so it gets nothing — `<leader>`md sets it and the whole
 ftplugin fires at once, unsaved. Same trick $EDITOR handoffs use: they mint
 a temp file WITH a .md extension so detection does it for them.
 

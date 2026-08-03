@@ -14,7 +14,7 @@ related:
 ---
 
 ## Summary
-Cards are hand-kept markdown, one file per card, **one dialect for all of them** (since 2026-07-29 — the earlier bat/glow split is gone): md tables, glow-rendered, no per-row spacer rows, single-word section titles, `[e]` blocks (one command per line, never `&&`), `doc:` folds. The maintainer skill `ref-add` teaches the same rules (it replaced keys-add + files-add when the keys card dissolved into topical cards).
+Cards are hand-kept markdown, one file per card, **one dialect for all of them** (since 2026-07-29 — the earlier bat/glow split is gone): md tables, glow-rendered, no per-row spacer rows, single-word section titles, `[e]` blocks (one command per line, never `&&`), `doc:` folds. The maintainer skill `ref-admin` teaches the same rules (it replaced keys-add + files-add when the keys card dissolved into topical cards; renamed from `ref-add` 2026-08-02).
 
 ## The dialect
 
@@ -27,7 +27,9 @@ Cards are hand-kept markdown, one file per card, **one dialect for all of them**
 | literal `\|` in a cell escaped as `\\|` | table syntax |
 | command SEQUENCES (e.g. `keys git new`) are fenced ```sh blocks, not tables | copy-paste beats grid for run-in-order chains |
 | **cells cap at 46 characters** — over that, evict the depth to the `doc:` fold | a wrapped cell reads as a phantom row, and a sentence in a cell is a doc wearing a table costume. **`ref --lint` enforces this**; 32 rows were shortened across 9 cards on 2026-08-01 |
-| **a group inside a table is `\| ## name \| what it is \|`**, preceded by one blank spacer row | how seven tools live in ONE table instead of seven scattered `## sections` (user ruling 2026-08-01 — *"just put all the trial explorer in the same table and use space and ## inside with name of plugin"*). `ref-explorer trial` is the model |
+| **a group inside a table is `\| **## name** \| what it is \|`**, bolded, preceded by one blank spacer row | how seven tools live in ONE table instead of seven scattered `## sections` (user ruling 2026-08-01 — *"just put all the trial explorer in the same table and use space and ## inside with name of plugin"*). `ref-explorer trial` and `ref-explorer yazi` are the model |
+| the bold is load-bearing, not decoration | `glow-style.json`'s `strong` carries fg `214` (2026-08-02) — a category marker reads as a distinct color, not just plain text with hashes. `bin/ref` `show()` renders through this JSON now, not the builtin `-s dark` |
+| categories are optional, not default | group only when a card genuinely holds multiple tools/topics sharing one table — a single-tool card stays a plain table, no invented categories |
 | duplication across sections is deliberate | a thing living in several contexts is listed in each |
 
 ## The lint — the law as a machine check

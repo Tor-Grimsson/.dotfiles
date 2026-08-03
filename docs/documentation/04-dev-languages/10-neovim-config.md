@@ -97,10 +97,10 @@ So a scratch notepad isn't excluded because it's unsaved — it's excluded becau
 | key | lives in | because |
 |---|---|---|
 | `<leader>md` — markdown **on** | `core/keymaps.lua` | must fire on a buffer that is *not* markdown yet |
-| `<leader>mc` — **conceal** toggle | `after/ftplugin/markdown.lua` | only meaningful once markdown is on |
+| `<leader>mm` — **conceal** toggle | `after/ftplugin/markdown.lua` | only meaningful once markdown is on |
 | `<leader>mp` — **prettier** | `plugins/formatting.lua` | conform owns it, all filetypes |
 
-Each letter is its own word's initial: **m**ark**d**own · **m**ark**c**onceal · **m**ark**p**rettier. (Conceal was on `md` until 2026-07-31, which forced markdown-mode onto a meaningless `mm`.)
+The letters no longer spell a clean per-word mnemonic — **m**ark**d**own still holds, `mp` still holds, but conceal has moved twice: `md` until 2026-07-31 (which forced markdown-mode onto a meaningless `mm`) → `mc` from 2026-07-31 → **`mm` again from 2026-08-02** (user call — `mc` is free).
 
 **This is the same trick `$EDITOR` handoffs use.** Tools that open your editor for a message — git's `COMMIT_EDITMSG`, and Claude Code's compose-in-editor — write a **real temp file with a real extension** and open the editor on that. There's no hidden autosave system; the extension just lets normal filetype detection do the work. If you want a scratch note to behave like markdown *and* survive a crash, give it a name (`~/_inbox/x.md`) so swapfile and undofile have something to key on — see § Crash safety.
 
@@ -160,7 +160,7 @@ compare with `:earlier`/`:later`, then `:w` and delete the `.swp`.
 | `Ctrl-h/j/k/l` | move between splits (and tmux panes) |
 | `Alt-←` / `Alt-→` | word back / forward — **in insert mode too**, hopping to NORMAL |
 | `<leader>md` | **markdown mode on this buffer** — works on an unnamed scratch buffer |
-| `<leader>mc` | markdown only: toggle conceal (raw markup ⇄ concealed prose) |
+| `<leader>mm` | markdown only: toggle conceal (raw markup ⇄ concealed prose) |
 | `<leader>mp` | format with prettier (conform, normal + visual) |
 
 > **Why the Alt-arrows are mapped in insert mode as well** (fixed 2026-07-31) — `core/keymaps.lua`

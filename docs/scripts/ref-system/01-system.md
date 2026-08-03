@@ -43,7 +43,7 @@ In tmux, **Prefix + Ctrl+F** opens `ref-pick` in a popup — fuzzy-pick at both 
 | card data — one table-dialect file per card | `ref/*.md` · `files/folders.md`                          | [[02-cards\|02]]    |
 | engine — registry, filter, renderer pick    | `bin/ref` (`card_def()` · awk section filter · `show()`) | this doc            |
 | renderer — bat (highlight) or glow (render) | per-card field in `card_def()`                           | [[03-glow\|03]]     |
-| theme — glow's style values                 | `ref/glow-style.json` (vendored, inert)                  | [[04-theme\|04]]    |
+| theme — glow's style values                 | `ref/glow-style.json` (vendored, wired 2026-08-02)       | [[04-theme\|04]]    |
 | screen — scrollback-only printing           | cat-pipe + `CLICOLOR_FORCE` in `show()`                  | [[05-terminal\|05]] |
 
 ## The engine, in three parts

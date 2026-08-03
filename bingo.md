@@ -1,3 +1,13 @@
+[ ] skill dont address me
+[ ] wrap setup for anna maggy scripts
+[ ] log work vs log work handoff make sense?
+
+[ ] leyfisbref Asa
+
+[ ] skill for all 3 scaffold skills? a ds b no ds as question?
+
+---
+
 Notes 29/7/26
 
 - kitty vs. nvim for widgets

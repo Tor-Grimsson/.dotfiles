@@ -2,10 +2,13 @@
 
 Filter: `ref-explorer <word …>` · `[e]` = example · yazi · broot · the nvim explorers point home
 
-## yazi — ops
+## yazi
+
+vi grammar · daily driver
 
 | keys      | does                                 |
 |-----------|--------------------------------------|
+| **## ops**    |                                  |
 | o · O     | open (default app) · open with…      |
 | Enter     | smart-enter: dir / file              |
 | y · x     | yank = COPY · cut = MOVE             |
@@ -16,71 +19,54 @@ Filter: `ref-explorer <word …>` · `[e]` = example · yazi · broot · the nvi
 | a · A     | create file (`/` = folder) · bulk    |
 | r         | rename (cursor before extension)     |
 | - · _     | symlink yanked: absolute / relative  |
-
-## yazi — select
-
-| keys      | does                              |
-|-----------|-----------------------------------|
-| Space     | toggle selection                  |
-| C-a · C-r | select all / invert               |
-| v · V     | visual: add / remove              |
-| Esc       | clear / exit visual               |
-
-## yazi — nav
-
-| keys        | does                                |
-|-------------|-------------------------------------|
-| h · l       | parent / enter dir                  |
-| H · L       | history back / forward              |
-| gg · G      | top / bottom                        |
-| z · Z       | jump via fzf / via zoxide           |
-| gh gd gc    | go: home · Downloads · .config      |
+|           |                                       |
+| **## select** |                                  |
+| Space     | toggle selection                     |
+| C-a · C-r | select all / invert                  |
+| v · V     | visual: add / remove                 |
+| Esc       | clear / exit visual                  |
+|           |                                       |
+| **## nav**    |                                  |
+| h · l       | parent / enter dir                 |
+| H · L       | history back / forward             |
+| gg · G      | top / bottom                       |
+| z · Z       | jump via fzf / via zoxide          |
+| gh gd gc    | go: home · Downloads · .config     |
 | gD g. gt gp | go: Desktop · dotfiles · _temp · dev-projects |
-| gf          | follow the hovered symlink          |
-
-## yazi — copy
-
-| keys | does                        |
-|------|-----------------------------|
-| cc   | copy full path              |
-| cd   | copy directory path         |
-| cf   | copy filename               |
-| cn   | copy filename, no extension |
-
-## yazi — find
-
-| keys  | does                             |
-|-------|----------------------------------|
-| f     | filter list (live)               |
-| / · ? | find next / previous by name     |
-| s · S | search by name (fd) / content (rg) |
-
-## yazi — view
-
-| keys    | does                            |
-|---------|---------------------------------|
-| .       | toggle hidden files             |
-| Tab     | spot — metadata/preview popup   |
-| C-y     | Quick Look                      |
-| M       | markdown fullscreen (mdcat)     |
-| T       | maximize / restore preview      |
+| gf          | follow the hovered symlink         |
+|           |                                       |
+| **## copy**   |                                  |
+| cc   | copy full path                       |
+| cd   | copy directory path                  |
+| cf   | copy filename                        |
+| cn   | copy filename, no extension          |
+|           |                                       |
+| **## find**   |                                  |
+| f     | filter list (live)                  |
+| / · ? | find next / previous by name        |
+| s · S | search by name (fd) / content (rg)  |
+|           |                                       |
+| **## view**   |                                  |
+| .       | toggle hidden files                |
+| Tab     | spot — metadata/preview popup      |
+| C-y     | Quick Look                         |
+| M       | markdown fullscreen (mdcat)        |
+| T       | maximize / restore preview         |
 | ,m ,s ,a | sort: mtime · size · alpha (,d reset) |
+|           |                                       |
+| **## tabs**   |                                  |
+| tt · tr | new tab · rename tab                |
+| 1 … 9   | switch to tab N                     |
+| [ · ]   | previous / next tab                 |
+|           |                                       |
+| **## quit**   |                                  |
+| ; · :  | shell command (`: ` blocks)          |
+| ~ · F1 | help (full keymap)                   |
+| q · Q  | quit / quit without cwd-file         |
 
-## yazi — tabs
-
-| keys    | does                      |
-|---------|---------------------------|
-| tt · tr | new tab · rename tab      |
-| 1 … 9   | switch to tab N           |
-| [ · ]   | previous / next tab       |
-
-## yazi — quit
-
-| keys   | does                              |
-|--------|-----------------------------------|
-| ; · :  | shell command (`: ` blocks)       |
-| ~ · F1 | help (full keymap)                |
-| q · Q  | quit / quit without cwd-file      |
+`a` — creating a folder vs a file:
+Folder: name ends with / → some-folder-name/, then Enter. Supports nested paths too (a/b/c/ makes all three).
+File: no trailing slash → some-file.txt, then Enter.
 
 ----
 doc: docs/documentation/02-file-management/02-yazi.md
@@ -106,7 +92,7 @@ seven installed 2026-08-01 · mouse on in all seven
 
 | keys        | does                                       |
 |-------------|--------------------------------------------|
-| ## vifm     | vi grammar · vifmrc is a .vimrc dialect    |
+| **## vifm**   | vi grammar · vifmrc is a .vimrc dialect  |
 | :only       | one pane — set at startup here             |
 | :vsplit     | second pane · :split stacks instead        |
 | `Ctrl+W x`  | exchange panes · Tab flips focus           |
@@ -115,32 +101,32 @@ seven installed 2026-08-01 · mouse on in all seven
 | :rename     | edit names in $EDITOR, :w applies          |
 | gh          | leave tree view from any level             |
 |             |                                            |
-| ## mc       | dual-pane commander · 39 skins             |
+| **## mc**     | dual-pane commander · 39 skins           |
 | `Alt+,`     | flip split vertical / horizontal           |
 | `Alt+T`     | cycle listing mode on this panel           |
 | `Ctrl+U`    | swap the two panels                        |
 | F5 · F6     | copy · move to the other panel             |
 | `Ctrl+O`    | drop to the shell, same key returns        |
 |             |                                            |
-| ## xplr     | Lua-defined layouts · Rust                 |
+| **## xplr**   | Lua-defined layouts · Rust               |
 | Space       | add to the selection — SURVIVES a cd       |
 | `Ctrl+A`    | select all · `Ctrl+U` clear                |
 | `Ctrl+C`    | copy the selection list out                |
 |             |                                            |
-| ## ranger   | the original miller columns · Python       |
+| **## ranger** | the original miller columns · Python     |
 | :set viewmode multipane | tabs side by side              |
 | gn · gt     | new tab · next tab                         |
 | zm          | toggle mouse · S drops to a shell          |
 |             |                                            |
-| ## spf      | superfile · live panel count · Go          |
+| **## spf**    | superfile · live panel count · Go        |
 | n · w       | open another panel · close it              |
 | p · m · s   | process bar · metadata · sidebar           |
 | :  ·  /     | built-in command line · search             |
 |             |                                            |
-| ## lf       | fastest cold start · one Go binary         |
+| **## lf**     | fastest cold start · one Go binary       |
 | lf/lfrc     | the config — ratios only, no view modes    |
 |             |                                            |
-| ## nnn      | smallest · ~35KB of C                      |
+| **## nnn**    | smallest · ~35KB of C                    |
 | 1 … 4       | switch context (its version of tabs)       |
 | NNN_COLORS  | the whole config, set in .zshrc            |
 

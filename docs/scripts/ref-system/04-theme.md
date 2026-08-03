@@ -2,8 +2,8 @@
 title: ref — the theme JSON
 type: reference
 status: active
-updated: 2026-07-29
-description: The vendored glow style (ref/glow-style.json, glamour's dark theme) translated into readable tables — every color and glyph the render uses, and the opt-in/out flow for customizing.
+updated: 2026-08-02
+description: The wired-in glow style (ref/glow-style.json, glamour's dark theme + a colored strong for category markers) translated into readable tables — every color and glyph the render uses, and the opt-in/out flow for customizing.
 tags:
   - project/dotfiles
   - domain/shell
@@ -14,13 +14,13 @@ related:
 ---
 
 ## Summary
-`~/.dotfiles/ref/glow-style.json` is a vendored copy of glamour's dark style — the exact values behind `glow -s dark`. **Inert today**: the engine calls the built-in `dark` by name; the file exists so customizing is an edit + one flag, not archaeology.
+`~/.dotfiles/ref/glow-style.json` is a vendored copy of glamour's dark style — the exact values behind `glow -s dark`, plus a colored `strong`. **Wired in 2026-08-02**: `bin/ref`'s `show()` renders every card through this file, not the builtin `dark` by name — so an edit here shows up on the next `ref <card>`, no flag flip needed.
 
 ## Opt in / out
 
 | step | how |
 |---|---|
-| opt IN (custom theme) | edit the JSON, then in `bin/ref` `show()`: `-s dark` → `-s "$dot/ref/glow-style.json"` |
+| currently ON (custom theme) | `bin/ref` `show()` already points at `-s "$dot/ref/glow-style.json"` |
 | opt OUT | flip the flag back to `-s dark` — the JSON stays as documentation |
 | after any JSON edit | re-port changed values into the tables below ([[02-cards\|02 — port flow]]) |
 
@@ -43,7 +43,8 @@ Colors are 256-palette numbers unless hex. Empty = inherits/none.
 | blockquote | 1-level indent, `│ ` bar |
 | hr | fg `240`, renders `--------` |
 | link / link text | `30` underlined / `35` bold |
-| strikethrough · emph · strong | crossed · italic · bold |
+| strikethrough · emph | crossed · italic |
+| strong | bold, fg `214` — colors `**## group**` category markers in cards |
 | **table** | `{}` — EMPTY: separators/rules are compiled glamour defaults, not stylable — per-row rules stay impossible even here |
 
 ## Paths
@@ -51,5 +52,5 @@ Colors are 256-palette numbers unless hex. Empty = inherits/none.
 | what | path |
 |---|---|
 | the JSON | `~/.dotfiles/ref/glow-style.json` |
-| consumed by | `show()` in `~/.dotfiles/bin/ref` (only when opted in) |
+| consumed by | `show()` in `~/.dotfiles/bin/ref` (default renderer since 2026-08-02) |
 | glow's global config (separate concern) | `~/.dotfiles/glow/glow.yml` — style/width/pager defaults for bare `glow` |

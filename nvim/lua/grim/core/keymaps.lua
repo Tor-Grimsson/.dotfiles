@@ -32,7 +32,7 @@ keymap.set("i", "<M-Right>", "<Esc>w", { desc = "Word forward (alt-right), to no
 -- the ftplugin immediately, on an unnamed unsaved buffer, exactly as if it were a
 -- .md file. This binding can't live in the ftplugin itself: that file only loads
 -- once the filetype is already markdown.
--- md=markdown · mc=conceal (ftplugin) · mp=prettier (conform).
+-- md=markdown · mm=conceal (ftplugin) · mp=prettier (conform).
 keymap.set("n", "<leader>md", function()
   vim.bo.filetype = "markdown"
 end, { desc = "Markdown mode on this buffer (scratch notes)" })

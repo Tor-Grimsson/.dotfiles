@@ -40,7 +40,7 @@ model=$(printf '%s' "$input" | jq -r '.model.display_name // empty')
 
 # ── cwd, ~-relative — gruvbox blue ───────────────────────────────────────────
 cwd=$(printf '%s' "$input" | jq -r '.workspace.current_dir // .cwd // empty')
-[ -n "$cwd" ] && add "$(printf '\033[38;5;109m%s\033[0m' "${cwd/#$HOME/~}")"
+[ -n "$cwd" ] && add "$(printf '\033[38;5;109m%s\033[0m' "${cwd/#$HOME/\~}")"
 
 # ── context-window usage — gruvbox aqua ──────────────────────────────────────
 used_pct=$(printf '%s' "$input" | jq -r '.context_window.used_percentage // empty')

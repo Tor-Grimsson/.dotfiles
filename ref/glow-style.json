@@ -50,6 +50,7 @@
     "italic": true
   },
   "strong": {
+    "color": "214",
     "bold": true
   },
   "hr": {

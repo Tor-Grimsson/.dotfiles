@@ -5,9 +5,9 @@ vim.opt_local.textwidth = 80   -- Set line wrap limits
 
 -- Toggle the conceal view per buffer (raw markup ↔ concealed prose). On/off
 -- loop: each press flips conceallevel 2 ↔ 0.
--- mc, not md: <leader>md turns markdown mode ON (core/keymaps.lua) and has to
+-- mm, not md: <leader>md turns markdown mode ON (core/keymaps.lua) and has to
 -- work on a buffer that isn't markdown yet, so it can't live here. md=markdown ·
--- mc=conceal · mp=prettier — each letter is its own word's initial.
-vim.keymap.set("n", "<leader>mc", function()
+-- mm=conceal · mp=prettier.
+vim.keymap.set("n", "<leader>mm", function()
   vim.opt_local.conceallevel = vim.wo.conceallevel == 0 and 2 or 0
 end, { buffer = true, desc = "Markdown: toggle conceal" })
