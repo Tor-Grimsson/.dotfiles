@@ -33,8 +33,8 @@ to rendered pixels.
 
 | what | path |
 |---|---|
-| engine | `~/.dotfiles/bin/ref` (aliases `bin/ref-tmux` `-nvim` `-git` `-explorer` `-grep` `-media` `-desk` `-terminal` `-shell` `-system` `-files` `-pick`) |
-| card data | `~/.dotfiles/files/folders.md` · `~/.dotfiles/ref/{tmux,nvim,git,explorer,grep,media,desk,terminal,shell,system}.md` — the keys card dissolved into these 2026-07-29 |
+| engine | `~/.dotfiles/bin/ref` (aliases `bin/ref-tmux` `-nvim` `-git` `-yazi` `-explorer` `-grep` `-media` `-desk` `-terminal` `-shell` `-system` `-files` `-pick`) |
+| card data | `~/.dotfiles/files/folders.md` · `~/.dotfiles/ref/{tmux,nvim,git,yazi,explorer,grep,media,desk,terminal,shell,system}.md` — the keys card dissolved into these 2026-07-29 |
 | vendored theme | `~/.dotfiles/ref/glow-style.json` (wired 2026-08-02 — see [[04-theme\|04 — theme]]) |
 | glow config | `~/.dotfiles/glow/glow.yml` → symlinked to `~/Library/Preferences/glow/glow.yml` |
 | glow itself | [[documentation/01-shell-terminal/08-glow|glow (tool catalog)]] |

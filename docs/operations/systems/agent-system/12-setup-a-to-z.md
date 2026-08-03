@@ -2,7 +2,7 @@
 title: 12 · setup A–Z — the whole system from zero to verified
 type: playbook
 status: active
-updated: 2026-07-28
+updated: 2026-08-03
 description: The complete start-to-finish walkthrough of the published system — humpty (discipline plugin), memory-glass (git-backed memory), jabberwocky (the agent OS), and the dotfiles wiring — every command verbatim, with verification at each stage and the traps footnoted.
 tags:
   - project/dotfiles
@@ -59,17 +59,20 @@ The order below matters only in one place: humpty installs into the harness (min
 
 ## 2. Install humpty
 
-Inside Claude Code, three commands:[^namespacing]
+**On a machine that has dotfiles: nothing to run.** `claude/settings.json` declares both halves —
+`extraKnownMarketplaces.humpty` pointing at `github: Tor-Grimsson/ubu-roi`, and
+`enabledPlugins["humpty@humpty"]: true`. Claude Code reads them at startup, fetches the plugin
+from the marketplace and installs it into `~/.claude/plugins/cache/humpty/`. Pull, restart, done.
+Verified on the MBP 2026-08-03 — the machine has no `kol-dumpty/` checkout at all.[^namespacing]
 
-```
-/plugin marketplace add ~/dev/projects/kol-dumpty/humpty
-/plugin install humpty@humpty
-/reload-plugins
-```
+Without dotfiles, add the same marketplace by hand (`Tor-Grimsson/ubu-roi`), then
+`/plugin install humpty@humpty` and `/reload-plugins`.
 
-What happened: the repo registered as a local marketplace named `humpty`, the plugin installed from it, and the reload registered two prompt-side hooks (session boot + per-prompt tracker), one tool-side hook (the gate), and the command surface `/humpty:lvl · st · stf · stfu · laws`.[^dup-hooks]
+Either way the install registers two prompt-side hooks (session boot + per-prompt tracker), the tool-side gates, and the command surface `/humpty:lvl · st · stf · stfu · laws`.[^dup-hooks]
 
-**Verify:** the reload output shows the plugin with no errors; the next session opens with a `[humpty] MODE: standard (2/4)` header followed by the five laws; typing `$humpty` returns one line: `humpty: dial is standard (2/4) · turn N · nudges N`.
+**Verify:** the session opens with a `[humpty] MODE: standard (2/4)` header followed by the five laws; typing `$humpty` returns one line: `humpty: dial is standard (2/4) · turn N · nudges N`. The two gates deny on probe — `rm -rf <a repo path>` returns the NOTHING IS DELETED law, a gated read returns `mode: off` with the unlock hint.
+
+**A local checkout overrides this on a dev machine.** `~/.claude/settings.local.json` (untracked) repoints the marketplace to `directory` so hook edits are live without republishing. Its *absence* is the correct state on every other machine.
 
 ---
 
@@ -162,7 +165,7 @@ Modules 08 (behavior) and 09 (routing) you already have live in stronger forms �
 
 The personal layer, already live in this dotfiles repo, listed so you know what's load-bearing:
 
-- **Statusline** (`claude/hooks/statusline.sh`) — the `humpty-dumpty` block in tmux active-tab yellow (256-color 214/234) reading the plugin's state, level suffix off-default; then model · cwd · ctx · tok · 5h, each gruvbox-colored.
+- **Statusline** (`bin/kol-statusline` → the plugin's `humpty-statusline`) — the `humpty-dumpty` block in tmux active-tab yellow (256-color 214/234) reading the plugin's state, level suffix off-default; then model · cwd · ctx · tok · 5h, each gruvbox-colored. `bin/kol-statusline` is a **locator**, not the renderer: `statusLine` is not a hook, so `$CLAUDE_PLUGIN_ROOT` is unset there and a direct plugin path silently yields a blank line. It prefers the dev checkout, then the newest plugin cache, then prints nothing.
 - **tmux** — `prefix g` toggles the dotfiles-side [[11-grant|agent-grant]] window (the gate's ancestor, still active)[^two-gates]; the pane/window/session surface is on `ref-keys tmux`.
 - **Reference cards** — `ref-keys git new` is the verbatim init→publish chain with both rescues; `ref-keys gh` covers repo create/rename/browse.
 - **Global memory tier** — `claude/memory/` in this repo, symlink-wired by section 5, indexed in its `MEMORY.md`.

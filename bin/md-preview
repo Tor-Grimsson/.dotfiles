@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# md-preview — render a markdown file for the yazi preview pane, in one of three modes.
+#
+# WHY. Both mdcat (yazi's .md previewer) and glow parse a leading `---` block as
+# metadata and discard it before rendering, and neither has a flag to keep it. In a
+# vault where frontmatter carries status/tags/related, that is the half you most want
+# to see at a glance. Mode `full` prints it as a properties block, then hands the body
+# to mdcat as normal. The other two modes are the plain renderers, unchanged.
+#
+# Usage: md-preview <file.md>     render in the current mode
+#        md-preview --cycle       switch to the next mode, print the new name
+#        md-preview --mode        print the current mode
+#
+# Mode is persisted in $MD_PREVIEW_STATE so a tmux bind can flip it while yazi runs
+# (prefix v). Wired into yazi via the piper plugin — see yazi/yazi.toml § previewers.
+
+set -uo pipefail
+
+state=${MD_PREVIEW_STATE:-${XDG_CACHE_HOME:-$HOME/.cache}/md-preview.mode}
+modes=(full mdcat glow)
+
+read_mode() {
+  local m
+  m=$(cat "$state" 2>/dev/null)
+  case $m in full|mdcat|glow) printf '%s' "$m" ;; *) printf 'full' ;; esac
+}
+
+case ${1:-} in
+  --mode)  read_mode; echo; exit 0 ;;
+  --cycle)
+    cur=$(read_mode)
+    for i in "${!modes[@]}"; do
+      [ "${modes[$i]}" = "$cur" ] && next=${modes[$(( (i + 1) % ${#modes[@]} ))]}
+    done
+    mkdir -p "$(dirname "$state")"
+    printf '%s\n' "${next:-full}" > "$state"
+    printf '%s\n' "${next:-full}"
+    exit 0
+    ;;
+esac
+
+f=${1:?usage: md-preview <file.md>}
+mode=$(read_mode)
+
+# mdcat --ansi --margin is a real two-column inset that also reduces the render width. Match it
+# for the frontmatter block so both halves line up; prefixing lines by hand would not
+# shrink the wrap width and long values would overrun the pane.
+pad='  '
+
+# NEITHER renderer colours its output when that output is not a terminal, and yazi
+# always captures the pane — so both need forcing or the preview is flat grey. mdcat
+# takes `--ansi` (skip terminal detection); glow takes CLICOLOR_FORCE plus the repo's
+# own style file, which is what bin/ref already does — same treatment, same look as the
+# ref cards. yazi's original `run = "mdcat"` previewer had no forcing and was colourless.
+case $mode in
+  glow)  exec env CLICOLOR_FORCE=1 glow -s "$HOME/.dotfiles/ref/glow-style.json" "$f" ;;
+  mdcat) exec mdcat --ansi --margin "$f" ;;
+esac
+
+dim=$'\033[38;5;245m'
+key=$'\033[38;5;214m'
+off=$'\033[0m'
+
+if [ "$(head -n1 "$f")" = "---" ]; then
+  awk 'NR==1 && /^---$/ {next} /^---$/ {exit} {print}' "$f" |
+    while IFS= read -r line; do
+      case $line in
+        *:*) printf '%s%s%s%s%s%s\n' "$pad" "$dim$key" "${line%%:*}" "$off" "$dim" "${line#*:}$off" ;;
+        *)   printf '%s%s%s%s\n' "$pad" "$dim" "$line" "$off" ;;
+      esac
+    done
+  printf '%s%s%s%s\n' "$pad" "$dim" "────────" "$off"
+  awk 'NR==1 && /^---$/ {fm=1; next} fm && /^---$/ {fm=0; body=1; next} body' "$f" | mdcat --ansi --margin -
+else
+  mdcat --ansi --margin "$f"
+fi

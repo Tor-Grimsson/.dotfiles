@@ -3,7 +3,7 @@ title: ref — system & engine
 type: reference
 status: active
 updated: 2026-07-29
-description: The desk-reference-card dispatcher — one engine (bin/ref) printing topical cards (tmux · nvim · git · explorer · grep · media · desk · terminal · shell · system · files), filtered by words in section titles; glow-rendered.
+description: The desk-reference-card dispatcher — one engine (bin/ref) printing topical cards (tmux · nvim · git · yazi · explorer · grep · media · desk · terminal · shell · system · files), filtered by words in section titles; glow-rendered.
 aliases:
   - ref
 tags:

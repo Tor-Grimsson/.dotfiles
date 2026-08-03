@@ -26,6 +26,7 @@
     ],
     "deny": []
   },
+  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "bash \"$HOME/.dotfiles/bin/kol-statusline\""
@@ -57,6 +58,5 @@
     "mode": "hold"
   },
   "skipWorkflowUsageWarning": true,
-  "editorMode": "vim",
-  "model": "opus"
+  "editorMode": "vim"
 }

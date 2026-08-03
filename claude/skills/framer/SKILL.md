@@ -6,10 +6,10 @@ description: >
 allowed-tools:
   - 'Bash(npx @framer/agent:*)'
   - 'Bash(npx @framer/agent@latest:*)'
-  - 'Read(/var/folders/yw/xrn67x1n7577d5xnl6qrysgh0000gn/T/framer/*)'
-  - 'Write(/var/folders/yw/xrn67x1n7577d5xnl6qrysgh0000gn/T/framer/*)'
-  - 'Read(/Users/biskup/.claude/skills/framer/projects/**)'
-  - 'Read(/Users/biskup/.claude/skills/framer/start-conversation.md)'
+  - 'Read(/var/folders/9y/jw2rkyw55zg1nswq2p8jybf00000gn/T/framer/*)'
+  - 'Write(/var/folders/9y/jw2rkyw55zg1nswq2p8jybf00000gn/T/framer/*)'
+  - 'Read(/Users/kolkrabbi/.claude/skills/framer/projects/**)'
+  - 'Read(/Users/kolkrabbi/.claude/skills/framer/start-conversation.md)'
 ---
 
 If you didn't run this command before loading the skill, run it now:

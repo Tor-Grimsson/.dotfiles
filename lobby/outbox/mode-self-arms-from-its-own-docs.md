@@ -48,6 +48,14 @@ make no enforcement claim and need nothing.
 a doctrine call, not bookkeeping — and humpty's ledger already refuses to change a row
 on its own. Surfaced, not actioned.
 
+### 📌 Remainder CLOSED — 2026-08-03
+
+`claude/skills/yona/SKILL.md:23` rewritten on the user's instruction to close the arc.
+Was *"The gate enforces this; a denied tool is the mode working."* — now *"Nothing enforces
+this — honour it by reading the skill."* The sentence had been false for two days in a file
+that is read as law. **Remainder here: none.** Nothing about humpty's ledger row changed;
+that remains the user's call and always was.
+
 *(Receipt written 2026-08-01, backdated from the entry — it predates the receipt
 convention. This is the ticket that proves the convention was needed: it closed in
 humpty on 2026-07-31, was superseded there on 2026-08-01, and dotfiles had no record of

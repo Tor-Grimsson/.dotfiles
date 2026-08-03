@@ -170,4 +170,52 @@ If a dead-key dir's facts are all stale on read, delete the dir instead of migra
 
 ---
 
+## Shadowed skills — the 18 live in both humpty and dotfiles
+
+**Parked 2026-08-03** at the humpty-publishing milestone. The 18 skills kept in the ubu-roi payload
+also still exist as copies under `claude/skills/`. Plugin skills are namespaced (`humpty:layouts`,
+`humpty:jana`), so both surface in the live skill list — the dotfiles copies are duplicates that no
+longer enforce anything the plugin doesn't.
+
+### shape
+Quarantine the 18 dotfiles copies to `_tmp/<date>-shadowed-skills/`, leaving the plugin as the single
+source. The 20 already-cut skills went the same way on 2026-08-03, so the precedent and the folder
+convention exist.
+
+### open question
+Does anything still reference the dotfiles paths directly — a hook, a ref card, a doc? Grep before moving.
+
+### kill criteria
+If the namespaced plugin skills prove awkward in daily use (the `humpty:` prefix is friction), keep the
+dotfiles copies and quarantine nothing. **This is the user's ruling, twice unmade — do not decide it unasked.**
+
+---
+
+## humpty concepts — 8 specs, 0 packaged
+
+**Parked 2026-08-03** at the humpty-publishing milestone; deferred by the user twice before that.
+`concepts/` holds 8 written specs and no packages; `concepts/09-memory` was never written at all.
+Not a gap to close unprompted — the publishing arc shipped without needing any of it.
+
+### kill criteria
+If the specs are still unpackaged when the next humpty arc opens, they were never load-bearing — retire them.
+
+---
+
+## Seven TUI file managers — the live cut
+
+**Parked 2026-08-03**, unchanged from its AGENT-CONTEXT entry of 2026-08-01. vifm · mc · xplr · ranger ·
+superfile · lf · nnn, all installed, themed, carded and documented. The survey's verdict is **vifm**, but
+it is a paper verdict and the live cut has not happened.
+
+### shape
+Whichever lose get removed from `brewfile-cli`, their `docs/documentation/02-file-management/18-24` docs
+retired to `_tmp/`, and the `ref-explorer explorers` table trimmed.
+
+### kill criteria
+**Not a task until the user says so.** If all seven are still installed and unused in six months, cut to
+vifm on the paper verdict alone.
+
+---
+
 Nothing here is committed. This is a thought exercise until items move to `llm-context/AGENT-CONTEXT.md`.

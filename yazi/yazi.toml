@@ -156,8 +156,10 @@ preloaders = [
 ]
 previewers = [
 	{ url = "*/", run = "folder" },
-	# Markdown — rendered via mdcat ( ← custom; by extension, since yazi tags .md as text/plain )
-	{ url = "*.{md,markdown}", run = "mdcat" },
+	# Markdown — rendered via bin/md-preview ( ← custom; by extension, since yazi tags .md as text/plain )
+	# md-preview prints the frontmatter as a properties block, then pipes the body to mdcat.
+	# Needs the piper plugin: `ya pkg add yazi-rs/plugins:piper`. Without it, fall back to `run = "mdcat"`.
+	{ url = "*.{md,markdown}", run = 'piper -- md-preview "$1"' },
 	# Code
 	{ mime = "text/*", run = "code" },
 	{ mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },

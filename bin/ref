@@ -19,7 +19,7 @@ dot="$HOME/.dotfiles"
 # hardcoded array and silently lost skill/humpty/repo). Keep it alphabetical.
 card_list() {
   printf '%s\n' desk explorer files git grep humpty llm lobby media nvim repo \
-                shell skill system terminal tmux vim
+                shell skill system terminal tmux vim yazi
 }
 
 card_def() {
@@ -33,6 +33,7 @@ card_def() {
     nvim)     printf '%s||glow\n' "$dot/ref/nvim.md" ;;
     git)      printf '%s||glow\n' "$dot/ref/git.md" ;;
     explorer) printf '%s||glow\n' "$dot/ref/explorer.md" ;;
+    yazi)     printf '%s||glow\n' "$dot/ref/yazi.md" ;;
     grep)     printf '%s||glow\n' "$dot/ref/grep.md" ;;
     media)    printf '%s||glow\n' "$dot/ref/media.md" ;;
     desk)     printf '%s||glow\n' "$dot/ref/desk.md" ;;
@@ -95,7 +96,9 @@ section title, case-insensitive, substring. Cards have no subsections.
 |          |                                                 |
 | git      | create · branch · delete · lazygit · gh         |
 |          |                                                 |
-| explorer | yazi · broot · the nvim explorers               |
+| yazi     | keys · md-preview modes                         |
+|          |                                                 |
+| explorer | broot · the trial seven · the nvim explorers    |
 |          |                                                 |
 | grep     | ugrep flags · regex · fzf                       |
 |          |                                                 |

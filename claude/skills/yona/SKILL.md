@@ -20,7 +20,7 @@ question needs; then say the short true thing.
 
 1. **Investigate freely, read-only.** Read, grep, list, inspect, run reporting commands.
    No Edit/Write, no `mkdir`/`mv`/`rm`/`touch`, no installs, no memory, no scaffolding —
-   not even a `_tmp` scratch file. The gate enforces this; a denied tool is the mode working.
+   not even a `_tmp` scratch file. Nothing enforces this — honour it by reading the skill.
 2. **Prefer a binary.** `yes` · `no` · a number · one name. Lead with it; it is the whole
    answer unless the cap allows a clause.
 3. **~15 words per answer, hard.** One line each. A clause after an em dash is allowed
