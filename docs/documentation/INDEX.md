@@ -2,7 +2,7 @@
 title: Documentation — tool catalog & guides
 type: index
 status: active
-updated: 2026-08-03
+updated: 2026-08-05
 description: The repo's subject matter — one reference doc per installed tool, plus multi-chapter guides. Content only; repo machinery lives in operations/.
 tags:
   - project/dotfiles
@@ -26,10 +26,10 @@ Two cross-cutting axes live in **tags**, not folders:
 | 01 | [[documentation/01-shell-terminal/INDEX|Shell & Terminal]] | 26 | terminal emulators (iTerm2, Ghostty), multiplexers, prompt (starship), zsh plugins, clipboard, sysinfo, process monitor, cheat-sheets (tldr), calendar (gcalcli), markdown renderers (glow/mdcat), image renderer (chafa), kanban (kanban-tui), tmux session/project managers, git worktree pairing (workmux), shell-history search (atuin), vi-mode (zsh-vi-mode) |
 | 02 | [[documentation/02-file-management/INDEX|File Management]] | 22 | tree view, TUI/GUI managers, renamers, archiver + modern CLI core (eza/bat/fd/rg/fzf/zoxide/dust) + yazi preview backends (7-Zip/resvg) |
 | 03 | [[documentation/03-dedup-cleanup/INDEX|Dedup & Cleanup]] | 6 | duplicate finders, app uninstallers, file recovery |
-| 04 | [[documentation/04-dev-languages/INDEX|Dev & Languages]] | 11 | editors, JS/Python runtimes & managers, jq, containers, LLM client, Claude Code integrations (ponytail, framer-agent) |
+| 04 | [[documentation/04-dev-languages/INDEX|Dev & Languages]] | 12 | editors, JS/Python runtimes & managers, jq, containers, LLM client, Claude Code integrations (ponytail, framer-agent, Figma MCP) |
 | 05 | [[documentation/05-network-security/INDEX|Network & Security]] | 8 | scanners, throughput, antivirus, password vault, SSH |
 | 06 | [[documentation/06-media-av/INDEX|Media & A/V]] | 8 | player, transcoders, downloader, torrents, speech-to-text, text-to-speech, terminal music (mpd + rmpc) |
-| 07 | [[documentation/07-pdf-images/INDEX|PDF & Images]] | 4 | image toolkit, PDF↔image/SVG, clipboard PNG |
+| 07 | [[documentation/07-pdf-images/INDEX|PDF & Images]] | 5 | image toolkit, PDF↔image/SVG, clipboard PNG, bitmap→vector tracer (potrace) |
 | 08 | [[documentation/08-screen-capture/INDEX|Screen Capture]] | 3 | screen recorders, keystroke overlay |
 | 09 | [[documentation/09-productivity-desktop/INDEX|Productivity & Desktop]] | 6 | launcher, system monitor, notes, dev browser, tiling window manager, menu bar (SketchyBar) |
 | 10 | [[documentation/10-fonts/INDEX|Fonts]] | 2 | Nerd Font, font viewer |

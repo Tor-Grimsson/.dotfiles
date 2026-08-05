@@ -64,6 +64,12 @@ reveal = [
 	{ run = "clear; exiftool %s1; echo 'Press enter to exit'; read _", desc = "Show EXIF", for = "unix", block = true },
 ]
 markdown = [
+	# Full screen in exactly the rendering the preview pane is showing. md-preview
+	# reads the SAME ~/.cache/md-preview.mode, so `full` here means the frontmatter
+	# properties block plus the body — the half glow and mdcat both discard.
+	# Outside piper there is no $w, so it falls back to the real terminal width; and
+	# `less` scrolls sideways, which is how a wide table gets read at all.
+	{ run = "md-preview %s1 | less -R", desc = "md-preview (as previewed)", for = "unix", block = true }, # ← custom
 	{ run = "glow -p %s1",  desc = "glow (pager)",  for = "unix", block = true }, # ← custom
 	{ run = "mdcat -p %s1", desc = "mdcat (pager)", for = "unix", block = true }, # ← custom
 	{ run = "nano %s",      desc = "nano",          for = "unix", block = true }, # ← custom
@@ -81,7 +87,7 @@ rules = [
 	# Folder
 	{ url = "*/", use = [ "edit", "open", "reveal" ] },
 	# Markdown ( ← custom; glow/mdcat/nano alongside $EDITOR — scoped to .md so html/css/jsx/etc keep the generic Text rule below )
-	{ url = "*.{md,markdown}", use = [ "edit", "markdown", "reveal" ] },
+	{ url = "*.{md,markdown}", use = [ "edit", "markdown", "open", "reveal" ] },
 	# Text
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
 	# SVG ( ← custom; XML/text under the hood, not just a raster image — worth $EDITOR too )

@@ -49,9 +49,29 @@ ask_for() {
 }
 
 while :; do
-  mode=$(printf '%s\n' "$MODES" | fzf --prompt='llm > ' --layout=reverse \
-    --delimiter='\t' --with-nth=1,2 --height=100%) || exit 0
-  mode=${mode%%	*}
+  # --no-preview is REQUIRED: FZF_DEFAULT_OPTS carries `bat {}` and a mode row is
+  # not a path, so the preview pane renders `[bat error]` instead of nothing.
+  # Same reason as `emo` in .zshrc:98 and clip-drop.sh's `--preview ''`.
+  #
+  # --print-query: the prompt reads `llm > `, so typing a question straight into it
+  # is the obvious move — but this picker is a FILTER, and a question matches no
+  # mode row. fzf then exited 1, `|| exit 0` ended the script, and -E shut the popup
+  # with nothing on screen: the bug looked like a crash (2026-08-04, second one here
+  # after the bat-preview error the --no-preview note above fixed). With
+  # --print-query the typed text comes back on line 1 and is answered as an `ask`,
+  # which is what the prompt was promising all along. Only Esc (rc 130) closes now.
+  rc=0
+  picked=$(printf '%s\n' "$MODES" | fzf --print-query --prompt='llm > ' --layout=reverse \
+    --delimiter='\t' --with-nth=1,2 --height=100% --no-preview) || rc=$?
+  [ "$rc" -eq 130 ] && exit 0
+  query=$(printf '%s' "$picked" | sed -n 1p)
+  sel=$(printf '%s' "$picked" | sed -n 2p)
+  if [ -z "$sel" ]; then
+    [ -n "$query" ] || exit 0            # Enter on an empty menu — nothing to do
+    llm "$query" | less -R               # a typed question IS the question
+    continue
+  fi
+  mode=${sel%%	*}
 
   case "$mode" in
     ask)
@@ -71,7 +91,7 @@ while :; do
       ;;
     model)
       m=$(llm models --options 2>/dev/null | grep -oE '^[A-Za-z]+: [^ ]+' | awk '{print $2}' \
-          | fzf --prompt='model > ' --layout=reverse) || continue
+          | fzf --prompt='model > ' --layout=reverse --no-preview) || continue
       q=$(ask_for "ask ($m): ") || continue
       llm -m "$m" "$q" | less -R
       ;;

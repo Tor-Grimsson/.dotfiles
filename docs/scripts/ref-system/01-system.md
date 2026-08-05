@@ -3,7 +3,7 @@ title: ref — system & engine
 type: reference
 status: active
 updated: 2026-07-29
-description: The desk-reference-card dispatcher — one engine (bin/ref) printing topical cards (tmux · nvim · git · yazi · explorer · grep · media · desk · terminal · shell · system · files), filtered by words in section titles; glow-rendered.
+description: The desk-reference-card dispatcher — one engine (bin/ref) printing topical cards, filtered by words in section titles; glow-rendered. `ref --cards` is the live card list; this doc deliberately does not copy it.
 aliases:
   - ref
 tags:
@@ -58,8 +58,20 @@ In tmux, **Prefix + Ctrl+F** opens `ref-pick` in a popup — fuzzy-pick at both 
 
 The `keys` pattern (one concern, flat tagged data, zero prose) proved the most-used shell utility — worth systematising. One dispatcher owns the engine; each new reference costs a data file plus a registry line, not a new script.
 
+## The sibling family — `notes` (2026-08-05)
+
+`bin/notes` + `notes/*.md` + `notes-<card>` is a **second engine, not a second format**. ref cards say what a *tool does*; notes cards explain what a thing *means*. The dialect in [[02-cards|02 — cards]] governs both, `ref --lint` checks `notes/*.md` alongside `ref/*.md`, and `~/.claude/skills/ref-admin` is the arbiter for either.
+
+Notes was briefly built *exempt* from the dialect on the grounds that a 46-char cell suits keybinds and not prose. Wrong call, reversed the next day: prose belongs in the paragraphs around the table, exactly as `ref/yazi.md` already does it. Two ways to express the same thing always drift — the reason is recorded in `card_lint()` itself so the next family hits it before writing a file. Own record: [[notes-system|notes system]].
+
 ## Adding a card
 
+Five edits for a **ref** card, **two** for a notes card — and the easiest to miss is `card_list()`, because a card omitted there still prints fine by name while being invisible to `ref --cards` and therefore to `ref-pick`. A notes card has no registry at all: `bin/notes` reads the directory.
+
 1. Drop a table-dialect `.md` in `ref/` — natural `## ` titles carrying the filter words, tables with NO per-row spacers, cells under 46 characters ([[02-cards|02]] for the rules; **`ref --lint` checks all of it**).
-2. Add one `card_def()` line with the `glow` renderer field and a `usage()` line in `bin/ref`.
-3. Add the matching `bin/ref-<card>` alias — three lines, copy any existing one.
+2. Add the name to `card_list()` in `bin/ref`, alphabetically — this is what `ref --cards` and `bin/ref-pick` read.
+3. Add one `card_def()` line with the `glow` renderer field.
+4. Add a `usage()` row so the card appears in the index.
+5. Add the matching `bin/ref-<card>` alias — three lines, copy any existing one, `chmod +x`.
+
+The same five are on the desk as `ref-ref editing`.

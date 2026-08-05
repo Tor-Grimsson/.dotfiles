@@ -22,6 +22,7 @@ covers:
 related:
   - "[[02-img2pdf|img2pdf]]"
   - "[[01-imagemagick|ImageMagick]]"
+  - "[[05-potrace|potrace]]"
 ---
 
 ## Summary

@@ -2,7 +2,7 @@
 title: llm-pick
 type: reference
 status: active
-updated: 2026-07-31
+updated: 2026-08-04
 description: Ask Claude from a tmux popup — an fzf menu over the llm CLI's five real modes (ask, continue, chat, pipe the clipboard, model override), bound to prefix Ctrl+L.
 tags:
   - project/dotfiles
@@ -38,6 +38,8 @@ related:
 | `model` | `llm -m <model> "…"` | one-off override, model picked from a second fzf list |
 
 Answers page through `less -R`; `q` returns to the menu, `Esc` at the menu closes the popup. Empty input aborts back to the menu rather than sending a blank prompt.
+
+**A question typed straight at the menu is answered as an `ask`** (2026-08-04). The menu's fzf prompt reads `llm > `, which looks like an input box and is a filter — a typed question matched no mode row, fzf exited 1, and `display-popup -E` shut the popup with nothing on screen. `--print-query` now returns the typed text on line 1, and only `Esc` (rc 130) closes.
 
 ## Why this shape
 It copies the popup band already in `tmux/.tmux.conf` — `clip-drop.sh --menu` (`prefix Ctrl+P`), `ref-pick` (`prefix Ctrl+F`), `aero-add` (`prefix Ctrl+W`). Same idea each time: fzf picks, a `bin/` script runs, Esc walks back out. Nothing new was invented here.

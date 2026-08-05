@@ -34,6 +34,18 @@ return {
       b.opts.hl_shortcut = "YellowItalic" -- gruvbox-material yellow, tracks the theme
     end
 
+    -- Only shown when something is actually recoverable — a permanent button
+    -- would be a permanent lie, and unsaved text from a crash is the one thing
+    -- nvim never surfaces on its own (grim.core.recovery explains why).
+    -- Inserted above Quit, which stays last.
+    local recoverable = #require("grim.core.recovery").list()
+    if recoverable > 0 then
+      local btn = dashboard.button("r", "  > Recover unsaved text (" .. recoverable .. ")", "<cmd>Recovery<CR>")
+      btn.opts.width = 60
+      btn.opts.hl_shortcut = "YellowItalic"
+      table.insert(dashboard.section.buttons.val, #dashboard.section.buttons.val, btn)
+    end
+
     -- Send config to alpha
     alpha.setup(dashboard.opts)
 

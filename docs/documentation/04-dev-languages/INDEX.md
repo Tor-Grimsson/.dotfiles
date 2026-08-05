@@ -2,7 +2,7 @@
 title: Dev Languages & Tooling
 type: index
 status: active
-updated: 2026-08-03
+updated: 2026-08-05
 description: Language runtimes, package managers, editors, the container engine, and the terminal LLM client that make up the local development environment. Git tooling now lives in its own category.
 tags:
   - domain/dev
@@ -23,6 +23,7 @@ The runtimes, package managers, editors, and container tooling this machine deve
 | [[09-llm|llm]] | Simon Willison's terminal LLM client; wired to Claude via the llm-anthropic plugin (uv-installed). |
 | [[13-framer-agent|framer-agent]] | Framer's official external-agent bridge — two skills giving Claude Code direct access to a Framer project's canvas, CMS and analytics. No MCP server. |
 | [[12-ponytail|ponytail]] | Claude Code plugin that forces the laziest working solution — an over-engineering reviewer with six /ponytail-* skills. |
+| [[14-figma-mcp|Figma MCP server]] | Figma's official MCP server — reads design context and writes native layers since Code to Canvas. **Not installed here**; doc is the decision record. |
 
 ## Guides
 - [[11-neovim-cheatsheet|Neovim cheatsheet (beginner)]] — zero-assumptions reference for writing and navigating text in [[03-neovim|Neovim]]: modes, movement, editing, search/replace, panic button.

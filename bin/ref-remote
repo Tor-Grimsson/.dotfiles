@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# ref-remote — alias of `ref remote` (bin/ref owns the engine).
+exec "$HOME/.dotfiles/bin/ref" remote "$@"

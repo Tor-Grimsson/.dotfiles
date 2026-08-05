@@ -31,6 +31,8 @@ Cards are hand-kept markdown, one file per card, **one dialect for all of them**
 | the bold is load-bearing, not decoration | `glow-style.json`'s `strong` carries fg `214` (2026-08-02) — a category marker reads as a distinct color, not just plain text with hashes. `bin/ref` `show()` renders through this JSON now, not the builtin `-s dark` |
 | categories are optional, not default | group only when a card genuinely holds multiple tools/topics sharing one table — a single-tool card stays a plain table, no invented categories |
 | duplication across sections is deliberate | a thing living in several contexts is listed in each |
+| **this dialect governs `notes/*.md` too** (2026-08-05) | `bin/notes` is a second **engine**, not a second format — `ref --lint` reads `notes/` alongside `ref/`. Exempting it was tried and reversed: prose goes in the paragraphs around the table, cells stay glance-length regardless. See [[01-system\|01 — system]] |
+| **a key with two owners lives on both cards** (2026-08-05) | `prefix y` restarts *yazi* from *tmux*, so it is carded in `ref-tmux reload` and `ref-yazi reload`. The **reasoning** stays in one place and the other card points at it — user ruling: *"things have to live where they are referenced, even if they have 2 homes"* |
 
 ## The lint — the law as a machine check
 

@@ -71,6 +71,30 @@ File: no trailing slash → some-file.txt, then Enter.
 ----
 doc: docs/documentation/02-file-management/02-yazi.md
 
+## yazi — reload after a config edit
+
+yazi has NO hot-reload · the process itself must restart
+
+| keys / cmd | does                                 |
+|------------|--------------------------------------|
+| prefix y   | restart in place, same dir           |
+| q then y . | the same thing, by hand              |
+| prefix C-y | the popup — close and reopen instead |
+| prefix r   | needed FIRST if prefix y is missing  |
+
+Edits to `yazi.toml` or `keymap.toml` need this.
+The `prefix v` preview mode does NOT — it is read per render.
+
+`respawn-pane -k` is the wrong tool: the zshrc `y` wrapper means yazi runs
+inside zsh, so respawning gives a fresh shell, not a fresh yazi.
+
+Tmux keys never reach inside a popup, so `prefix y` is pane-only.
+The dot in `y .` skips the iMac's `$HOME/thatComp--iMac` default —
+one `.tmux.conf` runs on both machines.
+
+----
+doc: docs/documentation/02-file-management/02-yazi.md
+
 ## md-preview — yazi markdown-preview modes
 
 `bin/md-preview` · frontmatter is visible or not
@@ -79,6 +103,7 @@ doc: docs/documentation/02-file-management/02-yazi.md
 |------------|--------------------------------------|
 | **## switch** |                                   |
 | prefix v   | cycle mode, reports it in status bar |
+| md:MODE    | yazi's own bar, on a hovered .md only |
 |            | move cursor off the file + back      |
 |            | to redraw a running yazi             |
 |            |                                       |
@@ -90,13 +115,28 @@ doc: docs/documentation/02-file-management/02-yazi.md
 | **## cmd** |                                      |
 | md-preview --mode  | print current mode           |
 | md-preview --cycle | switch, print the new one    |
-| MD_PREVIEW_PAD=N   | left inset, default 2        |
+| MD_PREVIEW_STATE   | override the mode state file |
+|                    |                               |
+| **## scroll** | |
+| J · K      | seek the preview down / up 5 lines   |
+| side to side | no such thing — yazi has none      |
+|            |                                       |
+| **## full screen** | |
+| O → md-preview | the SAME mode, in a pager        |
+| ← · →      | less scrolls sideways — tables fit    |
+| q          | back to yazi                          |
 
 Both renderers DROP color when output is not a terminal, and
 yazi always captures the pane — mdcat needs `--ansi`, glow needs
 `CLICOLOR_FORCE=1`. Without them the preview is flat grey.
 
 Mode persists in `~/.cache/md-preview.mode`, read per render.
+
+Width is not a setting. piper exports `w` (the pane's columns) into the
+script, which passes it on as mdcat `--columns` and glow `-w`. Without
+it both render at their own default and anything wider is CLIPPED —
+there is no horizontal scroll to get it back. Wide TABLES overflow
+anyway: neither renderer shrinks a table to fit. `notes-shell` explains `$w`.
 
 ----
 doc: docs/documentation/02-file-management/02-yazi.md

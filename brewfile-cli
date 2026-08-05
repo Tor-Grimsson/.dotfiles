@@ -109,6 +109,7 @@ brew "imagemagick" # Image manipulation toolkit
 brew "ghostscript" # PDF/PS rasterizer — gs; ImageMagick's PDF/EPS delegate (img-convert.sh, pdf-to-png.sh)
 brew "img2pdf"     # Images → PDF (lossless JPEG embedding)
 brew "pdf2svg"     # PDF → SVG (vector)
+brew "potrace"     # Bitmap → SVG tracer (logo/lineart vectorising); reads PNM/BMP only — feed it via ImageMagick
 brew "pngpaste"    # Paste clipboard PNG to a file
 # NOTE: pdf2image is uv-tool-managed (see the uv line above), not a brew formula —
 #       the formula ships poppler-duplicate binaries that clash with poppler's symlinks.

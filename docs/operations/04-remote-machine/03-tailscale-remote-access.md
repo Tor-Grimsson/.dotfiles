@@ -2,7 +2,7 @@
 title: Tailscale SSH + mosh — keyless remote access from the iPad
 type: guide
 status: active
-updated: 2026-07-11
+updated: 2026-08-05
 audience: internal
 description: Reach the Macs as SSH servers from the iPad (Blink) over the tailnet with no keys or passwords — swap the sandboxed GUI Tailscale for the `tailscaled` daemon, flip the tailnet SSH ACL to accept mode, and connect over mosh for mobile resilience.
 aliases:
@@ -35,11 +35,15 @@ Get a real shell on either Mac from the iPad, from anywhere, with **no SSH keys 
 
 ## The tailnet
 
-| Node | Role | Tailnet IP |
-|---|---|---|
-| `biskup` (Intel iMac) | SSH server | `100.116.173.43` |
-| `yrs-imac` | SSH server | `100.66.68.91` |
-| `ipad-pro-12-9-gen-5` | client (Blink) | `100.86.238.99` |
+| Node | Role | Tailnet IP | Connect |
+|---|---|---|---|
+| `biskup` (Intel iMac) | SSH server | `100.116.173.43` | `ssh biskup@100.116.173.43` · `mosh biskup@100.116.173.43` · `vnc://biskup@100.116.173.43` (Finder → Connect to Server) |
+| `acyr` | SSH box, CLI-only provision | `100.120.6.62` | `ssh acyr` (LAN, `ssh/config`) · `ssh acyr@100.120.6.62` (off-LAN) |
+| `ipad-pro-12-9-gen-5` | client (Blink) | `100.86.238.99` | — |
+
+Verified live 2026-08-05: `biskup` username is `biskup`, `acyr` username is `acyr` (both confirmed by connecting, not assumed from hostname). Screen Sharing (VNC, port 5900) is on for `biskup`; File Sharing (SMB, port 445) is off — `smb://` will fail until it's enabled in System Settings → General → Sharing.
+
+`yrs-imac` (`100.66.68.91`) — removed from the tailnet 2026-08-05, no longer a target.
 
 ## Walkthrough
 
@@ -107,5 +111,5 @@ A sleeping Mac drops SSH/mosh. Two options, pick per machine:
 
 ## Status
 
-- **Sleep-prevention:** applied on `yrs-imac` — `sudo pmset -a sleep 0 disksleep 0` (durable, survives reboot). On this iMac (`biskup`) it's optional and not applied.
-- **Reachability:** `yrs-imac` has admin access and stays always-on — no host alias needed. This iMac is saved in Blink as `acyr@<magic-ip>` (`acyr` = admin user).
+- **Sleep-prevention:** was applied on `yrs-imac` — `sudo pmset -a sleep 0 disksleep 0` (durable, survives reboot) — before it left the tailnet 2026-08-05. On `biskup` it's optional and not applied.
+- **Reachability:** `yrs-imac` removed from the tailnet 2026-08-05. `biskup` is now the sole SSH/mosh target from this walkthrough — saved in Blink as `acyr@<magic-ip>` (`acyr` = admin user on `biskup`).

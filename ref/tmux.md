@@ -4,18 +4,23 @@ Filter: `ref-tmux <word …>` · `[e]` = example · pfx = `C-a` (second prefix `
 
 ## popover llm
 
-| keys    | does                                    |
-|---------|-----------------------------------------|
-| pfx C-t | scratch shell popup (cwd)               |
-| pfx C-y | yazi popup (cwd)                        |
-| pfx C-g | lazygit popup — see ref-git             |
-| pfx C-p | capture menu (clip-drop)                |
-| pfx C-s | sesh session picker                     |
-| pfx C-d | layout → window in current session      |
-| pfx C-o | layout → its own session                |
-| pfx C-b | bookmark picker                         |
-| pfx C-f | ref-card picker (ref-pick)              |
-| pfx C-l | ask llm (llm-pick) — see ref-llm        |
+the prefix is `C-a` · esc backs out of an fzf picker · q leaves a pager ·
+a raw shell or REPL needs `exit` or Ctrl-D · two = picker first, then pager
+
+| keys    | does                                    | close     |
+|---------|-----------------------------------------|-----------|
+| pfx C-t | scratch shell popup (cwd)               | type exit |
+| pfx C-y | yazi popup (cwd)                        | q         |
+| pfx C-g | lazygit popup — see ref-git             | q         |
+| pfx C-p | capture menu (clip-drop)                | esc       |
+| pfx C-s | sesh session picker                     | esc       |
+| pfx C-d | layout → window in current session      | esc       |
+| pfx C-o | layout → its own session                | esc       |
+| pfx C-b | bookmark picker                         | esc       |
+| pfx C-w | app rule (aero-add) — see ref-desk      | esc       |
+| pfx C-f | ref-card picker (ref-pick)              | esc · q   |
+| pfx C-k | lobby queue (lobby) — see ref-lobby     | esc · q   |
+| pfx C-l | ask llm (llm-pick) — see ref-llm        | esc · q   |
 
 ## bookmark
 
@@ -80,7 +85,14 @@ Filter: `ref-tmux <word …>` · `[e]` = example · pfx = `C-a` (second prefix `
 | pfx [ | copy/scroll mode (q exits)       |
 | v     | begin selection (in copy mode)   |
 | y     | copy to system clipboard         |
-| pfx r | reload the config                |
+
+## reload
+
+| keys  | does                                  |
+|-------|---------------------------------------|
+| pfx r | reload tmux.conf — new binds go live  |
+| pfx y | restart yazi in place — see ref-yazi  |
+| pfx v | cycle md-preview mode — see ref-yazi  |
 
 ## harpoon
 

@@ -20,6 +20,7 @@ covers:
   - Install, telemetry opt-out, and the vendored-file rule
 related:
   - "[[12-ponytail|ponytail]]"
+  - "[[14-figma-mcp|Figma MCP server]]"
 ---
 
 ## Summary

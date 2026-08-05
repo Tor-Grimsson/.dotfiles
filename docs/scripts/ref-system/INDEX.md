@@ -33,8 +33,9 @@ to rendered pixels.
 
 | what | path |
 |---|---|
-| engine | `~/.dotfiles/bin/ref` (aliases `bin/ref-tmux` `-nvim` `-git` `-yazi` `-explorer` `-grep` `-media` `-desk` `-terminal` `-shell` `-system` `-files` `-pick`) |
-| card data | `~/.dotfiles/files/folders.md` · `~/.dotfiles/ref/{tmux,nvim,git,yazi,explorer,grep,media,desk,terminal,shell,system}.md` — the keys card dissolved into these 2026-07-29 |
+| engine | `~/.dotfiles/bin/ref`, one `bin/ref-<card>` alias per card, plus `bin/ref-pick`. **`ref --cards` prints the live list** — this doc used to hand-copy it and drifted seven cards behind |
+| card data | `~/.dotfiles/ref/<card>.md`, one file per card — except **files**, which reads `~/.dotfiles/files/folders.md`. The keys card dissolved into these 2026-07-29 |
+| the system's own card | `ref-ref` — usage, these paths, and the add-a-card steps, on the desk instead of in a doc (added 2026-08-04) |
 | vendored theme | `~/.dotfiles/ref/glow-style.json` (wired 2026-08-02 — see [[04-theme\|04 — theme]]) |
 | glow config | `~/.dotfiles/glow/glow.yml` → symlinked to `~/Library/Preferences/glow/glow.yml` |
 | glow itself | [[documentation/01-shell-terminal/08-glow|glow (tool catalog)]] |

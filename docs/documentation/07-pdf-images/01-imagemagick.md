@@ -23,6 +23,7 @@ covers:
 related:
   - "[[02-img2pdf|img2pdf]]"
   - "[[04-pngpaste|pngpaste]]"
+  - "[[05-potrace|potrace]]"
 ---
 
 ## Summary

@@ -61,7 +61,7 @@ All live in `~/.dotfiles/yazi/`, symlinked as a whole dir to `~/.config/yazi` (l
 | `yazi.toml` | layout, sort, preview size/quality — the **full yazi default** inlined for reference; overrides marked `# ← custom` |
 | `keymap.toml` | keybindings — the **full default keymap** inlined for reference; customs marked `# ← custom` |
 | `theme.toml` | **gruvbox-dark** flavor active. catppuccin-mocha stays vendored as a commented `[flavor]` option; comment the whole block out to inherit the terminal palette instead |
-| `init.lua` | Lua startup — sets up the `full-border` plugin |
+| `init.lua` | Lua startup — sets up `full-border`, and adds a `Status:children_add` child showing md-preview's mode on a hovered `.md`. See [[operations/systems/terminality/14-statuslines\|Statuslines]] §4 |
 | `package.toml` | plugin/flavor manifest used by `ya pkg` (pins each to a revision) |
 | `plugins/` `flavors/` | the vendored plugin & flavor repos (tracked, so a fresh machine needs no re-fetch) |
 
@@ -143,10 +143,29 @@ Installed with `ya pkg add`, vendored under `plugins/` + `flavors/`, pinned in `
 | `smart-enter` | Enter dir / open file with one key | `<Enter>` |
 | `toggle-pane` | maximize/hide a pane (respects the `ratio`) | `T` (max-preview); `:plugin toggle-pane <mode>` for others |
 | `full-border` | rounded borders around the panes | automatic (`init.lua`) |
-| `mdcat` | renders `.md` as styled markdown in the preview (clean headings, no `##` markers; frontmatter shown) | automatic (previewer matched by `*.{md,markdown}` — yazi tags `.md` as `text/plain`, so it's wired by extension, not mime) |
+| `piper` | runs any command and shows its stdout as the preview | **this is the `.md` previewer** — `yazi.toml:162`, `piper -- md-preview "$1"`. Matched by extension, not mime, because yazi tags `.md` as `text/plain` |
+| `mdcat` | hand-written previewer, **superseded 2026-08-03** and left in place | none — it is no longer wired to anything. See below |
 
-> **Maintenance:** `plugins/mdcat.yazi/main.lua` is **hand-written** (not a `ya pkg` dep — no `package.toml` entry, no upgrade churn). It runs `mdcat --ansi --local --columns <pane-width>`: `--ansi` forces formatting when stdout is a pipe (no TTY), `--local` skips remote image fetches so the preview never stalls. A 2-column left/right margin is added by insetting the render area (`job.area:pad(ui.Pad.x(2))`) — mdcat has no margin flag of its own; tune the `pad` local at the top of `peek`. It was picked over **glow** (which keeps the `##` heading markers and strips frontmatter) after an A/B. The `glow` **binary stays installed** — it's used by scripts + Quick Actions — but is no longer wired into yazi.
+> **Markdown previewing moved to [[scripts/md-preview\|md-preview]] via piper (2026-08-03).** `plugins/mdcat.yazi/` is still vendored but **no longer wired** — `yazi.toml:162` points at `piper -- md-preview "$1"` instead. The reason for the move is the one thing neither renderer can do: mdcat *and* glow both parse a leading `---` block as metadata and discard it, with no flag to keep it, so a vault doc's frontmatter — the half worth seeing at a glance — was invisible. `md-preview` prints the frontmatter itself and hands only the body to mdcat, and adds two switchable alternates (`prefix v` cycles `full` → `mdcat` → `glow`). The retired plugin is still worth reading for its width handling: it passes `--columns <pane-width>`, which `md-preview` did not do until 2026-08-04 and which is why previews were clipped. The `glow` **binary stays installed** — scripts, Quick Actions and one of the three modes use it.
 | `gruvbox-dark` (active), `catppuccin-mocha` (flavors) | **gruvbox-dark** paints the UI; catppuccin-mocha stays vendored + commented. Switch by swapping the `[flavor]` block | `theme.toml` |
+
+## Reloading after a config edit
+yazi has **no config hot-reload** — the process must restart. `prefix y` (tmux) does it in place: `q` quits yazi and writes `--cwd-file` so the shell lands in the same directory, then `y .` relaunches there. The two sends must be separated by a short delay or the relaunch arrives while yazi still holds the tty and lands as literal text at the prompt.
+
+`respawn-pane -k` is the wrong tool: the zshrc `y` wrapper means yazi runs *inside* zsh, so respawning gives a fresh shell rather than a fresh yazi. And tmux keys never reach inside a popup, so `prefix y` is pane-only — for the `prefix C-y` popup, close it and press `C-y` again, which re-reads the config anyway.
+
+The `prefix v` preview mode is **not** affected: it is read per render from a state file, so it takes effect in a running yazi.
+
+## Opening markdown
+The `.md` rule at `yazi.toml:84` is `use = [ "edit", "markdown", "open", "reveal" ]`, so `O` (open-with) offers `$EDITOR`, the three `markdown` openers, the macOS default app, and Reveal.
+
+| Opener | Runs |
+|---|---|
+| `md-preview (as previewed)` | `md-preview %s1 \| less -R` — full screen in the **same** mode the preview pane is showing |
+| `glow (pager)` · `mdcat (pager)` | the plain renderers |
+| `Open` | the macOS default app. **Added 2026-08-05** — the `.md` rule was the only file-opening rule that omitted it |
+
+The pager opener is also the answer to wide tables: neither renderer shrinks a markdown table to the pane width, and yazi has no horizontal preview scroll — but `less` scrolls sideways with the arrow keys.
 
 ## Workflows
 - **Move files between two dirs** — `<Space>` to mark several (or `y`/`x` to copy/cut), navigate to the target with `h`/`l`, `p` to drop. Tabs (`t` new tab, `1`–`9` switch) let you keep source and target open at once.

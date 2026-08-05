@@ -250,7 +250,7 @@ for (const item of collection.children ?? []) {
 
 const commands = [
 	`+Variable ${newVariableId} name=${JSON.stringify(newVariableName)} type="string" scope="${collection.id}";`,
-	`MOVE ${newVariableId} parent="${collection.id}" position="${oldVariablePosition}";`,
+	`MOVE ${newVariableId} parent="${collection.id}" index="${oldVariablePosition}";`,
 	...setCommands,
 	`DEL ${oldVariableId};`,
 ]

@@ -10,6 +10,8 @@ Filter: `ref-shell <word …>` · `[e]` = example · zsh line editor + history +
 | ssh -t HOST tmux a   | connect + attach tmux         |
 | mosh HOST            | roaming/latency-tolerant      |
 
+host IPs + connect syntax (biskup, acyr, vnc, smb): `ref-remote`
+
 ## history
 
 | keys    | does                                     |

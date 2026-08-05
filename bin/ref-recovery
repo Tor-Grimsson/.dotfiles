@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# ref-recovery — alias of `ref recovery` (bin/ref owns the engine).
+exec "$HOME/.dotfiles/bin/ref" recovery "$@"

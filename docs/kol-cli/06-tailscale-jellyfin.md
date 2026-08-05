@@ -2,7 +2,7 @@
 title: Tailscale + Jellyfin setup
 type: guide
 status: active
-updated: 2026-07-28
+updated: 2026-08-05
 audience: internal
 description: What every piece is (tailnet, MagicDNS, ACL, the "box"), how the `http://biskup.tail485b10.ts.net:8096` address is actually built and how to change its parts, the Tailscale CLI, and how to add users and devices — for this live setup (Jellyfin "Skipholt" on the iMac).
 aliases:
@@ -22,7 +22,7 @@ related:
 
 The whole stack is already live (re-verified 2026-07-27 on the new node identity): Tailscale connected on all 4 devices, MagicDNS on, and the **Jellyfin server running on the iMac** (`biskup`, server name *Skipholt*, v10.11.3), reachable over the VPN. Nothing to install — this card explains *what each piece is* and *how to drive it*.
 
-> **Node identity note (2026-07-27):** the Tailscale CLI install re-registered the iMac as **`biskup`** (`100.116.173.43`); the old `thordurs-imac` node (offline since Jul 10) is a stale duplicate in the admin console — delete it there, and re-point any client that still has the old URL saved.
+> **Node identity note (2026-07-27, resolved 2026-08-05):** the Tailscale CLI install re-registered the iMac as **`biskup`** (`100.116.173.43`); the stale `thordurs-imac` duplicate, plus the unrelated `yrs-imac` node, were both removed from the tailnet 2026-08-05. Tailnet is now 5 machines: `acyr`, `biskup`, `ipad-pro-12-9-gen-5`, `iphone-13-pro-max`, `kolkrabbis-macbook-pro`.
 
 ---
 

@@ -26,7 +26,7 @@
     ],
     "deny": []
   },
-  "model": "opus",
+  "model": "sonnet",
   "statusLine": {
     "type": "command",
     "command": "bash \"$HOME/.dotfiles/bin/kol-statusline\""
@@ -34,7 +34,8 @@
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true,
     "ponytail@ponytail": true,
-    "humpty@humpty": true
+    "humpty@humpty": true,
+    "figma@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "ponytail": {
@@ -52,6 +53,7 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
+  "promptSuggestionEnabled": false,
   "tui": "fullscreen",
   "voice": {
     "enabled": true,

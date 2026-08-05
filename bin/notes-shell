@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# notes-shell — alias of `notes shell` (bin/notes owns the engine).
+exec "$HOME/.dotfiles/bin/notes" shell "$@"

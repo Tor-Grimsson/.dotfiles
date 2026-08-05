@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+# notes — explainer cards: what a thing MEANS, filtered by words in section titles.
+#
+# Sibling of `ref` (bin/ref): a separate ENGINE, not a separate format. ref cards
+# document what a TOOL does; notes cards explain what a thing MEANS. **The dialect
+# is the same one** — /ref-admin is the arbiter for both, and `ref --lint` checks
+# notes/*.md alongside ref/*.md. Prose lives in the paragraphs around the table,
+# never inside a cell, exactly as ref/yazi.md already does it.
+# (Exempting notes from the dialect was tried on 2026-08-04 and reversed the next
+# day: two ways to express the same thing always drift.)
+#
+#   notes                    list the cards
+#   notes shell [word …]     read a card, narrowed   (alias: notes-shell)
+#   notes shell --help       that card's section list
+#
+# One flat .md per card in ~/.dotfiles/notes/. Hand-kept — edit the card.
+set -euo pipefail
+
+dot="$HOME/.dotfiles"
+dir="$dot/notes"
+
+# No hardcoded registry: the directory IS the list. bin/ref carries a card_list()
+# that drifted seven cards behind before `ref --cards` was added to read it — this
+# side cannot drift, because there is nothing to keep in sync.
+card_list() {
+  local f
+  for f in "$dir"/*.md; do
+    [ -e "$f" ] || continue
+    basename "$f" .md
+  done
+}
+
+# Renderer, same treatment bin/ref landed on and for the same two reasons:
+# | cat — the global glow.yml sets pager:true, and a pager draws on the alternate
+#   screen, so quitting ERASES the card. Piping means no TTY, so no pager engages
+#   and the print stays in the scrollback.
+# CLICOLOR_FORCE — glow strips colour on a non-TTY, which the pipe above makes it.
+show() {
+  if command -v glow >/dev/null; then
+    CLICOLOR_FORCE=1 glow -s "$dot/ref/glow-style.json" -w "$(tput cols 2>/dev/null || echo 100)" | cat
+  else
+    bat --language md --style plain --paging=never
+  fi
+}
+
+usage() {
+  {
+    printf '# notes — explainer cards\n\n'
+    printf 'What a thing MEANS. Sibling of `ref`, which documents what a tool DOES.\n\n'
+    printf '| you type | you get |\n|---|---|\n'
+    printf '| `notes-<card>` | the whole card |\n'
+    printf '| `notes-<card> <word>` | only sections whose title has that word |\n'
+    printf '| `notes-<card> <word> <word>` | only titles containing BOTH |\n'
+    printf '| `notes-<card> --help` | that card'"'"'s section list |\n\n'
+    printf '## Cards\n\n'
+    card_list | sed 's/^/- /'
+    printf '\nData: `~/.dotfiles/notes/<card>.md` · one `bin/notes-<card>` alias each.\n'
+  } | show
+}
+
+case "${1:-}" in
+  ""|-h|--help) usage; exit 0 ;;
+  --cards)      card_list; exit 0 ;;
+esac
+
+card="$1"; shift
+data="$dir/$card.md"
+[ -f "$data" ] || { printf 'notes: no card "%s" — try: %s\n' "$card" "$(card_list | tr '\n' ' ')" >&2; exit 1; }
+
+case "${1:-}" in
+  -h|--help)
+    { printf '# notes-%s\n\n`%s`\n\n## Sections\n\n' "$card" "${data/#$HOME/~}"
+      grep '^## ' "$data" | sed 's/^## /- /'; } | show
+    exit 0 ;;
+esac
+
+[ $# -eq 0 ] && { show < "$data"; exit; }
+
+# Keep only sections whose "## " header contains ALL requested words.
+out=$(awk -v tags="$*" '
+  BEGIN { nt = split(tolower(tags), want, " ") }
+  /^## / { hdr = tolower($0); shw = 1; for (i = 1; i <= nt; i++) if (index(hdr, want[i]) == 0) shw = 0 }
+  shw
+' "$data")
+
+if [ -n "$out" ]; then
+  printf '%s\n' "$out" | show
+else
+  printf 'notes: nothing tagged "%s" in %s\n' "$*" "$card" >&2
+  exit 1
+fi

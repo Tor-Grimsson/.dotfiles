@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# ref-ref — alias of `ref ref` (bin/ref owns the engine).
+exec "$HOME/.dotfiles/bin/ref" ref "$@"

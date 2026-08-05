@@ -18,8 +18,8 @@ dot="$HOME/.dotfiles"
 # picker can never drift out of sync with the engine again (it used to carry a
 # hardcoded array and silently lost skill/humpty/repo). Keep it alphabetical.
 card_list() {
-  printf '%s\n' desk explorer files git grep humpty llm lobby media nvim repo \
-                shell skill system terminal tmux vim yazi
+  printf '%s\n' desk explorer files git grep humpty llm lobby media nvim recovery \
+                ref remote repo shell skill system terminal tmux vim yazi
 }
 
 card_def() {
@@ -42,6 +42,9 @@ card_def() {
     skill)    printf '%s||glow\n' "$dot/ref/skill.md" ;;
     humpty)   printf '%s||glow\n' "$dot/ref/humpty.md" ;;
     repo)     printf '%s||glow\n' "$dot/ref/repo.md" ;;
+    recovery) printf '%s||glow\n' "$dot/ref/recovery.md" ;;
+    ref)      printf '%s||glow\n' "$dot/ref/ref.md" ;;
+    remote)   printf '%s||glow\n' "$dot/ref/remote.md" ;;
     *) return 1 ;;
   esac
 }
@@ -110,6 +113,8 @@ section title, case-insensitive, substring. Cards have no subsections.
 |          |                                                 |
 | shell    | ssh · history · atuin · vi-mode · cwd           |
 |          |                                                 |
+| remote   | ssh · mosh · tailscale · vnc · smb — biskup & acyr |
+|          |                                                 |
 | vim      | which vim you are in — nvim · zsh · claude · tmux · yazi |
 |          |                                                 |
 | llm      | the llm CLI · models · piping · the popup       |
@@ -125,6 +130,10 @@ section title, case-insensitive, substring. Cards have no subsections.
 | repo     | one section per repo · the wiring               |
 |          |                                                 |
 | files    | the folder map — `to <word>` jumps              |
+|          |                                                 |
+| recovery | after a crash — nvim swap · tmux · yazi          |
+|          |                                                 |
+| ref      | this system — usage · files · editing a card    |
 
 `ref-pick` (tmux: prefix Ctrl+F) browses all of it in a popup.
 EOF
@@ -143,6 +152,10 @@ EOF
 card_lint() {
   local files=""
   for c in $(card_list); do files="$files $(card_def "$c" | cut -d'|' -f1)"; done
+  # notes/ cards too — same arbiter of layout and structure, different content.
+  # A second dialect would be a second way to express the same thing, and those
+  # always drift. bin/notes is a separate ENGINE, not a separate format.
+  for f in "$dot"/notes/*.md; do [ -e "$f" ] && files="$files $f"; done
   python3 - "$dot" $files <<'PY'
 import os, re, sys
 

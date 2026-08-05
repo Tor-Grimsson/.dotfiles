@@ -47,14 +47,25 @@ mode=$(read_mode)
 # shrink the wrap width and long values would overrun the pane.
 pad='  '
 
+# WIDTH. piper exports `w` (pane columns), `h` (rows) and `t` (light/dark) into this
+# script's environment — see yazi/plugins/piper.yazi/main.lua `:env("w", job.area.w)`.
+# Reading it is not optional: without a width flag mdcat renders at a fixed 76 columns
+# and glow at its own default, so anything wider is CLIPPED at the pane edge. yazi has
+# no horizontal preview scroll and piper never calls :wrap(), so clipped means gone.
+# Measured: mdcat --columns N and glow -w N both take a TOTAL width and inset within
+# it, landing content at N-4. Same number to both. Unset w (running from a plain
+# shell) falls back to the real terminal, then 80.
+cols=${w:-$(tput cols 2>/dev/null || echo 80)}
+avail=$(( cols > 24 ? cols - 6 : 40 ))   # 6 = the renderers' own 4 + this block's pad
+
 # NEITHER renderer colours its output when that output is not a terminal, and yazi
 # always captures the pane — so both need forcing or the preview is flat grey. mdcat
 # takes `--ansi` (skip terminal detection); glow takes CLICOLOR_FORCE plus the repo's
 # own style file, which is what bin/ref already does — same treatment, same look as the
 # ref cards. yazi's original `run = "mdcat"` previewer had no forcing and was colourless.
 case $mode in
-  glow)  exec env CLICOLOR_FORCE=1 glow -s "$HOME/.dotfiles/ref/glow-style.json" "$f" ;;
-  mdcat) exec mdcat --ansi --margin "$f" ;;
+  glow)  exec env CLICOLOR_FORCE=1 glow -s "$HOME/.dotfiles/ref/glow-style.json" -w "$cols" "$f" ;;
+  mdcat) exec mdcat --ansi --margin --columns "$cols" "$f" ;;
 esac
 
 dim=$'\033[38;5;245m'
@@ -64,13 +75,26 @@ off=$'\033[0m'
 if [ "$(head -n1 "$f")" = "---" ]; then
   awk 'NR==1 && /^---$/ {next} /^---$/ {exit} {print}' "$f" |
     while IFS= read -r line; do
-      case $line in
-        *:*) printf '%s%s%s%s%s%s\n' "$pad" "$dim$key" "${line%%:*}" "$off" "$dim" "${line#*:}$off" ;;
-        *)   printf '%s%s%s%s\n' "$pad" "$dim" "$line" "$off" ;;
-      esac
+      k=''; v=$line
+      case $line in *:*) k=${line%%:*}; v=${line#*:} ;; esac
+      # Fold on the PLAIN text — colour codes would be counted toward the width.
+      # A vault `description:` runs to 290 characters; unfolded it is clipped, and
+      # a clipped preview has no way back. Continuations hang under the value.
+      fw=$(( avail - ${#k} )); [ "$fw" -lt 20 ] && fw=20
+      # printf '%s\n', NOT '%s': fold does not terminate its last line, and a
+      # `read` loop silently DROPS an unterminated one. With '%s' every
+      # single-line field vanished and only the long ones survived (2026-08-04).
+      printf '%s\n' "$v" | fold -s -w "$fw" | while IFS= read -r seg; do
+        if [ -n "$k" ]; then
+          printf '%s%s%s%s%s%s\n' "$pad" "$dim$key" "$k" "$off" "$dim" "$seg$off"
+          k=''
+        else
+          printf '%s%s%s%s\n' "$pad$pad" "$dim" "$seg" "$off"
+        fi
+      done
     done
   printf '%s%s%s%s\n' "$pad" "$dim" "────────" "$off"
-  awk 'NR==1 && /^---$/ {fm=1; next} fm && /^---$/ {fm=0; body=1; next} body' "$f" | mdcat --ansi --margin -
+  awk 'NR==1 && /^---$/ {fm=1; next} fm && /^---$/ {fm=0; body=1; next} body' "$f" | mdcat --ansi --margin --columns "$cols" -
 else
-  mdcat --ansi --margin "$f"
+  mdcat --ansi --margin --columns "$cols" "$f"
 fi

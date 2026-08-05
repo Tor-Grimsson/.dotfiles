@@ -17,6 +17,28 @@ via `llm-anthropic`. Default is Haiku 4.5. Every exchange logs to SQLite.
 [e] system  · `llm -s "you are a terse sysadmin" "..."`
 [e] one-off · `llm -m claude-sonnet-4.6 "harder question"`
 
+## llm-pick — the popup
+
+the tmux prefix is `C-a`, so `pfx C-l` floats the menu over the pane
+
+| mode      | does                                    |
+|-----------|-----------------------------------------|
+| ask       | one-shot question, default model        |
+| continue  | keep going from the last exchange       |
+| chat      | the interactive REPL                    |
+| clipboard | pipe the clipboard in, then ask         |
+| model     | one-off model override, then ask        |
+
+| fact    | value                                       |
+|---------|---------------------------------------------|
+| close   | esc at the menu · q leaves the pager        |
+| chat    | needs `exit` or Ctrl-D, not esc             |
+| answers | paged in less, so they survive the popup    |
+| script  | `bin/llm-pick` — `llm-pick --help`          |
+
+[e] menu   · `llm-pick`
+[e] no fzf · every mode is a plain `llm` flag — see the ask section
+
 ## llm — models
 
 aliases use DOTS, not hyphens — the one thing people get wrong

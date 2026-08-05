@@ -6,12 +6,12 @@ This file contains the current project-specific context from `framer.agent.getCo
 
 - Project ID: E5yKhEpJ7sZFZyJoY4Cz
 - Safe Project ID: E5yKhEpJ7sZFZyJoY4Cz
-- Session ID: 2
-- Generated At: 2026-08-03T13:56:22.012Z
+- Session ID: 4
+- Generated At: 2026-08-05T15:11:05.792Z
 
 ## Inventory
 
-<project-fonts>["Geist","Inter","Red Hat Display","Istok Web"]</project-fonts>
+<project-fonts>["Red Hat Display","Geist","Inter","Istok Web"]</project-fonts>
 
 <custom-fonts>[]</custom-fonts>
 
@@ -19,9 +19,9 @@ This file contains the current project-specific context from `framer.agent.getCo
 Each entry has "id" (stable component reference for component="..." and componentPreset.<id>) and "displayName" (human label).
 Code file entries with "type": "override" are code overrides: apply them to a supported node via its codeOverride attribute. Never use override ids with component="...".
 ### Current Project Components
-[{"id":"S2zU_vbS4","displayName":"GlitchButton"},{"id":"JNVWqvZJ3","displayName":"Hero Button"},{"id":"BkOc_sk_v","displayName":"HeroIntroSection"},{"id":"jiNYkTe48","displayName":"PagePreloader"},{"id":"CTRzn9x9f","displayName":"CountStatsCard"},{"id":"ZrhqgMeic","displayName":"FeatureCard"},{"id":"FgadxnYIF","displayName":"ServiceCard"},{"id":"ZUhsbE5dJ","displayName":"ServiceCardButton"},{"id":"kJAyisbVY","displayName":"ArticleCard1"},{"id":"s3AE0qIej","displayName":"FooterMenuList"},{"id":"qNVgmyv3y","displayName":"CustomMouseCursor"},{"id":"nf9Yp8vrm","displayName":"MainNavBar"},{"id":"isBL50QLg","displayName":"ResponsiveNavButton"},{"id":"YIali_krN","displayName":"FormButton"},{"id":"bxkR5vqq7","displayName":"ArticleCard2"},{"id":"Z5ENMC9nS","displayName":"NewsToggleSwitch"},{"id":"hpJpPOFs5","displayName":"VisionariesProfileCard"},{"id":"tzNle4G6A","displayName":"AwardHoverEffect"},{"id":"gQBgBI3do","displayName":"TeamOverviewCard"},{"id":"XQ1LjnQ8_","displayName":"SampleItemList"},{"id":"jcAuv6i1v","displayName":"Team Card"},{"id":"jchwOWWjZ","displayName":"AllTeamMember"},{"id":"LM6uT9pPD","displayName":"ImageSetter"},{"id":"XAWc4LESj","displayName":"WorkShowcaseCard"},{"id":"ip_PSJzMP","displayName":"WorkCardWaterfall"},{"id":"wpQpmqbjb","displayName":"WorkCard"},{"id":"DkVEc5D6c","displayName":"ServiceCard2"},{"id":"LdqvX5oVX","displayName":"Buy Badges"},{"id":"SdHDuym7P","displayName":"Footer Manu List"},{"id":"qxw1VIbPh","displayName":"Glitch"},{"id":"r2AaoNsxo","displayName":"Call to Action"}]
+[{"id":"S2zU_vbS4","displayName":"GlitchButton"},{"id":"JNVWqvZJ3","displayName":"Hero Button"},{"id":"BkOc_sk_v","displayName":"HeroIntroSection"},{"id":"jiNYkTe48","displayName":"PagePreloader"},{"id":"CTRzn9x9f","displayName":"CountStatsCard"},{"id":"ZrhqgMeic","displayName":"FeatureCard"},{"id":"FgadxnYIF","displayName":"ServiceCard"},{"id":"ZUhsbE5dJ","displayName":"ServiceCardButton"},{"id":"kJAyisbVY","displayName":"ArticleCard1"},{"id":"s3AE0qIej","displayName":"FooterMenuList"},{"id":"qNVgmyv3y","displayName":"CustomMouseCursor"},{"id":"nf9Yp8vrm","displayName":"MainNavBar"},{"id":"isBL50QLg","displayName":"ResponsiveNavButton"},{"id":"YIali_krN","displayName":"FormButton"},{"id":"bxkR5vqq7","displayName":"ArticleCard2"},{"id":"Z5ENMC9nS","displayName":"NewsToggleSwitch"},{"id":"hpJpPOFs5","displayName":"VisionariesProfileCard"},{"id":"tzNle4G6A","displayName":"AwardHoverEffect"},{"id":"gQBgBI3do","displayName":"TeamOverviewCard"},{"id":"XQ1LjnQ8_","displayName":"SampleItemList"},{"id":"jcAuv6i1v","displayName":"Team Card"},{"id":"jchwOWWjZ","displayName":"AllTeamMember"},{"id":"LM6uT9pPD","displayName":"ImageSetter"},{"id":"XAWc4LESj","displayName":"WorkShowcaseCard"},{"id":"ip_PSJzMP","displayName":"WorkCardWaterfall"},{"id":"wpQpmqbjb","displayName":"WorkCard"},{"id":"DkVEc5D6c","displayName":"ServiceCard2"},{"id":"LdqvX5oVX","displayName":"Buy Badges"},{"id":"SdHDuym7P","displayName":"Footer Manu List"},{"id":"qxw1VIbPh","displayName":"Glitch"},{"id":"r2AaoNsxo","displayName":"Call to Action"},{"id":"WBkiVh1RK","displayName":"FeaturedWorkSlide"},{"id":"uYzPPCEtm","displayName":"SectionLink"},{"id":"vvXWf89cD","displayName":"NavLink"},{"id":"U5MLIqUkc","displayName":"NavLink 2"},{"id":"M2gsqjua3","displayName":"Logo Mark – Studio"},{"id":"JVfQLlucQ","displayName":"Logo Mark – 16"},{"id":"N23e8JyIc","displayName":"ServiceCard-kol"},{"id":"FjwGxoUSg","displayName":"ServiceCard kol2"}]
 ### Current Project Code Files and Code Components
-{"Examples.tsx":[{"id":"codeFile/WUFO6tY:withRandomColor","displayName":"withRandomColor","type":"override"},{"id":"codeFile/WUFO6tY:withHover","displayName":"withHover","type":"override"},{"id":"codeFile/WUFO6tY:withRotate","displayName":"withRotate","type":"override"}]}
+{"Examples.tsx":[{"id":"codeFile/WUFO6tY:withRandomColor","displayName":"withRandomColor","type":"override"},{"id":"codeFile/WUFO6tY:withHover","displayName":"withHover","type":"override"},{"id":"codeFile/WUFO6tY:withRotate","displayName":"withRotate","type":"override"}],"DragMarquee.tsx":[{"id":"codeFile/VNFUCWb:withDragMarquee","displayName":"withDragMarquee","type":"override"}]}
 ### Current Project External Components
 [{"id":"lRDHiNWNVWmE0lqtoVHP","displayName":"Video"},{"id":"BYKGUbAHdDSCZHjUWrvm","displayName":"Text Glitch"},{"id":"k4MZtCX0FIPjFzmthqbO","displayName":"ScrollColorText"},{"id":"bSeEZJm22jsjERCOGQvq","displayName":"Lenis"},{"id":"NpoAhGGC9E4kRyz313I4","displayName":"Marquee404"},{"id":"B2xAlJLcN0gOnt11mSPw","displayName":"Ticker"},{"id":"zvkTOpMSuRzRhLzZZIwG","displayName":"Slideshow"},{"id":"omo5LdjL4LRSZXvwvWOk","displayName":"Spinner"},{"id":"omRY2qRVZxCXf7ix8FaT","displayName":"TextPressure"},{"id":"cjtrjNCsyFMn1CRKecmd","displayName":"Footer Manu List"},{"id":"mSOrGIsOvg00y32PpP1H","displayName":"Buy Badges"},{"id":"cmsiSbdDT8uAgYTziWkn","displayName":"Glitch"}]
 ### Additionally Available Components
@@ -30,9 +30,9 @@ Code file entries with "type": "override" are code overrides: apply them to a su
 
 <available-icon-sets>
 ### Current Site Icon Set Names
-[]
+["Logos","Lucide","Phosphor"]
 ### Additionally Available Icon Set Names
-["Iconic","Phosphor","Hero","Feather","Meteor","Material","Basicons","Flowbite","Nonicons","Sargam","Lucide","Mage","Logos"]
+["Iconic","Hero","Feather","Meteor","Material","Basicons","Flowbite","Nonicons","Sargam","Mage"]
 </available-icon-sets>
 
 <available-shaders>
@@ -45,7 +45,7 @@ Code file entries with "type": "override" are code overrides: apply them to a su
 <default-layout-template>{"id":"LWUv8o26R","name":"Navbar & Footer"}</default-layout-template>
 
 <additional-context>
-{"userName":"Tór Grímsson","currentDate":"August 3, 2026","timeZone":"America/New_York"}
+{"userName":"Tór Grímsson","currentDate":"August 5, 2026","timeZone":"America/New_York"}
 </additional-context>
 
 <site-map>{"augiA20Il":"/","yhDaYT6fR":"/contact","qmToTjsYg":"/404","VjurWSTiS":"/work","hoN92V1uO":"/work/:Work Details","xkn_3deNw":"/about"}</site-map>

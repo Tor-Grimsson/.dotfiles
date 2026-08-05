@@ -39,6 +39,7 @@ Rarely leave the terminal. The regulars (dotfiles, the vault, kol-studio) each g
 | 11 | [[11-ricing-backlog\|Ricing backlog]] | the to-evaluate tool list + 8 open questions (moved in from research) |
 | 12 | [[12-nvim-from-scratch\|Neovim from scratch]] | the Sin-cy nvim build tracker (moved in from research) |
 | 13 | [[13-awesome-tuis\|awesome-tuis]] | curated TUI-tools list to browse (moved in from research) |
+| 14 | [[14-statuslines\|Statuslines]] | all five status bars — Claude Code · tmux · nvim · yazi · the zsh prompt — with the file that configures each and the reload rule, which differs every time |
 | — | [[kol-dash/INDEX\|kol-dash]] | the dashboard lineage — wake automation + the three "dashboards" + iPad kiosk (moved in from operations) |
 
 ## Roadmap (sequencing only — nothing here is dropped, just ordered)
